@@ -132,11 +132,11 @@
                                 <div class="col-sm-9">
                                     @if($data[0]->goods_type == 1)
                                     <input type="text" class="form-control"
-                                        value="{{$data[0]->length}} X {{$data[0]->width}} {{$data[0]->measurement_unit}}"
+                                        value="{{$data[0]->length}} X {{$data[0]->width}} {{$data[0]->meas_unit}}"
                                         readonly>
                                     @elseif($data[0]->goods_type == 2)
                                     <input type="text" class="form-control"
-                                        value="{{$data[0]->length}} X {{$data[0]->width}} X {{$data[0]->height}} {{$data[0]->measurement_unit}} ({{$data[0]->measurement_type}})"
+                                        value="{{$data[0]->length}} X {{$data[0]->width}} X {{$data[0]->height}} {{$data[0]->meas_unit}} ({{$data[0]->meas_type}})"
                                         readonly>
                                     @else
                                     <input type="text" class="form-control" value="BOX (Badan + Tutup)" readonly>
@@ -202,11 +202,11 @@
                                     <div class="box-content text-center">
                                         @if($data[0]->goods_type == 1)
                                         {{$data[0]->length}} X {{$data[0]->width}}
-                                        {{$data[0]->measurement_unit}}
+                                        {{$data[0]->meas_unit}}
                                         @elseif($data[0]->goods_type == 2)
                                         {{$data[0]->length}} X {{$data[0]->width}} X
-                                        {{$data[0]->height}} {{$data[0]->measurement_unit}}
-                                        ({{$data[0]->measurement_type}})
+                                        {{$data[0]->height}} {{$data[0]->meas_unit}}
+                                        ({{$data[0]->meas_type}})
                                         @else
 
                                         @endif
@@ -338,11 +338,11 @@
                                     <div class="box-content text-center">
                                         @if($data[0]->goods_type == 1)
                                         {{$data[0]->length}} X {{$data[0]->width}}
-                                        {{$data[0]->measurement_unit}}
+                                        {{$data[0]->meas_unit}}
                                         @elseif($data[0]->goods_type == 2)
                                         {{$data[0]->length}} X {{$data[0]->width}} X
-                                        {{$data[0]->height}} {{$data[0]->measurement_unit}}
-                                        ({{$data[0]->measurement_type}})
+                                        {{$data[0]->height}} {{$data[0]->meas_unit}}
+                                        ({{$data[0]->meas_type}})
                                         @else
 
                                         @endif
@@ -486,11 +486,11 @@
                                     <div class="box-content text-center">
                                         @if($data[0]->goods_type == 1)
                                         {{$data[0]->length}} X {{$data[0]->width}}
-                                        {{$data[0]->measurement_unit}}
+                                        {{$data[0]->meas_unit}}
                                         @elseif($data[0]->goods_type == 2)
                                         {{$data[0]->length}} X {{$data[0]->width}} X
-                                        {{$data[0]->height}} {{$data[0]->measurement_unit}}
-                                        ({{$data[0]->measurement_type}})
+                                        {{$data[0]->height}} {{$data[0]->meas_unit}}
+                                        ({{$data[0]->meas_type}})
                                         @else
 
                                         @endif
@@ -623,7 +623,7 @@
                             <h4 class="card-title">Production Process</h4>
                         </div>
                         <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                            <button class="btn btn-md btn-primary" style="padding: 10px; color: white;" id="add-production-process">Add
+                            <button class="btn btn-primary btn-rounded btn-fw" style="padding: 10px; color: white;" id="add-production-process">Add
                                 Process</button>
                         </div>
                     </div>
@@ -683,9 +683,15 @@
                                     <tr>
                                         <td>{{$process->process_name}}</td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-primary btn-rounded btn-fw"> Init </button>
+                                            @if($process->status == 1)
+                                            <button type="button" class="btn btn-primary btn-rounded btn-fw"> INIT </button>
+                                            @elseif($process->status == 2)
+                                            <button type="button" class="btn btn-warning btn-rounded btn-fw"> WORK IN PROGRESS </button>
+                                            @else
+                                            <button type="button" class="btn btn-success btn-rounded btn-fw"> DONE </button>
+                                            @endif
                                         </td>
-                                        <td class="text-center"><a href=""><i class="mdi mdi-settings menu-icon"
+                                        <td class="text-center"><a href="{{route('production.spk.monitoring.production-progress', ['id' => $process->id])}}"><i class="mdi mdi-settings menu-icon"
                                                     style="font-size: 24px;"></i></a></td>
                                     </tr>
                                     @endforeach
@@ -738,7 +744,7 @@ $(function() {
 
     // $("#btn-auto-generate").click(function() {
     //     if (goods_type === "1" || goods_type === 1) {
-    //         switch ("{{$data[0]->measurement_unit}}") {
+    //         switch ("{{$data[0]->meas_unit}}") {
     //             case "INCH":
     //                 var p = Math.round(parseFloat({{$data[0]->length}} * 25.4));
     //                 var l = Math.round(parseFloat({{$data[0]->width}} * 25.4));
@@ -754,7 +760,7 @@ $(function() {
     //         }
     //     } else  {
     //         alert("hello")
-    //         switch ("{{$data[0]->measurement_unit}}") {
+    //         switch ("{{$data[0]->meas_unit}}") {
     //             case "INCH":
     //                 var p = Math.round(parseFloat({{$data[0]->length}} * 25.4));
     //                 var l = Math.round(parseFloat({{$data[0]->width}} * 25.4));

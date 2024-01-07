@@ -37,7 +37,7 @@
                                     <td>{{$data->paper_type}}</td>
                                     <td class="text-center">{{$data->gramature}}</td>
                                     <td>{{$data->unit}}</td>
-                                    <td class="text-center"><i class="mdi mdi-settings menu-icon" style="font-size: 24px;"></i></td>
+                                    <td class="text-center"><a href=""><i class="mdi mdi-settings menu-icon" style="font-size: 24px;"></i></a><a href=""><i class="mdi mdi-delete" style="font-size: 24px;"></i></a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

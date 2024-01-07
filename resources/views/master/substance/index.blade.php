@@ -33,7 +33,7 @@
                                     <td>{{$data->code}}</td>
                                     <td>{{$data->substance}}</td>
                                     <td>{{$data->cor_code}}</td>
-                                    <td class="text-center"><i class="mdi mdi-settings menu-icon" style="font-size: 24px;"></i></td>
+                                    <td class="text-center"><a href=""><i class="mdi mdi-settings menu-icon" style="font-size: 24px;"></i></a><a href=""><i class="mdi mdi-delete" style="font-size: 24px;"></i></a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

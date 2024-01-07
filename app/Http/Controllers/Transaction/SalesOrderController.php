@@ -69,17 +69,17 @@ class SalesOrderController extends Controller
                                 END AS goods_type_name,
                             CASE
                                     WHEN detail_sales_order.goods_type = 1 THEN
-                                    CONCAT ( detail_sales_order.ply_type, ' ', detail_sales_order.flute_type, ' ', substance.substance, ' ', detail_sales_order.measurement_type ) 
+                                    CONCAT ( detail_sales_order.ply_type, ' ', detail_sales_order.flute_type, ' ', substance.substance, ' ', detail_sales_order.meas_type ) 
                                     WHEN detail_sales_order.goods_type = 2 THEN
-                                    CONCAT ( detail_sales_order.ply_type, ' ', detail_sales_order.flute_type, ' ', substance.substance, ' ', detail_sales_order.measurement_type ) 
+                                    CONCAT ( detail_sales_order.ply_type, ' ', detail_sales_order.flute_type, ' ', substance.substance, ' ', detail_sales_order.meas_type ) 
                                     WHEN detail_sales_order.goods_type = 3 THEN
                                     'Box Badan Tutup' ELSE'Unknown Type' 
                                 END AS specification,
                             CASE
                                     WHEN detail_sales_order.goods_type = 1 THEN
-                                    CONCAT(detail_sales_order.length, ' X ', detail_sales_order.width, ' ',  detail_sales_order.measurement_unit)
+                                    CONCAT(detail_sales_order.length, ' X ', detail_sales_order.width, ' ',  detail_sales_order.meas_unit)
                                     WHEN detail_sales_order.goods_type = 2 THEN
-                                    CONCAT(detail_sales_order.length, ' X ', detail_sales_order.width, ' X ', detail_sales_order.height, ' ',  detail_sales_order.measurement_unit)
+                                    CONCAT(detail_sales_order.length, ' X ', detail_sales_order.width, ' X ', detail_sales_order.height, ' ',  detail_sales_order.meas_unit)
                                     WHEN detail_sales_order.goods_type = 3 THEN
                                     'Box Badan Tutup' ELSE'Unknown Type' 
                                 END AS measure,
@@ -102,7 +102,6 @@ class SalesOrderController extends Controller
     }
 
     public function saveDetail(Request $request){
-
         if($request->goods_type == 1) {
             DB::table('transaction.t_detail_sales_order')->insert([
                 "goods_name" => $request->goods_name,
@@ -112,13 +111,15 @@ class SalesOrderController extends Controller
                 "price" => $request->price,
                 "ply_type" => $request->ply_type,
                 "flute_type" => $request->flute_type,
-                "substance_id" => $request->substance,
-                "measurement_unit" => $request->measurement_unit,
-                "measurement_type" => $request->measurement_type,
+                "substance_id" => $request->substance_id,
+                "meas_unit" => $request->measurement_unit,
+                "meas_type" => $request->measurement_type,
                 "length" => $request->length,
                 "width" => $request->width,
-                "flag_finishing" => $request->flag_finishing,
-                "remarks" => $request->goods_name,
+                "flag_plain" => $request->flag_plain,
+                "flag_print" => $request->flag_print,
+                "flag_pounch" => $request->flag_pounch,
+                "remarks" => $request->remarks,
                 'created_at' => date('Y-m-d H:i:s'),
                 'created_by' => Auth::user()->name,
             ]);
@@ -131,19 +132,53 @@ class SalesOrderController extends Controller
                 "price" => $request->price,
                 "ply_type" => $request->ply_type,
                 "flute_type" => $request->flute_type,
-                "substance_id" => $request->substance,
-                "measurement_unit" => $request->measurement_unit,
-                "measurement_type" => $request->measurement_type,
+                "substance_id" => $request->substance_id,
+                "meas_unit" => $request->measurement_unit,
+                "meas_type" => $request->measurement_type,
                 "length" => $request->length,
                 "width" => $request->width,
-                "height" => $request->height,
-                "flag_finishing" => $request->flag_finishing,
-                "remarks" => $request->goods_name,
+                "height" => $request->width,
+                "flag_plain" => $request->flag_plain,
+                "flag_print" => $request->flag_print,
+                "flag_pounch" => $request->flag_pounch,
+                "remarks" => $request->remarks,
                 'created_at' => date('Y-m-d H:i:s'),
                 'created_by' => Auth::user()->name,
             ]);
         } else {
-
+            DB::table('transaction.t_detail_sales_order')->insert([
+                "goods_name" => $request->goods_name,
+                "sales_order_id" => $request->sales_order_id,
+                "goods_type" => $request->goods_type,
+                "quantity" => $request->quantity,
+                "price" => $request->price,
+                "top_ply_type" => $request->top_ply_type,
+                "top_flute_type" => $request->top_flute_type,
+                "top_substance_id" => $request->top_substance_id,
+                "top_meas_unit" => $request->top_measurement_unit,
+                "top_meas_type" => $request->top_measurement_type,
+                "top_length" => $request->top_length,
+                "top_width" => $request->top_width,
+                "top_height" => $request->top_width,
+                "top_flag_plain" => $request->top_flag_plain,
+                "top_flag_print" => $request->top_flag_print,
+                "top_flag_pounch" => $request->top_flag_pounch,
+                "top_remarks" => $request->top_remarks,
+                "bottom_ply_type" => $request->bottom_ply_type,
+                "bottom_flute_type" => $request->bottom_flute_type,
+                "bottom_substance_id" => $request->bottom_substance_id,
+                "bottom_meas_unit" => $request->bottom_measurement_unit,
+                "bottom_meas_type" => $request->bottom_measurement_type,
+                "bottom_length" => $request->bottom_length,
+                "bottom_width" => $request->bottom_width,
+                "bottom_height" => $request->bottom_width,
+                "bottom_flag_plain" => $request->bottom_flag_plain,
+                "bottom_flag_print" => $request->bottom_flag_print,
+                "bottom_flag_pounch" => $request->bottom_flag_pounch,
+                "bottom_remarks" => $request->bottom_remarks,
+                'created_at' => date('Y-m-d H:i:s'),
+                'created_by' => Auth::user()->name,
+            ]);
         }
         
 

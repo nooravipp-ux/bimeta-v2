@@ -46,12 +46,15 @@
                                             <button type="button" class="btn btn-primary btn-rounded btn-fw"> SPK Init </button>
                                         @elseif($data->status == 2)
                                             <button type="button" class="btn btn-success btn-rounded btn-fw"> Scheduled </button>
+                                        @elseif($data->status == 3)
+                                            <button type="button" class="btn btn-success btn-rounded btn-fw"> Work In Progress </button>
                                         @else
-
+                                            <button type="button" class="btn btn-success btn-rounded btn-fw"> Done </button>
                                         @endif
                                     </td>
-                                    <td class="text-center"><a href="{{route('production.spk.edit', ['id' => $data->id])}}" title="Edit SPK"><i class="mdi mdi-settings menu-icon" style="font-size: 24px;"></i></a> <a href="" title="Print SPK"><i class="mdi mdi-printer menu-icon" style="font-size: 24px;"></i></a> 
-                                        @if($data->status != 2)
+                                    <td class="text-center">
+                                        <a href="{{route('production.spk.edit', ['id' => $data->id])}}" title="Edit SPK"><i class="mdi mdi-settings menu-icon" style="font-size: 24px;"></i></a> <a href="" title="Print SPK"><i class="mdi mdi-printer menu-icon" style="font-size: 24px;"></i></a> 
+                                        @if($data->status == 1)
                                         <a href="{{route('production.spk.schedule', ['id' => $data->id])}}" title="Production Schedule"><i class="mdi mdi-calendar menu-icon" style="font-size: 24px;"></i></a>
                                         @endif
                                     </td>

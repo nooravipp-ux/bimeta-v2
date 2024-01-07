@@ -117,11 +117,11 @@
                                 <div class="col-sm-9">
                                     @if($goodsInformations->goods_type == 1)
                                     <input type="text" class="form-control"
-                                        value="{{$goodsInformations->length}} X {{$goodsInformations->width}} {{$goodsInformations->measurement_unit}}"
+                                        value="{{$goodsInformations->length}} X {{$goodsInformations->width}} {{$goodsInformations->meas_unit}}"
                                         readonly>
                                     @elseif($goodsInformations->goods_type == 2)
                                     <input type="text" class="form-control"
-                                        value="{{$goodsInformations->length}} X {{$goodsInformations->width}} X {{$goodsInformations->height}} {{$goodsInformations->measurement_unit}} ({{$goodsInformations->measurement_type}})"
+                                        value="{{$goodsInformations->length}} X {{$goodsInformations->width}} X {{$goodsInformations->height}} {{$goodsInformations->meas_unit}} ({{$goodsInformations->meas_type}})"
                                         readonly>
                                     @else
                                     <input type="text" class="form-control" value="BOX (Badan + Tutup)" readonly>
@@ -139,7 +139,56 @@
                             <hr />
                         </div>
                         <div class="col-md-4">
-
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Print</label>
+                                <div class="col-sm-9">
+                                    <select type="text" class="form-control">
+                                        <option value="1">Yes</option>
+                                        <option value="0" selected>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Polos </label>
+                                <div class="col-sm-9">
+                                    <select type="text" class="form-control">
+                                        <option value="1">Yes</option>
+                                        <option value="0" selected>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Stitching </label>
+                                <div class="col-sm-9">
+                                    <select type="text" class="form-control">
+                                        <option value="1">Yes</option>
+                                        <option value="0" selected>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Lem </label>
+                                <div class="col-sm-9">
+                                    <select type="text" class="form-control">
+                                        <option value="1">Yes</option>
+                                        <option value="0" selected>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Pounch </label>
+                                <div class="col-sm-9">
+                                    <select type="text" class="form-control">
+                                        <option value="1">Yes</option>
+                                        <option value="0" selected>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr />
                         </div>
                     </div>
                 </div>
@@ -297,8 +346,13 @@
                                     <label class="col-sm-4 col-form-label">Quantity<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="spk_qty" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}" max=10 required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                        <small id="max-quantity-form" class="form-text text-muted text-danger"><span class="text-danger">*Maximal Quantity {{$goodsInformations->quantity - $totalSPKCreated}}</span></small>
+                                        <input type="text" class="form-control" name="spk_qty" id="tr-spk-qty"
+                                            placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}" max=10
+                                            required
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        <small id="max-quantity-form" class="form-text text-muted text-danger"><span
+                                                class="text-danger">*Maximal Quantity
+                                                {{$goodsInformations->quantity - $totalSPKCreated}}</span></small>
                                     </div>
                                 </div>
                                 <hr />
@@ -306,7 +360,8 @@
                                     <label class="col-sm-4 col-form-label">L2<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="l2" value="" id="l2">
+                                        <input type="number" class="form-control" name="l2" value="" id="l2"
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
                                 <hr class="flag-join-form" />
@@ -314,7 +369,8 @@
                                     <label class="col-sm-4 col-form-label">P1<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="p1" value="" id="p1">
+                                        <input type="number" class="form-control" name="p1" value="" id="p1"
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
                                 <hr class="flag-join-form" />
@@ -322,7 +378,8 @@
                                     <label class="col-sm-4 col-form-label">L1<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="l1" value="" id="l1">
+                                        <input type="number" class="form-control" name="l1" value="" id="l1"
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
                                 <hr />
@@ -330,7 +387,8 @@
                                     <label class="col-sm-4 col-form-label">P2<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="p2" value="" id="p2">
+                                        <input type="number" class="form-control" name="p2" value="" id="p2"
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
                                 <hr />
@@ -338,7 +396,8 @@
                                     <label class="col-sm-4 col-form-label">T<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="t" value="" id="t">
+                                        <input type="number" class="form-control" name="t" value="" id="t"
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
                                 <hr />
@@ -346,7 +405,8 @@
                                     <label class="col-sm-4 col-form-label">PLAPE<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="plape" value="" id="plape">
+                                        <input type="number" class="form-control" name="plape" value="" id="plape"
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
                                 <hr />
@@ -354,7 +414,8 @@
                                     <label class="col-sm-4 col-form-label">K<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="k" value="" id="k">
+                                        <input type="number" class="form-control" name="k" value="" id="k"
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
                                 <hr />
@@ -364,10 +425,12 @@
                                     <label class="col-sm-4 col-form-label">Netto (L X P)<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-4">
-                                        <input type="number" class="form-control" name="netto_width" value="">
+                                        <input type="number" class="form-control" name="netto_width" value=""
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="number" class="form-control" name="netto_length" value="">
+                                        <input type="number" class="form-control" name="netto_length" value=""
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
                                 <hr />
@@ -375,10 +438,12 @@
                                     <label class="col-sm-4 col-form-label">Bruto (L X P)<span
                                             class="mandatory-sign">*</span></label>
                                     <div class="col-sm-4">
-                                        <input type="number" class="form-control" name="bruto_width" value="">
+                                        <input type="number" class="form-control" name="bruto_width" value=""
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="number" class="form-control" name="bruto_length" value="">
+                                        <input type="number" class="form-control" name="bruto_length" value=""
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
                                 <hr />
@@ -386,20 +451,25 @@
                                     <label class="col-sm-4 col-form-label">Sheet Qty<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="sheet_quantity" value="">
+                                        <input type="number" class="form-control" name="sheet_quantity" value=""
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                         <input type="hidden" class="form-control" name="flag_join" value="0" id="fjoin">
-                                        <input type="hidden" class="form-control" name="detail_sales_order_id"value="{{$goodsInformations->id}}">
-                                        <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->goods_type}}">
+                                        <input type="hidden" class="form-control" name="detail_sales_order_id"
+                                            value="{{$goodsInformations->id}}">
+                                        <input type="hidden" class="form-control" name="goods_type"
+                                            value="{{$goodsInformations->goods_type}}">
                                         <input type="hidden" class="form-control" name="spk_quantity" id="spk-qty">
                                     </div>
                                 </div>
                                 <hr />
                             </div>
                         </div>
+                        @if(($goodsInformations->quantity - $totalSPKCreated) != 0)
                         <div class="row">
                             <button type="submit" class="btn btn-success mt-2 mt-sm-0 btn-icon-text">
                                 <i class="mdi mdi-plus-circle"></i> Confirm & Save</a>
                         </div>
+                        @endif
                     </form>
                     @else
                     <!-- Form Input Type Bottom - Top  -->
@@ -649,7 +719,7 @@ $(function() {
 
     // $("#btn-auto-generate").click(function() {
     //     if (goods_type === "1" || goods_type === 1) {
-    //         switch ("{{$goodsInformations->measurement_unit}}") {
+    //         switch ("{{$goodsInformations->meas_unit}}") {
     //             case "INCH":
     //                 var p = Math.round(parseFloat({{$goodsInformations->length}} * 25.4));
     //                 var l = Math.round(parseFloat({{$goodsInformations->width}} * 25.4));
@@ -665,7 +735,7 @@ $(function() {
     //         }
     //     } else  {
     //         alert("hello")
-    //         switch ("{{$goodsInformations->measurement_unit}}") {
+    //         switch ("{{$goodsInformations->meas_unit}}") {
     //             case "INCH":
     //                 var p = Math.round(parseFloat({{$goodsInformations->length}} * 25.4));
     //                 var l = Math.round(parseFloat({{$goodsInformations->width}} * 25.4));

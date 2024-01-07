@@ -89,8 +89,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Order Date</label>
                                 <div class="col-sm-9">
-                                    <input type="date" class="form-control" id="order_date"
-                                        value="{{$salesOrder->order_date}}">
+                                    <input type="date" class="form-control" id="order_date" value="{{$salesOrder->order_date}}">
                                 </div>
                             </div>
                             <hr />
@@ -108,9 +107,9 @@
                                 <label class="col-sm-3 col-form-label">Tax Type</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" id="jenis_pajak">
-                                        <option value="v0" <?php echo ($salesOrder->tax_type == 'v0') ? 'selected': '';?>>V0</option>
-                                        <option value="v1" <?php echo ($salesOrder->tax_type == 'v1') ? 'selected': '';?>>V1</option>
-                                        <option value="v2" <?php echo ($salesOrder->tax_type == 'v2') ? 'selected': '';?>>V2</option>
+                                        <option value="v0" <?php echo ($salesOrder->tax_type == '0') ? 'selected': '';?>>V0</option>
+                                        <option value="v1" <?php echo ($salesOrder->tax_type == '1') ? 'selected': '';?>>V1</option>
+                                        <option value="v2" <?php echo ($salesOrder->tax_type == '2') ? 'selected': '';?>>V2</option>
                                     </select>
                                 </div>
                             </div>
@@ -127,10 +126,10 @@
                             </div>
                             <hr />
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Attachment</label>
+                                <label class="col-sm-3 col-form-label">Status</label>
                                 <div class="col-sm-9">
-                                    <input type="file" class="form-control" name="attachment">
-                                    <!-- <small class="form-text text-muted"><a href="javascript:encodeBase64Pdf('{{$salesOrder->attachment}}')">Click to open the file</a></small> -->
+                                    <input type="text" class="form-control" name="status"
+                                        value="{{$salesOrder->status}}">
                                 </div>
                             </div>
                             <hr />
@@ -166,7 +165,7 @@
                     <hr />
                     <div class="table-responsive">
                         <table class="table table-striped">
-                            <thead class="table-success">
+                            <thead class="table-primary">
                                 <tr>
                                     <th>Name</th>
                                     <th>Spesification</th>

@@ -14,7 +14,7 @@ class ProductionController extends Controller
                 ->select('sales_order.*', 'customer.name as customer_name', 'users.name as assigned_to')
                 ->join('master.m_customer as customer', 'customer.id', '=', 'sales_order.customer_id')
                 ->join('public.users', 'users.id', '=', 'sales_order.assign_to')
-                ->where('sales_order.assign_to', Auth::user()->id)
+                ->where('sales_order.assign_to', 6)
                 ->orderBy('sales_order.created_at', 'DESC')
                 ->get();
         return view('transaction.production.todo-list.index', compact('data'));
@@ -43,17 +43,17 @@ class ProductionController extends Controller
                             END AS goods_type_name,
                         CASE
                                 WHEN detail_sales_order.goods_type = 1 THEN
-                                CONCAT ( detail_sales_order.ply_type, ' ', detail_sales_order.flute_type, ' ', substance.substance, ' ', detail_sales_order.measurement_type ) 
+                                CONCAT ( detail_sales_order.ply_type, ' ', detail_sales_order.flute_type, ' ', substance.substance, ' ', detail_sales_order.meas_type ) 
                                 WHEN detail_sales_order.goods_type = 2 THEN
-                                CONCAT ( detail_sales_order.ply_type, ' ', detail_sales_order.flute_type, ' ', substance.substance, ' ', detail_sales_order.measurement_type ) 
+                                CONCAT ( detail_sales_order.ply_type, ' ', detail_sales_order.flute_type, ' ', substance.substance, ' ', detail_sales_order.meas_type ) 
                                 WHEN detail_sales_order.goods_type = 3 THEN
                                 'Box Badan Tutup' ELSE'Unknown Type' 
                             END AS specification,
                         CASE
                                 WHEN detail_sales_order.goods_type = 1 THEN
-                                CONCAT(detail_sales_order.length, ' X ', detail_sales_order.width, ' ',  detail_sales_order.measurement_unit)
+                                CONCAT(detail_sales_order.length, ' X ', detail_sales_order.width, ' ',  detail_sales_order.meas_unit)
                                 WHEN detail_sales_order.goods_type = 2 THEN
-                                CONCAT(detail_sales_order.length, ' X ', detail_sales_order.width, ' X ', detail_sales_order.height, ' ',  detail_sales_order.measurement_unit)
+                                CONCAT(detail_sales_order.length, ' X ', detail_sales_order.width, ' X ', detail_sales_order.height, ' ',  detail_sales_order.meas_unit)
                                 WHEN detail_sales_order.goods_type = 3 THEN
                                 'Box Badan Tutup' ELSE'Unknown Type' 
                             END AS measure,
@@ -133,7 +133,11 @@ class ProductionController extends Controller
                 "bruto_width" => $request->bruto_width,
                 "bruto_length" => $request->bruto_length,
                 "sheet_quantity" => $request->sheet_quantity,
-                "status" => 1,
+                "status" => $request->sheet_quantity,
+                "flag_print" => $request->flag_print,
+                "flag_polos" => $request->flag_polos,
+                "flag_lem" => $request->flag_lem,
+                "flag_pounch" => $request->flag_pounch,
                 "created_at" => date('Y-m-d H:i:s'),
                 "created_by" => Auth::user()->name,
             ]);
@@ -155,6 +159,10 @@ class ProductionController extends Controller
                 "bruto_length" => $request->bruto_length,
                 "sheet_quantity" => $request->sheet_quantity,
                 "status" => 1,
+                "flag_print" => $request->flag_print,
+                "flag_polos" => $request->flag_polos,
+                "flag_lem" => $request->flag_lem,
+                "flag_pounch" => $request->flag_pounch,
                 "created_at" => date('Y-m-d H:i:s'),
                 "created_by" => Auth::user()->name,
             ]);
@@ -199,11 +207,14 @@ class ProductionController extends Controller
                             WHERE spk.id = '$id'");
 
         $productionProcesses = DB::table('master.m_production_process')->get();
+
         $productionProcessesItem = DB::table('transaction.t_production_process_item AS item')
+                                ->select('item.*', 'process.process_name')
                                 ->join('master.m_production_process AS process', 'process.id', '=', 'item.process_id')
                                 ->orderBy('item.sequence_order', 'ASC')
                                 ->where('item.spk_id', $id)
                                 ->get();
+        
         return view('transaction.production.spk.edit', compact('data', 'productionProcesses', 'productionProcessesItem'));
     }
 
@@ -271,12 +282,23 @@ class ProductionController extends Controller
         return redirect()->route('production.spk.index');
     }
 
+    public function markAsDone($id){
+        DB::table('transaction.t_spk as spk')->where('id', $id)->update([
+            'status' => 4, // Update status SPK To Done
+        ]);
+
+        return redirect()->back();
+    }
+
     public function monitoring() {
         $data = DB::select("SELECT
                 sales_order.ref_po_customer,
                 customer.name AS customer_name,
                 spk.id,
                 spk.spk_no,
+                spk.start_date,
+                spk.bruto_width,
+                spk.bruto_length,
                 detail_sales_order.goods_name,
                 CASE
                     WHEN detail_sales_order.goods_type = '1' THEN
@@ -297,8 +319,6 @@ class ProductionController extends Controller
                         'Box Badan Tutup' ELSE'Unknown Type' 
                 END AS specification,
                 substance.cor_code,
-                CONCAT(spk.netto_width, ' X ', spk.netto_length) AS netto,
-                CONCAT(spk.bruto_width, ' X ', spk.bruto_length) AS bruto,
                 spk.status,
                 spk.current_process
                 FROM transaction.t_detail_sales_order AS detail_sales_order
@@ -306,9 +326,35 @@ class ProductionController extends Controller
                 JOIN master.m_substance AS substance ON substance.id = detail_sales_order.substance_id
                 JOIN transaction.t_sales_order AS sales_order ON sales_order.id = detail_sales_order.sales_order_id
                 JOIN master.m_customer AS customer ON customer.id = sales_order.customer_id
-                WHERE spk.status = 2
+                WHERE spk.status IN (2, 3, 4) 
                 ORDER BY spk.created_at DESC;");
         // dd($data);
         return view('transaction.production.spk.monitoring.index', compact('data'));
+    }
+
+    public function progressProductionUpdate($id) {
+        $processItem = DB::table('transaction.t_production_process_item AS item')
+                                ->select('item.id', 'process.process_name', 'item.status')
+                                ->join('master.m_production_process AS process', 'process.id', '=', 'item.process_id')
+                                ->where('item.id', $id)
+                                ->first();
+
+        $processItemDetails = DB::table('transaction.t_detail_production_process_item AS detail_production_process')
+                            ->where('detail_production_process.production_process_item_id', $processItem->id)
+                            ->get();
+                            
+        return view('transaction.production.spk.monitoring.prod-progress', compact('processItem', 'processItemDetails'));
+    }
+
+    public function progressProductionDetailSave(Request $request) {
+        DB::table('transaction.t_detail_production_process_item')->insert([
+            'production_process_item_id' => $request->production_process_id,
+            'date' => $request->date,
+            'operator_id' => $request->operator,
+            'result' => $request->result,
+            'remarks' => $request->remarks,
+        ]);
+
+        return redirect()->route('production.spk.monitoring.production-progress', ['id' => $request->production_process_id]);
     }
 }
