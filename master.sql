@@ -12,7 +12,7 @@
  Target Server Version : 160001 (160001)
  File Encoding         : 65001
 
- Date: 08/01/2024 04:02:39
+ Date: 11/01/2024 01:55:18
 */
 
 
@@ -260,12 +260,12 @@ INSERT INTO "master"."m_supplier" VALUES (11, 'SPS', 'PT STAR PAPER SUPPLY', NUL
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"master"."m_customer_seq"', 2, true);
+SELECT setval('"master"."m_customer_seq"', 3, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"master"."m_material_seq"', 11, true);
+SELECT setval('"master"."m_material_seq"', 13, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -275,12 +275,12 @@ SELECT setval('"master"."m_production_process_id_seq"', 14, true);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"master"."m_substance_seq"', 33, true);
+SELECT setval('"master"."m_substance_seq"', 34, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"master"."m_supplier_seq"', 11, true);
+SELECT setval('"master"."m_supplier_seq"', 12, true);
 
 -- ----------------------------
 -- Primary Key structure for table m_customer
