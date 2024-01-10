@@ -148,7 +148,7 @@
                                 <label class="col-sm-3 col-form-label">Order Quantity</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="order_date"
-                                        value="{{$data[0]->quantity}}" readonly>
+                                        value="{{$data[0]->order_quantity}}" readonly>
                                 </div>
                             </div>
                             <hr />
@@ -168,10 +168,10 @@
                 <div class="card-body">
                     <div class="page-header flex-wrap">
                         <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">Parameter SPK</h4>
+                            <h4 class="card-title">{{$data[0]->spk_no}}</h4>
                         </div>
                         <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">{{$data[0]->spk_no}}</h4>
+                            <h4 class="card-title"></h4>
                         </div>
                     </div>
                     <hr />
@@ -191,9 +191,11 @@
                                     <div class="d-flex flex-row">
                                         <div class="text-center"
                                             style="width: 400px;height: 70px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
+                                            {{$data[0]->sheet_quantity}}
                                         </div>
                                         <div class="text-center"
                                             style="width: 400px;height: 70px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
+                                            {{$data[0]->quantity}}
                                         </div>
                                     </div>
                                 </div>
@@ -236,11 +238,11 @@
                                     <div class="d-flex flex-row">
                                         <div
                                             style="width: 375px;height: 70px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
-                                            Netto :
+                                            Netto : {{$data[0]->netto}}
                                         </div>
                                         <div
                                             style="width: 375px;height: 70px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
-                                            Bruto :
+                                            Bruto : {{$data[0]->bruto}}
                                         </div>
                                     </div>
                                 </div>
@@ -250,11 +252,11 @@
                                     <div class="d-flex flex-row bd-highlight">
                                         <div class="d-flex flex-column bd-highlight">
                                             <div class="layout-box-l"></div>
-                                            <div class="layout-box-l" id="sheet-l-w">W</div>
+                                            <div class="layout-box-l" id="sheet-l-w">{{$data[0]->netto_width}}</div>
                                             <div class="layout-box-l"></div>
                                         </div>
                                         <div class="d-flex flex-column bd-highlight">
-                                            <div class="layout-box-p" id="sheet-l-l">L</div>
+                                            <div class="layout-box-p" id="sheet-l-l">{{$data[0]->netto_length}}</div>
                                             <div class="layout-box-p"></div>
                                             <div class="layout-box-p"></div>
                                         </div>
@@ -274,7 +276,11 @@
                                     <div class="d-flex flex-row">
                                         <div class="text-center"
                                             style="width: 620px;height: 70px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
-                                            POLOS
+                                            @if($data[0]->flag_print == 0)
+                                                <span>POLOS</span>
+                                            @else
+                                                <span>PRINT</span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="d-flex flex-row">
@@ -294,15 +300,15 @@
                                     <div class="d-flex flex-row">
                                         <div class="text-center"
                                             style="width: 206px;height: 130px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
-                                            <input type="checkbox" class="form-check-input check-input" readonly>
+                                            <input type="checkbox" class="form-check-input check-input" <?php echo ($data[0]->flag_stitching == 1) ? "checked" : ""; ?>  disabled>
                                         </div>
                                         <div class="text-center"
                                             style="width: 206px;height: 130px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
-                                            <input type="checkbox" class="form-check-input check-input">
+                                            <input type="checkbox" class="form-check-input check-input" <?php echo ($data[0]->flag_glue == 1) ? "checked" : ""; ?>  disabled>
                                         </div>
                                         <div class="text-center"
                                             style="width: 206px;height: 130px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
-                                            <input type="checkbox" class="form-check-input check-input">
+                                            <input type="checkbox" class="form-check-input check-input" <?php echo ($data[0]->flag_pounch == 1) ? "checked" : ""; ?>  disabled>
                                         </div>
                                     </div>
                                 </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 
 class SubstanceController extends Controller
 {
@@ -30,7 +31,7 @@ class SubstanceController extends Controller
     }
 
     public function update(Request $request) {
-        $data = DB::table('master.m_substance')->where('id', $id)->update([
+        $data = DB::table('master.m_substance')->where('id', $request->id)->update([
             "code" => $request->code,
             "substance" => $request->substance,
             "cor_code" => $request->cor_code,

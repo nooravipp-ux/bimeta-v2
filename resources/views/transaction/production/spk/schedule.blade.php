@@ -172,10 +172,10 @@
                 <div class="card-body">
                     <div class="page-header flex-wrap">
                         <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">Parameter SPK</h4>
+                            <h4 class="card-title">{{$data[0]->spk_no}}</h4>
                         </div>
                         <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">{{$data[0]->spk_no}}</h4>
+                            <h4 class="card-title"></h4>
                         </div>
                     </div>
                     <hr />
@@ -646,7 +646,8 @@
                                     <tr>
                                         <td>{{$process->process_name}}</td>
                                         <td class="text-center"><button type="button"
-                                                class="btn btn-primary btn-rounded btn-fw"> {{$process->status}} </button>
+                                                class="btn btn-primary btn-rounded btn-fw"> {{$process->status}}
+                                            </button>
                                         </td>
                                         <td class="text-center"><a href=""><i class="mdi mdi-settings menu-icon"
                                                     style="font-size: 24px;"></i></a></td>
@@ -674,7 +675,8 @@
                         </div>
                     </div>
                     <hr />
-                    <form method="POST" action="{{route('production.spk.schedule.save')}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('production.spk.schedule.save')}}"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-4">
@@ -683,7 +685,8 @@
                                             *</span></label>
                                     <div class="col-sm-9">
                                         <input type="date" class="form-control" name="start_date">
-                                        <input type="hidden" class="form-control" name="id" value="{{$data[0]->spk_id}}">
+                                        <input type="hidden" class="form-control" name="id"
+                                            value="{{$data[0]->spk_id}}">
                                     </div>
                                 </div>
                                 <hr />

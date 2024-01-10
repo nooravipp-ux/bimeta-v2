@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 
 class CustomerController extends Controller
 {
@@ -34,7 +35,7 @@ class CustomerController extends Controller
     }
 
     public function update(Request $request) {
-        $data = DB::table('master.m_customer')->where('id', $id)->update([
+        $data = DB::table('master.m_customer')->where('id', $request->id)->update([
             "code" => $request->code,
             "name" => $request->name,
             "address" => $request->address,

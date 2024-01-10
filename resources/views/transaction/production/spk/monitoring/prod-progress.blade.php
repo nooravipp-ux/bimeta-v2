@@ -28,6 +28,8 @@
                                             value="{{$processItem->process_name}}" readonly>
                                         <input type="hidden" class="form-control" name="production_process_id"
                                             value="{{$processItem->id}}">
+                                        <input type="hidden" class="form-control" name="spk_id"
+                                            value="{{$processItem->spk_id}}">
                                     </div>
                                 </div>
                                 <hr />

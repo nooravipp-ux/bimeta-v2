@@ -113,7 +113,7 @@
                             </div>
                             <hr />
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Measure</label>
+                                <label class="col-sm-3 col-form-label">meas</label>
                                 <div class="col-sm-9">
                                     @if($goodsInformations->goods_type == 1)
                                     <input type="text" class="form-control"
@@ -143,14 +143,18 @@
                                 <label class="col-sm-3 col-form-label">Stitching</label>
                                 <div class="col-sm-3">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="flag_stitching_trigger" value="0" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>
+                                        <input class="form-check-input" type="radio" name="flag_stitching_trigger"
+                                            value="0"
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>
                                             checked>
                                         <label class="form-check-label" for="inlineRadio2">Tidak</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flag_stitching_trigger" value="1" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
+                                        <input class="form-check-input" type="radio" name="flag_stitching_trigger"
+                                            value="1"
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
                                         <label class="form-check-label" for="inlineRadio1">Ya</label>
                                     </div>
                                 </div>
@@ -160,13 +164,16 @@
                                 <label class="col-sm-3 col-form-label">Lem</label>
                                 <div class="col-sm-3">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="flag_glue_trigger" value="0" checked <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
+                                        <input class="form-check-input" type="radio" name="flag_glue_trigger" value="0"
+                                            checked
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
                                         <label class="form-check-label" for="inlineRadio2">Tidak</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flag_glue_trigger" value="1" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
+                                        <input class="form-check-input" type="radio" name="flag_glue_trigger" value="1"
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
                                         <label class="form-check-label" for="inlineRadio1">Ya</label>
                                     </div>
                                 </div>
@@ -176,14 +183,18 @@
                                 <label class="col-sm-3 col-form-label">Pounch</label>
                                 <div class="col-sm-3">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="flag_pounch_trigger" value="0" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>
+                                        <input class="form-check-input" type="radio" name="flag_pounch_trigger"
+                                            value="0"
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>
                                             checked>
                                         <label class="form-check-label" for="inlineRadio2">Tidak</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flag_pounch_trigger" value="1" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
+                                        <input class="form-check-input" type="radio" name="flag_pounch_trigger"
+                                            value="1"
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
                                         <label class="form-check-label" for="inlineRadio1">Ya</label>
                                     </div>
                                 </div>
@@ -207,8 +218,8 @@
                         </div>
                         <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
                             @if(($goodsInformations->quantity - $totalSPKCreated) != 0)
-                            <a href="" class="btn btn-primary mt-2 mr-2 mt-sm-0 btn-icon-text">
-                                <i class="mdi mdi-plus-circle"></i> Auto Calculate Value</a>
+                            <button class="btn btn-primary btn-rounded btn-fw" style="padding: 10px; color: white;" id="calculate">
+                                Auto Calculate Value</button>
                             @endif
                         </div>
                     </div>
@@ -240,19 +251,36 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Quantity<span class="mandatory-sign">
+                                            *</span></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="spk_quantity" id="tr-spk-qty"
+                                            placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}" max=10
+                                            required
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        <small id="max-quantity-form" class="form-text text-muted text-danger"><span
+                                                class="text-danger">*Maximal Quantity
+                                                {{$goodsInformations->quantity - $totalSPKCreated}}</span></small>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Netto (W)<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" name="netto_width" value=""
-                                            id="sheet-f-w">
+                                            id="sheet-f-w" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                         <input type="hidden" class="form-control" name="detail_sales_order_id"
                                             value="{{$goodsInformations->id}}">
                                         <input type="hidden" class="form-control" name="goods_type"
                                             value="{{$goodsInformations->goods_type}}">
-                                        
-                                        <input type="hidden" class="form-control" name="flag_stitching" value="0" id="flag-stitching">
-                                        <input type="hidden" class="form-control" name="flag_glue" value="0" id="flag-glue">
-                                        <input type="hidden" class="form-control" name="flag_pounch" value="0" id="flag-pounch">
+
+                                        <input type="hidden" class="form-control" name="flag_stitching" value="0"
+                                            id="flag-stitching">
+                                        <input type="hidden" class="form-control" name="flag_glue" value="0"
+                                            id="flag-glue">
+                                        <input type="hidden" class="form-control" name="flag_pounch" value="0"
+                                            id="flag-pounch">
                                     </div>
                                 </div>
                                 <hr />
@@ -261,7 +289,7 @@
                                             *</span></label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" name="netto_length" value=""
-                                            id="sheet-f-l">
+                                            id="sheet-f-l" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
                                 <hr />
@@ -269,7 +297,7 @@
                                     <label class="col-sm-3 col-form-label">Bruto (W)<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="bruto_width" value="">
+                                        <input type="text" class="form-control" name="bruto_width" value="" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
                                 <hr />
@@ -277,7 +305,7 @@
                                     <label class="col-sm-3 col-form-label">Bruto (L)<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="bruto_length" value="">
+                                        <input type="text" class="form-control" name="bruto_length" value="" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
                                 <hr />
@@ -285,16 +313,18 @@
                                     <label class="col-sm-3 col-form-label">Sheet Qty<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="sheet_quantity" value="">
+                                        <input type="text" class="form-control" name="sheet_quantity" value="" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
                                 <hr />
                             </div>
                         </div>
+                        @if(($goodsInformations->quantity - $totalSPKCreated) != 0)
                         <div class="row">
                             <button type="submit" class="btn btn-success mt-2 mt-sm-0 btn-icon-text">
                                 <i class="mdi mdi-plus-circle"></i> Confirm & Save</a>
                         </div>
+                        @endif
                     </form>
                     @elseif($goodsInformations->goods_type == 2)
                     <!-- Form Input Type Box -->
@@ -341,7 +371,9 @@
                                     <label class="col-sm-4 col-form-label">join ?<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" id="flag-join" name="flag_join" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?> required>
+                                        <select class="form-control" id="flag-join" name="flag_join"
+                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>
+                                            required>
                                             <option value="">-</option>
                                             <option value="0">Tidak</option>
                                             <option value="1">Ya</option>
@@ -432,11 +464,11 @@
                                     <label class="col-sm-4 col-form-label">Netto (L X P)<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-4">
-                                        <input type="number" class="form-control" name="netto_width" value=""
+                                        <input type="number" class="form-control" name="netto_width" value="" id="netto-width"
                                             <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="number" class="form-control" name="netto_length" value=""
+                                        <input type="number" class="form-control" name="netto_length" value="" id="netto-length"
                                             <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
@@ -445,11 +477,11 @@
                                     <label class="col-sm-4 col-form-label">Bruto (L X P)<span
                                             class="mandatory-sign">*</span></label>
                                     <div class="col-sm-4">
-                                        <input type="number" class="form-control" name="bruto_width" value=""
+                                        <input type="number" class="form-control" name="bruto_width" value="" id="bruto-width"
                                             <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <input type="number" class="form-control" name="bruto_length" value=""
+                                    <div class="col-sm-4"> 
+                                        <input type="number" class="form-control" name="bruto_length" value="" id="bruto-length"
                                             <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                     </div>
                                 </div>
@@ -458,7 +490,7 @@
                                     <label class="col-sm-4 col-form-label">Sheet Qty<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="sheet_quantity" value=""
+                                        <input type="number" class="form-control" name="sheet_quantity" value="" id="sheet_quantity"
                                             <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                         <input type="hidden" class="form-control" name="flag_join" value="0" id="fjoin">
                                         <input type="hidden" class="form-control" name="detail_sales_order_id"
@@ -467,9 +499,12 @@
                                             value="{{$goodsInformations->goods_type}}">
                                         <input type="hidden" class="form-control" name="spk_quantity" id="spk-qty">
 
-                                        <input type="hidden" class="form-control" name="flag_stitching" value="0" id="flag-stitching">
-                                        <input type="hidden" class="form-control" name="flag_glue" value="0" id="flag-glue">
-                                        <input type="hidden" class="form-control" name="flag_pounch" value="0" id="flag-pounch">
+                                        <input type="hidden" class="form-control" name="flag_stitching" value="0"
+                                            id="flag-stitching">
+                                        <input type="hidden" class="form-control" name="flag_glue" value="0"
+                                            id="flag-glue">
+                                        <input type="hidden" class="form-control" name="flag_pounch" value="0"
+                                            id="flag-pounch">
                                     </div>
                                 </div>
                                 <hr />
@@ -752,146 +787,230 @@ $(function() {
         }
     });
 
-    // $("#btn-auto-generate").click(function() {
-    //     if (goods_type === "1" || goods_type === 1) {
-    //         switch ("{{$goodsInformations->meas_unit}}") {
-    //             case "INCH":
-    //                 var p = Math.round(parseFloat({{$goodsInformations->length}} * 25.4));
-    //                 var l = Math.round(parseFloat({{$goodsInformations->width}} * 25.4));
-    //                 break;
-    //             case "CM":
-    //                 var p = Math.round(parseFloat({{$goodsInformations->length}} * 10));
-    //                 var l = Math.round(parseFloat({{$goodsInformations->width}} * 10));
-    //                 break;
-    //             default:
-    //                 var p = Math.round(parseFloat({{$goodsInformations->length}}));
-    //                 var l = Math.round(parseFloat({{$goodsInformations->width}}));
-    //                 break;
-    //         }
-    //     } else  {
-    //         alert("hello")
-    //         switch ("{{$goodsInformations->meas_unit}}") {
-    //             case "INCH":
-    //                 var p = Math.round(parseFloat({{$goodsInformations->length}} * 25.4));
-    //                 var l = Math.round(parseFloat({{$goodsInformations->width}} * 25.4));
-    //                 var t = Math.round(parseFloat({{$goodsInformations->height}} * 25.4));
-    //                 break;
-    //             case "CM":
-    //                 var p = Math.round(parseFloat({{$goodsInformations->length}} * 10));
-    //                 var l = Math.round(parseFloat({{$goodsInformations->width}} * 10));
-    //                 var t = Math.round(parseFloat({{$goodsInformations->height}} * 10));
-    //                 break;
-    //             default:
-    //                 var p = Math.round(parseFloat({{$goodsInformations->length}}));
-    //                 var l = Math.round(parseFloat({{$goodsInformations->width}}));
-    //                 var t = Math.round(parseFloat({{$goodsInformations->height}}));
-    //                 break;
-    //         }
+    $("#calculate").click(function() {
+        var goods_type = $("#goods-type").val();
+        var meas_unit = "{{$goodsInformations->meas_unit}}";
+        var meas_type = "{{$goodsInformations->meas_type}}";
+        var ply_type = "{{$goodsInformations->ply_type}}";
+        var flag_join = $("#flag-join").val();
 
-    //         switch ("{{$goodsInformations->ply_type}}") {
-    //             case "SW":
-    //                 if (measure_type === "0" || measure_type === 0) {
-    //                     if (flag_gabung === "0" || flag_gabung === 0) {
-    //                         var l2 = l;
-    //                         var p1 = p + 3;
-    //                         var l1 = l + 3;
-    //                         var p2 = p + 2;
-    //                         var tinggi = t + 5;
-    //                         var plep = Math.floor((parseFloat(l2) / 2) + 2);
-    //                     } else {
-    //                         var l1 = l;
-    //                         var p2 = p + 3;
-    //                         var tinggi = t + 5;
-    //                         var plep = Math.floor((parseFloat(l1) / 2) + 2);
-    //                     }
-    //                 } else {
-    //                     if (flag_gabung === "0" || flag_gabung === 0) {
-    //                         var l2 = l - 2;
-    //                         var p1 = p;
-    //                         var l1 = l;
-    //                         var p2 = p - 1;
-    //                         var tinggi = t;
-    //                         var plep = Math.floor((parseFloat(l2) / 2) + 2);
-    //                     } else {
-    //                         var l1 = l - 2;
-    //                         var p2 = p;
-    //                         var tinggi = t;
-    //                         var plep = Math.floor((parseFloat(l1) / 2) + 2);
-    //                     }
-    //                 }
+        var l2 = "";
+        var p1 = "";
+        var l1 = "";
+        var p2 = "";
+        var tinggi = "";
+        var plep = "";
+        var kuping = "";
 
-    //                 var kuping = 30;
-    //                 break;
-    //             case "DW":
-    //                 if (measure_type === "0" || measure_type === 0) {
-    //                     if (flag_gabung === "0" || flag_gabung === 0) {
-    //                         var l2 = l + 4;
-    //                         var p1 = p + 7;
-    //                         var l1 = l + 7;
-    //                         var p2 = p + 6;
-    //                         var tinggi = t + 14;
-    //                         var plep = Math.floor((parseFloat(l2) / 2) + 4);
-    //                     } else {
-    //                         var l1 = l + 4;
-    //                         var p2 = p + 7;
-    //                         var tinggi = t + 14;
-    //                         var plep = Math.floor((parseFloat(l1) / 2) + 4);
-    //                     }
-    //                 } else {
-    //                     if (flag_gabung === "0" || flag_gabung === 0) {
-    //                         var l2 = l - 4;
-    //                         var p1 = p - 3;
-    //                         var l1 = l - 3;
-    //                         var p2 = p - 4;
-    //                         var tinggi = t - 3;
-    //                         var plep = Math.floor((parseFloat(l2) / 2) + 4);
-    //                     } else {
-    //                         var l1 = l - 4;
-    //                         var p2 = p - 3;
-    //                         var tinggi = t - 3;
-    //                         var plep = Math.floor((parseFloat(l1) / 2) + 4);
-    //                     }
-    //                 }
+        var min_val = 850;
+        var max_val = 1600;
 
-    //                 var kuping = 40;
-    //                 break;
-    //             case "TW":
-    //                 if (measure_type === "0" || measure_type === 0) {
-    //                     if (flag_gabung === "0" || flag_gabung === 0) {
-    //                         var l2 = l + 4;
-    //                         var p1 = p + 7;
-    //                         var l1 = l + 7;
-    //                         var p2 = p + 6;
-    //                         var tinggi = t + 14;
-    //                         var plep = Math.floor((parseFloat(l2) / 2) + 5);
-    //                     } else {
-    //                         var l1 = l + 4;
-    //                         var p2 = p + 7;
-    //                         var tinggi = t + 14;
-    //                         var plep = Math.floor((parseFloat(l1) / 2) + 5);
-    //                     }
-    //                 } else {
-    //                     if (flag_gabung === "0" || flag_gabung === 0) {
-    //                         var l2 = l - 4;
-    //                         var p1 = p - 3;
-    //                         var l1 = l - 3;
-    //                         var p2 = p - 4;
-    //                         var tinggi = t - 3;
-    //                         var plep = Math.floor((parseFloat(l2) / 2) + 5);
-    //                     } else {
-    //                         var l1 = l - 4;
-    //                         var p2 = p - 3;
-    //                         var tinggi = t - 3;
-    //                         var plep = Math.floor((parseFloat(l1) / 2) + 5);
-    //                     }
-    //                 }
-    //                 var kuping = 45;
-    //                 break;
-    //             default:
-    //                 break;
-    //         }
-    //     }
-    // });
+        if(goods_type === "2") {
+            switch (meas_unit) {
+                case "INCH":
+                    var p = Math.round(parseFloat({{$goodsInformations->length}} * 25.4));
+                    var l = Math.round(parseFloat({{$goodsInformations->width}} * 25.4));
+                    var t = Math.round(parseFloat({{$goodsInformations->height}} * 25.4));
+                    break;
+                case "CM":
+                    var p = Math.round(parseFloat({{$goodsInformations->length}} * 10));
+                    var l = Math.round(parseFloat({{$goodsInformations->width}} * 10));
+                    var t = Math.round(parseFloat({{$goodsInformations->height}} * 10));
+                    break;
+                default:
+                    var p = Math.round(parseFloat({{$goodsInformations->length}}));
+                    var l = Math.round(parseFloat({{$goodsInformations->width}}));
+                    var t = Math.round(parseFloat({{$goodsInformations->height}}));
+                    break;
+            }
+
+            console.log("P : " + p)
+            console.log("L : " + l)
+            console.log("T : " + t)
+
+            switch (ply_type) {
+                case "SW":
+                    if (meas_type === "UD") {
+                        if (flag_join === "0" || flag_join === 0) {
+                            l2 = l;
+                            p1 = p + 3;
+                            l1 = l + 3;
+                            p2 = p + 2;
+                            tinggi = t + 5;
+                            plep = Math.floor((parseFloat(l2) / 2) + 2);
+                        } else {
+                            l1 = l;
+                            p2 = p + 3;
+                            tinggi = t + 5;
+                            plep = Math.floor((parseFloat(l1) / 2) + 2);
+                        }
+
+                    } else {
+                        if (flag_join === "0" || flag_join === 0) {
+                            l2 = l - 2;
+                            p1 = p;
+                            l1 = l;
+                            p2 = p - 1;
+                            tinggi = t;
+                            plep = Math.floor((parseFloat(l2) / 2) + 2);
+                        } else {
+                            l1 = l - 2;
+                            p2 = p;
+                            tinggi = t;
+                            plep = Math.floor((parseFloat(l1) / 2) + 2);
+                        }
+                    }
+
+                    kuping = 30;
+                    break;
+                case "DW":
+                    if (meas_type === "UD") {
+                        if (flag_join === "0" || flag_join === 0) {
+                            l2 = l + 4;
+                            p1 = p + 7;
+                            l1 = l + 7;
+                            p2 = p + 6;
+                            tinggi = t + 14;
+                            plep = Math.floor((parseFloat(l2) / 2) + 4);
+                        } else {
+                            l1 = l + 4;
+                            p2 = p + 7;
+                            tinggi = t + 14;
+                            plep = Math.floor((parseFloat(l1) / 2) + 4);
+                        }
+                    } else {
+                        if (flag_join === "0" || flag_join === 0) {
+                            l2 = l - 4;
+                            p1 = p - 3;
+                            l1 = l - 3;
+                            p2 = p - 4;
+                            tinggi = t - 3;
+                            plep = Math.floor((parseFloat(l2) / 2) + 4);
+                        } else {
+                            l1 = l - 4;
+                            p2 = p - 3;
+                            tinggi = t - 3;
+                            plep = Math.floor((parseFloat(l1) / 2) + 4);
+                        }
+                    }
+
+                    kuping = 40;
+                    break;
+                case "TW":
+                    if (meas_type === "UD") {
+                        if (flag_join === "0" || flag_join === 0) {
+                            l2 = l + 4;
+                            p1 = p + 7;
+                            l1 = l + 7;
+                            p2 = p + 6;
+                            tinggi = t + 14;
+                            plep = Math.floor((parseFloat(l2) / 2) + 5);
+                        } else {
+                            l1 = l + 4;
+                            p2 = p + 7;
+                            tinggi = t + 14;
+                            plep = Math.floor((parseFloat(l1) / 2) + 5);
+                        }
+                    } else {
+                        if (flag_join === "0" || flag_join === 0) {
+                            l2 = l - 4;
+                            p1 = p - 3;
+                            l1 = l - 3;
+                            p2 = p - 4;
+                            tinggi = t - 3;
+                            plep = Math.floor((parseFloat(l2) / 2) + 5);
+                        } else {
+                            l1 = l - 4;
+                            p2 = p - 3;
+                            tinggi = t - 3;
+                            plep = Math.floor((parseFloat(l1) / 2) + 5);
+                        }
+                    }
+                    kuping = 45;
+                    break;
+                default:
+                    break;
+            }
+
+            $("#l-l2").text(l2)
+            $("#l-p1").text(p1)
+            $("#l-l1").text(l1)
+            $("#l-t").text(tinggi)
+            $("#l-p2").text(p2)
+            $("#l-plape-1").text(plep)
+            $("#l-plape-2").text(plep)
+            $("#l-k").text(kuping)
+
+            $("#l2").val(l2)
+            $("#p1").val(p1)
+            $("#l1").val(l1)
+            $("#t").val(tinggi)
+            $("#p2").val(p2)
+            $("#plape").val(plep)
+            $("#k").val(kuping)
+
+            if(flag_join === 0 || flag_join === "0") {
+
+                // Perhitungan Panjang dan lebar Netto
+                var netto_width = plep + tinggi + plep;
+                var netto_length = l2 + p1 + l1 + p2 + kuping;
+                $("#netto-width").val(netto_width);
+                $("#netto-length").val(netto_length);
+
+                // Perhitungan Panjang dan lebar Bruto
+                var bruto_width = netto_width * 2;
+                var bruto_length = netto_length + 20; // 20 penambahan buangan, ini bersifat dinamis tergantung dari customer
+                $("#bruto-width").val(roundToNearestMultipleOf50(bruto_width));
+                $("#bruto-length").val(roundToNearestMultipleOf5(bruto_length));
+
+                var param1 = netto_width * 2;
+                var param2 = roundToNearestMultipleOf50(bruto_width);
+
+                if((param2 - param1) < 50) {
+                    bruto_width = bruto_width + 50;
+                }
+
+                //perhitungan banyak sheet
+                var spk_qty = parseInt($("#tr-spk-qty").val());
+                if(netto_width <= 850){
+                    var qty_sheet = Math.ceil(spk_qty / 2);
+                } else {
+                    var qty_sheet = spk_qty * 1;
+                }
+
+                $("#sheet_quantity").val(qty_sheet);
+            } else {
+                // Perhitungan Panjang dan lebar Netto
+                var netto_width = plep + tinggi + plep;
+                var netto_length = l1 + p2 + kuping;
+                $("#netto-width").val(netto_width);
+                $("#netto-length").val(netto_length);
+
+                // Perhitungan Panjang dan lebar Bruto
+                var bruto_width = netto_width * 2;
+                var bruto_length = netto_length + 20; // 20 penambahan buangan, ini bersifat dinamis tergantung dari customer
+                $("#bruto-width").val(roundToNearestMultipleOf50(bruto_width));
+                $("#bruto-length").val(roundToNearestMultipleOf5(bruto_length));
+
+                var param1 = netto_width * 2;
+                var param2 = roundToNearestMultipleOf50(bruto_width);
+
+                if((param2 - param1) < 50) {
+                    bruto_width = bruto_width + 50;
+                }
+
+                //perhitungan banyak sheet
+                var spk_qty = parseInt($("#tr-spk-qty").val());
+                if(netto_width <= 850){
+                    var qty_sheet = Math.ceil(spk_qty / 2);
+                } else {
+                    var qty_sheet = spk_qty * 1;
+                }
+
+                $("#sheet_quantity").val(qty_sheet);
+            }
+        }
+    });
 
     function roundToNearestMultipleOf5(number) {
         return 5 * Math.round(number / 5);

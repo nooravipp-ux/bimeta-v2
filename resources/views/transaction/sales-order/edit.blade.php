@@ -158,8 +158,10 @@
                             <h4 class="card-title">PO Customer (Detail Sales Order)</h4>
                         </div>
                         <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
+                            @if($salesOrder->status == 1)
                             <a href="{{route('sales.detail.create', ['id' => $salesOrder->id])}}" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
                                 <i class="mdi mdi-plus-circle"></i> Add Detail</a>
+                            @endif
                         </div>
                     </div>
                     <hr />

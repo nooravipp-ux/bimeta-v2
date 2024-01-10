@@ -12,7 +12,7 @@
  Target Server Version : 160001 (160001)
  File Encoding         : 65001
 
- Date: 08/01/2024 04:02:06
+ Date: 10/01/2024 08:32:19
 */
 
 
@@ -180,6 +180,7 @@ CREATE TABLE "transaction"."t_delivery_order" (
 -- ----------------------------
 -- Records of t_delivery_order
 -- ----------------------------
+INSERT INTO "transaction"."t_delivery_order" VALUES (14, 28, 'K240014', '2024-01-09', 'D 3453 EW', 'Jhono', '2024-01-09 15:46:15', 'ali', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_detail_delivery_order
@@ -224,11 +225,7 @@ CREATE TABLE "transaction"."t_detail_production_process_item" (
 -- ----------------------------
 -- Records of t_detail_production_process_item
 -- ----------------------------
-INSERT INTO "transaction"."t_detail_production_process_item" VALUES (2, 23, '2024-01-04', 'Dimas', 200, NULL, NULL, NULL, NULL, NULL, 'SW');
-INSERT INTO "transaction"."t_detail_production_process_item" VALUES (3, 28, '2024-01-05', 'Apip', 1500, NULL, NULL, NULL, NULL, NULL, 'Test Progress Produksi');
-INSERT INTO "transaction"."t_detail_production_process_item" VALUES (1, 23, NULL, 'Taufan', 12, NULL, NULL, NULL, NULL, NULL, '1dsdsd');
-INSERT INTO "transaction"."t_detail_production_process_item" VALUES (4, 28, '2024-01-05', 'Jhon', 1200, NULL, NULL, NULL, NULL, NULL, 'Testt');
-INSERT INTO "transaction"."t_detail_production_process_item" VALUES (5, 33, '2024-01-07', 'Jhon', 200, NULL, NULL, NULL, NULL, NULL, 'test sales order');
+INSERT INTO "transaction"."t_detail_production_process_item" VALUES (6, 34, '2024-01-01', 'Jhon', 100, NULL, NULL, NULL, NULL, NULL, 'TL');
 
 -- ----------------------------
 -- Table structure for t_detail_sales_order
@@ -249,9 +246,7 @@ CREATE TABLE "transaction"."t_detail_sales_order" (
   "length" float8,
   "width" float8,
   "height" float8,
-  "flag_plain" int4,
   "flag_print" int4,
-  "flag_pounch" int4,
   "remarks" varchar(255) COLLATE "pg_catalog"."default",
   "top_ply_type" varchar(255) COLLATE "pg_catalog"."default",
   "top_flute_type" varchar(255) COLLATE "pg_catalog"."default",
@@ -261,9 +256,7 @@ CREATE TABLE "transaction"."t_detail_sales_order" (
   "top_length" float8,
   "top_width" float8,
   "top_height" float8,
-  "top_flag_plain" int4,
   "top_flag_print" int4,
-  "top_flag_pounch" int4,
   "top_remarks" varchar(255) COLLATE "pg_catalog"."default",
   "bottom_ply_type" varchar(255) COLLATE "pg_catalog"."default",
   "bottom_flute_type" varchar(255) COLLATE "pg_catalog"."default",
@@ -273,9 +266,7 @@ CREATE TABLE "transaction"."t_detail_sales_order" (
   "bottom_length" float8,
   "bottom_width" float8,
   "bottom_height" float8,
-  "bottom_flag_plain" int4,
   "bottom_flag_print" int4,
-  "bottom_flag_pounch" int4,
   "bottom_remarks" varchar(255) COLLATE "pg_catalog"."default",
   "created_at" timestamp(6),
   "created_by" varchar(255) COLLATE "pg_catalog"."default",
@@ -287,8 +278,8 @@ CREATE TABLE "transaction"."t_detail_sales_order" (
 -- ----------------------------
 -- Records of t_detail_sales_order
 -- ----------------------------
-INSERT INTO "transaction"."t_detail_sales_order" VALUES (1, 26, 'Box', 2, 2000, 0, 'SW', 'B', 9, 'CM', 'UD', 10, 10, 10, 1, 1, 1, 'test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-07 07:39:12', 'admin', NULL, NULL);
-INSERT INTO "transaction"."t_detail_sales_order" VALUES (2, 26, 'Sheet', 1, 5000, 0, 'SW', 'B/C', 7, 'CM', 'UD', 12, 12, NULL, 1, NULL, 1, 'test sheet', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-07 07:39:53', 'admin', NULL, NULL);
+INSERT INTO "transaction"."t_detail_sales_order" VALUES (3, 28, 'BOX SEPATU UKURAN 42', 2, 3000, 0, 'SW', 'B', 7, 'CM', 'UD', 17.5, 17.5, 17.5, NULL, 'Test Remarks', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-09 12:07:48', 'admin', NULL, NULL);
+INSERT INTO "transaction"."t_detail_sales_order" VALUES (4, 28, 'Sheet', 1, 2000, 0, 'SW', 'C', 4, 'CM', 'UD', 17.5, 20, NULL, NULL, 'test sheet', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-09 12:09:05', 'admin', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_mapping_index_price
@@ -356,7 +347,15 @@ CREATE TABLE "transaction"."t_production_process_item" (
 -- ----------------------------
 -- Records of t_production_process_item
 -- ----------------------------
-INSERT INTO "transaction"."t_production_process_item" VALUES (33, 33, 1, NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO "transaction"."t_production_process_item" VALUES (34, 34, 1, NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO "transaction"."t_production_process_item" VALUES (35, 34, NULL, NULL, NULL, NULL, NULL, 1, NULL);
+INSERT INTO "transaction"."t_production_process_item" VALUES (36, 34, 2, NULL, NULL, NULL, NULL, 1, 2);
+INSERT INTO "transaction"."t_production_process_item" VALUES (37, 34, 5, NULL, NULL, NULL, NULL, 1, 3);
+INSERT INTO "transaction"."t_production_process_item" VALUES (38, 34, 13, NULL, NULL, NULL, NULL, 1, 4);
+INSERT INTO "transaction"."t_production_process_item" VALUES (39, 34, 14, NULL, NULL, NULL, NULL, 1, 5);
+INSERT INTO "transaction"."t_production_process_item" VALUES (40, 36, 1, NULL, NULL, '2024-01-09 15:31:14', 'ali', 3, 1);
+INSERT INTO "transaction"."t_production_process_item" VALUES (41, 36, 4, NULL, NULL, '2024-01-09 15:32:08', 'ali', 3, 2);
+INSERT INTO "transaction"."t_production_process_item" VALUES (42, 36, 14, NULL, NULL, '2024-01-09 15:33:03', 'ali', 3, 3);
 
 -- ----------------------------
 -- Table structure for t_sales_order
@@ -384,8 +383,7 @@ CREATE TABLE "transaction"."t_sales_order" (
 -- ----------------------------
 -- Records of t_sales_order
 -- ----------------------------
-INSERT INTO "transaction"."t_sales_order" VALUES (26, 'SO240033', 'Test PO BOX', 2, '2024-01-07', '2024-01-08', 1, 6, 1, '', 'Test Sales Order', '2024-01-07 07:34:44', 'admin', NULL, NULL);
-INSERT INTO "transaction"."t_sales_order" VALUES (27, 'SO240034', 'test 21', 1, '2024-01-07', '2024-01-09', 1, 6, 0, '', 'TEST', '2024-01-07 12:53:48', 'admin', NULL, NULL);
+INSERT INTO "transaction"."t_sales_order" VALUES (28, 'SO240035', 'PO-12345', 1, '2024-01-09', '2024-01-09', 1, 6, 2, '', 'Test Remarks', '2024-01-09 12:07:03', 'admin', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_spk
@@ -416,9 +414,8 @@ CREATE TABLE "transaction"."t_spk" (
   "status" int4,
   "bruto_width" numeric(10,1),
   "current_process" varchar(255) COLLATE "pg_catalog"."default",
-  "flag_print" int2,
-  "flag_polos" int2,
-  "flag_lem" int2,
+  "flag_stitching" int2,
+  "flag_glue" int2,
   "flag_pounch" int2
 )
 ;
@@ -426,7 +423,9 @@ CREATE TABLE "transaction"."t_spk" (
 -- ----------------------------
 -- Records of t_spk
 -- ----------------------------
-INSERT INTO "transaction"."t_spk" VALUES (33, 2, 'SPK-24-0033', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 10.0, 210.0, 10.0, NULL, '2024-01-07 12:23:03', 'admin', NULL, NULL, NULL, 20.0, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "transaction"."t_spk" VALUES (36, 3, 'SPK-24-0036', '2024-01-09', '2024-01-16', 2800, NULL, NULL, 230.0, 200.0, 250.0, 25.0, 35.0, 1200.0, 1350.0, 1350.0, 2800, '2024-01-09 14:32:22', 'ali', '2024-01-09 15:50:48', 'ali', 4, 1200.0, '0', 1, 0, 1);
+INSERT INTO "transaction"."t_spk" VALUES (34, 3, 'SPK-24-0034', '2024-01-09', '2024-01-09', 200, 17.0, 17.0, 17.0, 17.0, 17.0, 17.0, 17.0, 17.0, 17.0, 17.0, 100, '2024-01-09 12:10:36', 'ali', '2024-01-09 16:48:18', 'ali', 4, 17.0, '0', 1, 0, 1);
+INSERT INTO "transaction"."t_spk" VALUES (37, 4, 'SPK-24-0037', '2024-01-10', '2024-01-09', 200, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100.0, 200.0, 200.0, 300, '2024-01-09 18:00:31', 'ali', '2024-01-09 18:01:10', 'ali', 4, 100.0, '0', 1, 0, 1);
 
 -- ----------------------------
 -- Function structure for generate_sales_order_number
@@ -522,27 +521,27 @@ SELECT setval('"transaction"."m_mapping_index_price_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."so_numbering_seq"', 34, true);
+SELECT setval('"transaction"."so_numbering_seq"', 35, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."spk_numbering_seq"', 33, true);
+SELECT setval('"transaction"."spk_numbering_seq"', 37, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_delivery_order_id_seq"', 13, true);
+SELECT setval('"transaction"."t_delivery_order_id_seq"', 15, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_detail_delivery_order_id_seq"', 3, true);
+SELECT setval('"transaction"."t_detail_delivery_order_id_seq"', 6, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_detail_sales_order_id_seq"', 2, true);
+SELECT setval('"transaction"."t_detail_sales_order_id_seq"', 4, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -557,27 +556,27 @@ SELECT setval('"transaction"."t_mapping_index_price_seq"', 34, true);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_production_process_item_id_seq"', 33, true);
+SELECT setval('"transaction"."t_production_process_item_id_seq"', 42, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_sales_order_seq"', 27, true);
+SELECT setval('"transaction"."t_sales_order_seq"', 28, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_spk_production_process_id_seq"', 5, true);
+SELECT setval('"transaction"."t_spk_production_process_id_seq"', 6, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_spk_seq"', 33, true);
+SELECT setval('"transaction"."t_spk_seq"', 37, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."travel_permit_numbering_seq"', 13, true);
+SELECT setval('"transaction"."travel_permit_numbering_seq"', 15, true);
 
 -- ----------------------------
 -- Primary Key structure for table t_delivery_order

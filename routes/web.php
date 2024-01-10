@@ -22,21 +22,25 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/customer/save', [App\Http\Controllers\Master\CustomerController::class, 'save'])->name('customer.save');
     Route::get('/customer/{id}', [App\Http\Controllers\Master\CustomerController::class, 'edit'])->name('customer.edit');
     Route::post('/customer/update', [App\Http\Controllers\Master\CustomerController::class, 'update'])->name('customer.update');
+    Route::get('/customer/delete/{id}', [App\Http\Controllers\Master\CustomerController::class, 'delete'])->name('customer.delete');
 
     Route::get('/supplier', [App\Http\Controllers\Master\SupplierController::class, 'index'])->name('supplier.index');
     Route::post('/supplier/save', [App\Http\Controllers\Master\SupplierController::class, 'save'])->name('supplier.save');
     Route::get('/supplier/{id}', [App\Http\Controllers\Master\SupplierController::class, 'edit'])->name('supplier.edit');
     Route::post('/supplier/update', [App\Http\Controllers\Master\SupplierController::class, 'update'])->name('supplier.update');
+    Route::get('/supplier/delete/{id}', [App\Http\Controllers\Master\SupplierController::class, 'delete'])->name('supplier.delete');
 
     Route::get('/material', [App\Http\Controllers\Master\MaterialController::class, 'index'])->name('material.index');
     Route::post('/material/save', [App\Http\Controllers\Master\MaterialController::class, 'save'])->name('material.save');
     Route::get('/material/{id}', [App\Http\Controllers\Master\MaterialController::class, 'edit'])->name('material.edit');
     Route::post('/material/update', [App\Http\Controllers\Master\MaterialController::class, 'update'])->name('material.update');
+    Route::get('/material/delete/{id}', [App\Http\Controllers\Master\MaterialController::class, 'delete'])->name('material.delete');
 
     Route::get('/substance', [App\Http\Controllers\Master\SubstanceController::class, 'index'])->name('substance.index');
     Route::post('/substance/save', [App\Http\Controllers\Master\SubstanceController::class, 'save'])->name('substance.save');
     Route::get('/substance/{id}', [App\Http\Controllers\Master\SubstanceController::class, 'edit'])->name('substance.edit');
     Route::post('/substance/update', [App\Http\Controllers\Master\SubstanceController::class, 'update'])->name('substance.update');
+    Route::get('/substance/delete/{id}', [App\Http\Controllers\Master\SubstanceController::class, 'delete'])->name('substance.delete');
 
     Route::get('/sales-order', [App\Http\Controllers\Transaction\SalesOrderController::class, 'index'])->name('sales.index');
     Route::get('/sales-order/create', [App\Http\Controllers\Transaction\SalesOrderController::class, 'create'])->name('sales.create');

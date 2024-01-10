@@ -8,15 +8,21 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title">PO Customer (Detail Sales Order)</h3>
-                        <button type="submit" class="btn btn-md btn-primary">Save & Confirm</button>
+                        <div class="page-header flex-wrap">
+                            <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
+                                <h4 class="card-title">PO Customer (Detail Sales Order)</h4>
+                            </div>
+                            <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
+                                <button type="submit" class="btn btn-md btn-primary" style="padding: 10px;">Confirm & Save</button>
+                            </div>
+                        </div>
                         <hr />
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Jenis Barang</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" name="goods_type" id="goods-type">
+                                        <select class="form-control" name="goods_type" id="goods-type" required>
                                             <option value="">-</option>
                                             <option value="1">Sheet</option>
                                             <option value="2">Box</option>
@@ -28,7 +34,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Nama Barang</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="goods_name">
+                                        <input type="text" class="form-control" name="goods_name" required>
                                         <input type="hidden" class="form-control" name="sales_order_id" value="{{$id}}">
                                     </div>
                                 </div>
@@ -36,7 +42,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Jumlah</label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="quantity">
+                                        <input type="number" class="form-control" name="quantity" required>
                                     </div>
                                 </div>
                                 <hr />
@@ -114,17 +120,17 @@
                                     </div>
                                 </div>
                                 <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Jenis</label>
+                                <div class="form-group row form-meas-type">
+                                    <label class="col-sm-3 col-form-label">Jenis Ukuran</label>
                                     <div class="col-sm-9">
                                         <select class="form-control" name="meas_type" id="measurement-type">
                                             <option value="">-</option>
-                                            <option value="UD">Ukuran Dalam</option>
-                                            <option value="UL">Ukuran Luar</option>
+                                            <option value="UD">Dalam</option>
+                                            <option value="UL">Luar</option>
                                         </select>
                                     </div>
                                 </div>
-                                <hr />
+                                <hr class="form-meas-type" />
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Ukuran</label>
                                     <div class="col-sm-3">
@@ -133,7 +139,7 @@
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control" name="width" id="width">
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-3" id="form-height">
                                         <input type="text" class="form-control" name="height" id="height">
                                     </div>
                                 </div>
@@ -261,19 +267,20 @@
                                     <label class="col-sm-3 col-form-label">Cetakan</label>
                                     <div class="col-sm-3">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="bottom_flag_print" value="0"
-                                                checked>
+                                            <input class="form-check-input" type="radio" name="bottom_flag_print"
+                                                value="0" checked>
                                             <label class="form-check-label" for="inlineRadio2">Polos</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="bottom_flag_print" value="1">
+                                            <input class="form-check-input" type="radio" name="bottom_flag_print"
+                                                value="1">
                                             <label class="form-check-label" for="inlineRadio1">Print</label>
                                         </div>
                                     </div>
                                 </div>
-                                <hr/>
+                                <hr />
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Catatan</label>
                                     <div class="col-sm-9">
@@ -382,12 +389,13 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="top_flag_print" value="1">
+                                            <input class="form-check-input" type="radio" name="top_flag_print"
+                                                value="1">
                                             <label class="form-check-label" for="inlineRadio1">Print</label>
                                         </div>
                                     </div>
                                 </div>
-                                <hr/>
+                                <hr />
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Catatan</label>
                                     <div class="col-sm-9">
@@ -416,9 +424,13 @@ $(function() {
         if ($(this).val() === '1') {
             $(".form-standard-box").show();
             $(".form-bottom-top").hide();
+            $("#form-height").hide();
+            $(".form-meas-type").hide();
         } else if ($(this).val() === '2') {
             $(".form-standard-box").show();
             $(".form-bottom-top").hide();
+            $("#form-height").show();
+            $(".form-meas-type").show();
         } else {
             $(".form-bottom-top").show();
             $(".form-standard-box").hide();

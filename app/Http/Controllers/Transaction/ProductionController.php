@@ -122,7 +122,6 @@ class ProductionController extends Controller
     }
 
     public function saveSPK(Request $request){
-
         if($request->goods_type == 1) {
             $spk = DB::table('transaction.t_spk')->insertGetId([
                 "spk_no" => DB::select("SELECT transaction.generate_spk_number() as spk_no")[0]->spk_no,
@@ -176,6 +175,7 @@ class ProductionController extends Controller
                             spk.id AS spk_id,
                             spk.spk_no,
                             spk.*,
+                            detail_sales_order.quantity AS order_quantity,
                             detail_sales_order.*,
                             substance.substance AS substance_name,
                             CASE
@@ -212,7 +212,7 @@ class ProductionController extends Controller
                                 ->orderBy('item.sequence_order', 'ASC')
                                 ->where('item.spk_id', $id)
                                 ->get();
-        
+        // dd($data);
         return view('transaction.production.spk.edit', compact('data', 'productionProcesses', 'productionProcessesItem'));
     }
 
@@ -235,6 +235,14 @@ class ProductionController extends Controller
             "updated_at" => date('Y-m-d H:i:s'),
             "updated_by" => Auth::user()->name,
         ]);
+
+        if($request->status == 2) {
+            DB::table('transaction.t_spk')->where('id', $request->spk_id)->update([
+                "current_process" => $request->process_name,
+                "updated_at" => date('Y-m-d H:i:s'),
+                "updated_by" => Auth::user()->name,
+            ]);
+        }
 
         return redirect()->route('production.spk.monitoring.production-progress', ['id' => $request->production_process_id]);
     }
@@ -352,6 +360,7 @@ class ProductionController extends Controller
                             spk.spk_no,
                             spk.*,
                             detail_sales_order.*,
+                            detail_sales_order.quantity AS order_quantity,
                             substance.substance AS substance_name,
                             CASE
                                 WHEN detail_sales_order.goods_type = '1' THEN
@@ -393,7 +402,7 @@ class ProductionController extends Controller
 
     public function progressProductionUpdate($id) {
         $processItem = DB::table('transaction.t_production_process_item AS item')
-                                ->select('item.id', 'process.process_name', 'item.status')
+                                ->select('item.id', 'process.process_name', 'item.status', 'item.spk_id')
                                 ->join('master.m_production_process AS process', 'process.id', '=', 'item.process_id')
                                 ->where('item.id', $id)
                                 ->first();

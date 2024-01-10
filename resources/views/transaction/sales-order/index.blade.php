@@ -1,21 +1,21 @@
 @extends('layouts._base')
 @section('main-content')
 <div class="content-wrapper pb-0">
-    <div class="page-header flex-wrap">
-        <div class="header-left">
-            <button class="btn btn-primary mb-2 mb-md-0 me-2"><i class="mdi mdi-filter"></i> </button>
-        </div>
-        <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-            <a href="{{route('sales.create')}}" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
-                <i class="mdi mdi-plus-circle"></i> Add</a>
-        </div>
-    </div>
     <!-- first row starts here -->
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Master List PO Customer (Sales Order)</h4>
+                    <div class="page-header flex-wrap">
+                        <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
+                            <h4 class="card-title">Master List PO Customer (Sales Order)</h4>
+                        </div>
+                        <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
+                            <a href="{{route('sales.create')}}" class="btn btn-primary btn-rounded btn-fw" style="padding: 10px; color: white;"
+                                id="add-data">Add Order</a>
+                        </div>
+                    </div>
+                    <hr />
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead class="table-primary">

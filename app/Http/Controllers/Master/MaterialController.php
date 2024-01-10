@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 
 class MaterialController extends Controller
 {
@@ -32,7 +33,7 @@ class MaterialController extends Controller
     }
 
     public function update(Request $request) {
-        $data = DB::table('master.m_material')->where('id', $id)->update([
+        $data = DB::table('master.m_material')->where('id', $request->id)->update([
             "name" => $request->name,
             "type" => $request->type,
             "paper_type" => $request->paper_type,
