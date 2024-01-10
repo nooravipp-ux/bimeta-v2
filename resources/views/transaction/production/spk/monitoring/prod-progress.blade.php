@@ -17,36 +17,51 @@
                         </div>
                     </div>
                     <hr />
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Process Name</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="process_name"
-                                        value="{{$processItem->process_name}}" readonly>
-                                    <input type="hidden" class="form-control" name="production_process_id"
-                                        value="{{$processItem->id}}">
+                    <form method="POST" action="{{route('production.spk.monitoring.production-progress.update')}}">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Process Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="process_name"
+                                            value="{{$processItem->process_name}}" readonly>
+                                        <input type="hidden" class="form-control" name="production_process_id"
+                                            value="{{$processItem->id}}">
+                                    </div>
                                 </div>
-                            </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Status</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" name="status">
-                                        <option value="1" <?php echo ($processItem->status == 1) ? "selected" : ""; ?>>
-                                            Init</option>
-                                        <option value="2" <?php echo ($processItem->status == 2) ? "selected" : ""; ?>>
-                                            Work in Progress</option>
-                                        <option value="3" <?php echo ($processItem->status == 3) ? "selected" : ""; ?>>
-                                            Done</option>
-                                    </select>
+                                <hr />
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Status</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" name="status">
+                                            <option value="1"
+                                                <?php echo ($processItem->status == 1) ? "selected" : ""; ?>>
+                                                Init</option>
+                                            <option value="2"
+                                                <?php echo ($processItem->status == 2) ? "selected" : ""; ?>>
+                                                Work in Progress</option>
+                                            <option value="3"
+                                                <?php echo ($processItem->status == 3) ? "selected" : ""; ?>>
+                                                Done</option>
+                                        </select>
+                                    </div>
                                 </div>
+                                <hr />
                             </div>
-                            <hr />
+                            <div class="col-md-4">
+                            </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="page-header flex-wrap">
+                            <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
+                                <h4 class="card-title"></h4>
+                            </div>
+                            <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
+                                <button type="submit" class="btn btn-md btn-primary" style="padding: 10px; color: white;">Update
+                                    Status Progress</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

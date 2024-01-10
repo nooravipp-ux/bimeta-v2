@@ -49,43 +49,40 @@ class DeliveryController extends Controller
                     ->where('delivery_order.id', $id)
                     ->first();
 
-        $listSpk = DB::select("SELECT
-                                spk.ID AS spk_id,
-                                spk.spk_no,
-                                detail_sales_order.goods_name,
+        $listSpk = DB::select("
+                            SELECT
+                            detail_sales_order.ID,
+                            detail_sales_order.goods_name,
                             CASE
-                                    
-                                    WHEN detail_sales_order.goods_type = '1' THEN
-                                    'SHEET' 
-                                    WHEN detail_sales_order.goods_type = '2' THEN
-                                    'BOX' 
-                                    WHEN detail_sales_order.goods_type = '3' THEN
+                                    WHEN detail_sales_order.goods_type = 1 THEN
+                                    'Sheet' 
+                                    WHEN detail_sales_order.goods_type = 2 THEN
+                                    'Box' 
+                                    WHEN detail_sales_order.goods_type = 3 THEN
                                     'Box Badan Tutup' ELSE'Unknown Type' 
                                 END AS goods_type_name,
-                                spk.quantity,
-                                spk.sheet_quantity,
                             CASE
-                                    
-                                    WHEN detail_sales_order.goods_type = '1' THEN
-                                    CONCAT ( detail_sales_order.ply_type, ' ', detail_sales_order.flute_type, ' ', substance.substance ) 
-                                    WHEN detail_sales_order.goods_type = '2' THEN
-                                    CONCAT ( detail_sales_order.ply_type, ' ', detail_sales_order.flute_type, ' ', substance.substance ) 
-                                    WHEN detail_sales_order.goods_type = '3' THEN
+                                    WHEN detail_sales_order.goods_type = 1 THEN
+                                    CONCAT ( detail_sales_order.ply_type, ' ', detail_sales_order.flute_type, ' ', substance.substance, ' ', detail_sales_order.meas_type ) 
+                                    WHEN detail_sales_order.goods_type = 2 THEN
+                                    CONCAT ( detail_sales_order.ply_type, ' ', detail_sales_order.flute_type, ' ', substance.substance, ' ', detail_sales_order.meas_type ) 
+                                    WHEN detail_sales_order.goods_type = 3 THEN
                                     'Box Badan Tutup' ELSE'Unknown Type' 
                                 END AS specification,
                             CASE
                                     WHEN detail_sales_order.goods_type = 1 THEN
-                                    CONCAT(detail_sales_order.length, ' X ', detail_sales_order.width, ' ',  detail_sales_order.measurement_unit)
+                                    CONCAT(detail_sales_order.length, ' X ', detail_sales_order.width, ' ',  detail_sales_order.meas_unit)
                                     WHEN detail_sales_order.goods_type = 2 THEN
-                                    CONCAT(detail_sales_order.length, ' X ', detail_sales_order.width, ' X ', detail_sales_order.height, ' ',  detail_sales_order.measurement_unit)
+                                    CONCAT(detail_sales_order.length, ' X ', detail_sales_order.width, ' X ', detail_sales_order.height, ' ',  detail_sales_order.meas_unit)
                                     WHEN detail_sales_order.goods_type = 3 THEN
                                     'Box Badan Tutup' ELSE'Unknown Type' 
-                                END AS measure
+                                END AS measure,
+                                detail_sales_order.quantity 
                             FROM
                                 TRANSACTION.t_detail_sales_order AS detail_sales_order
-                                JOIN TRANSACTION.t_spk AS spk ON spk.detail_sales_order_id = detail_sales_order.id 
-                                JOIN master.m_substance AS substance ON substance.ID = detail_sales_order.substance_id 
-                            WHERE detail_sales_order.sales_order_id = '$deliveryOrder->sales_order_id';");
+                                LEFT JOIN master.m_substance AS substance ON substance.ID = detail_sales_order.substance_id 
+                            WHERE
+                                detail_sales_order.sales_order_id = '$deliveryOrder->sales_order_id';");
         $detailDeliveryOrder = DB::select("SELECT
                                         detail_delivery_order.id,
                                         detail_sales_order.goods_name,
@@ -100,9 +97,9 @@ class DeliveryController extends Controller
                                     END AS specification,
                                     CASE
                                         WHEN detail_sales_order.goods_type = '1' THEN
-                                            CONCAT ( detail_sales_order.LENGTH, ' X ', detail_sales_order.width, ' ', detail_sales_order.measurement_unit ) 
+                                            CONCAT ( detail_sales_order.length, ' X ', detail_sales_order.width, ' ', detail_sales_order.meas_unit ) 
                                         WHEN detail_sales_order.goods_type = '2' THEN
-                                            CONCAT ( detail_sales_order.LENGTH, ' X ', detail_sales_order.width, ' X ', detail_sales_order.height, ' ', detail_sales_order.measurement_unit ) 
+                                            CONCAT ( detail_sales_order.length, ' X ', detail_sales_order.width, ' X ', detail_sales_order.height, ' ', detail_sales_order.meas_unit ) 
                                         WHEN detail_sales_order.goods_type = '3' THEN
                                             'Box Badan Tutup' 
                                         ELSE 'Unknown Type' 

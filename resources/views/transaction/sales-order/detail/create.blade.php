@@ -1,6 +1,6 @@
 @extends('layouts._base')
 @section('main-content')
-<form method="POST" action="{{route('sales.detail.save')}}" enctype="multipart/form-data">
+<form method="POST" action="{{route('sales.detail.save')}}" enctype="multipart/form-data" id="goods-form">
     @csrf
     <div class="content-wrapper pb-0">
         <!-- first row starts here -->
@@ -14,14 +14,6 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Nama Barang</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="goods_name">
-                                        <input type="hidden" class="form-control" name="sales_order_id" value="{{$id}}">
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Jenis Barang</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="goods_type" id="goods-type">
@@ -30,6 +22,14 @@
                                             <option value="2">Box</option>
                                             <option value="3">Box (Badan + Tutup)</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Nama Barang</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" name="goods_name">
+                                        <input type="hidden" class="form-control" name="sales_order_id" value="{{$id}}">
                                     </div>
                                 </div>
                                 <hr />
@@ -105,7 +105,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Satuan</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="measurement_unit" id="measurement-unit">
+                                        <select class="form-control" name="meas_unit" id="measurement-unit">
                                             <option value="">-</option>
                                             <option value="INCH">INCH</option>
                                             <option value="MM">MM</option>
@@ -117,7 +117,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Jenis</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="measurement_type" id="measurement-type">
+                                        <select class="form-control" name="meas_type" id="measurement-type">
                                             <option value="">-</option>
                                             <option value="UD">Ukuran Dalam</option>
                                             <option value="UL">Ukuran Luar</option>
@@ -141,29 +141,24 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group row form-param-check">
-                                    <label class="col-sm-3 col-form-label">Options</label>
-                                    <div class="col-sm-3 mt-1">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="flag_plain" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox2">Polos</label>
+                                    <label class="col-sm-3 col-form-label">Cetakan</label>
+                                    <div class="col-sm-3">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="flag_print" value="0"
+                                                checked>
+                                            <label class="form-check-label" for="inlineRadio2">Polos</label>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 mt-1">
+                                    <div class="col-sm-3">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="flag_print" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox2">Print</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3 mt-1">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="flag_pounch" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox2">Pounch</label>
+                                            <input class="form-check-input" type="radio" name="flag_print" value="1">
+                                            <label class="form-check-label" for="inlineRadio1">Print</label>
                                         </div>
                                     </div>
                                 </div>
                                 <hr class="form-param-check" />
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Remarks</label>
+                                    <label class="col-sm-3 col-form-label">Catatan</label>
                                     <div class="col-sm-9">
                                         <textarea type="text" class="form-control" name="remarks"></textarea>
                                     </div>
@@ -227,7 +222,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Satuan</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="bottom_measurement_unit" id="bottom-measurement-unit">
+                                        <select class="form-control" name="bottom_meas_unit" id="bottom-meas-unit">
                                             <option value="">-</option>
                                             <option value="INCH">INCH</option>
                                             <option value="MM">MM</option>
@@ -239,7 +234,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Jenis</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="bottom_measurement_type" id="bottom-measurement-type">
+                                        <select class="form-control" name="bottom_meas_type" id="bottom-meas-type">
                                             <option value="">-</option>
                                             <option value="UD">Ukuran Dalam</option>
                                             <option value="UL">Ukuran Luar</option>
@@ -262,30 +257,25 @@
                                 <hr />
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group row form-param-check">
-                                    <label class="col-sm-3 col-form-label">Options</label>
-                                    <div class="col-sm-3 mt-1">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="bottom_flag_plain" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox2">Polos</label>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Cetakan</label>
+                                    <div class="col-sm-3">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="bottom_flag_print" value="0"
+                                                checked>
+                                            <label class="form-check-label" for="inlineRadio2">Polos</label>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 mt-1">
+                                    <div class="col-sm-3">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="bottom_flag_print" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox2">Print</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3 mt-1">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="bottom_flag_pounch" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox2">Pounch</label>
+                                            <input class="form-check-input" type="radio" name="bottom_flag_print" value="1">
+                                            <label class="form-check-label" for="inlineRadio1">Print</label>
                                         </div>
                                     </div>
                                 </div>
-                                <hr class="form-param-check" />
+                                <hr/>
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Remarks</label>
+                                    <label class="col-sm-3 col-form-label">Catatan</label>
                                     <div class="col-sm-9">
                                         <textarea type="text" class="form-control" name="bottom_remarks"></textarea>
                                     </div>
@@ -309,7 +299,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Jenis Ply</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" name="top_ply_type" id="bottom-ply-type">
+                                        <select class="form-control" name="top_ply_type" id="top-ply-type">
                                             <option value="">-</option>
                                             <option value="SF">Single Face (SF)</option>
                                             <option value="SW">Single Wall (SW)</option>
@@ -322,7 +312,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Jenis flute</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" name="top_flute_type" id="bottom-flute-type">
+                                        <select class="form-control" name="top_flute_type" id="top-flute-type">
                                             <option value="">-</option>
                                             <option value="B">B</option>
                                             <option value="C">C</option>
@@ -335,7 +325,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Substance</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" name="top_substance_id" id="bottom-substance">
+                                        <select class="form-control" name="top_substance_id" id="top-substance-id">
                                             <option value="">-</option>
                                             @foreach($substances as $substance)
                                             <option value="{{$substance->id}}">{{$substance->substance}}</option>
@@ -349,7 +339,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Satuan</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="top_measurement_unit" id="bottom-measurement-unit">
+                                        <select class="form-control" name="top_meas_unit" id="top_meas_unit">
                                             <option value="">-</option>
                                             <option value="INCH">INCH</option>
                                             <option value="MM">MM</option>
@@ -361,7 +351,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Jenis</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="top_measurement_type" id="bottom-measurement-type">
+                                        <select class="form-control" name="top_meas_type">
                                             <option value="">-</option>
                                             <option value="UD">Ukuran Dalam</option>
                                             <option value="UL">Ukuran Luar</option>
@@ -372,39 +362,34 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Ukuran</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" name="top_length" id="bottom-length">
+                                        <input type="text" class="form-control" name="top_length" id="top-length">
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" name="top_width" id="bottom-width">
+                                        <input type="text" class="form-control" name="top_width" id="top-width">
                                     </div>
                                 </div>
                                 <hr />
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group row form-param-check">
-                                    <label class="col-sm-3 col-form-label">Options</label>
-                                    <div class="col-sm-3 mt-1">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="top_flag_plain" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox2">Polos</label>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Cetakan</label>
+                                    <div class="col-sm-3">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="top_flag_print" value="0"
+                                                checked>
+                                            <label class="form-check-label" for="inlineRadio2">Polos</label>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 mt-1">
+                                    <div class="col-sm-3">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="top_flag_print" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox2">Print</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3 mt-1">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="top_flag_pounch" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox2">Pounch</label>
+                                            <input class="form-check-input" type="radio" name="top_flag_print" value="1">
+                                            <label class="form-check-label" for="inlineRadio1">Print</label>
                                         </div>
                                     </div>
                                 </div>
-                                <hr class="form-param-check" />
+                                <hr/>
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Remarks</label>
+                                    <label class="col-sm-3 col-form-label">Catatan</label>
                                     <div class="col-sm-9">
                                         <textarea type="text" class="form-control" name="top_remarks"></textarea>
                                     </div>

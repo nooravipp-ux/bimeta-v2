@@ -75,10 +75,6 @@
     height: 30px;
     margin-top: 30px
 }
-
-.mandatory-sign {
-    color: red;
-}
 </style>
 @endsection
 @section('main-content')
@@ -298,7 +294,7 @@
                                     <div class="d-flex flex-row">
                                         <div class="text-center"
                                             style="width: 206px;height: 130px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
-                                            <input type="checkbox" class="form-check-input check-input">
+                                            <input type="checkbox" class="form-check-input check-input" readonly>
                                         </div>
                                         <div class="text-center"
                                             style="width: 206px;height: 130px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
@@ -429,6 +425,11 @@
                                     <div class="d-flex flex-row">
                                         <div class="text-center"
                                             style="width: 620px;height: 70px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
+                                            @if($data[0]->flag_print == 0)
+                                                <span>POLOS</span>
+                                            @else
+                                                <span>PRINT</span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="d-flex flex-row">
@@ -448,15 +449,15 @@
                                     <div class="d-flex flex-row">
                                         <div class="text-center"
                                             style="width: 206px;height: 130px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
-                                            <input type="checkbox" class="form-check-input check-input">
+                                            <input type="checkbox" class="form-check-input check-input" <?php echo ($data[0]->flag_stitching == 1) ? "checked" : ""; ?>  disabled>
                                         </div>
                                         <div class="text-center"
                                             style="width: 206px;height: 130px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
-                                            <input type="checkbox" class="form-check-input check-input">
+                                            <input type="checkbox" class="form-check-input check-input" <?php echo ($data[0]->flag_glue == 1) ? "checked" : ""; ?>  disabled>
                                         </div>
                                         <div class="text-center"
                                             style="width: 206px;height: 130px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
-                                            <input type="checkbox" class="form-check-input check-input">
+                                            <input type="checkbox" class="form-check-input check-input" <?php echo ($data[0]->flag_pounch == 1) ? "checked" : ""; ?>  disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -618,20 +619,20 @@
         </div>
     </div>
 
-    <div class="row" id="#production-processes">
+    <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <div class="page-header flex-wrap">
                         <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">Production Processes</h4>
+                            <h4 class="card-title">Production Process</h4>
                         </div>
                         <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
 
                         </div>
                     </div>
                     <hr />
-                    <div class="row mt-5">
+                    <div class="row">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead class="table-primary">
@@ -645,10 +646,16 @@
                                     @foreach($productionProcessesItem as $process)
                                     <tr>
                                         <td>{{$process->process_name}}</td>
-                                        <td class="text-center"><button type="button"
-                                                class="btn btn-primary btn-rounded btn-fw"> {{$process->status}} </button>
+                                        <td class="text-center">
+                                            @if($process->status == 1)
+                                            <button type="button" class="btn btn-primary btn-rounded btn-fw"> INIT </button>
+                                            @elseif($process->status == 2)
+                                            <button type="button" class="btn btn-warning btn-rounded btn-fw"> WORK IN PROGRESS </button>
+                                            @else
+                                            <button type="button" class="btn btn-success btn-rounded btn-fw"> DONE </button>
+                                            @endif
                                         </td>
-                                        <td class="text-center"><a href=""><i class="mdi mdi-settings menu-icon"
+                                        <td class="text-center"><a href="{{route('production.spk.monitoring.production-progress', ['id' => $process->id])}}"><i class="mdi mdi-settings menu-icon"
                                                     style="font-size: 24px;"></i></a></td>
                                     </tr>
                                     @endforeach
@@ -660,57 +667,6 @@
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="page-header flex-wrap">
-                        <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">Production Plan</h4>
-                        </div>
-                        <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-
-                        </div>
-                    </div>
-                    <hr />
-                    <form method="POST" action="{{route('production.spk.schedule.save')}}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Start Date<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="date" class="form-control" name="start_date">
-                                        <input type="hidden" class="form-control" name="id" value="{{$data[0]->spk_id}}">
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Finish Date<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="date" class="form-control" name="finish_date">
-                                    </div>
-                                </div>
-                                <hr />
-                            </div>
-                            <div class="page-header flex-wrap">
-                                <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                                    <h4 class="card-title"></h4>
-                                </div>
-                                <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                                    <button type="submit" class="btn btn-primary btn-rounded btn-fw"
-                                        style="padding: 10px;">Save Shedule </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 @endsection
 
@@ -718,6 +674,11 @@
 <script>
 $(function() {
     $(".loader").hide();
+    $("#collapse-form-production-process").hide();
+
+    $("#add-production-process").click(function() {
+        $("#collapse-form-production-process").slideToggle("slow");
+    });
 
     var goods_type = $("#goods-type").val();
     var sheet_layout = $("#sheet-form");
@@ -734,214 +695,6 @@ $(function() {
         box_layout.hide();
         sheet_layout.hide();
     }
-
-    $("#flag-join").change(function() {
-        var flag_join_form = $(".flag-join-form");
-
-        if ($(this).val() === 1 || $(this).val() === "1") {
-            flag_join_form.hide();
-        } else {
-            flag_join_form.show();
-        }
-    });
-
-    // $("#btn-auto-generate").click(function() {
-    //     if (goods_type === "1" || goods_type === 1) {
-    //         switch ("{{$data[0]->meas_unit}}") {
-    //             case "INCH":
-    //                 var p = Math.round(parseFloat({{$data[0]->length}} * 25.4));
-    //                 var l = Math.round(parseFloat({{$data[0]->width}} * 25.4));
-    //                 break;
-    //             case "CM":
-    //                 var p = Math.round(parseFloat({{$data[0]->length}} * 10));
-    //                 var l = Math.round(parseFloat({{$data[0]->width}} * 10));
-    //                 break;
-    //             default:
-    //                 var p = Math.round(parseFloat({{$data[0]->length}}));
-    //                 var l = Math.round(parseFloat({{$data[0]->width}}));
-    //                 break;
-    //         }
-    //     } else  {
-    //         alert("hello")
-    //         switch ("{{$data[0]->meas_unit}}") {
-    //             case "INCH":
-    //                 var p = Math.round(parseFloat({{$data[0]->length}} * 25.4));
-    //                 var l = Math.round(parseFloat({{$data[0]->width}} * 25.4));
-    //                 var t = Math.round(parseFloat({{$data[0]->height}} * 25.4));
-    //                 break;
-    //             case "CM":
-    //                 var p = Math.round(parseFloat({{$data[0]->length}} * 10));
-    //                 var l = Math.round(parseFloat({{$data[0]->width}} * 10));
-    //                 var t = Math.round(parseFloat({{$data[0]->height}} * 10));
-    //                 break;
-    //             default:
-    //                 var p = Math.round(parseFloat({{$data[0]->length}}));
-    //                 var l = Math.round(parseFloat({{$data[0]->width}}));
-    //                 var t = Math.round(parseFloat({{$data[0]->height}}));
-    //                 break;
-    //         }
-
-    //         switch ("{{$data[0]->ply_type}}") {
-    //             case "SW":
-    //                 if (measure_type === "0" || measure_type === 0) {
-    //                     if (flag_gabung === "0" || flag_gabung === 0) {
-    //                         var l2 = l;
-    //                         var p1 = p + 3;
-    //                         var l1 = l + 3;
-    //                         var p2 = p + 2;
-    //                         var tinggi = t + 5;
-    //                         var plep = Math.floor((parseFloat(l2) / 2) + 2);
-    //                     } else {
-    //                         var l1 = l;
-    //                         var p2 = p + 3;
-    //                         var tinggi = t + 5;
-    //                         var plep = Math.floor((parseFloat(l1) / 2) + 2);
-    //                     }
-    //                 } else {
-    //                     if (flag_gabung === "0" || flag_gabung === 0) {
-    //                         var l2 = l - 2;
-    //                         var p1 = p;
-    //                         var l1 = l;
-    //                         var p2 = p - 1;
-    //                         var tinggi = t;
-    //                         var plep = Math.floor((parseFloat(l2) / 2) + 2);
-    //                     } else {
-    //                         var l1 = l - 2;
-    //                         var p2 = p;
-    //                         var tinggi = t;
-    //                         var plep = Math.floor((parseFloat(l1) / 2) + 2);
-    //                     }
-    //                 }
-
-    //                 var kuping = 30;
-    //                 break;
-    //             case "DW":
-    //                 if (measure_type === "0" || measure_type === 0) {
-    //                     if (flag_gabung === "0" || flag_gabung === 0) {
-    //                         var l2 = l + 4;
-    //                         var p1 = p + 7;
-    //                         var l1 = l + 7;
-    //                         var p2 = p + 6;
-    //                         var tinggi = t + 14;
-    //                         var plep = Math.floor((parseFloat(l2) / 2) + 4);
-    //                     } else {
-    //                         var l1 = l + 4;
-    //                         var p2 = p + 7;
-    //                         var tinggi = t + 14;
-    //                         var plep = Math.floor((parseFloat(l1) / 2) + 4);
-    //                     }
-    //                 } else {
-    //                     if (flag_gabung === "0" || flag_gabung === 0) {
-    //                         var l2 = l - 4;
-    //                         var p1 = p - 3;
-    //                         var l1 = l - 3;
-    //                         var p2 = p - 4;
-    //                         var tinggi = t - 3;
-    //                         var plep = Math.floor((parseFloat(l2) / 2) + 4);
-    //                     } else {
-    //                         var l1 = l - 4;
-    //                         var p2 = p - 3;
-    //                         var tinggi = t - 3;
-    //                         var plep = Math.floor((parseFloat(l1) / 2) + 4);
-    //                     }
-    //                 }
-
-    //                 var kuping = 40;
-    //                 break;
-    //             case "TW":
-    //                 if (measure_type === "0" || measure_type === 0) {
-    //                     if (flag_gabung === "0" || flag_gabung === 0) {
-    //                         var l2 = l + 4;
-    //                         var p1 = p + 7;
-    //                         var l1 = l + 7;
-    //                         var p2 = p + 6;
-    //                         var tinggi = t + 14;
-    //                         var plep = Math.floor((parseFloat(l2) / 2) + 5);
-    //                     } else {
-    //                         var l1 = l + 4;
-    //                         var p2 = p + 7;
-    //                         var tinggi = t + 14;
-    //                         var plep = Math.floor((parseFloat(l1) / 2) + 5);
-    //                     }
-    //                 } else {
-    //                     if (flag_gabung === "0" || flag_gabung === 0) {
-    //                         var l2 = l - 4;
-    //                         var p1 = p - 3;
-    //                         var l1 = l - 3;
-    //                         var p2 = p - 4;
-    //                         var tinggi = t - 3;
-    //                         var plep = Math.floor((parseFloat(l2) / 2) + 5);
-    //                     } else {
-    //                         var l1 = l - 4;
-    //                         var p2 = p - 3;
-    //                         var tinggi = t - 3;
-    //                         var plep = Math.floor((parseFloat(l1) / 2) + 5);
-    //                     }
-    //                 }
-    //                 var kuping = 45;
-    //                 break;
-    //             default:
-    //                 break;
-    //         }
-    //     }
-    // });
-
-    function roundToNearestMultipleOf5(number) {
-        return 5 * Math.round(number / 5);
-    }
-
-    function roundToNearestMultipleOf50(number) {
-        return 50 * Math.ceil(number / 50);
-    }
-
-    // Control Box
-    $("#l2").on("keyup", function() {
-        $("#l-l2").text($(this).val())
-    });
-
-    $("#p1").on("keyup", function() {
-        $("#l-p1").text($(this).val())
-    });
-
-    $("#l1").on("keyup", function() {
-        $("#l-l1").text($(this).val())
-    });
-
-    $("#t").on("keyup", function() {
-        $("#l-t").text($(this).val())
-    });
-
-    $("#p2").on("keyup", function() {
-        $("#l-p2").text($(this).val())
-    });
-
-    $("#plape").on("keyup", function() {
-        $("#l-plape-1").text($(this).val())
-        $("#l-plape-2").text($(this).val())
-    });
-
-    $("#k").on("keyup", function() {
-        $("#l-k").text($(this).val())
-    });
-
-    // control Sheet
-
-    $("#sheet-f-w").on("keyup", function() {
-        $("#sheet-l-w").text($(this).val())
-    });
-
-    $("#sheet-f-l").on("keyup", function() {
-        $("#sheet-l-l").text($(this).val())
-    });
-
-    $("#tr-spk-qty").on("keyup", function() {
-        $("#spk-qty").val($(this).val())
-    });
-
-    $("#flag-join").on("change", function() {
-        console.log($(this).val());
-        $("#fjoin").val($(this).val());
-    });
 });
 </script>
 @endsection

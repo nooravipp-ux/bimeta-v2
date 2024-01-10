@@ -140,52 +140,52 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Print</label>
-                                <div class="col-sm-9">
-                                    <select type="text" class="form-control">
-                                        <option value="1">Yes</option>
-                                        <option value="0" selected>No</option>
-                                    </select>
+                                <label class="col-sm-3 col-form-label">Stitching</label>
+                                <div class="col-sm-3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="flag_stitching_trigger" value="0" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>
+                                            checked>
+                                        <label class="form-check-label" for="inlineRadio2">Tidak</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flag_stitching_trigger" value="1" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
+                                        <label class="form-check-label" for="inlineRadio1">Ya</label>
+                                    </div>
                                 </div>
                             </div>
                             <hr />
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Polos </label>
-                                <div class="col-sm-9">
-                                    <select type="text" class="form-control">
-                                        <option value="1">Yes</option>
-                                        <option value="0" selected>No</option>
-                                    </select>
+                                <label class="col-sm-3 col-form-label">Lem</label>
+                                <div class="col-sm-3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="flag_glue_trigger" value="0" checked <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
+                                        <label class="form-check-label" for="inlineRadio2">Tidak</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flag_glue_trigger" value="1" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
+                                        <label class="form-check-label" for="inlineRadio1">Ya</label>
+                                    </div>
                                 </div>
                             </div>
                             <hr />
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Stitching </label>
-                                <div class="col-sm-9">
-                                    <select type="text" class="form-control">
-                                        <option value="1">Yes</option>
-                                        <option value="0" selected>No</option>
-                                    </select>
+                                <label class="col-sm-3 col-form-label">Pounch</label>
+                                <div class="col-sm-3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="flag_pounch_trigger" value="0" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>
+                                            checked>
+                                        <label class="form-check-label" for="inlineRadio2">Tidak</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Lem </label>
-                                <div class="col-sm-9">
-                                    <select type="text" class="form-control">
-                                        <option value="1">Yes</option>
-                                        <option value="0" selected>No</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Pounch </label>
-                                <div class="col-sm-9">
-                                    <select type="text" class="form-control">
-                                        <option value="1">Yes</option>
-                                        <option value="0" selected>No</option>
-                                    </select>
+                                <div class="col-sm-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flag_pounch_trigger" value="1" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
+                                        <label class="form-check-label" for="inlineRadio1">Ya</label>
+                                    </div>
                                 </div>
                             </div>
                             <hr />
@@ -206,8 +206,10 @@
                             <h4 class="card-title">Parameter SPK</h4>
                         </div>
                         <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
+                            @if(($goodsInformations->quantity - $totalSPKCreated) != 0)
                             <a href="" class="btn btn-primary mt-2 mr-2 mt-sm-0 btn-icon-text">
                                 <i class="mdi mdi-plus-circle"></i> Auto Calculate Value</a>
+                            @endif
                         </div>
                     </div>
                     <hr />
@@ -247,6 +249,10 @@
                                             value="{{$goodsInformations->id}}">
                                         <input type="hidden" class="form-control" name="goods_type"
                                             value="{{$goodsInformations->goods_type}}">
+                                        
+                                        <input type="hidden" class="form-control" name="flag_stitching" value="0" id="flag-stitching">
+                                        <input type="hidden" class="form-control" name="flag_glue" value="0" id="flag-glue">
+                                        <input type="hidden" class="form-control" name="flag_pounch" value="0" id="flag-pounch">
                                     </div>
                                 </div>
                                 <hr />
@@ -335,7 +341,8 @@
                                     <label class="col-sm-4 col-form-label">join ?<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" id="flag-join" name="flag_join" required>
+                                        <select class="form-control" id="flag-join" name="flag_join" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?> required>
+                                            <option value="">-</option>
                                             <option value="0">Tidak</option>
                                             <option value="1">Ya</option>
                                         </select>
@@ -459,6 +466,10 @@
                                         <input type="hidden" class="form-control" name="goods_type"
                                             value="{{$goodsInformations->goods_type}}">
                                         <input type="hidden" class="form-control" name="spk_quantity" id="spk-qty">
+
+                                        <input type="hidden" class="form-control" name="flag_stitching" value="0" id="flag-stitching">
+                                        <input type="hidden" class="form-control" name="flag_glue" value="0" id="flag-glue">
+                                        <input type="hidden" class="form-control" name="flag_pounch" value="0" id="flag-pounch">
                                     </div>
                                 </div>
                                 <hr />
@@ -714,6 +725,30 @@ $(function() {
             flag_join_form.hide();
         } else {
             flag_join_form.show();
+        }
+    });
+
+    $('input[name=flag_stitching_trigger]').change(function() {
+        if ($(this).val() === 1 || $(this).val() === "1") {
+            $("#flag-stitching").val(1);
+        } else {
+            $("#flag-stitching").val(0);
+        }
+    });
+
+    $('input[name=flag_glue_trigger]').change(function() {
+        if ($(this).val() === 1 || $(this).val() === "1") {
+            $("#flag-glue").val(1);
+        } else {
+            $("#flag-glue").val(0);
+        }
+    });
+
+    $('input[name=flag_pounch_trigger]').change(function() {
+        if ($(this).val() === 1 || $(this).val() === "1") {
+            $("#flag-pounch").val(1);
+        } else {
+            $("#flag-pounch").val(0);
         }
     });
 

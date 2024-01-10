@@ -181,7 +181,7 @@
                                     <td>{{$detail->specification}}</td>
                                     <td>{{$detail->measure}}</td>
                                     <td>{{$detail->quantity}}</td>
-                                    <td class="text-center"><a href="" title="Edit"><i class="mdi mdi-settings menu-icon"></i></a></td>
+                                    <td class="text-center"><a href="" title="Edit"><i class="mdi mdi-settings menu-icon" style="font-size: 24px;"></i></a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

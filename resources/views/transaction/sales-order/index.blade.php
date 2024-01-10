@@ -40,9 +40,10 @@
                                     <td>{{$data->delivery_date}}</td>
                                     <td>{{$data->assigned_to}}</td>
                                     <td class="text-center">
-                                        @if($data->status == 0)
+                                        @if($data->status == 1)
                                             <button type="button" class="btn btn-primary btn-rounded btn-fw"> Draft </button>
-                                        @else
+                                        @endif
+                                        @if($data->status == 2)
                                             <button type="button" class="btn btn-success btn-rounded btn-fw"> Claimed By PIC </button>
                                         @endif
                                     </td>

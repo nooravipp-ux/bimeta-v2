@@ -13,6 +13,7 @@ class IndexPriceController extends Controller
         $data = DB::table('transaction.t_mapping_index_price as index_price')
                 ->select('index_price.*', 'substance.substance')
                 ->join('master.m_substance as substance', 'substance.id', '=', 'index_price.substance_id')
+                ->orderBy('index_price.tag', 'DESC')
                 ->orderBy('index_price.ply_type', 'ASC')
                 ->orderBy('index_price.flute_type', 'ASC')
                 ->get();

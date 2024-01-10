@@ -15,14 +15,14 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Ref. PO Customer</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="ref_po_customer">
+                                        <input type="text" class="form-control" name="ref_po_customer" required>
                                     </div>
                                 </div>
                                 <hr />
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Customer</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="customer_id">
+                                        <select class="form-control" name="customer_id" required>
                                             <option value="">-</option>
                                             @foreach($customers as $customer)
                                             <option value="{{$customer->id}}">{{$customer->name}}</option>
@@ -34,14 +34,14 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Order Date</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" name="order_date">
+                                        <input type="date" class="form-control" name="order_date" required>
                                     </div>
                                 </div>
                                 <hr />
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Delivery Date (Plan)</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" name="delivery_date">
+                                        <input type="date" class="form-control" name="delivery_date" required>
                                     </div>
                                 </div>
                                 <hr />
@@ -50,7 +50,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Jenis Pajak</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="tax_type">
+                                        <select class="form-control" name="tax_type" required>
                                             <option value="">-</option>
                                             <option value="0">V0</option>
                                             <option value="1">V1</option>
@@ -62,7 +62,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Assign To</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="assign_to">
+                                        <select class="form-control" name="assign_to" required>
                                             <option value="">-</option>
                                             @foreach($users as $user)
                                             <option value="{{$user->id}}">{{$user->name}}</option>
@@ -81,7 +81,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Remarks</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="remarks">
+                                        <input type="text" class="form-control" name="remarks" required>
                                     </div>
                                 </div>
                             </div>

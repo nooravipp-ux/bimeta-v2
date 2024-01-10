@@ -101,9 +101,10 @@
                                     <label class="col-sm-2 col-form-label">Goods<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" name="spk_id">
+                                        <select class="form-control" name="spk_id" required>
+                                            <option value="">-</option>
                                             @foreach($listSpk as $spk)
-                                            <option value="{{$spk->spk_id}}">{{$spk->spk_no}} | {{$spk->goods_name}} | {{$spk->specification}} | {{$spk->measure}} | QTY : {{$spk->quantity}}</option>
+                                            <option value="$spk->id}}">{{$spk->goods_name}} | {{$spk->specification}} | {{$spk->measure}} | QTY : {{$spk->quantity}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -113,7 +114,7 @@
                                     <label class="col-sm-2 col-form-label">Quantity<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-10">
-                                        <input type="number" class="form-control" name="quantity">
+                                        <input type="number" class="form-control" name="quantity" required>
                                         <input type="hidden" class="form-control" name="delivery_order_id" value="{{$deliveryOrder->id}}">
                                     </div>
                                 </div>
@@ -122,7 +123,7 @@
                                     <label class="col-sm-2 col-form-label">Remarks<span class="mandatory-sign">
                                             *</span></label>
                                     <div class="col-sm-10">
-                                        <textarea type="text" class="form-control" name="remarks"></textarea>
+                                        <textarea type="text" class="form-control" name="remarks" required></textarea>
                                     </div>
                                 </div>
                                 <hr />

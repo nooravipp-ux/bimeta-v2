@@ -67,9 +67,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/production/spk/mark-as-done/{id}', [App\Http\Controllers\Transaction\ProductionController::class, 'markAsDone'])->name('production.spk.mark-as-done');
     Route::post('/production/spk/schedule/save', [App\Http\Controllers\Transaction\ProductionController::class, 'scheduleSave'])->name('production.spk.schedule.save');
     Route::post('/production/progress-item/save', [App\Http\Controllers\Transaction\ProductionController::class, 'progressItemSave'])->name('production.spk.progress-item.save');
-    Route::get('/production/progress-monitoring', [App\Http\Controllers\Transaction\ProductionController::class, 'monitoring'])->name('production.spk.monitoring.index');
-    Route::get('/production/progress-monitoring/production-progress/{id}', [App\Http\Controllers\Transaction\ProductionController::class, 'progressProductionUpdate'])->name('production.spk.monitoring.production-progress');
-    Route::post('/production/progress-monitoring/production-progress/detail/save', [App\Http\Controllers\Transaction\ProductionController::class, 'progressProductionDetailSave'])->name('production.spk.monitoring.production-progress.detail.save');
+    Route::get('/production/monitoring', [App\Http\Controllers\Transaction\ProductionController::class, 'monitoring'])->name('production.spk.monitoring.index');
+    Route::get('/production/monitoring/{id}', [App\Http\Controllers\Transaction\ProductionController::class, 'monitoringDetail'])->name('production.spk.monitoring.detail');
+    Route::get('/production/monitoring/production-progress/{id}', [App\Http\Controllers\Transaction\ProductionController::class, 'progressProductionUpdate'])->name('production.spk.monitoring.production-progress');
+    Route::post('/production/monitoring/production-progress/update', [App\Http\Controllers\Transaction\ProductionController::class, 'progressItemUpdate'])->name('production.spk.monitoring.production-progress.update'); //
+    Route::post('/production/monitoring/production-progress/detail/save', [App\Http\Controllers\Transaction\ProductionController::class, 'progressProductionDetailSave'])->name('production.spk.monitoring.production-progress.detail.save');
 
     Route::get('/warehouse/delivery', [App\Http\Controllers\Transaction\DeliveryController::class, 'index'])->name('warehouse.delivery.index');
     Route::get('/warehouse/delivery/create', [App\Http\Controllers\Transaction\DeliveryController::class, 'create'])->name('warehouse.delivery.create');

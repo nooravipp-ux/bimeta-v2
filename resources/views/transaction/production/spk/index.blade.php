@@ -43,13 +43,13 @@
                                     <td>{{$data->bruto}}</td>
                                     <td class="text-center">
                                         @if($data->status == 1)
-                                            <button type="button" class="btn btn-primary btn-rounded btn-fw"> SPK Init </button>
+                                            <button type="button" class="btn btn-primary btn-rounded btn-fw"> SPK INIT </button>
                                         @elseif($data->status == 2)
-                                            <button type="button" class="btn btn-success btn-rounded btn-fw"> Scheduled </button>
+                                            <button type="button" class="btn btn-warning btn-rounded btn-fw"> SCHEDULED </button>
                                         @elseif($data->status == 3)
-                                            <button type="button" class="btn btn-success btn-rounded btn-fw"> Work In Progress </button>
+                                            <button type="button" class="btn btn-warning btn-rounded btn-fw"> WORK IN PROGRESS </button>
                                         @else
-                                            <button type="button" class="btn btn-success btn-rounded btn-fw"> Done </button>
+                                            <button type="button" class="btn btn-success btn-rounded btn-fw"> DONE </button>
                                         @endif
                                     </td>
                                     <td class="text-center">

@@ -425,6 +425,11 @@
                                     <div class="d-flex flex-row">
                                         <div class="text-center"
                                             style="width: 620px;height: 70px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
+                                            @if($data[0]->flag_print == 0)
+                                                <span>POLOS</span>
+                                            @else
+                                                <span>PRINT</span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="d-flex flex-row">
@@ -444,15 +449,15 @@
                                     <div class="d-flex flex-row">
                                         <div class="text-center"
                                             style="width: 206px;height: 130px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
-                                            <input type="checkbox" class="form-check-input check-input">
+                                            <input type="checkbox" class="form-check-input check-input" <?php echo ($data[0]->flag_stitching == 1) ? "checked" : ""; ?>  disabled>
                                         </div>
                                         <div class="text-center"
                                             style="width: 206px;height: 130px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
-                                            <input type="checkbox" class="form-check-input check-input">
+                                            <input type="checkbox" class="form-check-input check-input" <?php echo ($data[0]->flag_glue == 1) ? "checked" : ""; ?>  disabled>
                                         </div>
                                         <div class="text-center"
                                             style="width: 206px;height: 130px;border: 2px solid #ccc;padding: 20px;font-size: 12px;">
-                                            <input type="checkbox" class="form-check-input check-input">
+                                            <input type="checkbox" class="form-check-input check-input" <?php echo ($data[0]->flag_pounch == 1) ? "checked" : ""; ?>  disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -674,14 +679,15 @@
                                 <thead class="table-primary">
                                     <tr>
                                         <th>Process Name</th>
+                                        <th class="text-center">Process Sequence</th>
                                         <th class="text-center">Status</th>
-                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($productionProcessesItem as $process)
                                     <tr>
                                         <td>{{$process->process_name}}</td>
+                                        <td class="text-center">{{$process->sequence_order}}</td>
                                         <td class="text-center">
                                             @if($process->status == 1)
                                             <button type="button" class="btn btn-primary btn-rounded btn-fw"> INIT </button>
@@ -691,8 +697,6 @@
                                             <button type="button" class="btn btn-success btn-rounded btn-fw"> DONE </button>
                                             @endif
                                         </td>
-                                        <td class="text-center"><a href="{{route('production.spk.monitoring.production-progress', ['id' => $process->id])}}"><i class="mdi mdi-settings menu-icon"
-                                                    style="font-size: 24px;"></i></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>

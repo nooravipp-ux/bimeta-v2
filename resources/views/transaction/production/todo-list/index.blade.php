@@ -38,16 +38,18 @@
                                     <td>{{$data->order_date}}</td>
                                     <td>{{$data->delivery_date}}</td>
                                     <td class="text-center">
-                                        @if($data->status == 0)
+                                        @if($data->status == 1)
                                             <button type="button" class="btn btn-primary btn-rounded btn-fw"> New Order </button>
-                                        @else
+                                        @endif
+                                        @if($data->status == 2)
                                             <button type="button" class="btn btn-success btn-rounded btn-fw"> Claimed</button>
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        @if($data->status == 0)
+                                        @if($data->status == 1)
                                             <a href="{{route('production.todo-list.claim-order', ['id' => $data->id])}}" title="Claim Order"><i class="mdi mdi-checkbox-marked-circle" style="font-size: 24px;"></i></a></td>
-                                        @else
+                                        @endif
+                                        @if($data->status == 2)
                                             <a href="{{route('production.todo-list.detail', ['id' => $data->id])}}"><i class="mdi mdi-settings menu-icon" style="font-size: 24px;"></i></a>
                                         @endif                            
                                 </tr>

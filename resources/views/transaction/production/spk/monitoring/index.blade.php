@@ -7,7 +7,7 @@
         </div>
         <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
             <a href="" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
-                <i class="mdi mdi-plus-circle"></i> Bulk Update Status Production Progress</a>
+                <i class="mdi mdi-plus-circle"></i>Daily Progress Production</a>
         </div>
     </div>
     <!-- first row starts here -->
@@ -47,20 +47,20 @@
                                     <td>{{$data->start_date}}</td>
                                     <td class="text-center">
                                         @if($data->status == 1)
-                                            <button type="button" class="btn btn-primary btn-rounded btn-fw"> SPK Init </button>
+                                            <button type="button" class="btn btn-primary btn-rounded btn-fw"> SPK INIT </button>
                                         @elseif($data->status == 2)
-                                            <button type="button" class="btn btn-success btn-rounded btn-fw"> Scheduled </button>
+                                            <button type="button" class="btn btn-warning btn-rounded btn-fw"> SCHEDULED </button>
                                         @elseif($data->status == 3)
-                                            <button type="button" class="btn btn-success btn-rounded btn-fw"> Work In Progress </button>
+                                            <button type="button" class="btn btn-warning btn-rounded btn-fw"> WORK IN PROGRESS </button>
                                         @else
-                                            <button type="button" class="btn btn-success btn-rounded btn-fw"> Done </button>
+                                            <button type="button" class="btn btn-success btn-rounded btn-fw"> DONE </button>
                                         @endif
                                     </td>
                                     <td class="text-center">
                                         @if($data->status != 4)
                                         <a href="{{route('production.spk.mark-as-done', ['id' => $data->id])}}" title="Masrk As Done"><i class="mdi mdi-checkbox-marked-circle-outline menu-icon" style="font-size: 24px;"></i></a>
                                         @endif
-                                        <a href="{{route('production.spk.edit', ['id' => $data->id])}}" title="Monitor Progress"><i class="mdi mdi-settings menu-icon" style="font-size: 24px;"></i></a>
+                                        <a href="{{route('production.spk.monitoring.detail', ['id' => $data->id])}}" title="Monitor Progress"><i class="mdi mdi-settings menu-icon" style="font-size: 24px;"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
