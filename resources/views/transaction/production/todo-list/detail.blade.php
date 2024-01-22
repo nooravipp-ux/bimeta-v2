@@ -2,136 +2,105 @@
 @section('css')
 @endsection
 @section('main-content')
-<div class="content-wrapper pb-0">
-    <!-- first row starts here -->
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="page-header flex-wrap">
-                        <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">PO Customer</h4>
-                        </div>
-                        <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">{{$salesOrder->transaction_no}}</h4>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Ref. PO Customer</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="ref_po_customer"
-                                        value="{{$salesOrder->ref_po_customer}}" readonly>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Customer</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" value="{{$salesOrder->customer_name}}" readonly>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Order Date</label>
-                                <div class="col-sm-9">
-                                    <input type="date" class="form-control" id="order_date" value="{{$salesOrder->order_date}}" readonly>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Delivery Date</label>
-                                <div class="col-sm-9">
-                                    <input type="date" class="form-control" id="delivery_date" value="{{$salesOrder->delivery_date}}" readonly>
-                                </div>
-                            </div>
-                            <hr />
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Tax Type</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" value="{{$salesOrder->tax_type}}" readonly>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Assign To</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" value="{{$salesOrder->pic_name}}" readonly>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Attachment</label>
-                                <div class="col-sm-9">
-                                    
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Remarks</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="remarks"
-                                        value="{{$salesOrder->remarks}}" readonly>
-                                </div>
-                            </div>
-                            <hr />
-                        </div>
-                    </div>
+<div class="content content--top-nav">
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+        <h2 class="text-lg font-medium mr-auto">
+            {{$salesOrder->transaction_no}}
+        </h2>
+        <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+            <button class="btn btn-primary shadow-md mr-2">Print</button>
+        </div>
+    </div>
+    <!-- BEGIN: Transaction Details -->
+    <div class="intro-y grid grid-cols-11 gap-5 mt-5">
+        <div class="col-span-12 lg:col-span-4 2xl:col-span-3">
+            <div class="box p-5 rounded-md">
+                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                    <div class="font-medium text-base truncate">Informasi Pesanan</div>
+                </div>
+                <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i>
+                    NO. PO: <a href="" class="underline decoration-dotted ml-1">{{$salesOrder->ref_po_customer}}</a>
+                </div>
+                <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i>
+                    Tanggal Pemesanan: <?php echo date("d M Y", strtotime($salesOrder->order_date)); ?> </div>
+                <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i>
+                    Tanggal Pengiriman: <?php echo date("d M Y", strtotime($salesOrder->delivery_date)); ?></div>
+                <div class="flex items-center mt-3"> <i data-lucide="clock" class="w-4 h-4 text-slate-500 mr-2"></i>
+                    Status Pesanan:
+                    <span class="bg-success/20 text-success rounded px-2 ml-1">
+                        @if($salesOrder->status == 1)
+                        DRAFT
+                        @elseif($salesOrder->status == 2)
+                        CLAIMED
+                        @else
+                        COMPLETED
+                        @endif
+                    </span>
+                </div>
+            </div>
+            <div class="box p-5 rounded-md mt-5">
+                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                    <div class="font-medium text-base truncate">Informasi Customer</div>
+                </div>
+                <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i>
+                    Name: <a href="" class="underline decoration-dotted ml-1">{{$salesOrder->cust_name}}</a> </div>
+                <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i>
+                    Phone Number: {{$salesOrder->phone_number}} </div>
+                <div class="flex items-center mt-3"> <i data-lucide="map-pin" class="w-4 h-4 text-slate-500 mr-2"></i>
+                    Alamat: {{$salesOrder->address}} </div>
+            </div>
+            <div class="box p-5 rounded-md mt-5">
+                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                    <div class="font-medium text-base truncate">Informasi Pengiriman</div>
+                </div>
+                <div class="flex items-center mt-3"> <i data-lucide="map-pin" class="w-4 h-4 text-slate-500 mr-2"></i>
+                    Alamat Pengiriman: {{$salesOrder->address}} </div>
+            </div>
+        </div>
+        <div class="col-span-12 lg:col-span-7 2xl:col-span-8">
+            <div class="box p-5 rounded-md">
+                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                    <div class="font-medium text-base truncate">Detail Pesanan</div>
+                </div>
+                <div class="overflow-auto lg:overflow-visible -mt-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="whitespace-nowrap">Nama Barang</th>
+                                <th class="whitespace-nowrap">Spesifikasi</th>
+                                <th class="whitespace-nowrap text-center">Ukuran</th>
+                                <th class="whitespace-nowrap text-center">Quantity</th>
+                                <th class="whitespace-nowrap text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($detailSalesOrders as $detail)
+                            <tr>
+                                <td>{{$detail->goods_name}}</td>
+                                <td>{{$detail->specification}}</td>
+                                <td class="text-center">{{$detail->measure}}</td>
+                                <td class="text-center">{{$detail->quantity}}</td>
+                                <td class="table-report__action w-56">
+                                    <div class="flex justify-center items-center">
+                                        <a class="flex items-center mr-3 text-success"
+                                            href="{{route('production.spk.create', ['id' => $detail->id])}}"> <i
+                                            data-lucide="edit" class="w-4 h-4 mr-1 text-success"></i> Buat SPK </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-    <!-- chart row starts here -->
-
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="page-header flex-wrap">
-                        <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">PO Customer (Detail Sales Order)</h4>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead class="table-success">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Spesification</th>
-                                    <th>Mess</th>
-                                    <th>Quantity</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($detailSalesOrders as $detail)
-                                <tr>
-                                    <td>{{$detail->goods_name}}</td>
-                                    <td>{{$detail->specification}}</td>
-                                    <td>{{$detail->measure}}</td>
-                                    <td>{{$detail->quantity}}</td>
-                                    <td class="text-center"><a href="{{route('production.spk.create', ['id' => $detail->id])}}" title="Create SPK"><i class="mdi mdi-settings menu-icon" style="font-size: 24px;"></i></a></td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- END: Transaction Details -->
 </div>
 @endsection
 
 @section('script')
 <script>
-$(function() {
-    $(".loader").hide();
-});
+
 </script>
 @endsection

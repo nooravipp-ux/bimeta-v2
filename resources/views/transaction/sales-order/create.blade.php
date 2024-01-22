@@ -1,106 +1,76 @@
 @extends('layouts._base')
 @section('main-content')
-<div class="content-wrapper pb-0">
-    <!-- first row starts here -->
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <form method="POST" action="{{route('sales.save')}}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="card-body">
-                        <h4 class="card-title">PO Customer (Sales Order)</h4>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Ref. PO Customer</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="ref_po_customer" required>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Customer</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control" name="customer_id" required>
-                                            <option value="">-</option>
-                                            @foreach($customers as $customer)
-                                            <option value="{{$customer->id}}">{{$customer->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Order Date</label>
-                                    <div class="col-sm-9">
-                                        <input type="date" class="form-control" name="order_date" required>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Delivery Date (Plan)</label>
-                                    <div class="col-sm-9">
-                                        <input type="date" class="form-control" name="delivery_date" required>
-                                    </div>
-                                </div>
-                                <hr />
+<div class="content content--top-nav">
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <div class="intro-y col-span-12 lg:col-span-8">
+            <!-- BEGIN: Horizontal Form -->
+            <div class="intro-y box mt-5">
+                <div
+                    class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                    <h2 class="font-medium text-base mr-auto">
+                        Informasi Pesanan
+                    </h2>
+                </div>
+                <div id="horizontal-form" class="p-5">
+                    <form method="POST" action="{{route('sales.save')}}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="preview">
+                            <div class="form-inline">
+                                <label for="horizontal-form-1" class="form-label sm:w-40">PO. Customer</label>
+                                <input id="horizontal-form-1" type="text" class="form-control" name="ref_po_customer" required>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Jenis Pajak</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control" name="tax_type" required>
-                                            <option value="">-</option>
-                                            <option value="0">V0</option>
-                                            <option value="1">V1</option>
-                                            <option value="2">V2</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Assign To</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control" name="assign_to" required>
-                                            <option value="">-</option>
-                                            @foreach($users as $user)
-                                            <option value="{{$user->id}}">{{$user->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Attachment</label>
-                                    <div class="col-sm-9">
-                                        <input type="file" class="form-control" name="attachment">
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Remarks</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="remarks" required>
-                                    </div>
-                                </div>
+                            <div class="form-inline mt-5">
+                                <label for="horizontal-form-2" class="form-label sm:w-40">Customer</label>
+                                <select data-placeholder="Pilih customer" class="tom-select w-full form-control" name="customer_id" required>
+                                    @foreach($customers as $customer)
+                                    <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-inline mt-5">
+                                <label for="horizontal-form-2" class="form-label sm:w-40">Tanggal Pesanan</label>
+                                <input id="horizontal-form-1" type="date" class="form-control" name="order_date" required>
+                            </div>
+                            <div class="form-inline mt-5">
+                                <label for="horizontal-form-2" class="form-label sm:w-40">Tanggal Pengiriman</label>
+                                <input id="horizontal-form-1" type="date" class="form-control" name="delivery_date" required>
+                            </div>
+                            <div class="form-inline mt-5">
+                                <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Pajak</label>
+                                <select data-placeholder="Pilih Jenis Pajak" class="tom-select w-full form-control" name="tax_type" required>
+                                    <option value="0">V0</option>
+                                    <option value="1">V1</option>
+                                    <option value="2">V2</option>
+                                </select>
+                            </div>
+                            <div class="form-inline mt-5">
+                                <label for="vertical-form-2" class="form-label sm:w-40">PIC</label>
+                                <select data-placeholder="Pilih customer" class="tom-select w-full form-control" name="assign_to" required>
+                                    @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-inline mt-5">
+                                <label for="vertical-form-1" class="form-label sm:w-40">Alamat Pengiriman</label>
+                                <textarea id="vertical-form-1" type="text" class="form-control" name="shipping_address" required></textarea>
+                            </div>
+                            <div class="form-inline mt-5">
+                                <label for="vertical-form-1" class="form-label sm:w-40">Catatan</label>
+                                <textarea id="vertical-form-1" type="text" class="form-control" name="remarks" required></textarea>
                             </div>
                         </div>
-                        <div class="page-header flex-wrap">
-                            <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-
-                            </div>
-                            <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                                <button type="submit" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text"><i
-                                        class="mdi mdi-plus-circle"></i> Confirm & Save</button>
-                            </div>
+                        <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                            <button type="button"
+                                class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Batal</button>
+                            <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
+            <!-- END: Horizontal Form -->
         </div>
     </div>
-    <!-- chart row starts here -->
 </div>
 @endsection
 

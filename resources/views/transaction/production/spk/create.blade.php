@@ -61,694 +61,768 @@
 </style>
 @endsection
 @section('main-content')
-<div class="content-wrapper pb-0">
-    <!-- first row starts here -->
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="page-header flex-wrap">
-                        <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">Goods Information</h4>
-                        </div>
-                        <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title"></h4>
+<div class="content content--top-nav">
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <div class="intro-y col-span-12 lg:col-span-4 2xl:col-span-4">
+            <div class="intro-y box mt-5">
+                <div
+                    class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                    <h2 class="font-medium text-base mr-auto">
+                        Informasi Spesifikasi Barang
+                    </h2>
+                </div>
+                <form method="POST" action="{{route('index-price.save')}}">
+                    @csrf
+                    <div id="horizontal-form" class="p-5">
+                        <div class="preview">
+                            <div class="form-inline">
+                                <label for="vertical-form-1" class="form-label sm:w-40">Nama</label>
+                                <input type="text" class="form-control" value="{{$goodsInformations->name}}" readonly>
+                            </div>
+                            <div class="form-inline mt-5">
+                                <label for="vertical-form-1" class="form-label sm:w-40">Jenis</label>
+                                @if($goodsInformations->type == 1)
+                                <input type="text" class="form-control" value="SHEET" readonly>
+                                @elseif($goodsInformations->type == 2)
+                                <input type="text" class="form-control" value="BOX" readonly>
+                                @else
+                                <input type="text" class="form-control" value="BOX (Badan + Tutup)" readonly>
+                                @endif
+                                <input type="hidden" class="form-control" value="{{$goodsInformations->type}}" id="goods-type">
+                            </div>
+                            <div class="form-inline mt-5">
+                                <label for="vertical-form-1" class="form-label sm:w-40">Spesifikasi</label>
+                                @if($goodsInformations->type > 2)
+                                <input type="text" class="form-control" value="{{$goodsInformations->bottom_ply_type}} {{$goodsInformations->bottom_flute_type}} {{$goodsInformations->bottom_substance}} / {{$goodsInformations->top_ply_type}} {{$goodsInformations->top_flute_type}} {{$goodsInformations->top_substance}}" readonly>
+                                @endif
+                                @if($goodsInformations->type < 3)
+                                <input type="text" class="form-control" value="{{$goodsInformations->ply_type}} {{$goodsInformations->flute_type}} {{$goodsInformations->substance}}" readonly>
+                                @endif
+                            </div>
+                            <div class="form-inline mt-5">
+                                <label for="vertical-form-1" class="form-label sm:w-40">Ukuran</label>
+                                @if($goodsInformations->type == 1)
+                                <input type="text" class="form-control" value="{{$goodsInformations->length}} X {{$goodsInformations->width}} {{$goodsInformations->meas_unit}}" readonly>
+                                @elseif($goodsInformations->type == 2)
+                                <input type="text" class="form-control" value="{{$goodsInformations->length}} X {{$goodsInformations->width}} X {{$goodsInformations->height}} {{$goodsInformations->meas_unit}} ({{$goodsInformations->meas_type}})" readonly>
+                                @else
+                                <input type="text" class="form-control" value="{{$goodsInformations->bottom_length}} X {{$goodsInformations->bottom_width}} X {{$goodsInformations->bottom_height}} {{$goodsInformations->bottom_meas_unit}} / {{$goodsInformations->top_length}} X {{$goodsInformations->top_width}} {{$goodsInformations->top_meas_unit}}" readonly>
+                                @endif
+                            </div>
+                            <div class="form-inline mt-5">
+                                <label for="vertical-form-1" class="form-label sm:w-40">Qty Pesanan</label>
+                                <input type="text" class="form-control" id="-order-quantity" value="{{$goodsInformations->quantity}}" readonly>
+                            </div>
                         </div>
                     </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Name</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="goods_name"
-                                        value="{{$goodsInformations->goods_name}}" readonly>
-                                    <input type="hidden" class="form-control" name="detail_sales_order_id"
-                                        value="{{$goodsInformations->id}}" readonly>
+                </form>
+            </div>
+        </div>
+        @if($goodsInformations->type == 1)
+        <form  method="POST" action="{{route('production.spk.save')}}" class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5">
+            @csrf
+            <div class="box p-5 rounded-md">
+                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                    <div class="font-medium text-base truncate">Parameter SPK</div>
+                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="plus"
+                            class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                </div>
+                <div class="md:col-span-6 sm:col-span-12">
+                    <div class="overflow-y-auto max-h-screen">
+                        <div class="flex flex-col sm:flex-row">
+                            <div class="md:col-span-6">
+                                <div class="flex flex-row">
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300" id="sheet-l-w">W</div>
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-p h-4 bg-gray-300" id="sheet-l-l">L</div>
+                                        <div class="layout-box-p h-4 bg-gray-300"></div>
+                                        <div class="layout-box-p h-4 bg-gray-300"></div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                    </div>
                                 </div>
                             </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Goods Type</label>
-                                <div class="col-sm-9">
-                                    @if($goodsInformations->goods_type == 1)
-                                    <input type="text" class="form-control" value="SHEET" readonly>
-                                    @elseif($goodsInformations->goods_type == 2)
-                                    <input type="text" class="form-control" value="BOX" readonly>
-                                    @else
-                                    <input type="text" class="form-control" value="BOX (Badan + Tutup)" readonly>
-                                    @endif
-                                    <input type="hidden" class="form-control" value="{{$goodsInformations->goods_type}}"
-                                        id="goods-type">
+                            <div class="md:col-span-6">
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Stitching</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="flag_stitching" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="flag_stitching" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">lem</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="flag_glue" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="flag_glue" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Pounch</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="flag_pounch" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="flag_pounch" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Spesification</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control"
-                                        value="{{$goodsInformations->ply_type}} {{$goodsInformations->flute_type}} {{$goodsInformations->substance_name}}"
-                                        readonly>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">meas</label>
-                                <div class="col-sm-9">
-                                    @if($goodsInformations->goods_type == 1)
-                                    <input type="text" class="form-control"
-                                        value="{{$goodsInformations->length}} X {{$goodsInformations->width}} {{$goodsInformations->meas_unit}}"
-                                        readonly>
-                                    @elseif($goodsInformations->goods_type == 2)
-                                    <input type="text" class="form-control"
-                                        value="{{$goodsInformations->length}} X {{$goodsInformations->width}} X {{$goodsInformations->height}} {{$goodsInformations->meas_unit}} ({{$goodsInformations->meas_type}})"
-                                        readonly>
-                                    @else
-                                    <input type="text" class="form-control" value="BOX (Badan + Tutup)" readonly>
-                                    @endif
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Order Quantity</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="order_date"
-                                        value="{{$goodsInformations->quantity}}" readonly>
-                                </div>
-                            </div>
-                            <hr />
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Stitching</label>
-                                <div class="col-sm-3">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="flag_stitching_trigger"
-                                            value="0"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>
-                                            checked>
-                                        <label class="form-check-label" for="inlineRadio2">Tidak</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flag_stitching_trigger"
-                                            value="1"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
-                                        <label class="form-check-label" for="inlineRadio1">Ya</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Lem</label>
-                                <div class="col-sm-3">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="flag_glue_trigger" value="0"
-                                            checked
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
-                                        <label class="form-check-label" for="inlineRadio2">Tidak</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flag_glue_trigger" value="1"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
-                                        <label class="form-check-label" for="inlineRadio1">Ya</label>
+                        <div class="flex flex-col sm:flex-row mt-5">
+                            <div class="md:col-span-6">
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
+                                            <input type="number" class="form-control"name="spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
+                                            <input type="hidden" class="form-control" name="detail_sales_order_id" value="{{$goodsInformations->detail_sales_order_id}}">
+                                        </div>
+                                        <div class="form-inline mt-5 ">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-6" placeholder="L" id="width" name="width">
+                                                <input type="text" class="form-control col-span-6" placeholder="P" id="length" name="length">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Pounch</label>
-                                <div class="col-sm-3">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="flag_pounch_trigger"
-                                            value="0"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>
-                                            checked>
-                                        <label class="form-check-label" for="inlineRadio2">Tidak</label>
+                            <div class="md:col-span-6">
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Netto</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-6" placeholder="L" name="netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-6" placeholder="P" name="netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Bruto</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-6" placeholder="L" name="bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-6" placeholder="P" name="bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Qty Sheet</label>
+                                            <input type="number" class="form-control" name="sheet_quantity" value="" id="sheet-quantity" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flag_pounch_trigger"
-                                            value="1"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>>
-                                        <label class="form-check-label" for="inlineRadio1">Ya</label>
+                                    <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                        <button type="submit"
+                                            class="btn py-3 btn-primary w-full md:w-52">Generate SPK</button>
                                     </div>
                                 </div>
                             </div>
-                            <hr />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- chart row starts here -->
+        </form>
+        @endif
 
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="page-header flex-wrap">
-                        <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">Parameter SPK</h4>
+        @if($goodsInformations->type == 2)
+        <form  method="POST" action="{{route('production.spk.save')}}" class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5">
+            @csrf
+            <div class="box p-5 rounded-md">
+                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                    <div class="font-medium text-base truncate">Parameter SPK</div>
+                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="plus"
+                            class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                </div>
+                <div class="md:col-span-6 sm:col-span-12">
+                    <div class="overflow-y-auto max-h-screen">
+                        <div class="flex flex-col sm:flex-row">
+                            <div class="md:col-span-6">
+                                <div class="flex flex-row">
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l2">L2</div>
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-p h-4 bg-gray-300"></div>
+                                        <div class="layout-box-p h-4 bg-gray-300" id="l-p1">P1</div>
+                                        <div class="layout-box-p h-4 bg-gray-300"></div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l1">L1</div>
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-t h-4 bg-gray-300" id="l-plape-1">P</div>
+                                        <div class="layout-box-t h-4 bg-gray-300" id="l-t">T</div>
+                                        <div class="layout-box-t h-4 bg-gray-300" id="l-plape-2">P</div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-p-2 h-4 bg-gray-300"></div>
+                                        <div class="layout-box-p-2 h-4 bg-gray-300" id="l-p2">P2</div>
+                                        <div class="layout-box-p-2 h-4 bg-gray-300"></div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-k h-4 bg-gray-300"></div>
+                                        <div class="layout-box-k h-4 bg-gray-300" id="l-k">K</div>
+                                        <div class="layout-box-k h-4 bg-gray-300"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-6">
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Stitching</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="flag_stitching" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="flag_stitching" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Lem</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="flag_glue" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="flag_glue" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Pounch</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="flag_pounch" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="flag_pounch" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                            @if(($goodsInformations->quantity - $totalSPKCreated) != 0)
-                            <button class="btn btn-primary btn-rounded btn-fw" style="padding: 10px; color: white;" id="calculate">
-                                Auto Calculate Value</button>
-                            @endif
+                        <div class="flex flex-col sm:flex-row mt-5">
+                            <div class="md:col-span-6">
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline">
+                                            <label for="horizontal-form-1" class="form-label sm:w-20">Gabung</label>
+                                            <select class="form-control" id="flag-join" name="flag_join" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?> required>
+                                                <option value="">-</option>
+                                                <option value="0">Tidak</option>
+                                                <option value="1">Ya</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
+                                            <input type="number" class="form-control"name="spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
+                                            <input type="hidden" class="form-control" name="detail_sales_order_id" value="{{$goodsInformations->detail_sales_order_id}}">
+                                        </div>
+                                        <div class="form-inline mt-5 ">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="length">
+                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="width">
+                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="height">
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">L2</label>
+                                            <input type="number" class="form-control" name="l2" value="" id="l2" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">P1</label>
+                                            <input type="number" class="form-control" name="p1" value="" id="p1" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+
+                                        <!-- hjfhsjf -->
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">L1</label>
+                                            <input type="number" class="form-control" name="l1" value="" id="l1" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">T</label>
+                                            <input type="number" class="form-control" name="t" value="" id="t" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">P2</label>
+                                            <input type="number" class="form-control" name="p2" value="" id="p2" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">PLAPE</label>
+                                            <input type="number" class="form-control" name="plape" value="" id="plape" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">K</label>
+                                            <input type="number" class="form-control" name="k" value="" id="k" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-6">
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Netto</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-6" placeholder="L" name="netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-6" placeholder="P" name="netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Bruto</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-6" placeholder="L" name="bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-6" placeholder="P" name="bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Qty Sheet</label>
+                                            <input type="number" class="form-control" name="sheet_quantity" value="" id="sheet-quantity" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                        <button type="submit"
+                                            class="btn py-3 btn-primary w-full md:w-52">Generate SPK</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <hr />
-                    <!-- Form Input Type Sheet -->
-                    @if($goodsInformations->goods_type == 1)
-                    <form method="POST" action="{{route('production.spk.save')}}" enctype="multipart/form-data"
-                        id="sheet-form">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="d-flex flex-row bd-highlight">
-                                    <div class="d-flex flex-column bd-highlight">
-                                        <div class="layout-box-l"></div>
-                                        <div class="layout-box-l" id="sheet-l-w">W</div>
-                                        <div class="layout-box-l"></div>
-                                    </div>
-                                    <div class="d-flex flex-column bd-highlight">
-                                        <div class="layout-box-p" id="sheet-l-l">L</div>
-                                        <div class="layout-box-p"></div>
-                                        <div class="layout-box-p"></div>
-                                    </div>
-                                    <div class="d-flex flex-column bd-highlight">
-                                        <div class="layout-box-l"></div>
-                                        <div class="layout-box-l"></div>
-                                        <div class="layout-box-l"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Quantity<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="spk_quantity" id="tr-spk-qty"
-                                            placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}" max=10
-                                            required
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                        <small id="max-quantity-form" class="form-text text-muted text-danger"><span
-                                                class="text-danger">*Maximal Quantity
-                                                {{$goodsInformations->quantity - $totalSPKCreated}}</span></small>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Netto (W)<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="netto_width" value=""
-                                            id="sheet-f-w" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                        <input type="hidden" class="form-control" name="detail_sales_order_id"
-                                            value="{{$goodsInformations->id}}">
-                                        <input type="hidden" class="form-control" name="goods_type"
-                                            value="{{$goodsInformations->goods_type}}">
-
-                                        <input type="hidden" class="form-control" name="flag_stitching" value="0"
-                                            id="flag-stitching">
-                                        <input type="hidden" class="form-control" name="flag_glue" value="0"
-                                            id="flag-glue">
-                                        <input type="hidden" class="form-control" name="flag_pounch" value="0"
-                                            id="flag-pounch">
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Netto (L)<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="netto_length" value=""
-                                            id="sheet-f-l" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Bruto (W)<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="bruto_width" value="" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Bruto (L)<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="bruto_length" value="" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Sheet Qty<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="sheet_quantity" value="" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                </div>
-                                <hr />
-                            </div>
-                        </div>
-                        @if(($goodsInformations->quantity - $totalSPKCreated) != 0)
-                        <div class="row">
-                            <button type="submit" class="btn btn-success mt-2 mt-sm-0 btn-icon-text">
-                                <i class="mdi mdi-plus-circle"></i> Confirm & Save</a>
-                        </div>
-                        @endif
-                    </form>
-                    @elseif($goodsInformations->goods_type == 2)
-                    <!-- Form Input Type Box -->
-                    <form method="POST" action="{{route('production.spk.save')}}" enctype="multipart/form-data"
-                        id="box-form">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="d-flex flex-row bd-highlight">
-                                    <div class="d-flex flex-column bd-highlight">
-                                        <div class="layout-box-l"></div>
-                                        <div class="layout-box-l" id="l-l2">L2</div>
-                                        <div class="layout-box-l"></div>
-                                    </div>
-                                    <div class="d-flex flex-column bd-highlight">
-                                        <div class="layout-box-p"></div>
-                                        <div class="layout-box-p" id="l-p1">P1</div>
-                                        <div class="layout-box-p"></div>
-                                    </div>
-                                    <div class="d-flex flex-column bd-highlight">
-                                        <div class="layout-box-l"></div>
-                                        <div class="layout-box-l" id="l-l1">L1</div>
-                                        <div class="layout-box-l"></div>
-                                    </div>
-                                    <div class="d-flex flex-column bd-highlight">
-                                        <div class="layout-box-t" id="l-plape-1">P</div>
-                                        <div class="layout-box-t" id="l-t">T</div>
-                                        <div class="layout-box-t" id="l-plape-2">P</div>
-                                    </div>
-                                    <div class="d-flex flex-column bd-highlight">
-                                        <div class="layout-box-p-2"></div>
-                                        <div class="layout-box-p-2" id="l-p2">P2</div>
-                                        <div class="layout-box-p-2"></div>
-                                    </div>
-                                    <div class="d-flex flex-column bd-highlight">
-                                        <div class="layout-box-k"></div>
-                                        <div class="layout-box-k" id="l-k">K</div>
-                                        <div class="layout-box-k"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group row flag-form-join">
-                                    <label class="col-sm-4 col-form-label">join ?<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control" id="flag-join" name="flag_join"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?>
-                                            required>
-                                            <option value="">-</option>
-                                            <option value="0">Tidak</option>
-                                            <option value="1">Ya</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Quantity<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="spk_qty" id="tr-spk-qty"
-                                            placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}" max=10
-                                            required
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                        <small id="max-quantity-form" class="form-text text-muted text-danger"><span
-                                                class="text-danger">*Maximal Quantity
-                                                {{$goodsInformations->quantity - $totalSPKCreated}}</span></small>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row flag-join-form">
-                                    <label class="col-sm-4 col-form-label">L2<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="l2" value="" id="l2"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                </div>
-                                <hr class="flag-join-form" />
-                                <div class="form-group row flag-join-form">
-                                    <label class="col-sm-4 col-form-label">P1<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="p1" value="" id="p1"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                </div>
-                                <hr class="flag-join-form" />
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">L1<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="l1" value="" id="l1"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">P2<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="p2" value="" id="p2"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">T<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="t" value="" id="t"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">PLAPE<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="plape" value="" id="plape"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">K<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="k" value="" id="k"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                </div>
-                                <hr />
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Netto (L X P)<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-4">
-                                        <input type="number" class="form-control" name="netto_width" value="" id="netto-width"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <input type="number" class="form-control" name="netto_length" value="" id="netto-length"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Bruto (L X P)<span
-                                            class="mandatory-sign">*</span></label>
-                                    <div class="col-sm-4">
-                                        <input type="number" class="form-control" name="bruto_width" value="" id="bruto-width"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                    <div class="col-sm-4"> 
-                                        <input type="number" class="form-control" name="bruto_length" value="" id="bruto-length"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Sheet Qty<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="sheet_quantity" value="" id="sheet_quantity"
-                                            <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                        <input type="hidden" class="form-control" name="flag_join" value="0" id="fjoin">
-                                        <input type="hidden" class="form-control" name="detail_sales_order_id"
-                                            value="{{$goodsInformations->id}}">
-                                        <input type="hidden" class="form-control" name="goods_type"
-                                            value="{{$goodsInformations->goods_type}}">
-                                        <input type="hidden" class="form-control" name="spk_quantity" id="spk-qty">
-
-                                        <input type="hidden" class="form-control" name="flag_stitching" value="0"
-                                            id="flag-stitching">
-                                        <input type="hidden" class="form-control" name="flag_glue" value="0"
-                                            id="flag-glue">
-                                        <input type="hidden" class="form-control" name="flag_pounch" value="0"
-                                            id="flag-pounch">
-                                    </div>
-                                </div>
-                                <hr />
-                            </div>
-                        </div>
-                        @if(($goodsInformations->quantity - $totalSPKCreated) != 0)
-                        <div class="row">
-                            <button type="submit" class="btn btn-success mt-2 mt-sm-0 btn-icon-text">
-                                <i class="mdi mdi-plus-circle"></i> Confirm & Save</a>
-                        </div>
-                        @endif
-                    </form>
-                    @else
-                    <!-- Form Input Type Bottom - Top  -->
-                    <form method="POST" action="{{route('production.spk.save')}}" enctype="multipart/form-data"
-                        id="bottom-top-form">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row" id="bottom-form">
-                                    <div class="col-md-6">
-                                        <div class="d-flex flex-row bd-highlight">
-                                            <div class="d-flex flex-column bd-highlight">
-                                                <div class="layout-box-l"></div>
-                                                <div class="layout-box-l" id="l-l2">L2</div>
-                                                <div class="layout-box-l"></div>
-                                            </div>
-                                            <div class="d-flex flex-column bd-highlight">
-                                                <div class="layout-box-p"></div>
-                                                <div class="layout-box-p" id="l-p1">P1</div>
-                                                <div class="layout-box-p"></div>
-                                            </div>
-                                            <div class="d-flex flex-column bd-highlight">
-                                                <div class="layout-box-l"></div>
-                                                <div class="layout-box-l" id="l-l1">L1</div>
-                                                <div class="layout-box-l"></div>
-                                            </div>
-                                            <div class="d-flex flex-column bd-highlight">
-                                                <div class="layout-box-t" id="l-plape-1"></div>
-                                                <div class="layout-box-t" id="l-t">T</div>
-                                                <div class="layout-box-t" id="l-plape-2">P</div>
-                                            </div>
-                                            <div class="d-flex flex-column bd-highlight">
-                                                <div class="layout-box-p-2"></div>
-                                                <div class="layout-box-p-2" id="l-p2">P2</div>
-                                                <div class="layout-box-p-2"></div>
-                                            </div>
-                                            <div class="d-flex flex-column bd-highlight">
-                                                <div class="layout-box-k"></div>
-                                                <div class="layout-box-k" id="l-k">K</div>
-                                                <div class="layout-box-k"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row flag-join-form">
-                                            <label class="col-sm-4 col-form-label">L2<span class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="l2" value="" id="l2">
-                                            </div>
-                                        </div>
-                                        <hr class="flag-join-form" />
-                                        <div class="form-group row flag-join-form">
-                                            <label class="col-sm-4 col-form-label">P1<span class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="p1" value="" id="p1">
-                                            </div>
-                                        </div>
-                                        <hr class="flag-join-form" />
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">L1<span class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="l1" value="" id="l1">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">P2<span class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="p2" value="" id="p2">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">T<span class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="t" value="" id="t">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">PLAPE<span class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="plape" value=""
-                                                    id="plape">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">K<span class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="k" value="" id="k">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Netto (W)<span
-                                                    class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="netto_width" value="">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Netto (L)<span
-                                                    class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="netto_height" value="">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Bruto (W)<span
-                                                    class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="bruto_width" value="">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Bruto (L)<span
-                                                    class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="brutto_height" value="">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Sheet Qty<span
-                                                    class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="sheet_qty" value="">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="row" id="top-form">
-                                    <div class="col-md-4">
-                                        <div class="d-flex flex-row bd-highlight">
-                                            <div class="d-flex flex-column bd-highlight">
-                                                <div class="layout-box-l"></div>
-                                                <div class="layout-box-l" id="sheet-l-w">W</div>
-                                                <div class="layout-box-l"></div>
-                                            </div>
-                                            <div class="d-flex flex-column bd-highlight">
-                                                <div class="layout-box-p" id="sheet-l-l">L</div>
-                                                <div class="layout-box-p"></div>
-                                                <div class="layout-box-p"></div>
-                                            </div>
-                                            <div class="d-flex flex-column bd-highlight">
-                                                <div class="layout-box-l"></div>
-                                                <div class="layout-box-l"></div>
-                                                <div class="layout-box-l"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Netto (W)<span
-                                                    class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" name="netto_width" value=""
-                                                    id="sheet-f-w">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Netto (L)<span
-                                                    class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" name="netto_length" value=""
-                                                    id="sheet-f-l">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Bruto (W)<span
-                                                    class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" name="bruto_width" value="">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Bruto (L)<span
-                                                    class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" name="brutto_length" value="">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Sheet Qty<span
-                                                    class="mandatory-sign">
-                                                    *</span></label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" name="sheet_qty" value="">
-                                            </div>
-                                        </div>
-                                        <hr />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    @endif
                 </div>
             </div>
-        </div>
+        </form>
+        @endif
+
+        @if($goodsInformations->type == 3)
+        <form  method="POST" action="{{route('production.spk.save')}}" class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5">
+            @csrf
+            <div class="box p-5 rounded-md">
+                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                    <div class="font-medium text-base truncate">Parameter SPK (Badan)</div>
+                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                </div>
+                <div class="md:col-span-6 sm:col-span-12">
+                    <div class="overflow-y-auto max-h-screen">
+                        <div class="flex flex-col sm:flex-row gap-5 mr-0">
+                            <div class="md:col-span-6">
+                                <div class="flex flex-row">
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l2">L2</div>
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-p h-4 bg-gray-300"></div>
+                                        <div class="layout-box-p h-4 bg-gray-300" id="l-p1">P1</div>
+                                        <div class="layout-box-p h-4 bg-gray-300"></div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l1">L1</div>
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-t h-4 bg-gray-300" id="l-plape-1"></div>
+                                        <div class="layout-box-t h-4 bg-gray-300" id="l-t">T</div>
+                                        <div class="layout-box-t h-4 bg-gray-300" id="l-plape-2">P</div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-p-2 h-4 bg-gray-300"></div>
+                                        <div class="layout-box-p-2 h-4 bg-gray-300" id="l-p2">P2</div>
+                                        <div class="layout-box-p-2 h-4 bg-gray-300"></div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-k h-4 bg-gray-300"></div>
+                                        <div class="layout-box-k h-4 bg-gray-300" id="l-k">K</div>
+                                        <div class="layout-box-k h-4 bg-gray-300"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-6">
+                                
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row mt-5">
+                            <div class="md:col-span-6">
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
+                                            <input type="number" class="form-control"name="bottom_spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
+                                            <input type="hidden" class="form-control" name="detail_sales_order_id" value="{{$goodsInformations->detail_sales_order_id}}">
+                                        </div>
+                                        <div class="form-inline mt-5 ">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="bottom_length">
+                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="bottom_width">
+                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="bottom_height">
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">L2</label>
+                                            <input type="number" class="form-control" name="bottom_l2" value="" id="l2" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">P1</label>
+                                            <input type="number" class="form-control" name="bottom_p1" value="" id="p1" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+
+                                        <!-- hjfhsjf -->
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">L1</label>
+                                            <input type="number" class="form-control" name="bottom_l1" value="" id="l1" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">T</label>
+                                            <input type="number" class="form-control" name="bottom_t" value="" id="t" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">P2</label>
+                                            <input type="number" class="form-control" name="bottom_p2" value="" id="p2" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">PLAPE</label>
+                                            <input type="number" class="form-control" name="bottom_plape" value="" id="plape" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">K</label>
+                                            <input type="number" class="form-control" name="bottom_k" value="" id="k" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-6">
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Netto</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-6" placeholder="L" name="bottom_netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-6" placeholder="P" name="bottom_netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Bruto</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-6" placeholder="L" name="bottom_bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-6" placeholder="P" name="bottom_bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Qty Sheet</label>
+                                            <input type="number" class="form-control" name="bottom_sheet_quantity" value="" id="sheet-quantity" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box p-5 rounded-md mt-2">
+                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                    <div class="font-medium text-base truncate">Parameter SPK (Tutup)</div>
+                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                </div>
+                <div class="md:col-span-6 sm:col-span-12">
+                    <div class="overflow-y-auto max-h-screen">
+                        <div class="flex flex-col sm:flex-row gap-5 mr-0">
+                            <div class="md:col-span-6">
+                                <div class="flex flex-row">
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l2"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                    </div>
+                                    <div class="flex flex-col -mx-1">
+                                        <div class="layout-box-p h-4 bg-gray-300"></div>
+                                        <div class="layout-box-p h-4 bg-gray-300" id="l-p1"></div>
+                                        <div class="layout-box-p h-4 bg-gray-300"></div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l1"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-6">
+                                
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row mt-5">
+                            <div class="md:col-span-6">
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
+                                            <input type="number" class="form-control"name="top_spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : "readonly"; ?>>
+                                            <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
+                                            <input type="hidden" class="form-control" name="detail_sales_order_id" value="{{$goodsInformations->detail_sales_order_id}}">
+                                        </div>
+                                        <div class="form-inline mt-5 ">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="top_length">
+                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="top_width">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-6">
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Netto</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-6" placeholder="L" name="top_netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-6" placeholder="P" name="top_netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Bruto</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-6" placeholder="L" name="top_bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-6" placeholder="P" name="top_bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Qty Sheet</label>
+                                            <input type="number" class="form-control" name="top_sheet_quantity" value="" id="sheet-quantity" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                        <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Generate SPK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        @endif
+
+        @if($goodsInformations->type == 4)
+        <form  method="POST" action="{{route('production.spk.save')}}" class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5">
+            @csrf
+            <div class="box p-5 rounded-md">
+                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                    <div class="font-medium text-base truncate">Parameter SPK (Badan)</div>
+                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                </div>
+                <div class="md:col-span-6 sm:col-span-12">
+                    <div class="overflow-y-auto max-h-screen">
+                        <div class="flex flex-col sm:flex-row gap-5 mr-0">
+                            <div class="md:col-span-6">
+                                <div class="flex flex-row">
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
+                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l2"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-p h-4 bg-gray-300"></div>
+                                        <div class="layout-box-p h-4 bg-gray-300" id="l-p1">L</div>
+                                        <div class="layout-box-p h-4 bg-gray-300"></div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
+                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l1"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-6">
+                                
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row mt-5">
+                            <div class="md:col-span-6">
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
+                                            <input type="number" class="form-control" name="bottom_spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
+                                            <input type="hidden" class="form-control" name="detail_sales_order_id" value="{{$goodsInformations->detail_sales_order_id}}">
+                                        </div>
+                                        <div class="form-inline mt-5 ">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="bottom_length">
+                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="bottom_width">
+                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="bottom_height">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-6">
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Netto</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-6" placeholder="L" name="bottom_netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-6" placeholder="P" name="bottom_netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Bruto</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-6" placeholder="L" name="bottom_bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-6" placeholder="P" name="bottom_bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Qty Sheet</label>
+                                            <input type="number" class="form-control" name="bottom_sheet_quantity" value="" id="sheet-quantity" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box p-5 rounded-md mt-2">
+                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                    <div class="font-medium text-base truncate">Parameter SPK (Tutup)</div>
+                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                </div>
+                <div class="md:col-span-6 sm:col-span-12">
+                    <div class="overflow-y-auto max-h-screen">
+                        <div class="flex flex-col sm:flex-row gap-5 mr-0">
+                            <div class="md:col-span-6">
+                                <div class="flex flex-row">
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
+                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l2"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-p h-4 bg-gray-300"></div>
+                                        <div class="layout-box-p h-4 bg-gray-300" id="l-p1">L</div>
+                                        <div class="layout-box-p h-4 bg-gray-300"></div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
+                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l1"></div>
+                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-6">
+                                
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row mt-5">
+                            <div class="md:col-span-6">
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
+                                            <input type="number" class="form-control"name="top_spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : "readonly"; ?>>
+                                            <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
+                                            <input type="hidden" class="form-control" name="detail_sales_order_id" value="{{$goodsInformations->detail_sales_order_id}}">
+                                        </div>
+                                        <div class="form-inline mt-5 ">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="top_length">
+                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="top_width">
+                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="top_height">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-6">
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Netto</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-6" placeholder="L" name="top_netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-6" placeholder="P" name="top_netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Bruto</label>
+                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                                <input type="text" class="form-control col-span-6" placeholder="L" name="top_bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-6" placeholder="P" name="top_bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Qty Sheet</label>
+                                            <input type="number" class="form-control" name="top_sheet_quantity" value="" id="sheet-quantity" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                        <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Generate SPK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        @endif
     </div>
 </div>
 @endsection
 
 @section('script')
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
 $(function() {
     $(".loader").hide();
@@ -788,11 +862,20 @@ $(function() {
     });
 
     $("#calculate").click(function() {
-        var goods_type = $("#goods-type").val();
+        var type = "{{$goodsInformations->type}}";
         var meas_unit = "{{$goodsInformations->meas_unit}}";
         var meas_type = "{{$goodsInformations->meas_type}}";
         var ply_type = "{{$goodsInformations->ply_type}}";
         var flag_join = $("#flag-join").val();
+        var spk_qty = parseInt($("#tr-spk-qty").val());
+
+        @if($goodsInformations->type !=3 )
+            var length = {{($goodsInformations -> length == NULL) ? 0: $goodsInformations -> length}};
+            var width = {{($goodsInformations -> width == NULL) ? 0: $goodsInformations -> width}};
+            var height = {{($goodsInformations -> height == NULL) ? 0: $goodsInformations -> height}};
+        @else
+
+        @endif
 
         var l2 = "";
         var p1 = "";
@@ -805,28 +888,61 @@ $(function() {
         var min_val = 850;
         var max_val = 1600;
 
-        if(goods_type === "2") {
+        if (type === "1" || type === 1) {
             switch (meas_unit) {
                 case "INCH":
-                    var p = Math.round(parseFloat({{$goodsInformations->length}} * 25.4));
-                    var l = Math.round(parseFloat({{$goodsInformations->width}} * 25.4));
-                    var t = Math.round(parseFloat({{$goodsInformations->height}} * 25.4));
+                    var p = Math.round(parseFloat(length * 25.4));
+                    var l = Math.round(parseFloat(width * 25.4));
                     break;
                 case "CM":
-                    var p = Math.round(parseFloat({{$goodsInformations->length}} * 10));
-                    var l = Math.round(parseFloat({{$goodsInformations->width}} * 10));
-                    var t = Math.round(parseFloat({{$goodsInformations->height}} * 10));
+                    var p = Math.round(parseFloat(length * 10));
+                    var l = Math.round(parseFloat(width * 10));
                     break;
                 default:
-                    var p = Math.round(parseFloat({{$goodsInformations->length}}));
-                    var l = Math.round(parseFloat({{$goodsInformations->width}}));
-                    var t = Math.round(parseFloat({{$goodsInformations->height}}));
+                    var p = Math.round(parseFloat(length));
+                    var l = Math.round(parseFloat(width));
                     break;
             }
 
             console.log("P : " + p)
             console.log("L : " + l)
-            console.log("T : " + t)
+
+            $("#sheet-l-w").text(l)
+            $("#sheet-l-l").text(p)
+
+            $("#width").val(l)
+            $("#length").val(p)
+
+            $("#netto-width").val(l);
+            $("#netto-length").val(p);
+
+            var bruto_width = 0;
+            var bruto_length = (p * 3) + 20;
+            var sheet_quantity = spk_qty / 4 / 3;
+
+            $("#bruto-width").val(bruto_width);
+            $("#bruto-length").val(bruto_length);
+
+            $("#sheet-quantity").val(Math.ceil(sheet_quantity));
+
+        } else if (type === "2" || type === 2) {
+            switch (meas_unit) {
+                case "INCH":
+                    var p = Math.round(parseFloat(length * 25.4));
+                    var l = Math.round(parseFloat(width * 25.4));
+                    var t = Math.round(parseFloat(height * 25.4));
+                    break;
+                case "CM":
+                    var p = Math.round(parseFloat(length * 10));
+                    var l = Math.round(parseFloat(width * 10));
+                    var t = Math.round(parseFloat(height * 10));
+                    break;
+                default:
+                    var p = Math.round(parseFloat(length));
+                    var l = Math.round(parseFloat(width));
+                    var t = Math.round(parseFloat(height));
+                    break;
+            }
 
             switch (ply_type) {
                 case "SW":
@@ -941,6 +1057,10 @@ $(function() {
             $("#l-plape-2").text(plep)
             $("#l-k").text(kuping)
 
+            $("#length").val(p);
+            $("#width").val(l);
+            $("#height").val(t);
+
             $("#l2").val(l2)
             $("#p1").val(p1)
             $("#l1").val(l1)
@@ -949,7 +1069,7 @@ $(function() {
             $("#plape").val(plep)
             $("#k").val(kuping)
 
-            if(flag_join === 0 || flag_join === "0") {
+            if (flag_join === 0 || flag_join === "0") {
 
                 // Perhitungan Panjang dan lebar Netto
                 var netto_width = plep + tinggi + plep;
@@ -966,19 +1086,18 @@ $(function() {
                 var param1 = netto_width * 2;
                 var param2 = roundToNearestMultipleOf50(bruto_width);
 
-                if((param2 - param1) < 50) {
+                if ((param2 - param1) < 50) {
                     bruto_width = bruto_width + 50;
                 }
 
                 //perhitungan banyak sheet
-                var spk_qty = parseInt($("#tr-spk-qty").val());
-                if(netto_width <= 850){
+                if (netto_width <= 850) {
                     var qty_sheet = Math.ceil(spk_qty / 2);
                 } else {
                     var qty_sheet = spk_qty * 1;
                 }
 
-                $("#sheet_quantity").val(qty_sheet);
+                $("#sheet-quantity").val(qty_sheet);
             } else {
                 // Perhitungan Panjang dan lebar Netto
                 var netto_width = plep + tinggi + plep;
@@ -995,19 +1114,18 @@ $(function() {
                 var param1 = netto_width * 2;
                 var param2 = roundToNearestMultipleOf50(bruto_width);
 
-                if((param2 - param1) < 50) {
+                if ((param2 - param1) < 50) {
                     bruto_width = bruto_width + 50;
                 }
 
                 //perhitungan banyak sheet
-                var spk_qty = parseInt($("#tr-spk-qty").val());
-                if(netto_width <= 850){
+                if (netto_width <= 850) {
                     var qty_sheet = Math.ceil(spk_qty / 2);
                 } else {
                     var qty_sheet = spk_qty * 1;
                 }
 
-                $("#sheet_quantity").val(qty_sheet);
+                $("#sheet-quantity").val(qty_sheet);
             }
         }
     });

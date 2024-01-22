@@ -13,10 +13,8 @@ class IndexPriceController extends Controller
         $data = DB::table('transaction.t_mapping_index_price as index_price')
                 ->select('index_price.*', 'substance.substance')
                 ->join('master.m_substance as substance', 'substance.id', '=', 'index_price.substance_id')
-                ->orderBy('index_price.tag', 'DESC')
-                ->orderBy('index_price.ply_type', 'ASC')
-                ->orderBy('index_price.flute_type', 'ASC')
-                ->get();
+                ->orderBy('index_price.id', 'ASC')
+                ->paginate(20);
         $tags = DB::table('transaction.t_mapping_index_price as index_price')
                 ->select('index_price.tag')
                 ->distinct()
@@ -39,8 +37,7 @@ class IndexPriceController extends Controller
                 ->select('index_price.*', 'substance.substance as substance_name')
                 ->join('master.m_substance as substance', 'substance.id', '=', 'index_price.substance_id')
                 ->where('index_price.tag', $tag)
-                ->orderBy('index_price.ply_type')
-                ->orderBy('index_price.flute_type')
+                ->orderBy('index_price.id', 'ASC')
                 ->get();
 
         return response()->json($data);

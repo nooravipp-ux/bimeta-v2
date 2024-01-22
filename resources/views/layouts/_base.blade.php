@@ -1,444 +1,517 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Bimeta V2</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="{{asset('admin/assets/vendors/mdi/css/materialdesignicons.min.css')}}">
-    <link rel="stylesheet" href="{{asset('admin/assets/vendors/flag-icon-css/css/flag-icon.min.css')}}">
-    <link rel="stylesheet" href="{{asset('admin/assets/vendors/css/vendor.bundle.base.css')}}">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="{{asset('admin/assets/vendors/jquery-bar-rating/css-stars.css')}}" />
-    <link rel="stylesheet" href="{{asset('admin/assets/vendors/font-awesome/css/font-awesome.min.css')}}" />
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="{{asset('admin/assets/css/demo_1/style.css')}}" />
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="{{asset('admin/assets/images/favicon.png')}}" />
-    @yield('css')
-    <style>
-    .loader {
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        z-index: 9999999;
-        border: 16px solid #f3f3f3;
-        border-radius: 50%;
-        border-top: 16px solid #3498db;
-        width: 80px;
-        height: 80px;
-        -webkit-animation: spin 2s linear infinite;
-        /* Safari */
-        animation: spin 0.5s linear infinite;
-    }
-
-    /* Safari */
-    @-webkit-keyframes spin {
-        0% {
-            -webkit-transform: rotate(0deg);
-        }
-
-        100% {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-    </style>
-</head>
-
-<body>
-    <div class="container-scroller">
-        <!-- partial:partials/_sidebar.html -->
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
-            <ul class="nav">
-                <li class="nav-item nav-profile border-bottom">
-                    <a href="#" class="nav-link flex-column">
-                        <div class="nav-profile-image">
-                            <img src="{{asset('admin/assets/images/faces/face1.jpg')}}" alt="profile" />
-                            <!--change to offline or busy as needed-->
-                        </div>
-                        <div class="nav-profile-text d-flex ms-0 mb-3 flex-column">
-                            <span class="font-weight-semibold mb-1 mt-2 text-center">{{Auth::user()->name}}</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="pt-2 pb-1">
-                    <span class="nav-item-head">Transaction</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('dashboard')}}">
-                        <i class="mdi mdi-chart-line menu-icon"></i>
-                        <span class="menu-title">Dashboard</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#sales-order" aria-expanded="false"
-                        aria-controls="sales-order-menu">
-                        <i class="mdi mdi-basket menu-icon"></i>
-                        <span class="menu-title">Sales Order</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="sales-order">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('sales.index')}}">PO Customer</a>
+<!--
+Template Name: Enigma - HTML Admin Dashboard Template
+Author: Left4code
+Website: http://www.left4code.com/
+Contact: muhammadrizki@left4code.com
+Purchase: https://themeforest.net/user/left4code/portfolio
+Renew Support: https://themeforest.net/user/left4code/portfolio
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<html lang="en" class="light">
+    <!-- BEGIN: Head -->
+    <head>
+        <meta charset="utf-8">
+        <link href="{{asset('asset/dist/images/logo.svg')}}" rel="shortcut icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Enigma admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
+        <meta name="keywords" content="admin template, Enigma Admin Template, dashboard template, flat admin template, responsive admin template, web app">
+        <meta name="author" content="LEFT4CODE">
+        <title>Bimeta Proto V2</title>
+        <!-- BEGIN: CSS Assets-->
+        <link rel="stylesheet" href="{{asset('assets/dist/css/app.css')}}" />
+        @yield('css')
+        <!-- END: CSS Assets-->
+    </head>
+    <!-- END: Head -->
+    <body class="py-5 md:py-0">
+        <!-- BEGIN: Mobile Menu -->
+        <div class="mobile-menu md:hidden">
+            <div class="mobile-menu-bar">
+                <a href="" class="flex mr-auto">
+                    <img alt="Midone - HTML Admin Template" class="w-6" src="{{asset('assets/dist/images/logo.svg')}}">
+                </a>
+                <a href="javascript:;" class="mobile-menu-toggler"> <i data-lucide="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
+            </div>
+            <div class="scrollable">
+                <a href="javascript:;" class="mobile-menu-toggler"> <i data-lucide="x-circle" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
+                <ul class="scrollable__content py-2">
+                    <li>
+                        <a href="{{route('dashboard')}}" class="menu menu--active">
+                            <div class="menu__icon"> <i data-lucide="pie-chart"></i> </div>
+                            <div class="menu__title"> Dashboard </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="menu">
+                            <div class="menu__icon"> <i data-lucide="shopping-bag"></i> </div>
+                            <div class="menu__title"> Sales Order <i data-lucide="chevron-down" class="menu__sub-icon "></i> </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="{{route('sales.index')}}" class="menu menu--active">
+                                    <div class="menu__icon"> <i data-lucide="file-text"></i> </div>
+                                    <div class="menu__title"> PO Customer </div>
+                                </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="pages/ui-features/dropdowns.html">Tracking Order</a>
+                            <li>
+                                <a href="#" class="menu menu--active">
+                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__title"> Tracking Order </div>
+                                </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('index-price.index')}}">Index Price</a>
+                            <li>
+                                <a href="{{route('index-price.index')}}" class="menu menu--active">
+                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__title"> Calculator Index</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="menu">
+                            <div class="menu__icon"> <i data-lucide="layers"></i> </div>
+                            <div class="menu__title"> Production <i data-lucide="chevron-down" class="menu__sub-icon "></i> </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="{{route('production.todo-list.index')}}" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="list"></i> </div>
+                                    <div class="menu__title"> Todo List Order </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('production.spk.index')}}" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__title"> SPK </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('production.spk.monitoring.index')}}" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__title"> Monitoring </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__title"> Material Used </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="menu">
+                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__title"> Warehouse <i data-lucide="chevron-down" class="menu__sub-icon "></i> </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="{{route('warehouse.delivery.index')}}" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="truck"></i> </div>
+                                    <div class="menu__title"> Shipment </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="archive"></i> </div>
+                                    <div class="menu__title"> Stock <i data-lucide="chevron-down" class="menu__sub-icon "></i> </div>
+                                </a>
+                                <ul class="">
+                                    <li>
+                                        <a href="{{route('warehouse.finish-goods.index')}}" class="menu">
+                                            <div class="menu__icon"> <i data-lucide="archive"></i> </div>
+                                            <div class="menu__title"> Finish Goods </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="menu">
+                                            <div class="menu__icon"> <i data-lucide="archive"></i> </div>
+                                            <div class="menu__title"> Intermediete Goods </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="menu">
+                                            <div class="menu__icon"> <i data-lucide="archive"></i> </div>
+                                            <div class="menu__title"> Raw Materials </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="menu">
+                            <div class="menu__icon"> <i data-lucide="shopping-cart"></i> </div>
+                            <div class="menu__title"> Procurement <i data-lucide="chevron-down" class="menu__sub-icon "></i> </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="side-menu-dark-categories.html" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__title"> Purchase Order </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="side-menu-dark-categories.html" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__title"> Goods Receive </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="menu">
+                            <div class="menu__icon"> <i data-lucide="settings"></i> </div>
+                            <div class="menu__title"> Settings <i data-lucide="chevron-down" class="menu__sub-icon "></i> </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="javascript:;" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="database"></i> </div>
+                                    <div class="menu__title"> Master Data <i data-lucide="chevron-down" class="menu__sub-icon "></i> </div>
+                                </a>
+                                <ul class="">
+                                    <li>
+                                        <a href="{{route('goods.index')}}" class="menu">
+                                            <div class="menu__icon"> <i data-lucide="database"></i> </div>
+                                            <div class="menu__title"> Goods </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('customer.index')}}" class="menu">
+                                            <div class="menu__icon"> <i data-lucide="database"></i> </div>
+                                            <div class="menu__title"> Customers </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('supplier.index')}}" class="menu">
+                                            <div class="menu__icon"> <i data-lucide="database"></i> </div>
+                                            <div class="menu__title"> Suppliers </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('material.index')}}" class="menu">
+                                            <div class="menu__icon"> <i data-lucide="database"></i> </div>
+                                            <div class="menu__title"> Materials </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('substance.index')}}" class="menu">
+                                            <div class="menu__icon"> <i data-lucide="database"></i> </div>
+                                            <div class="menu__title"> Substances </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="user"></i> </div>
+                                    <div class="menu__title"> User Management <i data-lucide="chevron-down" class="menu__sub-icon "></i> </div>
+                                </a>
+                                <ul class="">
+                                    <li>
+                                        <a href="side-menu-dark-crud-data-list.html" class="menu">
+                                            <div class="menu__icon"> <i data-lucide="users"></i> </div>
+                                            <div class="menu__title"> Users </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="side-menu-dark-crud-form.html" class="menu">
+                                            <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                            <div class="menu__title"> Role </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="side-menu-dark-crud-form.html" class="menu">
+                                            <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                            <div class="menu__title"> Permissions </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- END: Mobile Menu -->
+        <!-- BEGIN: Top Bar -->
+        <div class="top-bar-boxed top-bar-boxed--top-menu h-[70px] md:h-[65px] z-[51] border-b border-white/[0.08] mt-12 md:mt-0 -mx-3 sm:-mx-8 md:-mx-0 px-3 md:border-b-0 relative md:fixed md:inset-x-0 md:top-0 sm:px-8 md:px-10 md:pt-10 md:bg-gradient-to-b md:from-slate-100 md:to-transparent dark:md:from-darkmode-700">
+            <div class="h-full flex items-center">
+                <!-- BEGIN: Logo -->
+                <a href="" class="logo -intro-x hidden md:flex xl:w-[180px] block">
+                    <img alt="Midone - HTML Admin Template" class="logo__image w-6" src="{{asset('assets/dist/images/logo.svg')}}">
+                    <span class="logo__text text-white text-lg ml-3"> Enigma </span> 
+                </a>
+                <!-- END: Logo -->
+                <!-- BEGIN: Breadcrumb -->
+                <nav aria-label="breadcrumb" class="-intro-x h-[45px] mr-auto">
+                    <ol class="breadcrumb breadcrumb-light">
+                        <li class="breadcrumb-item"><a href="#">Application</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                    </ol>
+                </nav>
+                <!-- END: Breadcrumb -->
+                <!-- BEGIN: Search -->
+                <div class="intro-x relative mr-3 sm:mr-6">
+                    <div class="search hidden sm:block">
+                        <input type="text" class="search__input form-control border-transparent" placeholder="Search...">
+                        <i data-lucide="search" class="search__icon dark:text-slate-500"></i> 
+                    </div>
+                </div>
+                <!-- END: Search -->
+                <!-- BEGIN: Account Menu -->
+                <div class="intro-x dropdown w-8 h-8">
+                    <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110" role="button" aria-expanded="false" data-tw-toggle="dropdown">
+                        <img alt="Midone - HTML Admin Template" src="{{asset('assets/dist/images/profile-1.jpg')}}">
+                    </div>
+                    <div class="dropdown-menu w-56">
+                        <ul class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
+                            <li class="p-2">
+                                <div class="font-medium">Kevin Spacey</div>
+                                <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">Backend Engineer</div>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider border-white/[0.08]">
+                            </li>
+                            <li>
+                                <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="user" class="w-4 h-4 mr-2"></i> Profile </a>
+                            </li>
+                            <li>
+                                <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="lock" class="w-4 h-4 mr-2"></i> Reset Password </a>
+                            </li>
+                            <li>
+                                <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider border-white/[0.08]">
+                            </li>
+                            <li>
+                                <a href="" class="dropdown-item hover:bg-white/5"  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> <i data-lucide="toggle-right" class="w-4 h-4 mr-2"></i> Logout </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </li>
                         </ul>
                     </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#production" aria-expanded="false"
-                        aria-controls="production">
-                        <i class="mdi mdi-settings menu-icon"></i>
-                        <span class="menu-title">Production</span>
-                        <i class="menu-arrow"></i>
+                </div>
+                <!-- END: Account Menu -->
+            </div>
+        </div>
+        <!-- END: Top Bar -->
+        <!-- BEGIN: Top Menu -->
+        <nav class="top-nav">
+            <ul>
+                <li>
+                    <a href="{{route('dashboard')}}" class="top-menu">
+                        <div class="top-menu__icon"> <i data-lucide="pie-chart"></i> </div>
+                        <div class="top-menu__title"> Dashboard </div>
                     </a>
-                    <div class="collapse" id="production">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('production.todo-list.index')}}">Todo List Order</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('production.spk.index')}}">SPK</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('production.spk.monitoring.index')}}">Monitoring</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="pages/ui-features/typography.html">Material Used</a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#stok" aria-expanded="false"
-                        aria-controls="stok">
-                        <i class="mdi mdi-package-variant menu-icon"></i>
-                        <span class="menu-title">Warehouse</span>
-                        <i class="menu-arrow"></i>
+                <li>
+                    <a href="javascript:;" class="top-menu">
+                        <div class="top-menu__icon"> <i data-lucide="shopping-bag"></i> </div>
+                        <div class="top-menu__title"> Sales Order <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
                     </a>
-                    <div class="collapse" id="stok">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('warehouse.delivery.index')}}">Delivery</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="pages/ui-features/buttons.html">Finish Goods</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="pages/ui-features/dropdowns.html">Intermediate Material</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="pages/ui-features/typography.html">Raw Material</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul class="">
+                        <li>
+                            <a href="{{route('sales.index')}}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="file-text"></i> </div>
+                                <div class="top-menu__title"> PO Customer </div>
+                            </a>
+                        </li>
+                        <!-- <li>
+                            <a href="" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="activity"></i> </div>
+                                <div class="top-menu__title"> Tracking Order </div>
+                            </a>
+                        </li> -->
+                        <li>
+                            <a href="{{route('index-price.index')}}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="activity"></i> </div>
+                                <div class="top-menu__title"> Calculator Index</div>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#procurement" aria-expanded="false"
-                        aria-controls="procurement">
-                        <i class="mdi mdi-shopping menu-icon"></i>
-                        <span class="menu-title">Procurement</span>
-                        <i class="menu-arrow"></i>
+                <li>
+                    <a href="javascript:;" class="top-menu">
+                        <div class="top-menu__icon"> <i data-lucide="layers"></i> </div>
+                        <div class="top-menu__title"> Production <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
                     </a>
-                    <div class="collapse" id="procurement">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="pages/ui-features/buttons.html">Purchase Order</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="pages/ui-features/dropdowns.html">Good Receive</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul class="">
+                        <li>
+                            <a href="{{route('production.todo-list.index')}}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="list"></i> </div>
+                                <div class="top-menu__title"> Todo List Order </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('production.spk.index')}}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="activity"></i> </div>
+                                <div class="top-menu__title"> SPK </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('production.spk.monitoring.index')}}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="activity"></i> </div>
+                                <div class="top-menu__title"> Monitoring </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="activity"></i> </div>
+                                <div class="top-menu__title"> Material Used </div>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="pt-2 pb-1">
-                    <span class="nav-item-head">Master</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#master-data" aria-expanded="false"
-                        aria-controls="master-data">
-                        <i class="mdi mdi-database menu-icon"></i>
-                        <span class="menu-title">Master Data</span>
-                        <i class="menu-arrow"></i>
+                <li>
+                    <a href="javascript:;" class="top-menu">
+                        <div class="top-menu__icon"> <i data-lucide="box"></i> </div>
+                        <div class="top-menu__title"> Warehouse <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
                     </a>
-                    <div class="collapse" id="master-data">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('supplier.index')}}">Supplier</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('customer.index')}}">Customer</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('material.index')}}">Material</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('substance.index')}}">Substances</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul class="">
+                        <li>
+                            <a href="{{route('warehouse.delivery.index')}}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="truck"></i> </div>
+                                <div class="top-menu__title"> Shipment </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="archive"></i> </div>
+                                <div class="top-menu__title"> Stock <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
+                            </a>
+                            <ul class="">
+                                <li>
+                                    <a href="{{route('warehouse.finish-goods.index')}}" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-lucide="archive"></i> </div>
+                                        <div class="top-menu__title">Finish Goods</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-lucide="archive"></i> </div>
+                                        <div class="top-menu__title">Intermediete Goods</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-lucide="archive"></i> </div>
+                                        <div class="top-menu__title">Raw Material</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </li>
-                <li class="pt-2 pb-1">
-                    <span class="nav-item-head">Settings</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#settings" aria-expanded="false"
-                        aria-controls="settings">
-                        <i class="mdi mdi-account menu-icon"></i>
-                        <span class="menu-title">User Management</span>
-                        <i class="menu-arrow"></i>
+                <li>
+                    <a href="javascript:;" class="top-menu">
+                        <div class="top-menu__icon"> <i data-lucide="shopping-cart"></i> </div>
+                        <div class="top-menu__title"> Procurement <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
                     </a>
-                    <div class="collapse" id="settings">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="pages/ui-features/buttons.html">Users</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="pages/ui-features/buttons.html">Role</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="pages/ui-features/dropdowns.html">Permissions</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul class="">
+                        <li>
+                            <a href="top-menu-dark-point-of-sale.html" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="file-text"></i> </div>
+                                <div class="top-menu__title"> Purchase Order </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="top-menu-dark-point-of-sale.html" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="activity"></i> </div>
+                                <div class="top-menu__title"> Goods Receive </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;" class="top-menu">
+                        <div class="top-menu__icon"> <i data-lucide="settings"></i> </div>
+                        <div class="top-menu__title"> Settings <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
+                    </a>
+                    <ul class="">
+                        <li>
+                            <a href="javascript:;" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="database"></i> </div>
+                                <div class="top-menu__title"> Master Data <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
+                            </a>
+                            <ul class="">
+                                <li>
+                                    <a href="{{route('goods.index')}}" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-lucide="database"></i> </div>
+                                        <div class="top-menu__title">Goods</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{route('customer.index')}}" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-lucide="database"></i> </div>
+                                        <div class="top-menu__title">Customer</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{route('supplier.index')}}" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-lucide="database"></i> </div>
+                                        <div class="top-menu__title">Supplier</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{route('material.index')}}" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-lucide="database"></i> </div>
+                                        <div class="top-menu__title">Material</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{route('substance.index')}}" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-lucide="database"></i> </div>
+                                        <div class="top-menu__title">Substances</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="user"></i> </div>
+                                <div class="top-menu__title"> User Management <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
+                            </a>
+                            <ul class="">
+                                <li>
+                                    <a href="" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-lucide="users"></i> </div>
+                                        <div class="top-menu__title">Users</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-lucide="zap"></i> </div>
+                                        <div class="top-menu__title">Roles</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-lucide="zap"></i> </div>
+                                        <div class="top-menu__title">Permissions</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>
-        <!-- partial -->
-        <div class="container-fluid page-body-wrapper">
-            <!-- partial:partials/_settings-panel.html -->
-            <div id="settings-trigger"><i class="mdi mdi-settings"></i></div>
-            <div id="theme-settings" class="settings-panel">
-                <i class="settings-close mdi mdi-close"></i>
-                <p class="settings-heading">SIDEBAR SKINS</p>
-                <div class="sidebar-bg-options selected" id="sidebar-default-theme">
-                    <div class="img-ss rounded-circle bg-light border me-3"></div>Default
-                </div>
-                <div class="sidebar-bg-options" id="sidebar-dark-theme">
-                    <div class="img-ss rounded-circle bg-dark border me-3"></div>Dark
-                </div>
-                <p class="settings-heading mt-2">HEADER SKINS</p>
-                <div class="color-tiles mx-0 px-4">
-                    <div class="tiles default primary"></div>
-                    <div class="tiles success"></div>
-                    <div class="tiles warning"></div>
-                    <div class="tiles danger"></div>
-                    <div class="tiles info"></div>
-                    <div class="tiles dark"></div>
-                    <div class="tiles light"></div>
-                </div>
-            </div>
-            <!-- partial -->
-            <!-- partial:partials/_navbar.html -->
-            <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-                <div class="navbar-menu-wrapper d-flex align-items-stretch">
-                    <button class="navbar-toggler navbar-toggler align-self-center" type="button"
-                        data-toggle="minimize">
-                        <span class="mdi mdi-chevron-double-left"></span>
-                    </button>
-                    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                        <a class="navbar-brand brand-logo-mini" href="index.html"><img
-                                src="" alt="logo" /></a>
-                    </div>
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" id="messageDropdown" href="#" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <i class="mdi mdi-email-outline"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-left navbar-dropdown preview-list"
-                                aria-labelledby="messageDropdown">
-                                <h6 class="p-3 mb-0 font-weight-semibold">Messages</h6>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <img src="" alt="image" class="profile-pic">
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a
-                                            message</h6>
-                                        <p class="text-gray mb-0"> 1 Minutes ago </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <img src="" alt="image" class="profile-pic">
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a
-                                            message</h6>
-                                        <p class="text-gray mb-0"> 15 Minutes ago </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <img src="" alt="image" class="profile-pic">
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture
-                                            updated</h6>
-                                        <p class="text-gray mb-0"> 18 Minutes ago </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <h6 class="p-3 mb-0 text-center text-primary font-13">4 new messages</h6>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown ms-3">
-                            <a class="nav-link" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
-                                <i class="mdi mdi-bell-outline"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-left navbar-dropdown preview-list"
-                                aria-labelledby="notificationDropdown">
-                                <h6 class="px-3 py-3 font-weight-semibold mb-0">Notifications</h6>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-success">
-                                            <i class="mdi mdi-calendar"></i>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject font-weight-normal mb-0">New order recieved</h6>
-                                        <p class="text-gray ellipsis mb-0"> 45 sec ago </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-warning">
-                                            <i class="mdi mdi-settings"></i>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject font-weight-normal mb-0">Server limit reached</h6>
-                                        <p class="text-gray ellipsis mb-0"> 55 sec ago </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-info">
-                                            <i class="mdi mdi-link-variant"></i>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject font-weight-normal mb-0">Kevin karvelle</h6>
-                                        <p class="text-gray ellipsis mb-0"> 11:09 PM </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <h6 class="p-3 font-13 mb-0 text-primary text-center">View all notifications</h6>
-                            </div>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav navbar-nav-right">
-                        <li class="nav-item nav-profile dropdown d-none d-md-block">
-                            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <div class="nav-profile-text">English </div>
-                            </a>
-                            <div class="dropdown-menu center navbar-dropdown" aria-labelledby="profileDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="flag-icon flag-icon-bl me-3"></i> French </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">
-                                    <i class="flag-icon flag-icon-cn me-3"></i> Chinese </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">
-                                    <i class="flag-icon flag-icon-de me-3"></i> German </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">
-                                    <i class="flag-icon flag-icon-ru me-3"></i>Russian </a>
-                            </div>
-                        </li>
-                        <li class="nav-item nav-logout d-none d-lg-block">
-                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                <i class="mdi mdi-home-circle"></i>
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
-                    </ul>
-                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
-                        data-toggle="offcanvas">
-                        <span class="mdi mdi-menu"></span>
-                    </button>
-                </div>
-            </nav>
-            <!-- partial -->
-            <div class="main-panel">
-                <div class="loader"></div>
-                @yield('main-content')
-                <!-- content-wrapper ends -->
-                <!-- partial:partials/_footer.html -->
-                @yield('footer')
-                <!-- partial -->
-            </div>
-            <!-- main-panel ends -->
-        </div>
-        <!-- page-body-wrapper ends -->
-    </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="{{asset('admin/assets/vendors/js/vendor.bundle.base.js')}}"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="{{asset('admin/assets/vendors/jquery-bar-rating/jquery.barrating.min.js')}}"></script>
-    <script src="{{asset('admin/assets/vendors/chart.js/Chart.min.js')}}"></script>
-    <script src="{{asset('admin/assets/vendors/flot/jquery.flot.js')}}"></script>
-    <script src="{{asset('admin/assets/vendors/flot/jquery.flot.resize.js')}}"></script>
-    <script src="{{asset('admin/assets/vendors/flot/jquery.flot.categories.js')}}"></script>
-    <script src="{{asset('admin/assets/vendors/flot/jquery.flot.fillbetween.js')}}"></script>
-    <script src="{{asset('admin/assets/vendors/flot/jquery.flot.stack.js')}}"></script>
-    <script src="{{asset('admin/assets/js/jquery.cookie.js')}}" type="text/javascript"></script>
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="{{asset('admin/assets/js/off-canvas.js')}}"></script>
-    <script src="{{asset('admin/assets/js/hoverable-collapse.js')}}"></script>
-    <script src="{{asset('admin/assets/js/misc.js')}}"></script>
-    <script src="{{asset('admin/assets/js/settings.js')}}"></script>
-    <script src="{{asset('admin/assets/js/todolist.js')}}"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <script src="{{asset('admin/assets/js/dashboard.js')}}"></script>
+        <!-- END: Top Menu -->
 
-    <!-- End custom js for this page -->
 
-    @yield('script')
-</body>
+        <!-- BEGIN: Content -->
+        @yield('main-content')
 
+        <!-- BEGIN: JS Assets-->
+        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
+        <script src="{{asset('assets/dist/js/app.js')}}"></script>
+        @yield('script')
+        <!-- END: JS Assets-->
+    </body>
 </html>

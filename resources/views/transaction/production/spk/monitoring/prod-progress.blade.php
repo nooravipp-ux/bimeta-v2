@@ -1,173 +1,184 @@
 @extends('layouts._base')
 @section('css')
+<style>
+.layout-box-p {
+    width: 200px;
+    height: 100px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    font-size: 12px;
+}
+
+.layout-box-p-2 {
+    width: 130px;
+    height: 100px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    font-size: 12px;
+}
+
+.layout-box-l {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    font-size: 12px;
+}
+
+.layout-box-t {
+    width: 70px;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-right-style: dotted;
+    padding: 20px;
+    font-size: 12px;
+}
+
+.layout-box-k {
+    width: 70px;
+    height: 100px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    font-size: 12px;
+}
+
+.layout-box-row-plep {
+    width: 200px;
+    height: 50px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    font-size: 12px;
+}
+
+.mandatory-sign {
+    color: red;
+}
+
+.text-danger {
+    color: red;
+    font-size: 12px;
+}
+</style>
 @endsection
 @section('main-content')
-<div class="content-wrapper pb-0">
-    <!-- first row starts here -->
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="page-header flex-wrap">
-                        <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">Production Process</h4>
+<div class="content content--top-nav">
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <div class="intro-y col-span-12 lg:col-span-4 2xl:col-span-4">
+            <div class="intro-y box mt-5">
+                <div
+                    class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                    <h2 class="font-medium text-base mr-auto">
+                        Proses Produksi
+                    </h2>
+                </div>
+                <form method="POST" action="{{route('production.spk.monitoring.production-progress.update')}}">
+                    @csrf
+                    <div id="horizontal-form" class="p-5">
+                        <div class="preview">
+                            <div class="form-inline">
+                                <label for="vertical-form-1" class="form-label sm:w-40">Nama Proses</label>
+                                <input type="text" class="form-control" name="process_name"
+                                    value="{{$processItem->process_name}}" readonly>
+                                <input type="hidden" class="form-control" name="production_process_id"
+                                    value="{{$processItem->id}}">
+                                <input type="hidden" class="form-control" name="spk_id"
+                                    value="{{$processItem->spk_id}}">
+                            </div>
+                            <div class="form-inline mt-5">
+                                <label for="vertical-form-1" class="form-label sm:w-40">Status</label>
+                                <select data-placeholder="Pilih Substance" class="tom-select w-full form-control"
+                                    name="status">
+                                    <option value="1" <?php echo ($processItem->status == 1) ? "selected" : ""; ?>>Init
+                                    </option>
+                                    <option value="2" <?php echo ($processItem->status == 2) ? "selected" : ""; ?>>Work
+                                        in Progress</option>
+                                    <option value="3" <?php echo ($processItem->status == 3) ? "selected" : ""; ?>>Done
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title"></h4>
+                        <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                            <button type="submit" id="calculate-hpp" class="btn py-3 btn-primary w-full md:w-52">Update
+                                Status Progress</button>
                         </div>
                     </div>
-                    <hr />
-                    <form method="POST" action="{{route('production.spk.monitoring.production-progress.update')}}">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Process Name</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="process_name"
-                                            value="{{$processItem->process_name}}" readonly>
-                                        <input type="hidden" class="form-control" name="production_process_id"
-                                            value="{{$processItem->id}}">
-                                        <input type="hidden" class="form-control" name="spk_id"
-                                            value="{{$processItem->spk_id}}">
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Status</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control" name="status">
-                                            <option value="1"
-                                                <?php echo ($processItem->status == 1) ? "selected" : ""; ?>>
-                                                Init</option>
-                                            <option value="2"
-                                                <?php echo ($processItem->status == 2) ? "selected" : ""; ?>>
-                                                Work in Progress</option>
-                                            <option value="3"
-                                                <?php echo ($processItem->status == 3) ? "selected" : ""; ?>>
-                                                Done</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <hr />
-                            </div>
-                            <div class="col-md-4">
-                            </div>
-                        </div>
-                        <div class="page-header flex-wrap">
-                            <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                                <h4 class="card-title"></h4>
-                            </div>
-                            <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                                <button type="submit" class="btn btn-md btn-primary" style="padding: 10px; color: white;">Update
-                                    Status Progress</button>
-                            </div>
-                        </div>
-                    </form>
+                </form>
+            </div>
+
+            <div class="intro-y box mt-5">
+                <div
+                    class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                    <h2 class="font-medium text-base mr-auto">
+                        Form Item Proses Produksi
+                    </h2>
                 </div>
+                <form method="POST" action="{{route('production.spk.monitoring.production-progress.detail.save')}}">
+                    @csrf
+                    <div id="horizontal-form" class="p-5">
+                        <div class="preview">
+                            <div class="form-inline">
+                                <label for="vertical-form-1" class="form-label sm:w-40">Nama Operator</label>
+                                <input type="text" class="form-control" name="operator">
+                                <input type="hidden" class="form-control" name="production_process_id" value="{{$processItem->id}}">
+                            </div>
+                            <div class="form-inline mt-5">
+                                <label for="vertical-form-1" class="form-label sm:w-40">Tanggal</label>
+                                <input type="date" class="form-control" name="date">
+                            </div>
+                            <div class="form-inline mt-5">
+                                <label for="vertical-form-1" class="form-label sm:w-40">Hasil</label>
+                                <input type="number" class="form-control" name="result">
+                            </div>
+                            <div class="form-inline mt-5">
+                                <label for="vertical-form-1" class="form-label sm:w-40">Catatan</label>
+                                <textarea type="text" class="form-control" name="remarks"> </textarea>
+                            </div>
+                        </div>
+                        <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                            <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
-    <!-- chart row starts here -->
 
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="page-header flex-wrap">
-                        <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">Production Process Details</h4>
-                        </div>
-                        <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                            <button class="btn btn-md btn-primary" style="padding: 10px; color: white;"
-                                id="add-production-process">Add
-                                Progress</button>
-                        </div>
-                    </div>
-                    <hr />
-                    <form method="POST" action="{{route('production.spk.monitoring.production-progress.detail.save')}}"
-                        enctype="multipart/form-data" id="collapse-form-production-process">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Operator Name<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="operator">
-                                        <!-- <select class="form-control" name="operator_id">
-                                            <option value="">-</option>
-                                        </select> -->
-                                        <input type="hidden" class="form-control" name="production_process_id"
-                                            value="{{$processItem->id}}">
+        <div class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5">
+            <div class="box p-5 rounded-md">
+                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                    <div class="font-medium text-base truncate">Item Progress Produksi</div>
+                </div>
+                <div class="overflow-auto lg:overflow-visible -mt-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="whitespace-nowrap">Nama Operator</th>
+                                <th class="whitespace-nowrap">Tanggal Proses</th>
+                                <th class="whitespace-nowrap">Hasil</th>
+                                <th class="whitespace-nowrap">Catatan</th>
+                                <th class="whitespace-nowrap text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($processItemDetails as $details)
+                            <tr>
+                                <td>{{$details->operator_id}}</td>
+                                <td>{{$details->date}}</td>
+                                <td>{{$details->result}}</td>
+                                <td>{{$details->remarks}}</td>
+                                <td class="table-report__action w-56">
+                                    <div class="flex justify-center items-center">
+                                        <a class="flex items-center mr-3"
+                                            href=""> <i
+                                                data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
+                                        <a class="flex items-center text-danger" href="javascript:;"
+                                            data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal"> <i
+                                                data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
                                     </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Date<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="date" class="form-control" name="date">
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Result<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="result">
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Remarks<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="remarks">
-                                    </div>
-                                </div>
-                                <hr />
-                            </div>
-                            <div class="page-header flex-wrap">
-                                <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                                    <h4 class="card-title"></h4>
-                                </div>
-                                <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                                    <button type="submit" class="btn btn-primary btn-rounded btn-fw"
-                                        style="padding: 10px;">Save Progress </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="row">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead class="table-primary">
-                                    <tr>
-                                        <th>Operator Name</th>
-                                        <th>Date</th>
-                                        <th>Result</th>
-                                        <th>Remarks</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($processItemDetails as $details)
-                                    <tr>
-                                        <td>{{$details->operator_id}}</td>
-                                        <td>{{$details->date}}</td>
-                                        <td>{{$details->result}}</td>
-                                        <td>{{$details->remarks}}</td>
-                                        <td class="text-center">
-                                            <a href="" title="Edit SPK"><i class="mdi mdi-settings menu-icon"
-                                                    style="font-size: 24px;"></i></a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -177,13 +188,5 @@
 
 @section('script')
 <script>
-$(function() {
-    $(".loader").hide();
-    $("#collapse-form-production-process").hide();
-
-    $("#add-production-process").click(function() {
-        $("#collapse-form-production-process").slideToggle("slow");
-    });
-});
 </script>
 @endsection

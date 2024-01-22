@@ -97,10 +97,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Substance</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" name="substance_id" id="substance">
+                                        <select class="form-control" name="substance" id="substance">
                                             <option value="">-</option>
                                             @foreach($substances as $substance)
-                                            <option value="{{$substance->id}}">{{$substance->substance}}</option>
+                                            <option value="{{$substance->substance}}">{{$substance->substance}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -214,10 +214,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Substance</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" name="bottom_substance_id" id="bottom-substance">
+                                        <select class="form-control" name="bottom_substance" id="bottom-substance">
                                             <option value="">-</option>
                                             @foreach($substances as $substance)
-                                            <option value="{{$substance->id}}">{{$substance->substance}}</option>
+                                            <option value="{{$substance->substance}}">{{$substance->substance}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -332,10 +332,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Substance</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" name="top_substance_id" id="top-substance-id">
+                                        <select class="form-control" name="top_substance" id="top-substance">
                                             <option value="">-</option>
                                             @foreach($substances as $substance)
-                                            <option value="{{$substance->id}}">{{$substance->substance}}</option>
+                                            <option value="{{$substance->substance}}">{{$substance->substance}}</option>
                                             @endforeach
                                         </select>
                                     </div>

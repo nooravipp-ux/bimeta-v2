@@ -1,346 +1,312 @@
 @extends('layouts._base')
-@section('css')
-<!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
-@endsection
 @section('main-content')
-<div class="content-wrapper pb-0">
-    <div class="page-header flex-wrap">
-        <div class="header-left">
-            <button class="btn btn-primary mb-2 mb-md-0 me-2" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="Index Price Calculator" id="calc-index-price"><i class="mdi mdi-calculator"></i> </button>
-        </div>
-        <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-            <button type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text" id="add"><i
-                    class="mdi mdi-plus-circle"></i>
-                Add</button>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="collapse-form-index-calculator">
-            <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <h4>Calculator Index Harga</h4>
-                            <hr />
-                            <div class="col-sm-12 col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Jenis Barang</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control" id="jenis-barang">
-                                            <option value="">-</option>
-                                            <option value="sheet">SHEET</option>
-                                            <option value="box">BOX</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Index Tag</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control" id="index-tag">
-                                            <option value="">-</option>
-                                            @foreach($tags as $tag)
-                                            <option value="{{$tag->tag}}">{{$tag->tag}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Substance</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control select-form" id="substance">
-                                        </select>
-                                        <input type="hidden" id="ply-type">
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Harga Index</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" class="form-control" id="index-price" readonly>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">PPN (11%)</label>
-                                    <div class="col-sm-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="flag-ppn"
-                                                id="inlineRadio2" value="0" checked>
-                                            <label class="form-check-label" for="inlineRadio2">Tidak</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flag-ppn"
-                                                id="inlineRadio1" value="1">
-                                            <label class="form-check-label" for="inlineRadio1">Ya</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row pounch">
-                                    <label class="col-sm-2 col-form-label">Pounch ?</label>
-                                    <div class="col-sm-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="flag-pounch"
-                                                id="inlineRadio2" value="0" checked>
-                                            <label class="form-check-label" for="inlineRadio2">Tidak</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="flag-pounch"
-                                                id="inlineRadio1" value="1">
-                                            <label class="form-check-label" for="inlineRadio1">Ya</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="pounch" />
-                                <div class="form-group row add-price">
-                                    <label class="col-sm-2 col-form-label">Jumlah</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" class="form-control" id="order-qty">
-                                        <small id="emailHelp" class="form-text text-danger">* Jumlah Pesanan</small>
-                                    </div>
-                                </div>
-                                <hr class="add-price" />
-                                <div class="form-group row add-price">
-                                    <label class="col-sm-2 col-form-label">Harga</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" class="form-control" id="knife-price">
-                                        <small id="emailHelp" class="form-text text-danger">* Harga tambahan untuk pisau &
-                                            karet.</small>
-                                    </div>
-                                </div>
-                                <hr class="add-price" />
-                                <div class="form-group row lem">
-                                    <label class="col-sm-2 col-form-label">Tambah Lem ?</label>
-                                    <div class="col-sm-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="flag-lem" value="0"
-                                                checked>
-                                            <label class="form-check-label" for="inlineRadio2">Tidak</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flag-lem" value="1">
-                                            <label class="form-check-label" for="inlineRadio1">Ya</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="lem" />
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Satuan</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control" id="satuan-ukuran">
-                                            <option value="">-</option>
-                                            <option value="INCH">INCH</option>
-                                            <option value="MM">MM</option>
-                                            <option value="CM">CM</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <hr class="box" />
-                                <div class="form-group row box">
-                                    <label class="col-sm-2 col-form-label">Ukuran</label>
-                                    <label class="col-sm-1 col-form-label">P</label>
-                                    <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="panjang">
-                                    </div>
-                                    <label class="col-sm-1 col-form-label">L</label>
-                                    <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="lebar">
-                                    </div>
-                                    <label class="col-sm-1 col-form-label">T</label>
-                                    <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="tinggi">
-                                    </div>
-                                </div>
-                                <hr class="sheet" />
-                                <div class="form-group row sheet">
-                                    <label class="col-sm-2 col-form-label">Ukuran</label>
-                                    <label class="col-sm-1 col-form-label">L</label>
-                                    <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="lebar">
-                                    </div>
-                                    <label class="col-sm-1 col-form-label">P</label>
-                                    <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="panjang">
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row m-3">
-                                    <h1 id="hpp" style="font-size: 60px;">HPP = Rp.0</h1>
-                                </div>
-                                <div class="form-group row">
-                                    <button class="btn btn-sm btn-primary" id="calculate-hpp">Hitung Index Harga</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="content content--top-nav">
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <div class="intro-y col-span-12 lg:col-span-4 2xl:col-span-4">
+            <!-- BEGIN: Horizontal Form -->
+            <div class="intro-y box mt-5" id="calc-index">
+                <div
+                    class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                    <h2 class="font-medium text-base mr-auto">
+                        KALKULATOR INDEX HARGA
+                    </h2>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="collapse-form-index">
-            <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <h4>Form Index Harga</h4>
-                            <hr />
-                            <div class="col-md-6">
-                                <form method="POST" action="{{route('index-price.save')}}">
-                                    @csrf
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Jenis Ply</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" name="ply_type">
-                                                <option value="">-</option>
-                                                <option value="SF">Single Face (SF)</option>
-                                                <option value="SW">Single Wall (SW)</option>
-                                                <option value="DW">Double Wall (DW)</option>
-                                                <option value="TW">Triple Wall (TW)</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Jenis Flute</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" name="flute_type">
-                                                <option value="">-</option>
-                                                <option value="BC">B Flute</option>
-                                                <option value="BC">C Flute</option>
-                                                <option value="B/C">B/C Flute</option>
-                                                <option value="E">E Flute</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Substance</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" name="substance">
-                                                <option value="">-</option>
-                                                @foreach($substances as $substance)
-                                                <option value="{{$substance->id}}">{{$substance->substance}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Harga</label>
-                                        <div class="col-sm-10">
-                                            <input type="number" class="form-control" name="index_price">
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Index Tag</label>
-                                        <div class="col-sm-10">
-                                            <input type="date" class="form-control" name="index_tag">
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="form-group row">
-                                        <button type="submit" class="btn btn-sm btn-primary">Save</button>
-                                    </div>
-                                </form>
-                            </div>
+                <div id="horizontal-form" class="p-5">
+                    <div class="preview">
+                        <div class="form-inline">
+                            <label for="horizontal-form-1" class="form-label sm:w-30">Jenis Barang</label>
+                            <select data-placeholder="Pilih Jenis Barang" class="tom-select w-full form-control"
+                                id="jenis-barang">
+                                <option value="">-</option>
+                                <option value="sheet">SHEET</option>
+                                <option value="box">BOX</option>
+                            </select>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- first row starts here -->
-    <div class="row" id="table-content">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Master List Index Harga</h4>
-                    </p>
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="index-price-table">
-                            <thead class="table-primary">
-                                <tr>
-                                    <th>Ply Type</th>
-                                    <th>Flute type</th>
-                                    <th>Substance</th>
-                                    <th>Price</th>
-                                    <th>Index Tag</th>
-                                    <th class="text-canter">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($data as $data)
-                                <tr>
-                                    <td>{{$data->ply_type}}</td>
-                                    <td>{{$data->flute_type}}</td>
-                                    <td>{{$data->substance}}</td>
-                                    <td>{{$data->price}}</td>
-                                    <td>{{$data->tag}}</td>
-                                    <td class="text-canter">
-                                        <a href="{{route('index-price.edit', ['id' => $data->id])}}"><i class="mdi mdi-settings menu-icon" style="font-size: 24px;"></i></a>
-                                        <a href="{{route('index-price.delete', ['id' => $data->id])}}"><i class="mdi mdi-delete menu-icon" style="font-size: 24px;"></i></a>
-                                    </td>
-                                </tr>
+                        <div class="form-inline mt-5">
+                            <label for="horizontal-form-2" class="form-label sm:w-20">Index Tag</label>
+                            <select data-placeholder="Pilih Index Tag" class="tom-select w-full form-control"
+                                id="index-tag">
+                                <option value="">-</option>
+                                @foreach($tags as $tag)
+                                <option value="{{$tag->tag}}"><?php echo date("d M Y", strtotime($tag->tag)); ?>
+                                </option>
                                 @endforeach
-                            </tbody>
-                        </table>
+                            </select>
+                        </div>
+                        <div class="form-inline mt-5">
+                            <label for="vertical-form-2" class="form-label sm:w-20">Substance</label>
+                            <select data-placeholder="Pilih Substance" class="form-control" id="substance">
+
+                            </select>
+                            <input type="hidden" id="ply-type">
+                        </div>
+                        <div class="form-inline mt-5">
+                            <label for="vertical-form-1" class="form-label sm:w-20">Harga Index</label>
+                            <input type="text" class="form-control" id="index-price" readonly>
+                        </div>
+                        <div class="form-inline mt-5">
+                            <label for="vertical-form-1" class="form-label sm:w-20">PPN (11%)</label>
+                            <div class="flex flex-col sm:flex-row">
+                                <div class="form-check mr-2">
+                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="flag-ppn"
+                                        value="0" checked>
+                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                </div>
+                                <div class="form-check mr-2 sm:mt-0">
+                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="flag-ppn"
+                                        value="1">
+                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-inline mt-5 pounch">
+                            <label for="vertical-form-1" class="form-label sm:w-20">Pounch</label>
+                            <div class="flex flex-col sm:flex-row">
+                                <div class="form-check mr-2">
+                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="flag-pounch"
+                                        value="0" checked>
+                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                </div>
+                                <div class="form-check mr-2 sm:mt-0">
+                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="flag-pounch"
+                                        value="1">
+                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-inline mt-5 add-price">
+                            <label for="vertical-form-1" class="form-label sm:w-20">Jumlah Pesanan</label>
+                            <input type="number" class="form-control" id="order-qty">
+                        </div>
+                        <div class="form-inline mt-5 add-price">
+                            <label for="vertical-form-1" class="form-label sm:w-20">Harga (Pisau & Karet)</label>
+                            <input type="number" class="form-control" id="knife-price">
+                        </div>
+                        <div class="form-inline mt-5">
+                            <label for="horizontal-form-1" class="form-label sm:w-20">Satuan</label>
+                            <select data-placeholder="Pilih Satuan Ukuran" class="tom-select w-full form-control"
+                                name="satuan-ukuran">
+                                <option value="">-</option>
+                                <option value="INCH">INCH</option>
+                                <option value="MM">MM</option>
+                                <option value="CM">CM</option>
+                            </select>
+                        </div>
+                        <div class="form-inline mt-5 form-box">
+                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                            <div class="grid grid-cols-12 gap-2">
+                                <input type="text" class="form-control col-span-4" placeholder="P" id="length">
+                                <input type="text" class="form-control col-span-4" placeholder="L" id="width">
+                                <input type="text" class="form-control col-span-4" placeholder="T" id="height">
+                            </div>
+                        </div>
+                        <div class="form-inline mt-5 form-sheet">
+                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                            <div class="grid grid-cols-12 gap-2">
+                                <input type="text" class="form-control col-span-6" placeholder="P" id="length">
+                                <input type="text" class="form-control col-span-6" placeholder="L" id="width">
+                            </div>
+                        </div>
+                        <div class="form-inline mt-5">
+                            <label for="vertical-form-1" class="form-label sm:w-20">Harga (Rp)</label>
+                            <input type="text" class="form-control" id="harga-hpp" readonly>
+                        </div>
+                    </div>
+                    <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                        <button type="button" id="calculate-hpp"
+                            class="btn py-3 btn-primary w-full md:w-52">Hitung</button>
                     </div>
                 </div>
             </div>
+            <!-- END: Horizontal Form -->
+        </div>
+        <div class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5">
+            <div class="box p-5 rounded-md">
+                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                    <div class="font-medium text-base truncate">INDEX HARGA</div>
+                    <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview"
+                        class="btn btn-primary flex items-center ml-auto text-white"> <i data-lucide="plus"
+                            class="w-4 h-4 mr-2"></i>
+                        Tambah Index </a>
+                </div>
+                <div class="overflow-auto lg:overflow-visible -mt-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="whitespace-nowrap">PLY TYPE</th>
+                                <th class="whitespace-nowrap text-center">FLUTE TYPE</th>
+                                <th class="whitespace-nowrap">SUBSTANCE</th>
+                                <th class="whitespace-nowrap">PRICE</th>
+                                <th class="whitespace-nowrap">INDEX TAG</th>
+                                <th class="whitespace-nowrap text-center">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($data as $item)
+                            <tr>
+                                <td>{{$item->ply_type}}</td>
+                                <td class="text-center">{{$item->flute_type}}</td>
+                                <td>{{$item->substance}}</td>
+                                <td>{{$item->price}}</td>
+                                <td><?php echo date("d M Y", strtotime($item->tag)); ?></td>
+                                <td class="table-report__action w-56">
+                                    <div class="flex justify-center items-center">
+                                        <a class="flex items-center mr-3 text-success"
+                                            href="{{route('index-price.edit', ['id' => $item->id])}}"> <i
+                                                data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>
+                                        <a class="flex items-center text-danger"
+                                            href="{{route('index-price.delete', ['id' => $item->id])}}"> <i
+                                                data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <!-- BEGIN: Horizontal Form -->
+                                <div class="intro-y box">
+                                    <div
+                                        class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                                        <h2 class="font-medium text-base mr-auto">
+                                            Form Tambah Index
+                                        </h2>
+                                    </div>
+                                    <div id="horizontal-form" class="p-5">
+                                        <form method="POST" action="{{route('index-price.save')}}">
+                                            @csrf
+                                            <div id="horizontal-form" class="p-5">
+                                                <div class="preview">
+                                                    <div class="form-inline">
+                                                        <label for="horizontal-form-2" class="form-label sm:w-40">Jenis
+                                                            Ply</label>
+                                                        <select data-placeholder="Pilih Jenis Flute"
+                                                            class="tom-select w-full form-control" name="ply_type">
+                                                            <option value="">-</option>
+                                                            <option value="SF">SF</option>
+                                                            <option value="SW">SW</option>
+                                                            <option value="DW">DW</option>
+                                                            <option value="TW">TW</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-inline mt-5">
+                                                        <label for="horizontal-form-2" class="form-label sm:w-40">Jenis
+                                                            Flute</label>
+                                                        <select data-placeholder="Pilih Jenis Flute"
+                                                            class="tom-select w-full form-control" name="flute_type">
+                                                            <option value="B">BF</option>
+                                                            <option value="C">CF</option>
+                                                            <option value="B/C">B/CF</option>
+                                                            <option value="E">EF</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-inline mt-5">
+                                                        <label for="vertical-form-2"
+                                                            class="form-label sm:w-40">Substance</label>
+                                                        <select data-placeholder="Pilih Substance"
+                                                            class="tom-select w-full form-control" name="substance">
+                                                            @foreach($substances as $substance)
+                                                            <option value="{{$substance->id}}">{{$substance->substance}}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-inline mt-5">
+                                                        <label for="vertical-form-1" class="form-label sm:w-40">Harga
+                                                            (Rp)</label>
+                                                        <input type="text" class="form-control" name="index_price">
+                                                    </div>
+                                                    <div class="form-inline mt-5">
+                                                        <label for="vertical-form-1" class="form-label sm:w-40">Index
+                                                            Tag</label>
+                                                        <input type="date" class="form-control" name="index_tag">
+                                                    </div>
+                                                </div>
+                                                <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                                    <button type="submit"
+                                                        class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- END: Horizontal Form -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-5">
+                <nav class="w-full sm:w-auto sm:mr-auto">
+                    <ul class="pagination">
+                        @if ($data->onFirstPage())
+                        <li class="page-item disabled" aria-disabled="true">
+                            <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
+                                    data-lucide="chevrons-left"></i></span>
+                        </li>
+                        @else
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $data->previousPageUrl() }}" rel="prev"><i class="w-4 h-4"
+                                    data-lucide="chevron-left"></i></a>
+                        </li>
+                        @endif
+
+                        @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
+                        <li class="page-item @if($page == $data->currentPage()) active @endif">
+                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                        </li>
+                        @endforeach
+
+                        @if ($data->hasMorePages())
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4"
+                                    data-lucide="chevron-right"></i></a>
+                        </li>
+                        @else
+                        <li class="page-item disabled" aria-disabled="true">
+                            <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
+                                    data-lucide="chevrons-right"></i></span>
+                        </li>
+                        @endif
+                    </ul>
+                </nav>
+                <select class="w-20 form-select box mt-3 sm:mt-0">
+                    <option>10</option>
+                    <option>25</option>
+                    <option>35</option>
+                    <option>50</option>
+                </select>
+            </div>
         </div>
     </div>
-    <!-- chart row starts here -->
 </div>
 @endsection
 
 @section('script')
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
 $(function() {
-    // $(".select-form").select2();
-    $(".collapse-form-index").hide();
-    $(".collapse-form-index-calculator").hide();
-    $(".loader").hide();
 
     // Form Calkulator Index Price
-    $(".sheet").hide();
-    $(".box").hide();
+    $(".form-sheet").hide();
+    $(".form-box").hide();
     $(".pounch").hide();
-    $(".lem").hide();
 
     $("#jenis-barang").change(function() {
         if ($(this).val() === "sheet") {
-            $(".sheet").show();
-            $(".box").hide();
+            $(".form-sheet").show();
+            $(".form-box").hide();
             $(".pounch").show();
         } else {
-            $(".box").show();
-            $(".sheet").hide();
+            $(".form-box").show();
+            $(".form-sheet").hide();
             $(".pounch").hide();
             $(".add-price").hide();
-            $(".lem").hide();
-        }
-    });
-
-    $("#jenis-ply").change(function() {
-        if ($(this).val() === "SF") {
-            $(".lem").show();
-        } else {
-            $(".lem").hide();
         }
     });
 
@@ -357,30 +323,37 @@ $(function() {
     $("#index-tag").change(function() {
         var tag = $(this).val();
         $("#index-price").val("");
-        $(".loader").show();
+
         $.ajax({
             url: '/get-index-substance/' + tag, // Replace with your API endpoint
             method: 'GET',
             dataType: 'json',
             success: function(data) {
                 var selectBox = $('#substance');
+
                 // Clear existing options
                 selectBox.empty();
+
                 // Populate select box with new options
+                selectBox.append('<option value="">-</option>');
                 data.forEach(function(item) {
-                    selectBox.append('<option value="' + item.id + '">' + item.ply_type +' '+ item.flute_type +' '+ item.substance_name +'</option>');
+                    selectBox.append('<option value="' + item.id + '">' + item
+                        .ply_type + ' ' + item.flute_type + 'F ' + item
+                        .substance_name + '</option>');
                 });
+
                 $(".loader").hide();
             },
             error: function(error) {
                 console.error('Error fetching data:', error);
+                $(".loader").hide();
             }
         });
     });
 
+
     $("#substance").change(function() {
         var substance = $(this).val();
-        $(".loader").show();
         $.ajax({
             url: "/get-index-price/" + substance,
             method: "GET",
@@ -388,15 +361,7 @@ $(function() {
                 console.log(response);
                 $("#index-price").val(response.price);
                 var ply_type = $("#substance option:selected").text().split(" ");
-                
-                if($("#jenis-barang").val() === 'sheet' && ply_type[0] === "SF") {
-                    $("#ply-type").val(ply_type[0]);
-                    $(".lem").show();
-                }else{
-                    $(".lem").hide();
-                }
-                
-                $(".loader").hide();
+                $("#ply-type").val(ply_type[0]);
             },
             error: function(error) {
                 // Handle errors here
@@ -412,20 +377,25 @@ $(function() {
         if ($("#jenis-barang").val() === "sheet") {
             switch (measure_unit) {
                 case "INCH":
-                    var length = parseFloat($(".sheet #panjang").val()) * 25.4;
-                    var width = parseFloat($(".sheet #lebar").val()) * 25.4;
+                    var length = parseFloat($(".form-sheet #length").val()) * 25.4;
+                    var width = parseFloat($(".form-sheet #width").val()) * 25.4;
                     break;
                 case "MM":
-                    var length = parseFloat($(".sheet #panjang").val()) / 10;
-                    var width = parseFloat($(".sheet #lebar").val()) / 10;
+                    var length = parseFloat($(".form-sheet #length").val()) / 10;
+                    var width = parseFloat($(".form-sheet #width").val()) / 10;
                     break;
                 default:
-                    var length = parseFloat($(".sheet #panjang").val());
-                    var width = parseFloat($(".sheet #lebar").val());
+                    var length = parseFloat($(".form-sheet #length").val());
+                    var width = parseFloat($(".form-sheet #width").val());
                     break;
             }
 
+
+
             var index_price = parseFloat($("#index-price").val());
+
+            console.log(index_price);
+            console.log("jenis ply : " + jenis_fly);
 
             if ($('input[name=flag-pounch]:checked').val() === "1" || $('input[name=flag-pounch]:checked').val() === 1) {
                 var order_qty = parseFloat($("#order-qty").val());
@@ -433,67 +403,60 @@ $(function() {
 
                 var additional_price = knife_price / order_qty;
                 var index_price = index_price + additional_price;
-            } 
 
-            if (jenis_fly === "SF" && flag_lem === "1") {
-                var index_price = index_price + 2500;
-
-                console.log("Index Price After + 2500 : " + index_price)
-            }
+                console.log("Index Price After tambah pounch : " + index_price)
+            }              
 
             if ($('input[name=flag-ppn]:checked').val() === "1" || $('input[name=flag-ppn]:checked').val() === 1) {
                 var hpp_before_ppn = (length * width * index_price) / 10000;
                 var hpp = ((hpp_before_ppn / 100) * 11) + hpp_before_ppn;
+
+                console.log("PPN True" + hpp)
             } else {
                 var hpp = (length * width * index_price) / 10000;
+
+                console.log("PPN False" + hpp)
             }
 
-            $("#hpp").text("HPP = Rp." + formatNumberWithCommas(Math.ceil(hpp)));
+
+            $("#harga-hpp").val(formatNumberWithCommas(Math.ceil(hpp)));
         } else {
-            $(".lem").hide();
             switch (measure_unit) {
                 case "INCH":
-                    var length = parseFloat($(".box #panjang").val()) * 25.4;
-                    var width = parseFloat($(".box #lebar").val()) * 25.4;
-                    var height = parseFloat($(".box #tinggi").val()) * 25.4;
+                    var length = parseFloat($(".form-box #length").val()) * 25.4;
+                    var width = parseFloat($(".form-box #width").val()) * 25.4;
+                    var height = parseFloat($(".form-box #height").val()) * 25.4;
                     break;
                 case "MM":
-                    var length = parseFloat($(".box #panjang").val()) / 10;
-                    var width = parseFloat($(".box #lebar").val()) / 10;
-                    var height = parseFloat($(".box #tinggi").val()) / 10;
+                    var length = parseFloat($(".form-box #length").val()) / 10;
+                    var width = parseFloat($(".form-box #width").val()) / 10;
+                    var height = parseFloat($(".form-box #height").val()) / 10;
                     break;
                 default:
-                    var length = parseFloat($(".box #panjang").val());
-                    var width = parseFloat($(".box #lebar").val());
-                    var height = parseFloat($(".box #tinggi").val());
+                    var length = parseFloat($(".form-box #length").val());
+                    var width = parseFloat($(".form-box #width").val());
+                    var height = parseFloat($(".form-box #height").val());
                     break;
             }
             var index_price = parseFloat($("#index-price").val());
             var A = (length + width) * 2 + 8;
             var B = width + height + 4;
 
-            if ($('input[name=flag-ppn]:checked').val() === "1" || $('input[name=flag-ppn]:checked').val() === 1) {
+            if ($('input[name=flag-ppn]:checked').val() === "1" || $('input[name=flag-ppn]:checked')
+                .val() === 1) {
                 var hpp_before_ppn = (A * B * index_price) / 10000;
                 var hpp = ((hpp_before_ppn / 100) * 11) + hpp_before_ppn;
             } else {
                 var hpp = (A * B * index_price) / 10000;
             }
 
-            $("#hpp").text("HPP = Rp." + formatNumberWithCommas(Math.ceil(hpp)));
+            $("#harga-hpp").val(formatNumberWithCommas(Math.ceil(hpp)));
         }
     });
 
     function formatNumberWithCommas(number) {
-      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-});
-
-$("#add").click(function() {
-    $(".collapse-form-index").slideToggle("slow");
-});
-
-$("#calc-index-price").click(function() {
-    $(".collapse-form-index-calculator").slideToggle("slow");
 });
 </script>
 @endsection

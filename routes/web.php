@@ -18,6 +18,13 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/goods', [App\Http\Controllers\Master\GoodsController::class, 'index'])->name('goods.index');
+    Route::get('/goods/create', [App\Http\Controllers\Master\GoodsController::class, 'create'])->name('goods.create');
+    Route::post('/goods/save', [App\Http\Controllers\Master\GoodsController::class, 'save'])->name('goods.save');
+    Route::get('/goods/{id}', [App\Http\Controllers\Master\GoodsController::class, 'edit'])->name('goods.edit');
+    Route::post('/goods/update', [App\Http\Controllers\Master\GoodsController::class, 'update'])->name('goods.update');
+    Route::get('/goods/delete/{id}', [App\Http\Controllers\Master\GoodsController::class, 'delete'])->name('goods.delete');
+
     Route::get('/customer', [App\Http\Controllers\Master\CustomerController::class, 'index'])->name('customer.index');
     Route::post('/customer/save', [App\Http\Controllers\Master\CustomerController::class, 'save'])->name('customer.save');
     Route::get('/customer/{id}', [App\Http\Controllers\Master\CustomerController::class, 'edit'])->name('customer.edit');
@@ -76,12 +83,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/production/monitoring/production-progress/{id}', [App\Http\Controllers\Transaction\ProductionController::class, 'progressProductionUpdate'])->name('production.spk.monitoring.production-progress');
     Route::post('/production/monitoring/production-progress/update', [App\Http\Controllers\Transaction\ProductionController::class, 'progressItemUpdate'])->name('production.spk.monitoring.production-progress.update'); //
     Route::post('/production/monitoring/production-progress/detail/save', [App\Http\Controllers\Transaction\ProductionController::class, 'progressProductionDetailSave'])->name('production.spk.monitoring.production-progress.detail.save');
+    Route::post('/production/monitoring/personal-progress', [App\Http\Controllers\Transaction\ProductionController::class, 'monitoringPersonalProgress'])->name('production.spk.monitoring.personal-progress');
 
     Route::get('/warehouse/delivery', [App\Http\Controllers\Transaction\DeliveryController::class, 'index'])->name('warehouse.delivery.index');
     Route::get('/warehouse/delivery/create', [App\Http\Controllers\Transaction\DeliveryController::class, 'create'])->name('warehouse.delivery.create');
     Route::post('/warehouse/delivery/save', [App\Http\Controllers\Transaction\DeliveryController::class, 'save'])->name('warehouse.delivery.save');
     Route::get('/warehouse/delivery/{id}', [App\Http\Controllers\Transaction\DeliveryController::class, 'edit'])->name('warehouse.delivery.edit');
     Route::post('/warehouse/delivery/detail/save', [App\Http\Controllers\Transaction\DeliveryController::class, 'saveDetail'])->name('warehouse.delivery.detail.save');
+    Route::get('/warehouse/delivery/detail/delete/{id}', [App\Http\Controllers\Transaction\DeliveryController::class, 'deleteDetail'])->name('warehouse.delivery.detail.delete');
+
+    Route::get('/warehouse/finish-goods', [App\Http\Controllers\Transaction\FinishGoodsController::class, 'index'])->name('warehouse.finish-goods.index');
 });
 
 Auth::routes();
