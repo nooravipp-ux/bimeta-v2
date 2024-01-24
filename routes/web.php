@@ -93,8 +93,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/warehouse/delivery/detail/delete/{id}', [App\Http\Controllers\Transaction\DeliveryController::class, 'deleteDetail'])->name('warehouse.delivery.detail.delete');
 
     Route::get('/warehouse/finish-goods', [App\Http\Controllers\Transaction\FinishGoodsController::class, 'index'])->name('warehouse.finish-goods.index');
+    Route::get('/warehouse/raw-materials', [App\Http\Controllers\Transaction\RawMaterialController::class, 'index'])->name('warehouse.raw-material.index');
 });
 
 Auth::routes();
 
-Route::get('/dashboard', [App\Http\Controllers\dashboard\DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [App\Http\Controllers\Dashboard\DashboardController::class, 'index'])->name('dashboard');

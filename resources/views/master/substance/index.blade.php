@@ -56,7 +56,7 @@
                         <td class="text-center">{{$item->cor_code}}</td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3" href="javascript:;"> <i data-lucide="edit"
+                                <a class="flex items-center mr-3" href="{{route('substance.edit', ['id' => $item->id])}}"> <i data-lucide="edit"
                                         class="w-4 h-4 mr-1"></i> Edit </a>
                                 <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal"
                                     data-tw-target="#delete-confirmation-modal"> <i data-lucide="trash-2"
@@ -121,7 +121,7 @@
                             <div
                                 class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                                 <h2 class="font-medium text-base mr-auto">
-                                    Form Tambah Index
+                                    Form Tambah Substance
                                 </h2>
                             </div>
                             <div id="horizontal-form" class="p-5">

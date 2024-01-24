@@ -10,8 +10,9 @@ use Auth;
 class CustomerController extends Controller
 {
     public function index() {
-        $data = DB::table('master.m_customer')->orderBy('id')->get();
-        return view('master.customer.index', compact('data'));
+        $pic = DB::table('public.users')->get();
+        $data = DB::table('master.m_customer')->orderBy('id')->paginate(20);
+        return view('master.customer.index', compact('data', 'pic'));
     }
 
     public function save(Request $request) {
@@ -30,8 +31,9 @@ class CustomerController extends Controller
     }
 
     public function edit($id) {
+        $pic = DB::table('public.users')->get();
         $data = DB::table('master.m_customer')->where('id', $id)->first();
-        return view('master.customer.edit', compact('data'));
+        return view('master.customer.edit', compact('data', 'pic'));
     }
 
     public function update(Request $request) {

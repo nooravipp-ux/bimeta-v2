@@ -1,72 +1,50 @@
 @extends('layouts._base')
 @section('main-content')
-<div class="content-wrapper pb-0">
-    <!-- first row starts here -->
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="page-header flex-wrap">
-                        <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">Master List Substances</h4>
-                        </div>
-                        <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                        </div>
-                    </div>
-                    <hr />
-                    <form method="POST" action="{{route('substance.update')}}" id="collapse-form">
+<div class="content content--top-nav">
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <div class="intro-y col-span-12 lg:col-span-8">
+            <!-- BEGIN: Horizontal Form -->
+            <div class="intro-y box mt-5">
+                <div
+                    class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                    <h2 class="font-medium text-base mr-auto">
+                        Informasi Substance
+                    </h2>
+                </div>
+                <div id="horizontal-form" class="p-5">
+                    <form method="POST" action="{{route('substance.update')}}">
                         @csrf
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Code<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="code" value="{{$data->code}}">
-                                        <input type="hidden" class="form-control" name="id" value="{{$data->id}}">
-                                    </div>
+                        <div id="horizontal-form" class="p-5">
+                            <div class="preview">
+                                <div class="form-inline">
+                                    <label for="horizontal-form-2" class="form-label sm:w-40">Code</label>
+                                    <input type="text" class="form-control" name="code" value="{{$data->code}}">
                                 </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Substance<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="substance" value="{{$data->substance}}">
-                                    </div>
+                                <div class="form-inline mt-5">
+                                    <label for="horizontal-form-2" class="form-label sm:w-40">Substance</label>
+                                    <input type="text" class="form-control" name="substance" value="{{$data->substance}}">
                                 </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Cor Code<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="cor_code" value="{{$data->cor_code}}">
-                                    </div>
+                                <div class="form-inline mt-5">
+                                    <label for="horizontal-form-2" class="form-label sm:w-40">Cor Code</label>
+                                    <input type="text" class="form-control" name="cor_code" value="{{$data->cor_code}}">
                                 </div>
-                                <hr />
-                            </div>
-                            <div class="page-header flex-wrap">
-                                <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                                    <h4 class="card-title"></h4>
-                                </div>
-                                <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                                    <button type="submit" class="btn btn-primary btn-rounded btn-fw"
-                                        style="padding: 10px;">Update</button>
+                                <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                    <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
                                 </div>
                             </div>
-                        </div>
                     </form>
                 </div>
             </div>
+            <!-- END: Horizontal Form -->
         </div>
     </div>
-    <!-- chart row starts here -->
 </div>
 @endsection
 
 @section('script')
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
-$(function() {
-    $(".loader").hide();
-})
+
 </script>
 @endsection

@@ -124,14 +124,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <div class="menu__title"> Finish Goods </div>
                                         </a>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <a href="" class="menu">
                                             <div class="menu__icon"> <i data-lucide="archive"></i> </div>
                                             <div class="menu__title"> Intermediete Goods </div>
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li>
-                                        <a href="" class="menu">
+                                        <a href="{{route('warehouse.raw-material.index')}}" class="menu">
                                             <div class="menu__icon"> <i data-lucide="archive"></i> </div>
                                             <div class="menu__title"> Raw Materials </div>
                                         </a>
@@ -391,14 +391,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <div class="top-menu__title">Finish Goods</div>
                                     </a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="#" class="top-menu">
                                         <div class="top-menu__icon"> <i data-lucide="archive"></i> </div>
                                         <div class="top-menu__title">Intermediete Goods</div>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li>
-                                    <a href="#" class="top-menu">
+                                    <a href="{{route('warehouse.raw-material.index')}}" class="top-menu">
                                         <div class="top-menu__icon"> <i data-lucide="archive"></i> </div>
                                         <div class="top-menu__title">Raw Material</div>
                                     </a>

@@ -325,6 +325,7 @@ class ProductionController extends Controller
         if($request->status == 2) {
             DB::table('transaction.t_spk')->where('id', $request->spk_id)->update([
                 "current_process" => $request->process_name,
+                "status" => 3, // Work in Progress
                 "updated_at" => date('Y-m-d H:i:s'),
                 "updated_by" => Auth::user()->name,
             ]);

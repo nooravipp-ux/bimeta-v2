@@ -22,6 +22,7 @@
                             <div class="form-inline mt-5">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Customer</label>
                                 <select data-placeholder="Pilih customer" class="tom-select w-full form-control" name="customer_id" required>
+                                    <option value=" "> - </option>
                                     @foreach($customers as $customer)
                                     <option value="{{$customer->id}}">{{$customer->name}}</option>
                                     @endforeach
@@ -38,14 +39,16 @@
                             <div class="form-inline mt-5">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Pajak</label>
                                 <select data-placeholder="Pilih Jenis Pajak" class="tom-select w-full form-control" name="tax_type" required>
-                                    <option value="0">V0</option>
-                                    <option value="1">V1</option>
-                                    <option value="2">V2</option>
+                                    <option value=" "> - </option>
+                                    <option value="0">V0 (Kawasan Berikat)</option>
+                                    <option value="1">V1 (Exclude PPN)</option>
+                                    <option value="2">V2 (Include PPN)</option>
                                 </select>
                             </div>
                             <div class="form-inline mt-5">
                                 <label for="vertical-form-2" class="form-label sm:w-40">PIC</label>
                                 <select data-placeholder="Pilih customer" class="tom-select w-full form-control" name="assign_to" required>
+                                    <option value=" "> - </option>
                                     @foreach($users as $user)
                                     <option value="{{$user->id}}">{{$user->name}}</option>
                                     @endforeach

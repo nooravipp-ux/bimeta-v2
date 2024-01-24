@@ -10,13 +10,13 @@ use Auth;
 class MaterialController extends Controller
 {
     public function index() {
-        $data = DB::table('master.m_material')->orderBy('id')->get();
+        $data = DB::table('master.m_material')->orderBy('id')->paginate(20);
         return view('master.material.index', compact('data'));
     }
 
     public function save(Request $request) {
         $data = DB::table('master.m_material')->insert([
-            "name" => $request->name,
+            "code" => $request->name,
             "type" => $request->type,
             "paper_type" => $request->paper_type,
             "gramature" => $request->gramature,

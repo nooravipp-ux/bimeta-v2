@@ -107,7 +107,7 @@ class DeliveryController extends Controller
 
         DB::table('transaction.t_detail_delivery_order')->insert([
             "delivery_order_id" => $request->delivery_order_id,
-            "goods_id" => $request->spk_id,
+            "goods_id" => $request->goods_id,
             "quantity" => $request->quantity,
             "remarks" => $request->remarks,
             "created_at"=> date('Y-m-d H:i:s'),
