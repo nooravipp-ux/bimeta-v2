@@ -68,7 +68,7 @@
                 <div
                     class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                     <h2 class="font-medium text-base mr-auto">
-                        Informasi Spesifikasi Barang
+                        Spesifikasi Barang
                     </h2>
                 </div>
                 <form method="POST" action="{{route('index-price.save')}}">
@@ -76,11 +76,11 @@
                     <div id="horizontal-form" class="p-5">
                         <div class="preview">
                             <div class="form-inline">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Nama</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Nama</label>
                                 <input type="text" class="form-control" value="{{$goodsInformations->name}}" readonly>
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Jenis</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Jenis</label>
                                 @if($goodsInformations->type == 1)
                                 <input type="text" class="form-control" value="SHEET" readonly>
                                 @elseif($goodsInformations->type == 2)
@@ -91,7 +91,7 @@
                                 <input type="hidden" class="form-control" value="{{$goodsInformations->type}}" id="goods-type">
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Spesifikasi</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Spesifikasi</label>
                                 @if($goodsInformations->type > 2)
                                 <input type="text" class="form-control" value="{{$goodsInformations->bottom_ply_type}} {{$goodsInformations->bottom_flute_type}} {{$goodsInformations->bottom_substance}} / {{$goodsInformations->top_ply_type}} {{$goodsInformations->top_flute_type}} {{$goodsInformations->top_substance}}" readonly>
                                 @endif
@@ -100,7 +100,7 @@
                                 @endif
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Ukuran</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
                                 @if($goodsInformations->type == 1)
                                 <input type="text" class="form-control" value="{{$goodsInformations->length}} X {{$goodsInformations->width}} {{$goodsInformations->meas_unit}}" readonly>
                                 @elseif($goodsInformations->type == 2)
@@ -110,7 +110,7 @@
                                 @endif
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Qty Pesanan</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Qty Pesanan</label>
                                 <input type="text" class="form-control" id="-order-quantity" value="{{$goodsInformations->quantity}}" readonly>
                             </div>
                         </div>

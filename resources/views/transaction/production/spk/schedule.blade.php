@@ -76,11 +76,11 @@
                     <div id="horizontal-form" class="p-5">
                         <div class="preview">
                             <div class="form-inline">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Nama</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Nama</label>
                                 <input type="text" class="form-control" value="{{$data[0]->name}}" readonly>
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Jenis</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Jenis</label>
                                 @if($data[0]->type == 1)
                                 <input type="text" class="form-control" value="SHEET" readonly>
                                 @elseif($data[0]->type == 2)
@@ -92,13 +92,13 @@
                                     id="goods-type">
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Spesifikasi</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Spesifikasi</label>
                                 <input type="text" class="form-control"
                                     value="{{$data[0]->ply_type}} {{$data[0]->flute_type}} {{$data[0]->substance_name}}"
                                     readonly>
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Ukuran</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
                                 @if($data[0]->type == 1)
                                 <input type="text" class="form-control"
                                     value="{{$data[0]->length}} X {{$data[0]->width}} {{$data[0]->meas_unit}}" readonly>
@@ -113,7 +113,7 @@
                                 @endif
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Qty Pesanan</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Qty Pesanan</label>
                                 <input type="text" class="form-control" id="-order-quantity"
                                     value="{{$data[0]->order_quantity}}" readonly>
                             </div>
@@ -134,7 +134,7 @@
                     <div id="horizontal-form" class="p-5">
                         <div class="preview">
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Tanggal</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Tanggal</label>
                                 <input type="date" class="form-control" name="start_date">
                                 <input type="hidden" class="form-control" name="id" value="{{$data[0]->spk_id}}">
                             </div>
@@ -203,15 +203,11 @@
                                             <label for="vertical-form-1" class="form-label sm:w-40">Stitching</label>
                                             <div class="flex flex-col sm:flex-row">
                                                 <div class="form-check mr-2">
-                                                    <input id="radio-switch-4" class="form-check-input" type="radio"
-                                                        name="flag_stitching" value="0"
-                                                        <?php echo ($data[0]->flag_stitching == 0) ? "checked" : ""; ?>>
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="flag_stitching" value="0" <?php echo ($data[0]->flag_stitching == 0) ? "checked" : ""; ?>>
                                                     <label class="form-check-label" for="radio-switch-4">Tidak</label>
                                                 </div>
                                                 <div class="form-check mr-2 sm:mt-0">
-                                                    <input id="radio-switch-5" class="form-check-input" type="radio"
-                                                        name="flag_stitching" value="1"
-                                                        <?php echo ($data[0]->flag_stitching == 1) ? "checked" : ""; ?>>
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="flag_stitching" value="1" <?php echo ($data[0]->flag_stitching == 1) ? "checked" : ""; ?>>
                                                     <label class="form-check-label" for="radio-switch-5">Ya</label>
                                                 </div>
                                             </div>
@@ -220,15 +216,11 @@
                                             <label for="vertical-form-1" class="form-label sm:w-40">Lem</label>
                                             <div class="flex flex-col sm:flex-row">
                                                 <div class="form-check mr-2">
-                                                    <input id="radio-switch-4" class="form-check-input" type="radio"
-                                                        name="flag_glue" value="0"
-                                                        <?php echo ($data[0]->flag_glue == 0) ? "checked" : ""; ?>>
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="flag_glue" value="0" <?php echo ($data[0]->flag_glue == 0) ? "checked" : ""; ?>>
                                                     <label class="form-check-label" for="radio-switch-4">Tidak</label>
                                                 </div>
                                                 <div class="form-check mr-2 sm:mt-0">
-                                                    <input id="radio-switch-5" class="form-check-input" type="radio"
-                                                        name="flag_glue" value="1"
-                                                        <?php echo ($data[0]->flag_glue == 1) ? "checked" : ""; ?>>
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="flag_glue" value="1" <?php echo ($data[0]->flag_glue == 1) ? "checked" : ""; ?>>
                                                     <label class="form-check-label" for="radio-switch-5">Ya</label>
                                                 </div>
                                             </div>
@@ -237,15 +229,11 @@
                                             <label for="vertical-form-1" class="form-label sm:w-40">Pounch</label>
                                             <div class="flex flex-col sm:flex-row">
                                                 <div class="form-check mr-2">
-                                                    <input id="radio-switch-4" class="form-check-input" type="radio"
-                                                        name="flag_pounch" value="0"
-                                                        <?php echo ($data[0]->flag_pounch == 0) ? "checked" : ""; ?>>
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="flag_pounch" value="0" <?php echo ($data[0]->flag_pounch == 0) ? "checked" : ""; ?>>
                                                     <label class="form-check-label" for="radio-switch-4">Tidak</label>
                                                 </div>
                                                 <div class="form-check mr-2 sm:mt-0">
-                                                    <input id="radio-switch-5" class="form-check-input" type="radio"
-                                                        name="flag_pounch" value="1"
-                                                        <?php echo ($data[0]->flag_pounch == 1) ? "checked" : ""; ?>>
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="flag_pounch" value="1" <?php echo ($data[0]->flag_pounch == 1) ? "checked" : ""; ?>>
                                                     <label class="form-check-label" for="radio-switch-5">Ya</label>
                                                 </div>
                                             </div>

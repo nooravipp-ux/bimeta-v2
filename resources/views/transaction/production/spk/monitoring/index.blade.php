@@ -1,4 +1,8 @@
 @extends('layouts._base')
+@section('active-url')
+<li class="breadcrumb-item" aria-current="page">Production</li>
+<li class="breadcrumb-item active" aria-current="page">Monitoring</li>
+@endsection
 @section('main-content')
 <div class="content content--top-nav">
     <h2 class="intro-y text-lg font-medium mt-10">
@@ -54,38 +58,40 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($data as $data)
+                    @foreach($data as $item)
                     <tr class="intro-x">
-                        <td><?php echo date("d/m/Y", strtotime($data->start_date)); ?></td>
-                        <td>{{$data->ref_po_customer}}</td>
-                        <td class="text-center whitespace-nowrap">{{$data->spk_no}}</td>
-                        <td class="text-center whitespace-nowrap">{{$data->customer_name}}</td>
-                        <td class="text-center whitespace-nowrap">{{$data->bruto_width}}</td>
-                        <td class="text-center whitespace-nowrap">{{$data->bruto_length}}</td>
-                        <td class="text-center whitespace-nowrap">{{$data->specification}}</td>
-                        <td class="text-center whitespace-nowrap">{{$data->quantity}}</td>
-                        <td class="text-center whitespace-nowrap">{{$data->current_process}}</td>
+                        <td><?php echo date("d/m/Y", strtotime($item->start_date)); ?></td>
+                        <td>{{$item->ref_po_customer}}</td>
+                        <td class="text-center whitespace-nowrap">{{$item->spk_no}}</td>
+                        <td class="text-center whitespace-nowrap">{{$item->customer_name}}</td>
+                        <td class="text-center whitespace-nowrap">{{$item->bruto_width}}</td>
+                        <td class="text-center whitespace-nowrap">{{$item->bruto_length}}</td>
+                        <td class="text-center whitespace-nowrap">{{$item->specification}}</td>
+                        <td class="text-center whitespace-nowrap">{{$item->quantity}}</td>
+                        <td class="text-center whitespace-nowrap">{{$item->current_process}}</td>
                         <td class="text-center whitespace-nowrap">50%</td>
                         <td class="text-center">
-                            @if($data->status == 1)
-                            <button type="button" class="btn btn-primary btn-rounded btn-fw"> SPK INIT
-                            </button>
-                            @elseif($data->status == 2)
-                            <button type="button" class="btn btn-warning btn-rounded btn-fw"> SCHEDULED
-                            </button>
-                            @elseif($data->status == 3)
-                            <button type="button" class="btn btn-warning btn-rounded btn-fw"> WORK IN
-                                PROGRESS </button>
+                            @if($item->status == 1)
+                            <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">INIT</div>
+                            @elseif($item->status == 2)
+                            <div class="py-1 px-2 rounded-full text-xs bg-warning text-white cursor-pointer font-medium">SCHEDULED</div>
+                            @elseif($item->status == 3)
+                            <div class="py-1 px-2 rounded-full text-xs bg-warning text-white cursor-pointer font-medium">WORK IN PROGRESS</div>
                             @else
-                            <button type="button" class="btn btn-success btn-rounded btn-fw"> DONE </button>
+                            <div class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">COMPLETED</div>
                             @endif
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                @if($data->status != 4)
-                                <a class="flex items-center mr-3 text-success" href="{{route('production.spk.mark-as-done', ['id' => $data->id])}}" title="Masrk As Done"><i data-lucide="check-square" class="w-4 h-4 mr-1"></i>Done</a>
+                                @if($item->status != 4)
+                                <a class="flex items-center mr-3 text-success"
+                                    href="{{route('production.spk.mark-as-done', ['id' => $item->id])}}"
+                                    title="Masrk As Done"><i data-lucide="check-square"
+                                        class="w-4 h-4 mr-1"></i>Done</a>
                                 @endif
-                                <a class="flex items-center mr-3 text-warning" href="{{route('production.spk.monitoring.detail', ['id' => $data->id])}}" title="Monitor Progress"><i data-lucide="eye" class="w-4 h-4 mr-1"></i> Monitor</a>
+                                <a class="flex items-center mr-3 text-warning"
+                                    href="{{route('production.spk.monitoring.detail', ['id' => $item->id])}}"
+                                    title="Monitor Progress"><i data-lucide="eye" class="w-4 h-4 mr-1"></i> Monitor</a>
                             </div>
                         </td>
                     </tr>
@@ -98,23 +104,35 @@
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
             <nav class="w-full sm:w-auto sm:mr-auto">
                 <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevrons-left"></i> </a>
+                    @if ($data->onFirstPage())
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
+                                data-lucide="chevrons-left"></i></span>
                     </li>
+                    @else
                     <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevron-left"></i> </a>
+                        <a class="page-link" href="{{ $data->previousPageUrl() }}" rel="prev"><i class="w-4 h-4"
+                                data-lucide="chevron-left"></i></a>
                     </li>
-                    <li class="page-item"> <a class="page-link" href="#">...</a> </li>
-                    <li class="page-item"> <a class="page-link" href="#">1</a> </li>
-                    <li class="page-item active"> <a class="page-link" href="#">2</a> </li>
-                    <li class="page-item"> <a class="page-link" href="#">3</a> </li>
-                    <li class="page-item"> <a class="page-link" href="#">...</a> </li>
+                    @endif
+
+                    @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
+                    <li class="page-item @if($page == $data->currentPage()) active @endif">
+                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                    </li>
+                    @endforeach
+
+                    @if ($data->hasMorePages())
                     <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevron-right"></i> </a>
+                        <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4"
+                                data-lucide="chevron-right"></i></a>
                     </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevrons-right"></i> </a>
+                    @else
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
+                                data-lucide="chevrons-right"></i></span>
                     </li>
+                    @endif
                 </ul>
             </nav>
             <select class="w-20 form-select box mt-3 sm:mt-0">

@@ -1,4 +1,7 @@
 @extends('layouts._base')
+@section('active-url')
+<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+@endsection
 @section('main-content')
 <div class="content content--top-nav">
     <div class="grid grid-cols-12 gap-6">

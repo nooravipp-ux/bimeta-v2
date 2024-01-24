@@ -1,4 +1,10 @@
 @extends('layouts._base')
+@section('active-url')
+@section('active-url')
+<li class="breadcrumb-item" aria-current="page">Production</li>
+<li class="breadcrumb-item active" aria-current="page">Todo List Order</li>
+@endsection
+@endsection
 @section('main-content')
 <div class="content content--top-nav">
     <h2 class="intro-y text-lg font-medium mt-10">
@@ -51,28 +57,33 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($data as $data)
+                    @foreach($data as $item)
                     <tr class="intro-x">
-                        <td>{{$data->transaction_no}}</td>
-                        <td>{{$data->ref_po_customer}}</td>
-                        <td>{{$data->customer_name}}</td>
-                        <td class="text-center"><?php echo date("d/m/Y", strtotime($data->order_date)); ?></td>
-                        <td class="text-center"><?php echo date("d/m/Y", strtotime($data->delivery_date)); ?></td>
+                        <td>{{$item->transaction_no}}</td>
+                        <td>{{$item->ref_po_customer}}</td>
+                        <td>{{$item->customer_name}}</td>
+                        <td class="text-center"><?php echo date("d/m/Y", strtotime($item->order_date)); ?></td>
+                        <td class="text-center"><?php echo date("d/m/Y", strtotime($item->delivery_date)); ?></td>
                         <td class="text-center">
-                            @if($data->status == 1)
-                                <button type="button" class="btn btn-success btn-rounded"> New Order </button>
+                            @if($item->status == 1)
+                            <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">NEW ORDER</div>
                             @endif
-                            @if($data->status == 2)
-                                <button type="button" class="btn btn-success btn-rounded"> Claimed </button>
+                            @if($item->status == 2)
+                            <div class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">CLAIMED</div>
                             @endif
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                @if($data->status == 1)
-                                    <a class="flex items-center mr-3" href="{{route('production.todo-list.claim-order', ['id' => $data->id])}}" title="Klik untuk claim order"><i data-lucide="check-square" class="w-4 h-4 mr-1"></i>Claim</a>
+                                @if($item->status == 1)
+                                <a class="flex items-center mr-3"
+                                    href="{{route('production.todo-list.claim-order', ['id' => $item->id])}}"
+                                    title="Klik untuk claim order"><i data-lucide="check-square"
+                                        class="w-4 h-4 mr-1"></i>Claim</a>
                                 @endif
-                                @if($data->status == 2)
-                                    <a class="flex items-center mr-3" href="{{route('production.todo-list.detail', ['id' => $data->id])}}" title="Detail Order"><i data-lucide="edit" class="w-4 h-4 mr-1"></i>Detail Order</a>
+                                @if($item->status == 2)
+                                <a class="flex items-center mr-3"
+                                    href="{{route('production.todo-list.detail', ['id' => $item->id])}}"
+                                    title="Detail Order"><i data-lucide="edit" class="w-4 h-4 mr-1"></i>Detail Order</a>
                                 @endif
                             </div>
                         </td>
@@ -86,23 +97,35 @@
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
             <nav class="w-full sm:w-auto sm:mr-auto">
                 <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevrons-left"></i> </a>
+                    @if ($data->onFirstPage())
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
+                                data-lucide="chevrons-left"></i></span>
                     </li>
+                    @else
                     <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevron-left"></i> </a>
+                        <a class="page-link" href="{{ $data->previousPageUrl() }}" rel="prev"><i class="w-4 h-4"
+                                data-lucide="chevron-left"></i></a>
                     </li>
-                    <li class="page-item"> <a class="page-link" href="#">...</a> </li>
-                    <li class="page-item"> <a class="page-link" href="#">1</a> </li>
-                    <li class="page-item active"> <a class="page-link" href="#">2</a> </li>
-                    <li class="page-item"> <a class="page-link" href="#">3</a> </li>
-                    <li class="page-item"> <a class="page-link" href="#">...</a> </li>
+                    @endif
+
+                    @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
+                    <li class="page-item @if($page == $data->currentPage()) active @endif">
+                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                    </li>
+                    @endforeach
+
+                    @if ($data->hasMorePages())
                     <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevron-right"></i> </a>
+                        <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4"
+                                data-lucide="chevron-right"></i></a>
                     </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevrons-right"></i> </a>
+                    @else
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
+                                data-lucide="chevrons-right"></i></span>
                     </li>
+                    @endif
                 </ul>
             </nav>
             <select class="w-20 form-select box mt-3 sm:mt-0">

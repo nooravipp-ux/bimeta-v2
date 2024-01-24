@@ -8,7 +8,7 @@
             {{$salesOrder->transaction_no}}
         </h2>
         <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-            <button class="btn btn-primary shadow-md mr-2">Print</button>
+            
         </div>
     </div>
     <!-- BEGIN: Transaction Details -->
@@ -64,13 +64,13 @@
                 </div>
                 <div class="overflow-auto lg:overflow-visible -mt-3">
                     <table class="table table-striped">
-                        <thead>
+                        <thead class="bg-success">
                             <tr>
-                                <th class="whitespace-nowrap">Nama Barang</th>
-                                <th class="whitespace-nowrap">Spesifikasi</th>
-                                <th class="whitespace-nowrap text-center">Ukuran</th>
-                                <th class="whitespace-nowrap text-center">Quantity</th>
-                                <th class="whitespace-nowrap text-center">Action</th>
+                                <th class="whitespace-nowrap">NAMA BARANG</th>
+                                <th class="whitespace-nowrap">SPESIFIKASI</th>
+                                <th class="whitespace-nowrap text-center">UKURAN</th>
+                                <th class="whitespace-nowrap text-center">QUANTITY</th>
+                                <th class="whitespace-nowrap text-center">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>

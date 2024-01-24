@@ -9,7 +9,7 @@ use DB;
 class IndexPriceController extends Controller
 {
     public function index() {
-        $substances = DB::table('master.m_substance')->get();
+        $substances = DB::table('master.m_substance')->orderBy('id', 'ASC')->get();
         $data = DB::table('transaction.t_mapping_index_price as index_price')
                 ->select('index_price.*', 'substance.substance')
                 ->join('master.m_substance as substance', 'substance.id', '=', 'index_price.substance_id')

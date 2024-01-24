@@ -1,4 +1,8 @@
 @extends('layouts._base')
+@section('active-url')
+<li class="breadcrumb-item" aria-current="page">Sales Order</li>
+<li class="breadcrumb-item active" aria-current="page">Calculator Index Price</li>
+@endsection
 @section('main-content')
 <div class="content content--top-nav">
     <div class="grid grid-cols-12 gap-6 mt-5">
@@ -131,7 +135,7 @@
                 </div>
                 <div class="overflow-auto lg:overflow-visible -mt-3">
                     <table class="table table-striped">
-                        <thead>
+                        <thead class="bg-success">
                             <tr>
                                 <th class="whitespace-nowrap">PLY TYPE</th>
                                 <th class="whitespace-nowrap text-center">FLUTE TYPE</th>
@@ -173,7 +177,7 @@
                                     <div
                                         class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                                         <h2 class="font-medium text-base mr-auto">
-                                            Form Tambah Index
+                                            Tambah Index Harga
                                         </h2>
                                     </div>
                                     <div id="horizontal-form" class="p-5">
@@ -182,7 +186,7 @@
                                             <div id="horizontal-form" class="p-5">
                                                 <div class="preview">
                                                     <div class="form-inline">
-                                                        <label for="horizontal-form-2" class="form-label sm:w-40">Jenis
+                                                        <label for="horizontal-form-2" class="form-label sm:w-20">Jenis
                                                             Ply</label>
                                                         <select data-placeholder="Pilih Jenis Flute"
                                                             class="tom-select w-full form-control" name="ply_type">
@@ -194,7 +198,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-inline mt-5">
-                                                        <label for="horizontal-form-2" class="form-label sm:w-40">Jenis
+                                                        <label for="horizontal-form-2" class="form-label sm:w-20">Jenis
                                                             Flute</label>
                                                         <select data-placeholder="Pilih Jenis Flute"
                                                             class="tom-select w-full form-control" name="flute_type">
@@ -206,7 +210,7 @@
                                                     </div>
                                                     <div class="form-inline mt-5">
                                                         <label for="vertical-form-2"
-                                                            class="form-label sm:w-40">Substance</label>
+                                                            class="form-label sm:w-20">Substance</label>
                                                         <select data-placeholder="Pilih Substance"
                                                             class="tom-select w-full form-control" name="substance">
                                                             @foreach($substances as $substance)
@@ -216,12 +220,12 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-inline mt-5">
-                                                        <label for="vertical-form-1" class="form-label sm:w-40">Harga
+                                                        <label for="vertical-form-1" class="form-label sm:w-20">Harga
                                                             (Rp)</label>
                                                         <input type="text" class="form-control" name="index_price">
                                                     </div>
                                                     <div class="form-inline mt-5">
-                                                        <label for="vertical-form-1" class="form-label sm:w-40">Index
+                                                        <label for="vertical-form-1" class="form-label sm:w-20">Index
                                                             Tag</label>
                                                         <input type="date" class="form-control" name="index_tag">
                                                     </div>

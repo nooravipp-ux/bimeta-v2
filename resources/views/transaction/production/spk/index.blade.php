@@ -1,4 +1,8 @@
 @extends('layouts._base')
+@section('active-url')
+<li class="breadcrumb-item" aria-current="page">Production</li>
+<li class="breadcrumb-item active" aria-current="page">SPK</li>
+@endsection
 @section('main-content')
 <div class="content content--top-nav">
     <h2 class="intro-y text-lg font-medium mt-10">
@@ -53,32 +57,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($data as $data)
+                    @foreach($data as $item)
                     <tr class="intro-x">
-                        <td>{{$data->spk_no}}</td>
-                        <td>{{$data->goods_name}}</td>
-                        <td class="text-center whitespace-nowrap">{{$data->quantity}}</td>
-                        <td class="text-center whitespace-nowrap">{{$data->sheet_quantity}}</td>
-                        <td class="text-center whitespace-nowrap">{{$data->specification}}</td>
-                        <td class="text-center whitespace-nowrap">{{$data->netto}}</td>
-                        <td class="text-center whitespace-nowrap">{{$data->bruto}}</td>
+                        <td>{{$item->spk_no}}</td>
+                        <td>{{$item->goods_name}}</td>
+                        <td class="text-center whitespace-nowrap">{{$item->quantity}}</td>
+                        <td class="text-center whitespace-nowrap">{{$item->sheet_quantity}}</td>
+                        <td class="text-center whitespace-nowrap">{{$item->specification}}</td>
+                        <td class="text-center whitespace-nowrap">{{$item->netto}}</td>
+                        <td class="text-center whitespace-nowrap">{{$item->bruto}}</td>
                         <td class="text-center">
-                            @if($data->status == 1)
-                                <button type="button" class="btn btn-primary btn-rounded btn-fw"> SPK INIT</button>
-                            @elseif($data->status == 2)
-                                <button type="button" class="btn btn-warning btn-rounded btn-fw"> SCHEDULED </button>
-                            @elseif($data->status == 3)
-                                <button type="button" class="btn btn-warning btn-rounded btn-fw"> WORK IN PROGRESS </button>
+                            @if($item->status == 1)
+                            <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">INIT</div>
+                            @elseif($item->status == 2)
+                            <div class="py-1 px-2 rounded-full text-xs bg-warning text-white cursor-pointer font-medium">SCHEDULED</div>
+                            @elseif($item->status == 3)
+                            <div class="py-1 px-2 rounded-full text-xs bg-warning text-white cursor-pointer font-medium">WORK IN PROGRESS</div>
                             @else
-                                <button type="button" class="btn btn-success btn-rounded btn-fw"> DONE </button>
+                            <div class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">COMPLETED</div>
                             @endif
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3" href="{{route('production.spk.edit', ['id' => $data->id])}}" title="Edit SPK"><i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
-                                <a class="flex items-center mr-3" href="" title="Print SPK"><i data-lucide="printer" class="w-4 h-4 mr-1"></i> Print</a>
-                                @if($data->status == 1)
-                                    <a class="flex items-center mr-3" href="{{route('production.spk.schedule', ['id' => $data->id])}}" title="Production Schedule"> <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>Schedule</a>
+                                <a class="flex items-center mr-3"
+                                    href="{{route('production.spk.edit', ['id' => $item->id])}}" title="Edit SPK"><i
+                                        data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
+                                <a class="flex items-center mr-3" href="" title="Print SPK"><i data-lucide="printer"
+                                        class="w-4 h-4 mr-1"></i> Print</a>
+                                @if($item->status == 1)
+                                <a class="flex items-center mr-3"
+                                    href="{{route('production.spk.schedule', ['id' => $item->id])}}"
+                                    title="Production Schedule"> <i data-lucide="calendar"
+                                        class="w-4 h-4 mr-1"></i>Schedule</a>
                                 @endif
                             </div>
                         </td>
@@ -92,23 +102,35 @@
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
             <nav class="w-full sm:w-auto sm:mr-auto">
                 <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevrons-left"></i> </a>
+                    @if ($data->onFirstPage())
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
+                                data-lucide="chevrons-left"></i></span>
                     </li>
+                    @else
                     <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevron-left"></i> </a>
+                        <a class="page-link" href="{{ $data->previousPageUrl() }}" rel="prev"><i class="w-4 h-4"
+                                data-lucide="chevron-left"></i></a>
                     </li>
-                    <li class="page-item"> <a class="page-link" href="#">...</a> </li>
-                    <li class="page-item"> <a class="page-link" href="#">1</a> </li>
-                    <li class="page-item active"> <a class="page-link" href="#">2</a> </li>
-                    <li class="page-item"> <a class="page-link" href="#">3</a> </li>
-                    <li class="page-item"> <a class="page-link" href="#">...</a> </li>
+                    @endif
+
+                    @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
+                    <li class="page-item @if($page == $data->currentPage()) active @endif">
+                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                    </li>
+                    @endforeach
+
+                    @if ($data->hasMorePages())
                     <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevron-right"></i> </a>
+                        <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4"
+                                data-lucide="chevron-right"></i></a>
                     </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevrons-right"></i> </a>
+                    @else
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
+                                data-lucide="chevrons-right"></i></span>
                     </li>
+                    @endif
                 </ul>
             </nav>
             <select class="w-20 form-select box mt-3 sm:mt-0">

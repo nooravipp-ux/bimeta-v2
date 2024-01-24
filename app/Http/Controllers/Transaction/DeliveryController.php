@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Transaction;
+namespace App\Http\Controllers\transaction;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class DeliveryController extends Controller
                 ->select('delivery_order.id','delivery_order.travel_permit_no', 'customer.name AS customer_name', 'sales_order.transaction_no', 'sales_order.ref_po_customer', 'delivery_order.delivery_date AS actual_delivery_date')
                 ->join('transaction.t_sales_order AS sales_order', 'sales_order.id', '=', 'delivery_order.sales_order_id')
                 ->join('master.m_customer AS customer', 'customer.id', '=', 'sales_order.customer_id')
-                ->get();
+                ->paginate(20);
         // dd($data);
         return view('transaction.warehouse.delivery.index', compact('data'));
     }
@@ -49,77 +49,90 @@ class DeliveryController extends Controller
                     ->where('delivery_order.id', $id)
                     ->first();
 
-        $goodsList = DB::select("SELECT
-                            goods.id,
-                            stock_finish_goods.source_from AS spk_no,
-                            goods.name as goods_name,
-                            CASE
-                                WHEN goods.type = '1' THEN 'SHEET' 
-                                WHEN goods.type = '2' THEN 'BOX' 
-                                WHEN goods.type = '3' THEN 'BADAN TUTUP (AB)' 
-                                ELSE 'BADAN TUTUP (BB)' 
-                            END AS goods_type_name,
-                            CASE
-                                WHEN goods.type = '1' THEN CONCAT ( goods.ply_type, ' ', goods.flute_type, ' ', goods.substance ) 
-                                WHEN goods.type = '2' THEN CONCAT ( goods.ply_type, ' ', goods.flute_type, ' ', goods.substance ) 
-                                WHEN goods.type = '3' THEN CONCAT ( goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance , ' / ', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance ) 
-                                ELSE CONCAT ( goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance , ' / ', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance ) 
-                            END AS specification,
-                            CASE
-                                WHEN goods.type = '1' THEN CONCAT ( goods.length, ' X ', goods.width, ' ', goods.meas_unit) 
-                                WHEN goods.type = '2' THEN CONCAT ( goods.length, ' X ', goods.width, ' X ', goods.height, ' ', goods.meas_unit, ' (', goods.meas_type, ')') 
-                                WHEN goods.type = '3' THEN CONCAT ( goods.bottom_length, ' X ', goods.bottom_width, ' X ', goods.bottom_height, ' ', goods.bottom_meas_unit, ' / ', goods.top_length, ' X ', goods.top_width, ' ', goods.top_meas_unit) 
-                                ELSE CONCAT ( goods.bottom_length, ' X ', goods.bottom_width, ' X ', goods.bottom_height, ' ', goods.bottom_meas_unit, ' / ', goods.top_length, ' X ', goods.top_width, ' X ', goods.top_height, ' ', goods.top_meas_unit) 
-                            END AS measure,
-                            stock_finish_goods.quantity 
-                            FROM transaction.t_stock_finish_goods AS stock_finish_goods
-                            JOIN master.m_goods AS goods ON goods.id = stock_finish_goods.goods_id;");
+        $listSPK = DB::table('transaction.t_detail_sales_order AS detail_sales_order')
+                    ->select('spk.spk_no','spk.status')
+                    ->join('transaction.t_spk AS spk', 'spk.detail_sales_order_id', '=', 'detail_sales_order.id')
+                    ->where('detail_sales_order.sales_order_id', $deliveryOrder->sales_order_id)
+                    ->get();
 
-        $detailDeliveryOrder = DB::select("SELECT
-                                        detail_delivery_order.id,
-                                        goods.name as goods_name,
-                                        CASE
-                                            WHEN goods.type = '1' THEN CONCAT ( goods.ply_type, ' ', goods.flute_type, ' ', goods.substance ) 
-                                            WHEN goods.type = '2' THEN CONCAT ( goods.ply_type, ' ', goods.flute_type, ' ', goods.substance ) 
-                                            WHEN goods.type = '3' THEN CONCAT ( goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance , ' / ', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance ) 
-                                            ELSE CONCAT ( goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance , ' / ', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance ) 
-                                        END AS specification,
-                                        CASE
-                                            WHEN goods.type = '1' THEN CONCAT ( goods.length, ' X ', goods.width, ' ', goods.meas_unit) 
-                                            WHEN goods.type = '2' THEN CONCAT ( goods.length, ' X ', goods.width, ' X ', goods.height, ' ', goods.meas_unit, ' (', goods.meas_type, ')') 
-                                            WHEN goods.type = '3' THEN CONCAT ( goods.bottom_length, ' X ', goods.bottom_width, ' X ', goods.bottom_height, ' ', goods.bottom_meas_unit, ' / ', goods.top_length, ' X ', goods.top_width, ' ', goods.top_meas_unit) 
-                                            ELSE CONCAT ( goods.bottom_length, ' X ', goods.bottom_width, ' X ', goods.bottom_height, ' ', goods.bottom_meas_unit, ' / ', goods.top_length, ' X ', goods.top_width, ' X ', goods.top_height, ' ', goods.top_meas_unit) 
-                                        END AS measure,
-                                            detail_delivery_order.quantity,
-                                            detail_delivery_order.remarks
-                                    FROM
-                                        TRANSACTION.t_detail_delivery_order detail_delivery_order
-                                        JOIN TRANSACTION.t_delivery_order delivery_order ON delivery_order.ID = detail_delivery_order.delivery_order_id
-                                        JOIN TRANSACTION.t_spk spk ON spk.ID = detail_delivery_order.spk_id
-                                        JOIN TRANSACTION.t_detail_sales_order detail_sales_order ON detail_sales_order.ID = spk.detail_sales_order_id
-                                        JOIN master.m_goods AS goods ON goods.id = detail_sales_order.goods_id
-                                        WHERE detail_delivery_order.delivery_order_id = $id;");
+        $goodsList = DB::table('transaction.t_stock_finish_goods AS stock_finish_goods')
+                    ->join('master.m_goods AS goods', 'goods.id', '=', 'stock_finish_goods.goods_id')
+                    ->select(
+                        'goods.id',
+                        'stock_finish_goods.id AS fg_id',
+                        'stock_finish_goods.source_from AS spk_no',
+                        'goods.name as goods_name',
+                        DB::raw("CASE
+                            WHEN goods.type = '1' THEN 'SHEET'
+                            WHEN goods.type = '2' THEN 'BOX'
+                            WHEN goods.type = '3' THEN 'BADAN TUTUP (AB)'
+                            ELSE 'BADAN TUTUP (BB)'
+                        END AS goods_type_name"),
+                        DB::raw("CASE
+                            WHEN goods.type IN ('1', '2') THEN CONCAT(goods.ply_type, ' ', goods.flute_type, ' ', goods.substance)
+                            ELSE CONCAT(goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance, ' / ', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance)
+                        END AS specification"),
+                        DB::raw("CASE
+                            WHEN goods.type = '1' THEN CONCAT(goods.length, ' X ', goods.width, ' ', goods.meas_unit)
+                            WHEN goods.type = '2' THEN CONCAT(goods.length, ' X ', goods.width, ' X ', goods.height, ' ', goods.meas_unit, ' (', goods.meas_type, ')')
+                            WHEN goods.type = '3' THEN CONCAT(goods.bottom_length, ' X ', goods.bottom_width, ' X ', goods.bottom_height, ' ', goods.bottom_meas_unit, ' / ', goods.top_length, ' X ', goods.top_width, ' ', goods.top_meas_unit)
+                            ELSE CONCAT(goods.bottom_length, ' X ', goods.bottom_width, ' X ', goods.bottom_height, ' ', goods.bottom_meas_unit, ' / ', goods.top_length, ' X ', goods.top_width, ' X ', goods.top_height, ' ', goods.top_meas_unit)
+                        END AS measure"),
+                        'stock_finish_goods.quantity'
+                    )
+                    ->get();
 
-        return view('transaction.warehouse.delivery.edit', compact('deliveryOrder', 'goodsList', 'detailDeliveryOrder'));
+        $detailDeliveryOrder = DB::table('transaction.t_detail_delivery_order as detail_delivery_order')
+                    ->select(
+                        'detail_delivery_order.id',
+                        'goods.name as goods_name',
+                        'stock_finish_goods.source_from as ref',
+                        DB::raw("CASE
+                                    WHEN goods.type = '1' THEN CONCAT(goods.ply_type, ' ', goods.flute_type, ' ', goods.substance)
+                                    WHEN goods.type = '2' THEN CONCAT(goods.ply_type, ' ', goods.flute_type, ' ', goods.substance)
+                                    WHEN goods.type = '3' THEN CONCAT(goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance, ' / ', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance)
+                                    ELSE CONCAT(goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance, ' / ', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance)
+                                END AS specification"),
+                        DB::raw("CASE
+                                    WHEN goods.type = '1' THEN CONCAT(goods.length, ' X ', goods.width, ' ', goods.meas_unit)
+                                    WHEN goods.type = '2' THEN CONCAT(goods.length, ' X ', goods.width, ' X ', goods.height, ' ', goods.meas_unit, ' (', goods.meas_type, ')')
+                                    WHEN goods.type = '3' THEN CONCAT(goods.bottom_length, ' X ', goods.bottom_width, ' X ', goods.bottom_height, ' ', goods.bottom_meas_unit, ' / ', goods.top_length, ' X ', goods.top_width, ' ', goods.top_meas_unit)
+                                    ELSE CONCAT(goods.bottom_length, ' X ', goods.bottom_width, ' X ', goods.bottom_height, ' ', goods.bottom_meas_unit, ' / ', goods.top_length, ' X ', goods.top_width, ' X ', goods.top_height, ' ', goods.top_meas_unit)
+                                END AS measure"),
+                        'detail_delivery_order.quantity',
+                        'detail_delivery_order.remarks'
+                    )
+                    ->join('transaction.t_delivery_order as delivery_order', 'delivery_order.id', '=', 'detail_delivery_order.delivery_order_id')
+                    ->join('transaction.t_stock_finish_goods as stock_finish_goods', 'stock_finish_goods.id', '=', 'detail_delivery_order.fg_id')
+                    ->join('master.m_goods as goods', 'goods.id', '=', 'stock_finish_goods.goods_id')
+                    ->where('detail_delivery_order.delivery_order_id', $id)
+                    ->get();
+
+        return view('transaction.warehouse.delivery.edit', compact('deliveryOrder', 'goodsList', 'detailDeliveryOrder', 'listSPK'));
     }
 
     public function saveDetail(Request $request) {
 
         DB::table('transaction.t_detail_delivery_order')->insert([
             "delivery_order_id" => $request->delivery_order_id,
-            "goods_id" => $request->goods_id,
+            "fg_id" => $request->fg_id,
             "quantity" => $request->quantity,
             "remarks" => $request->remarks,
             "created_at"=> date('Y-m-d H:i:s'),
             "created_by" => Auth::user()->name,
         ]); 
 
+        DB::table('transaction.t_stock_finish_goods')
+                ->where('id', $request->fg_id)
+                ->update([
+                    "quantity" => DB::raw('quantity - ' . $request->quantity),
+                ]);
+
         return redirect()->route('warehouse.delivery.edit', ['id' => $request->delivery_order_id]);
     }
 
     public function deleteDetail($id){
         DB::table('transaction.t_detail_delivery_order')->where('id', $id)->delete();
-
         return redirect()->back();
     }
 }

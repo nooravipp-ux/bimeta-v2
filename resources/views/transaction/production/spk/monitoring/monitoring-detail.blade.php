@@ -76,11 +76,11 @@
                     <div id="horizontal-form" class="p-5">
                         <div class="preview">
                             <div class="form-inline">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Nama</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Nama</label>
                                 <input type="text" class="form-control" value="{{$data[0]->name}}" readonly>
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Jenis</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Jenis</label>
                                 @if($data[0]->type == 1)
                                 <input type="text" class="form-control" value="SHEET" readonly>
                                 @elseif($data[0]->type == 2)
@@ -92,13 +92,13 @@
                                     id="goods-type">
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Spesifikasi</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Spesifikasi</label>
                                 <input type="text" class="form-control"
                                     value="{{$data[0]->ply_type}} {{$data[0]->flute_type}} {{$data[0]->substance_name}}"
                                     readonly>
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Ukuran</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
                                 @if($data[0]->type == 1)
                                 <input type="text" class="form-control"
                                     value="{{$data[0]->length}} X {{$data[0]->width}} {{$data[0]->meas_unit}}" readonly>
@@ -113,7 +113,7 @@
                                 @endif
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Qty Pesanan</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Qty Pesanan</label>
                                 <input type="text" class="form-control" id="-order-quantity"
                                     value="{{$data[0]->order_quantity}}" readonly>
                             </div>

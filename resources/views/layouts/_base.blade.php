@@ -62,7 +62,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             </li>
                             <li>
                                 <a href="{{route('index-price.index')}}" class="menu menu--active">
-                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__icon"> <i data-lucide="smartphone"></i> </div>
                                     <div class="menu__title"> Calculator Index</div>
                                 </a>
                             </li>
@@ -82,13 +82,13 @@ License: You must have a valid license purchased only from themeforest(the above
                             </li>
                             <li>
                                 <a href="{{route('production.spk.index')}}" class="menu">
-                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__icon"> <i data-lucide="clipboard"></i> </div>
                                     <div class="menu__title"> SPK </div>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{route('production.spk.monitoring.index')}}" class="menu">
-                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__icon"> <i data-lucide="eye"></i> </div>
                                     <div class="menu__title"> Monitoring </div>
                                 </a>
                             </li>
@@ -102,14 +102,14 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                     <li>
                         <a href="javascript:;" class="menu">
-                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__icon"> <i data-lucide="home"></i> </div>
                             <div class="menu__title"> Warehouse <i data-lucide="chevron-down" class="menu__sub-icon "></i> </div>
                         </a>
                         <ul class="">
                             <li>
                                 <a href="{{route('warehouse.delivery.index')}}" class="menu">
                                     <div class="menu__icon"> <i data-lucide="truck"></i> </div>
-                                    <div class="menu__title"> Shipment </div>
+                                    <div class="menu__title"> Shipping </div>
                                 </a>
                             </li>
                             <li>
@@ -120,7 +120,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <ul class="">
                                     <li>
                                         <a href="{{route('warehouse.finish-goods.index')}}" class="menu">
-                                            <div class="menu__icon"> <i data-lucide="archive"></i> </div>
+                                            <div class="menu__icon"> <i data-lucide="package"></i> </div>
                                             <div class="menu__title"> Finish Goods </div>
                                         </a>
                                     </li>
@@ -132,7 +132,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </li> -->
                                     <li>
                                         <a href="{{route('warehouse.raw-material.index')}}" class="menu">
-                                            <div class="menu__icon"> <i data-lucide="archive"></i> </div>
+                                            <div class="menu__icon"> <i data-lucide="layers"></i> </div>
                                             <div class="menu__title"> Raw Materials </div>
                                         </a>
                                     </li>
@@ -242,14 +242,14 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!-- BEGIN: Logo -->
                 <a href="" class="logo -intro-x hidden md:flex xl:w-[180px] block">
                     <img alt="Midone - HTML Admin Template" class="logo__image w-6" src="{{asset('assets/dist/images/logo.svg')}}">
-                    <span class="logo__text text-white text-lg ml-3"> Enigma </span> 
+                    <span class="logo__text text-white text-lg ml-3"> BIMETA </span> 
                 </a>
                 <!-- END: Logo -->
                 <!-- BEGIN: Breadcrumb -->
                 <nav aria-label="breadcrumb" class="-intro-x h-[45px] mr-auto">
                     <ol class="breadcrumb breadcrumb-light">
                         <li class="breadcrumb-item"><a href="#">Application</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                        @yield('active-url')
                     </ol>
                 </nav>
                 <!-- END: Breadcrumb -->
@@ -329,7 +329,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </li> -->
                         <li>
                             <a href="{{route('index-price.index')}}" class="top-menu">
-                                <div class="top-menu__icon"> <i data-lucide="activity"></i> </div>
+                                <div class="top-menu__icon"> <i data-lucide="smartphone"></i> </div>
                                 <div class="top-menu__title"> Calculator Index</div>
                             </a>
                         </li>
@@ -349,13 +349,13 @@ License: You must have a valid license purchased only from themeforest(the above
                         </li>
                         <li>
                             <a href="{{route('production.spk.index')}}" class="top-menu">
-                                <div class="top-menu__icon"> <i data-lucide="activity"></i> </div>
+                                <div class="top-menu__icon"> <i data-lucide="clipboard"></i> </div>
                                 <div class="top-menu__title"> SPK </div>
                             </a>
                         </li>
                         <li>
                             <a href="{{route('production.spk.monitoring.index')}}" class="top-menu">
-                                <div class="top-menu__icon"> <i data-lucide="activity"></i> </div>
+                                <div class="top-menu__icon"> <i data-lucide="eye"></i> </div>
                                 <div class="top-menu__title"> Monitoring </div>
                             </a>
                         </li>
@@ -369,14 +369,14 @@ License: You must have a valid license purchased only from themeforest(the above
                 </li>
                 <li>
                     <a href="javascript:;" class="top-menu">
-                        <div class="top-menu__icon"> <i data-lucide="box"></i> </div>
+                        <div class="top-menu__icon"> <i data-lucide="home"></i> </div>
                         <div class="top-menu__title"> Warehouse <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
                     </a>
                     <ul class="">
                         <li>
                             <a href="{{route('warehouse.delivery.index')}}" class="top-menu">
                                 <div class="top-menu__icon"> <i data-lucide="truck"></i> </div>
-                                <div class="top-menu__title"> Shipment </div>
+                                <div class="top-menu__title"> Shipping </div>
                             </a>
                         </li>
                         <li>
@@ -387,7 +387,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <ul class="">
                                 <li>
                                     <a href="{{route('warehouse.finish-goods.index')}}" class="top-menu">
-                                        <div class="top-menu__icon"> <i data-lucide="archive"></i> </div>
+                                        <div class="top-menu__icon"> <i data-lucide="package"></i> </div>
                                         <div class="top-menu__title">Finish Goods</div>
                                     </a>
                                 </li>
@@ -399,7 +399,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </li> -->
                                 <li>
                                     <a href="{{route('warehouse.raw-material.index')}}" class="top-menu">
-                                        <div class="top-menu__icon"> <i data-lucide="archive"></i> </div>
+                                        <div class="top-menu__icon"> <i data-lucide="layers"></i> </div>
                                         <div class="top-menu__title">Raw Material</div>
                                     </a>
                                 </li>

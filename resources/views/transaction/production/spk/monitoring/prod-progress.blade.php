@@ -76,7 +76,7 @@
                     <div id="horizontal-form" class="p-5">
                         <div class="preview">
                             <div class="form-inline">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Nama Proses</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Nama</label>
                                 <input type="text" class="form-control" name="process_name"
                                     value="{{$processItem->process_name}}" readonly>
                                 <input type="hidden" class="form-control" name="production_process_id"
@@ -85,7 +85,7 @@
                                     value="{{$processItem->spk_id}}">
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Status</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Status</label>
                                 <select data-placeholder="Pilih Substance" class="tom-select w-full form-control"
                                     name="status">
                                     <option value="1" <?php echo ($processItem->status == 1) ? "selected" : ""; ?>>Init
@@ -98,8 +98,7 @@
                             </div>
                         </div>
                         <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
-                            <button type="submit" id="calculate-hpp" class="btn py-3 btn-primary w-full md:w-52">Update
-                                Status Progress</button>
+                            <button type="submit" id="calculate-hpp" class="btn py-3 btn-primary w-full md:w-52">Update Status Progress</button>
                         </div>
                     </div>
                 </form>
@@ -109,7 +108,7 @@
                 <div
                     class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                     <h2 class="font-medium text-base mr-auto">
-                        Form Item Proses Produksi
+                        Item Proses Produksi
                     </h2>
                 </div>
                 <form method="POST" action="{{route('production.spk.monitoring.production-progress.detail.save')}}">
@@ -117,20 +116,20 @@
                     <div id="horizontal-form" class="p-5">
                         <div class="preview">
                             <div class="form-inline">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Nama Operator</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Operator</label>
                                 <input type="text" class="form-control" name="operator">
                                 <input type="hidden" class="form-control" name="production_process_id" value="{{$processItem->id}}">
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Tanggal</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Tanggal</label>
                                 <input type="date" class="form-control" name="date">
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Hasil</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Hasil</label>
                                 <input type="number" class="form-control" name="result">
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Catatan</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Catatan</label>
                                 <textarea type="text" class="form-control" name="remarks"> </textarea>
                             </div>
                         </div>
@@ -149,13 +148,13 @@
                 </div>
                 <div class="overflow-auto lg:overflow-visible -mt-3">
                     <table class="table table-striped">
-                        <thead>
+                        <thead class="bg-success">
                             <tr>
-                                <th class="whitespace-nowrap">Nama Operator</th>
-                                <th class="whitespace-nowrap">Tanggal Proses</th>
-                                <th class="whitespace-nowrap">Hasil</th>
-                                <th class="whitespace-nowrap">Catatan</th>
-                                <th class="whitespace-nowrap text-center">Action</th>
+                                <th class="whitespace-nowrap">NAMA OPERATOR</th>
+                                <th class="whitespace-nowrap">TANGGAL PROSES</th>
+                                <th class="whitespace-nowrap">HASIL</th>
+                                <th class="whitespace-nowrap">CATATAN</th>
+                                <th class="whitespace-nowrap text-center">AACTION</th>
                             </tr>
                         </thead>
                         <tbody>

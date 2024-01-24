@@ -1,4 +1,8 @@
 @extends('layouts._base')
+@section('active-url')
+<li class="breadcrumb-item" aria-current="page">Sales Order</li>
+<li class="breadcrumb-item active" aria-current="page">PO Customer</li>
+@endsection
 @section('main-content')
 <div class="content content--top-nav">
     <h2 class="intro-y text-lg font-medium mt-10">
@@ -6,7 +10,7 @@
     </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="{{route('sales.create')}}" class="btn btn-primary shadow-md mr-2">Add New Order</a>
+            <a href="{{route('sales.create')}}" class="btn btn-primary shadow-md mr-2">Tambah Pesanan</a>
             <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
@@ -63,10 +67,10 @@
                         <td class="text-center">{{$item->assigned_to}}</td>
                         <td class="text-center">
                             @if($item->status == 1)
-                            <button type="button" class="btn btn-success btn-rounded"> Draft </button>
+                            <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">DRAFT</div>
                             @endif
                             @if($item->status == 2)
-                            <button type="button" class="btn btn-success btn-rounded"> Claimed By PIC </button>
+                            <div class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">CLAIMED BY PIC</div>
                             @endif
                         </td>
                         <td class="table-report__action w-56">

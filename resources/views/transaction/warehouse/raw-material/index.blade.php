@@ -1,4 +1,9 @@
 @extends('layouts._base')
+@section('active-url')
+<li class="breadcrumb-item" aria-current="page">Warehouse</li>
+<li class="breadcrumb-item" aria-current="page">Stock</li>
+<li class="breadcrumb-item active" aria-current="page">Raw Materials</li>
+@endsection
 @section('main-content')
 <div class="content content--top-nav">
     <h2 class="intro-y text-lg font-medium mt-10">

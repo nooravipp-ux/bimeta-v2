@@ -7,9 +7,9 @@
         <h2 class="text-lg font-medium mr-auto">
             {{$salesOrder->transaction_no}}
         </h2>
-        <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+        <!-- <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
             <button class="btn btn-primary shadow-md mr-2">Print</button>
-        </div>
+        </div> -->
     </div>
     <!-- BEGIN: Transaction Details -->
     <div class="intro-y grid grid-cols-11 gap-5 mt-5">
@@ -21,7 +21,7 @@
                             class="w-4 h-4 mr-2"></i> Change Status </a>
                 </div>
                 <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    NO. PO: <a href="" class="underline decoration-dotted ml-1">{{$salesOrder->ref_po_customer}}</a>
+                    NO. PO: <a href="" class="ml-1">{{$salesOrder->ref_po_customer}}</a>
                 </div>
                 <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i>
                     Tanggal Pemesanan: <?php echo date("d M Y", strtotime($salesOrder->order_date)); ?> </div>
@@ -47,7 +47,7 @@
                             class="w-4 h-4 mr-2"></i> View Details </a>
                 </div>
                 <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    Name: <a href="" class="underline decoration-dotted ml-1">{{$salesOrder->cust_name}}</a> </div>
+                    Name: <a href="" class="ml-1">{{$salesOrder->cust_name}}</a> </div>
                 <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i>
                     Phone Number: {{$salesOrder->phone_number}} 
                 </div>
@@ -69,18 +69,18 @@
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Detail Pesanan</div>
                     <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview"
-                        class="flex items-center ml-auto text-primary"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
+                        class="flex items-center ml-auto text-white btn btn-primary shadow-md"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
                         Tambah Barang </a>
                 </div>
                 <div class="overflow-auto lg:overflow-visible -mt-3">
                     <table class="table table-striped">
-                        <thead>
+                        <thead class="bg-success">
                             <tr>
-                                <th class="whitespace-nowrap">Nama Barang</th>
-                                <th class="whitespace-nowrap">Spesifikasi</th>
-                                <th class="whitespace-nowrap text-center">Ukuran</th>
-                                <th class="whitespace-nowrap text-center">Quantity</th>
-                                <th class="whitespace-nowrap text-center">Action</th>
+                                <th class="whitespace-nowrap">NAMA BARANG</th>
+                                <th class="whitespace-nowrap">SPESIFIKASI</th>
+                                <th class="whitespace-nowrap text-center">UKURAN</th>
+                                <th class="whitespace-nowrap text-center">QUANTITY</th>
+                                <th class="whitespace-nowrap text-center">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,8 +93,7 @@
                                 <td class="table-report__action w-56">
                                     <div class="flex justify-center items-center">
                                         <a class="flex items-center mr-3"
-                                            href=""> <i
-                                                data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
+                                            href=""> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>
                                         <a class="flex items-center text-danger" href="javascript:;"
                                             data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal"> <i
                                                 data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
@@ -113,7 +112,7 @@
                                 <div class="intro-y box">
                                     <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                                         <h2 class="font-medium text-base mr-auto">
-                                            Form Tambah Barang
+                                            Tambah Barang
                                         </h2>
                                     </div>
                                     <div id="horizontal-form" class="p-5">
@@ -121,7 +120,7 @@
                                             @csrf
                                             <div class="preview">
                                                 <div class="form-inline mt-5">
-                                                    <label for="horizontal-form-2" class="form-label sm:w-40">Barang</label>
+                                                    <label for="horizontal-form-2" class="form-label sm:w-20">Barang</label>
                                                     <select data-placeholder="Pilih Barang" class="tom-select w-full form-control" name="goods_id" required>
                                                         <option value="">-</option>
                                                         @foreach($data as $data)
@@ -130,12 +129,12 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-inline mt-5">
-                                                    <label for="vertical-form-1" class="form-label sm:w-40">Quantity </label>
+                                                    <label for="vertical-form-1" class="form-label sm:w-20">Quantity </label>
                                                     <input id="vertical-form-1" type="number" class="form-control" name="quantity" required>
                                                     <input id="vertical-form-1" type="hidden" class="form-control" name="sales_order_id" value="{{$salesOrder->id}}">
                                                 </div>
                                                 <div class="form-inline mt-5 lem">
-                                                    <label for="vertical-form-1" class="form-label sm:w-40">Cetakan</label>
+                                                    <label for="vertical-form-1" class="form-label sm:w-20">Cetakan</label>
                                                     <div class="flex flex-col sm:flex-row">
                                                         <div class="form-check mr-2">
                                                             <input id="radio-switch-4" class="form-check-input" type="radio" name="flag_print" value="0" checked>
@@ -148,15 +147,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-inline mt-5">
-                                                    <label for="vertical-form-1" class="form-label sm:w-40">Remarks </label>
+                                                    <label for="vertical-form-1" class="form-label sm:w-20">Remarks </label>
                                                     <textarea id="vertical-form-1" type="number" class="form-control" name="remarks"></textarea>
                                                 </div>
                                             </div>
                                             <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
-                                                <button type="button"
-                                                    class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Batal</button>
-                                                <button type="submit"
-                                                    class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
+                                                <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
                                             </div>
                                         </form>
                                     </div>
