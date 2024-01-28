@@ -15,13 +15,14 @@ class IndexPriceController extends Controller
                 ->join('master.m_substance as substance', 'substance.id', '=', 'index_price.substance_id')
                 ->orderBy('index_price.id', 'ASC')
                 ->paginate(20);
+                
         $tags = DB::table('transaction.t_mapping_index_price as index_price')
                 ->select('index_price.tag')
                 ->distinct()
                 ->orderBy('index_price.tag', 'DESC')
                 ->get();
 
-        return view('transaction.index-price.index', compact('data', 'substances', 'tags'));
+        return view('transaction.sales-order.index-price.index', compact('data', 'substances', 'tags'));
     }
 
     public function getIndexPrice($substance){
@@ -57,7 +58,7 @@ class IndexPriceController extends Controller
     public function edit($id){
         $substances = DB::table('master.m_substance')->get();
         $indexPrice = DB::table('transaction.t_mapping_index_price')->where('id', $id)->first();
-        return view('transaction.index-price.edit', compact('substances', 'indexPrice'));
+        return view('transaction.sales-order.index-price.edit', compact('substances', 'indexPrice'));
     }
 
     public function update(Request $request){
@@ -78,6 +79,6 @@ class IndexPriceController extends Controller
     }
 
     public function getList() {
-        return view('transaction.index-price.index');
+        return view('transaction.sales-order.index-price.index');
     }
 }

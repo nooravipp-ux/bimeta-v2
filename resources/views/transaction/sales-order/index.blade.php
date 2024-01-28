@@ -52,6 +52,7 @@
                         <th class="text-center whitespace-nowrap">TANGGAL PESANAN</th>
                         <th class="text-center whitespace-nowrap">TANGGAL PENGIRIMAN</th>
                         <th class="text-center whitespace-nowrap">PIC</th>
+                        <th class="text-center whitespace-nowrap">JENIS PAJAK</th>
                         <th class="text-center whitespace-nowrap">STATUS</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
@@ -65,6 +66,15 @@
                         <td class="text-center"><?php echo date("d/m/Y", strtotime($item->order_date)); ?></td>
                         <td class="text-center"><?php echo date("d/m/Y", strtotime($item->delivery_date)); ?></td>
                         <td class="text-center">{{$item->assigned_to}}</td>
+                        <td class="text-center">
+                            @if($item->tax_type == 0)
+                                V0 (Kawasan Berikat)
+                            @elseif($item->tax_type == 1)
+                                V1 (Exlude PPN)
+                            @else
+                                V2 (Inlude PPN)
+                            @endif
+                        </td>
                         <td class="text-center">
                             @if($item->status == 1)
                             <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">DRAFT</div>

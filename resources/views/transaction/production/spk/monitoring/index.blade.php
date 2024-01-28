@@ -50,7 +50,7 @@
                         <th class="text-center whitespace-nowrap">LEBAR</th>
                         <th class="text-center whitespace-nowrap">PANJANG</th>
                         <th class="text-center whitespace-nowrap">KUALITAS</th>
-                        <th class="text-center whitespace-nowrap">SHEET</th>
+                        <th class="text-center whitespace-nowrap">QTY</th>
                         <th class="text-center whitespace-nowrap">PROCESS</th>
                         <th class="text-center whitespace-nowrap">PERSENTASE</th>
                         <th class="text-center whitespace-nowrap">STATUS</th>
@@ -64,9 +64,9 @@
                         <td>{{$item->ref_po_customer}}</td>
                         <td class="text-center whitespace-nowrap">{{$item->spk_no}}</td>
                         <td class="text-center whitespace-nowrap">{{$item->customer_name}}</td>
-                        <td class="text-center whitespace-nowrap">{{$item->bruto_width}}</td>
-                        <td class="text-center whitespace-nowrap">{{$item->bruto_length}}</td>
-                        <td class="text-center whitespace-nowrap">{{$item->specification}}</td>
+                        <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->bruto_width);?></td>
+                        <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->bruto_length);?></td>
+                        <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->specification);?></td>
                         <td class="text-center whitespace-nowrap">{{$item->quantity}}</td>
                         <td class="text-center whitespace-nowrap">{{$item->current_process}}</td>
                         <td class="text-center whitespace-nowrap">50%</td>

@@ -18,7 +18,7 @@
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Informasi Pesanan</div>
                     <a href="" class="flex items-center ml-auto text-primary"> <i data-lucide="edit"
-                            class="w-4 h-4 mr-2"></i> Change Status </a>
+                            class="w-4 h-4 mr-2"></i> Edit </a>
                 </div>
                 <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i>
                     NO. PO: <a href="" class="ml-1">{{$salesOrder->ref_po_customer}}</a>
@@ -44,7 +44,7 @@
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Informasi Customer</div>
                     <a href="" class="flex items-center ml-auto text-primary"> <i data-lucide="edit"
-                            class="w-4 h-4 mr-2"></i> View Details </a>
+                            class="w-4 h-4 mr-2"></i> Lihat Details </a>
                 </div>
                 <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i>
                     Name: <a href="" class="ml-1">{{$salesOrder->cust_name}}</a> </div>
@@ -79,7 +79,8 @@
                                 <th class="whitespace-nowrap">NAMA BARANG</th>
                                 <th class="whitespace-nowrap">SPESIFIKASI</th>
                                 <th class="whitespace-nowrap text-center">UKURAN</th>
-                                <th class="whitespace-nowrap text-center">QUANTITY</th>
+                                <th class="whitespace-nowrap text-center">JUMLAH</th>
+                                <th class="whitespace-nowrap text-center">HARGA</th>
                                 <th class="whitespace-nowrap text-center">ACTION</th>
                             </tr>
                         </thead>
@@ -90,13 +91,13 @@
                                 <td>{{$detail->specification}}</td>
                                 <td class="text-center">{{$detail->measure}}</td>
                                 <td class="text-center">{{$detail->quantity}}</td>
+                                <td class="text-center">0</td>
                                 <td class="table-report__action w-56">
                                     <div class="flex justify-center items-center">
-                                        <a class="flex items-center mr-3"
-                                            href=""> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>
-                                        <a class="flex items-center text-danger" href="javascript:;"
-                                            data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal"> <i
-                                                data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
+                                        <a class="flex items-center text-success mr-3" href=""> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>
+                                        @if($salesOrder->status == 1)
+                                        <a class="flex items-center text-danger" href="{{route('sales.detail.delete', ['id' => $detail->id])}}" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
@@ -132,6 +133,10 @@
                                                     <label for="vertical-form-1" class="form-label sm:w-20">Quantity </label>
                                                     <input id="vertical-form-1" type="number" class="form-control" name="quantity" required>
                                                     <input id="vertical-form-1" type="hidden" class="form-control" name="sales_order_id" value="{{$salesOrder->id}}">
+                                                </div>
+                                                <div class="form-inline mt-5">
+                                                    <label for="vertical-form-1" class="form-label sm:w-20">Harga </label>
+                                                    <input id="vertical-form-1" type="number" class="form-control" name="price" value="0" required>
                                                 </div>
                                                 <div class="form-inline mt-5 lem">
                                                     <label for="vertical-form-1" class="form-label sm:w-20">Cetakan</label>
@@ -170,7 +175,7 @@
 @endsection
 
 @section('script')
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
-
 </script>
 @endsection

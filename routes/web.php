@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sales-order/{id}/detail/create', [App\Http\Controllers\Transaction\SalesOrderController::class, 'createDetail'])->name('sales.detail.create');
     Route::post('/sales-order/detail/save', [App\Http\Controllers\Transaction\SalesOrderController::class, 'saveDetail'])->name('sales.detail.save');
     Route::get('/sales-order/detail/edit/{id}', [App\Http\Controllers\Transaction\SalesOrderController::class, 'editDetail'])->name('sales.detail.edit');
+    Route::get('/sales-order/detail/delete/{id}', [App\Http\Controllers\Transaction\SalesOrderController::class, 'deleteDetail'])->name('sales.detail.delete');
 
     Route::get('/index-price', [App\Http\Controllers\Transaction\IndexPriceController::class, 'index'])->name('index-price.index');
     Route::post('/index-price/save', [App\Http\Controllers\Transaction\IndexPriceController::class, 'save'])->name('index-price.save');
@@ -77,6 +78,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/production/spk/schedule/{id}', [App\Http\Controllers\Transaction\ProductionController::class, 'schedule'])->name('production.spk.schedule');
     Route::get('/production/spk/mark-as-done/{id}', [App\Http\Controllers\Transaction\ProductionController::class, 'markAsDone'])->name('production.spk.mark-as-done');
     Route::post('/production/spk/schedule/save', [App\Http\Controllers\Transaction\ProductionController::class, 'scheduleSave'])->name('production.spk.schedule.save');
+    Route::get('/production/spk/print/{id}', [App\Http\Controllers\Transaction\ProductionController::class, 'printSpk'])->name('production.spk.print');
+    Route::get('/production/spk/search', [App\Http\Controllers\Transaction\ProductionController::class, 'search'])->name('production.spk.search');
+    
     Route::post('/production/progress-item/save', [App\Http\Controllers\Transaction\ProductionController::class, 'progressItemSave'])->name('production.spk.progress-item.save');
     Route::get('/production/monitoring', [App\Http\Controllers\Transaction\ProductionController::class, 'monitoring'])->name('production.spk.monitoring.index');
     Route::get('/production/monitoring/{id}', [App\Http\Controllers\Transaction\ProductionController::class, 'monitoringDetail'])->name('production.spk.monitoring.detail');
@@ -85,15 +89,23 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/production/monitoring/production-progress/detail/save', [App\Http\Controllers\Transaction\ProductionController::class, 'progressProductionDetailSave'])->name('production.spk.monitoring.production-progress.detail.save');
     Route::post('/production/monitoring/personal-progress', [App\Http\Controllers\Transaction\ProductionController::class, 'monitoringPersonalProgress'])->name('production.spk.monitoring.personal-progress');
 
-    Route::get('/warehouse/delivery', [App\Http\Controllers\Transaction\DeliveryController::class, 'index'])->name('warehouse.delivery.index');
-    Route::get('/warehouse/delivery/create', [App\Http\Controllers\Transaction\DeliveryController::class, 'create'])->name('warehouse.delivery.create');
-    Route::post('/warehouse/delivery/save', [App\Http\Controllers\Transaction\DeliveryController::class, 'save'])->name('warehouse.delivery.save');
-    Route::get('/warehouse/delivery/{id}', [App\Http\Controllers\Transaction\DeliveryController::class, 'edit'])->name('warehouse.delivery.edit');
-    Route::post('/warehouse/delivery/detail/save', [App\Http\Controllers\Transaction\DeliveryController::class, 'saveDetail'])->name('warehouse.delivery.detail.save');
-    Route::get('/warehouse/delivery/detail/delete/{id}', [App\Http\Controllers\Transaction\DeliveryController::class, 'deleteDetail'])->name('warehouse.delivery.detail.delete');
+    Route::get('/warehouse/shipping', [App\Http\Controllers\Transaction\DeliveryController::class, 'index'])->name('warehouse.delivery.index');
+    Route::get('/warehouse/shipping/create', [App\Http\Controllers\Transaction\DeliveryController::class, 'create'])->name('warehouse.delivery.create');
+    Route::post('/warehouse/shipping/save', [App\Http\Controllers\Transaction\DeliveryController::class, 'save'])->name('warehouse.delivery.save');
+    Route::get('/warehouse/shipping/{id}', [App\Http\Controllers\Transaction\DeliveryController::class, 'edit'])->name('warehouse.delivery.edit');
+    Route::post('/warehouse/shipping/detail/save', [App\Http\Controllers\Transaction\DeliveryController::class, 'saveDetail'])->name('warehouse.delivery.detail.save');
+    Route::get('/warehouse/shipping/detail/delete/{id}', [App\Http\Controllers\Transaction\DeliveryController::class, 'deleteDetail'])->name('warehouse.delivery.detail.delete');
+    Route::get('/warehouse/shipping/print/{id}', [App\Http\Controllers\Transaction\DeliveryController::class, 'print'])->name('warehouse.delivery.print');
 
     Route::get('/warehouse/finish-goods', [App\Http\Controllers\Transaction\FinishGoodsController::class, 'index'])->name('warehouse.finish-goods.index');
     Route::get('/warehouse/raw-materials', [App\Http\Controllers\Transaction\RawMaterialController::class, 'index'])->name('warehouse.raw-material.index');
+
+    Route::get('/procurement/purchase-order', [App\Http\Controllers\Transaction\PurchaseOrderController::class, 'index'])->name('procurement.purchase-order.index');
+    Route::get('/procurement/purchase-order/create', [App\Http\Controllers\Transaction\PurchaseOrderController::class, 'create'])->name('procurement.purchase-order.create');
+    Route::post('/procurement/purchase-order/save', [App\Http\Controllers\Transaction\PurchaseOrderController::class, 'save'])->name('procurement.purchase-order.save');
+    Route::get('/procurement/purchase-order/{id}', [App\Http\Controllers\Transaction\PurchaseOrderController::class, 'edit'])->name('procurement.purchase-order.edit');
+    Route::post('/procurement/purchase-order/detail/save', [App\Http\Controllers\Transaction\PurchaseOrderController::class, 'saveDetail'])->name('procurement.purchase-order.detail.save');
+    Route::get('/procurement/purchase-order/delete/{id}', [App\Http\Controllers\Transaction\PurchaseOrderController::class, 'deleteDetail'])->name('procurement.purchase-order.detail.delete');
 });
 
 Auth::routes();

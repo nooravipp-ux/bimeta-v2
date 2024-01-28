@@ -1,16 +1,16 @@
 @extends('layouts._base')
 @section('active-url')
-<li class="breadcrumb-item" aria-current="page">Warehouse</li>
-<li class="breadcrumb-item active" aria-current="page">Shipping</li>
+<li class="breadcrumb-item" aria-current="page">Procurement</li>
+<li class="breadcrumb-item active" aria-current="page">Purchase Order</li>
 @endsection
 @section('main-content')
 <div class="content content--top-nav">
     <h2 class="intro-y text-lg font-medium mt-10">
-        Pengiriman
+        Purchase Order
     </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="{{route('warehouse.delivery.create')}}" class="btn btn-primary shadow-md mr-2">Buat Surat Jalan</a>
+            <a href="{{route('procurement.purchase-order.create')}}" class="btn btn-primary shadow-md mr-2">Buat PO</a>
             <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
@@ -46,39 +46,37 @@
             <table class="table table-report -mt-2">
                 <thead class="bg-success">
                     <tr>
-                        <th class="whitespace-nowrap">NO. SURAT JALAN</th>
-                        <th class="whitespace-nowrap">NO. SALES ORDER</th>
-                        <th class="whitespace-nowrap">CUSTOMER</th>
-                        <th class="text-center whitespace-nowrap">NO. PO</th>
-                        <th class="text-center whitespace-nowrap">TANGGAL PENGIRIMAN</th>
-                        <th class="text-center whitespace-nowrap">JENIS PAJAK</th>
+                        <th class="whitespace-nowrap">NO. PO</th>
+                        <th class="whitespace-nowrap">SUPPLIER</th>
+                        <th class="whitespace-nowrap text-center">TANGGAL PEMESANAN</th>
+                        <th class="whitespace-nowrap text-center">STATUS</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($data as $item)
-                    <tr class="intro-x">
-                        <td>{{$item->travel_permit_no}}</td>
-                        <td>{{$item->transaction_no}}</td>
-                        <td>{{$item->customer_name}}</td>
-                        <td class="text-center">{{$item->ref_po_customer}}</td>
-                        <td class="text-center"><?php echo date("d/m/Y", strtotime($item->actual_delivery_date)); ?></td>
+                    <tr>
+                        <td>{{$item->po_no}}</td>
+                        <td>{{$item->name}} ({{$item->code}})</td>
+                        <td class="text-center">{{$item->date}}</td>
                         <td class="text-center">
-                            @if($item->tax_type == 0)
-                                V0 (Kawasan Berikat)
-                            @elseif($item->tax_type == 1)
-                                V1 (Exlude PPN)
-                            @else
-                                V2 (Inlude PPN)
+                            @if($item->status == 1)
+                            <div
+                                class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">
+                                DRAFT</div>
+                            @endif
+                            @if($item->status == 2)
+                            <div
+                                class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">
+                                CLAIMED BY PIC</div>
                             @endif
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3 text-success"
-                                    href="{{route('warehouse.delivery.edit', ['id' => $item->id])}}" title="Edit SPK"><i
+                                <a class="flex items-center text-success mr-3" href="{{route('procurement.purchase-order.edit', ['id' => $item->id])}}"><i
                                         data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
-                                <a class="flex items-center mr-3" href="{{route('warehouse.delivery.print', ['id' => $item->id])}}" title="Print Surat jalan"><i
-                                        data-lucide="printer" class="w-4 h-4 mr-1"></i> Print</a>
+                                <a class="flex items-center text-warning mr-3" href="" title="Print SPK"><i data-lucide="printer"
+                                        class="w-4 h-4 mr-1"></i> Print</a>
                             </div>
                         </td>
                     </tr>
@@ -161,12 +159,7 @@
 @section('script')
 <script>
 $(function() {
-    $(".loader").hide();
-    $("#collapse-form").hide();
 
-    $("#add-data").click(function() {
-        $("#collapse-form").slideToggle("slow");
-    });
 })
 </script>
 @endsection

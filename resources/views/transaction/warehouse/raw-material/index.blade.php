@@ -7,7 +7,7 @@
 @section('main-content')
 <div class="content content--top-nav">
     <h2 class="intro-y text-lg font-medium mt-10">
-        Stock Bahan Baku
+        Stock Raw Materials
     </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
@@ -56,7 +56,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    @foreach($data as $item)
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -65,23 +72,35 @@
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
             <nav class="w-full sm:w-auto sm:mr-auto">
                 <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevrons-left"></i> </a>
+                    @if ($data->onFirstPage())
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
+                                data-lucide="chevrons-left"></i></span>
                     </li>
+                    @else
                     <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevron-left"></i> </a>
+                        <a class="page-link" href="{{ $data->previousPageUrl() }}" rel="prev"><i class="w-4 h-4"
+                                data-lucide="chevron-left"></i></a>
                     </li>
-                    <li class="page-item"> <a class="page-link" href="#">...</a> </li>
-                    <li class="page-item"> <a class="page-link" href="#">1</a> </li>
-                    <li class="page-item active"> <a class="page-link" href="#">2</a> </li>
-                    <li class="page-item"> <a class="page-link" href="#">3</a> </li>
-                    <li class="page-item"> <a class="page-link" href="#">...</a> </li>
+                    @endif
+
+                    @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
+                    <li class="page-item @if($page == $data->currentPage()) active @endif">
+                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                    </li>
+                    @endforeach
+
+                    @if ($data->hasMorePages())
                     <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevron-right"></i> </a>
+                        <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4"
+                                data-lucide="chevron-right"></i></a>
                     </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevrons-right"></i> </a>
+                    @else
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
+                                data-lucide="chevrons-right"></i></span>
                     </li>
+                    @endif
                 </ul>
             </nav>
             <select class="w-20 form-select box mt-3 sm:mt-0">

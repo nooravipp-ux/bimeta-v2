@@ -8,7 +8,7 @@
             {{$deliveryOrder->travel_permit_no}}
         </h2>
         <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-            <button class="btn btn-primary shadow-md mr-2">Print Surat Jalan</button>
+            <a href="{{route('warehouse.delivery.print', ['id' => $deliveryOrder->id])}}" class="btn btn-primary shadow-md mr-2">Print Surat Jalan</a>
         </div>
     </div>
     <!-- BEGIN: Transaction Details -->
@@ -27,7 +27,7 @@
                     Tanggal Pengiriman: <?php echo date("d M Y", strtotime($deliveryOrder->actual_delivery_date)); ?>
                 </div>
                 <div class="flex items-center mt-3"> <i data-lucide="map-pin" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    Alamat Pengiriman: {{$deliveryOrder->address}}
+                    Alamat Pengiriman: {{$deliveryOrder->shipping_address}}
                 </div>
             </div>
             <div class="box p-5 rounded-md mt-5">

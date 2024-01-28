@@ -57,7 +57,7 @@ class SalesOrderController extends Controller
         $detailSalesOrders = DB::table('transaction.t_detail_sales_order AS detail_sales_order')
                         ->join('master.m_goods AS goods', 'goods.id', '=', 'detail_sales_order.goods_id')
                         ->select(
-                            'goods.id',
+                            'detail_sales_order.id',
                             'goods.name AS goods_name',
                             DB::raw("CASE
                                         WHEN goods.type = '1' THEN 'SHEET' 
@@ -119,6 +119,7 @@ class SalesOrderController extends Controller
             "sales_order_id" => $request->sales_order_id,
             "goods_id" => $request->goods_id,
             "quantity" => $request->quantity,
+            "price" => $request->price,
             "flag_print" => $request->flag_print,
             "remarks" => $request->remarks,
             'created_at' => date('Y-m-d H:i:s'),
@@ -136,7 +137,8 @@ class SalesOrderController extends Controller
         
     }
 
-    public function deleteDetail(){
-        
+    public function deleteDetail($id){
+        DB::table('transaction.t_detail_sales_order')->where('id', $id)->delete();
+        return redirect()->back();
     }
 }

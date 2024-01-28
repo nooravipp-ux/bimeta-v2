@@ -35,8 +35,10 @@
             <div class="hidden md:block mx-auto text-slate-500"></div>
             <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
                 <div class="w-56 relative text-slate-500">
-                    <input type="text" class="form-control w-56 box pr-10" placeholder="Search...">
-                    <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-lucide="search"></i>
+                    <form id="searchForm" action="{{route('production.spk.search')}}" method="GET">
+                        <input type="text" class="form-control w-56 box pr-10" placeholder="Search..." name="spk_no" id="search-input">
+                        <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-lucide="search"></i>
+                    <form>
                 </div>
             </div>
         </div>
@@ -63,9 +65,9 @@
                         <td>{{$item->goods_name}}</td>
                         <td class="text-center whitespace-nowrap">{{$item->quantity}}</td>
                         <td class="text-center whitespace-nowrap">{{$item->sheet_quantity}}</td>
-                        <td class="text-center whitespace-nowrap">{{$item->specification}}</td>
-                        <td class="text-center whitespace-nowrap">{{$item->netto}}</td>
-                        <td class="text-center whitespace-nowrap">{{$item->bruto}}</td>
+                        <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->specification);?></td>
+                        <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->netto);?></td>
+                        <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->bruto);?></td>
                         <td class="text-center">
                             @if($item->status == 1)
                             <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">INIT</div>
@@ -82,7 +84,7 @@
                                 <a class="flex items-center mr-3"
                                     href="{{route('production.spk.edit', ['id' => $item->id])}}" title="Edit SPK"><i
                                         data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
-                                <a class="flex items-center mr-3" href="" title="Print SPK"><i data-lucide="printer"
+                                <a class="flex items-center mr-3" href="{{route('production.spk.print', ['id' => $item->id])}}" title="Print SPK"><i data-lucide="printer"
                                         class="w-4 h-4 mr-1"></i> Print</a>
                                 @if($item->status == 1)
                                 <a class="flex items-center mr-3"
@@ -170,14 +172,15 @@
 @endsection
 
 @section('script')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(function() {
-    $(".loader").hide();
-    $("#collapse-form").hide();
-
-    $("#add-data").click(function() {
-        $("#collapse-form").slideToggle("slow");
+$(document).ready(function() {
+    $('#search-input').keypress(function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            $('#searchForm').submit();
+        }
     });
-})
+});
 </script>
 @endsection

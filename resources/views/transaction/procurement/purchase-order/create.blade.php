@@ -8,33 +8,38 @@
                 <div
                     class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                     <h2 class="font-medium text-base mr-auto">
-                        Informasi Pengiriman
+                        Informasi Pembelian Material
                     </h2>
                 </div>
                 <div id="horizontal-form" class="p-5">
-                    <form method="POST" action="{{route('warehouse.delivery.save')}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('procurement.purchase-order.save')}}">
                         @csrf
                         <div class="preview">
-                            <div class="form-inline mt-5">
-                                <label for="horizontal-form-2" class="form-label sm:w-40">No. PO</label>
-                                <select data-placeholder="Pilih PO Customer" class="tom-select w-full form-control" name="sales_order_id" required>
+                            <div class="form-inline">
+                                <label for="horizontal-form-2" class="form-label sm:w-20">Supplier</label>
+                                <select data-placeholder="Pilih Supplier" class="tom-select w-full form-control" name="supplier_id" required>
                                     <option value=" "> - </option>
-                                    @foreach($salesOrders as $order)
-                                    <option value="{{$order->id}}">{{$order->transaction_no}} - {{$order->ref_po_customer}}</option>
+                                    @foreach($suppliers as $supplier)
+                                    <option value="{{$supplier->id}}">{{$supplier->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="horizontal-form-2" class="form-label sm:w-40">Tanggal Pengiriman</label>
-                                <input id="horizontal-form-1" type="date" class="form-control" name="delivery_date" required>
+                                <label for="horizontal-form-2" class="form-label sm:w-20">Tanggal PO</label>
+                                <input id="horizontal-form-1" type="date" class="form-control" name="date" required>
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Plat Nomor</label>
-                                <input id="vertical-form-1" type="text" class="form-control" name="licence_plate" required>
+                                <label for="horizontal-form-2" class="form-label sm:w-20">Jenis Pajak</label>
+                                <select data-placeholder="Pilih Jenis Pajak" class="tom-select w-full form-control" name="tax_type" required>
+                                    <option value=" "> - </option>
+                                    <option value="V0">V0 (Kawasan Berikat)</option>
+                                    <option value="V1">V1 (Exclude PPN)</option>
+                                    <option value="V2">V2 (Include PPN)</option>
+                                </select>
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Driver</label>
-                                <input id="vertical-form-1" type="text" class="form-control" name="driver_name" required>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Catatan</label>
+                                <textarea id="vertical-form-1" type="text" class="form-control" name="remarks" required></textarea>
                             </div>
                         </div>
                         <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">

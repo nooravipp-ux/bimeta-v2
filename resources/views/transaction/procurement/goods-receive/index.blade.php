@@ -1,16 +1,17 @@
 @extends('layouts._base')
 @section('active-url')
 <li class="breadcrumb-item" aria-current="page">Warehouse</li>
-<li class="breadcrumb-item active" aria-current="page">Shipping</li>
+<li class="breadcrumb-item" aria-current="page">Stock</li>
+<li class="breadcrumb-item active" aria-current="page">Raw Materials</li>
 @endsection
 @section('main-content')
 <div class="content content--top-nav">
     <h2 class="intro-y text-lg font-medium mt-10">
-        Pengiriman
+        Stock Bahan Baku
     </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="{{route('warehouse.delivery.create')}}" class="btn btn-primary shadow-md mr-2">Buat Surat Jalan</a>
+            <a href="{{route('goods.create')}}" class="btn btn-primary shadow-md mr-2">Stock Opname</a>
             <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
@@ -46,43 +47,16 @@
             <table class="table table-report -mt-2">
                 <thead class="bg-success">
                     <tr>
-                        <th class="whitespace-nowrap">NO. SURAT JALAN</th>
-                        <th class="whitespace-nowrap">NO. SALES ORDER</th>
-                        <th class="whitespace-nowrap">CUSTOMER</th>
-                        <th class="text-center whitespace-nowrap">NO. PO</th>
-                        <th class="text-center whitespace-nowrap">TANGGAL PENGIRIMAN</th>
-                        <th class="text-center whitespace-nowrap">JENIS PAJAK</th>
+                        <th class="whitespace-nowrap">SPESIFIKASI</th>
+                        <th class="whitespace-nowrap">UKURAN</th>
+                        <th class="whitespace-nowrap text-center">JUMLAH STOCK</th>
+                        <th class="whitespace-nowrap">REFERENCE</th>
+                        <th class="whitespace-nowrap">TANGGAL MASUK</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($data as $item)
-                    <tr class="intro-x">
-                        <td>{{$item->travel_permit_no}}</td>
-                        <td>{{$item->transaction_no}}</td>
-                        <td>{{$item->customer_name}}</td>
-                        <td class="text-center">{{$item->ref_po_customer}}</td>
-                        <td class="text-center"><?php echo date("d/m/Y", strtotime($item->actual_delivery_date)); ?></td>
-                        <td class="text-center">
-                            @if($item->tax_type == 0)
-                                V0 (Kawasan Berikat)
-                            @elseif($item->tax_type == 1)
-                                V1 (Exlude PPN)
-                            @else
-                                V2 (Inlude PPN)
-                            @endif
-                        </td>
-                        <td class="table-report__action w-56">
-                            <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3 text-success"
-                                    href="{{route('warehouse.delivery.edit', ['id' => $item->id])}}" title="Edit SPK"><i
-                                        data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
-                                <a class="flex items-center mr-3" href="{{route('warehouse.delivery.print', ['id' => $item->id])}}" title="Print Surat jalan"><i
-                                        data-lucide="printer" class="w-4 h-4 mr-1"></i> Print</a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
+                    
                 </tbody>
             </table>
         </div>
@@ -91,35 +65,23 @@
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
             <nav class="w-full sm:w-auto sm:mr-auto">
                 <ul class="pagination">
-                    @if ($data->onFirstPage())
-                    <li class="page-item disabled" aria-disabled="true">
-                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
-                                data-lucide="chevrons-left"></i></span>
-                    </li>
-                    @else
                     <li class="page-item">
-                        <a class="page-link" href="{{ $data->previousPageUrl() }}" rel="prev"><i class="w-4 h-4"
-                                data-lucide="chevron-left"></i></a>
+                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevrons-left"></i> </a>
                     </li>
-                    @endif
-
-                    @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
-                    <li class="page-item @if($page == $data->currentPage()) active @endif">
-                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                    </li>
-                    @endforeach
-
-                    @if ($data->hasMorePages())
                     <li class="page-item">
-                        <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4"
-                                data-lucide="chevron-right"></i></a>
+                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevron-left"></i> </a>
                     </li>
-                    @else
-                    <li class="page-item disabled" aria-disabled="true">
-                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
-                                data-lucide="chevrons-right"></i></span>
+                    <li class="page-item"> <a class="page-link" href="#">...</a> </li>
+                    <li class="page-item"> <a class="page-link" href="#">1</a> </li>
+                    <li class="page-item active"> <a class="page-link" href="#">2</a> </li>
+                    <li class="page-item"> <a class="page-link" href="#">3</a> </li>
+                    <li class="page-item"> <a class="page-link" href="#">...</a> </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevron-right"></i> </a>
                     </li>
-                    @endif
+                    <li class="page-item">
+                        <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevrons-right"></i> </a>
+                    </li>
                 </ul>
             </nav>
             <select class="w-20 form-select box mt-3 sm:mt-0">
@@ -161,12 +123,7 @@
 @section('script')
 <script>
 $(function() {
-    $(".loader").hide();
-    $("#collapse-form").hide();
 
-    $("#add-data").click(function() {
-        $("#collapse-form").slideToggle("slow");
-    });
 })
 </script>
 @endsection

@@ -7,7 +7,7 @@
 @section('main-content')
 <div class="content content--top-nav">
     <h2 class="intro-y text-lg font-medium mt-10">
-        Stock Barang Jadi
+        Stock Finish Goods
     </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
@@ -53,7 +53,6 @@
                         <th class="whitespace-nowrap text-center">JUMLAH STOCK</th>
                         <th class="whitespace-nowrap text-center">REFERENCE</th>
                         <th class="whitespace-nowrap text-center">TANGGAL MASUK</th>
-                        <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,15 +63,6 @@
                         <td class="text-center">{{$item->quantity}}</td>
                         <td class="text-center">{{$item->source_from}}</td>
                         <td class="text-center">{{$item->date}}</td>
-                        <td class="table-report__action w-56">
-                            <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3 text-success" href="javascript:;"> <i
-                                        data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>
-                                <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal"
-                                    data-tw-target="#delete-confirmation-modal"> <i data-lucide="trash-2"
-                                        class="w-4 h-4 mr-1"></i> Delete </a>
-                            </div>
-                        </td>
                     </tr>
                     @endforeach
                 </tbody>
