@@ -91,7 +91,7 @@
                                 <td>{{$detail->specification}}</td>
                                 <td class="text-center">{{$detail->measure}}</td>
                                 <td class="text-center">{{$detail->quantity}}</td>
-                                <td class="text-center">0</td>
+                                <td class="text-center">{{$detail->price}}</td>
                                 <td class="table-report__action w-56">
                                     <div class="flex justify-center items-center">
                                         <a class="flex items-center text-success mr-3" href=""> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>
@@ -157,6 +157,7 @@
                                                 </div>
                                             </div>
                                             <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                                <button type="button" data-tw-dismiss="modal" class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
                                                 <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
                                             </div>
                                         </form>

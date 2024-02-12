@@ -10,13 +10,15 @@ use Auth;
 class SalesOrderController extends Controller
 {
     public function index() {
+        $customers = DB::table('master.m_customer')->get();
+        $users = DB::table('users')->get();
         $data = DB::table('transaction.t_sales_order as sales_order')
                 ->select('sales_order.*', 'customer.name as customer_name', 'users.name as assigned_to')
                 ->join('master.m_customer as customer', 'customer.id', '=', 'sales_order.customer_id')
                 ->leftJoin('public.users', 'users.id', '=', 'sales_order.assign_to')
                 ->orderBy('sales_order.created_at', 'DESC')
                 ->paginate(10);
-        return view('transaction.sales-order.index', compact('data'));
+        return view('transaction.sales-order.index', compact('data', 'customers', 'users'));
     }
 
     public function create() {
@@ -59,6 +61,7 @@ class SalesOrderController extends Controller
                         ->select(
                             'detail_sales_order.id',
                             'goods.name AS goods_name',
+                            'detail_sales_order.price',
                             DB::raw("CASE
                                         WHEN goods.type = '1' THEN 'SHEET' 
                                         WHEN goods.type = '2' THEN 'BOX' 

@@ -5,10 +5,10 @@
 <div class="content content--top-nav">
     <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
         <h2 class="text-lg font-medium mr-auto">
-            {{$purchase->po_no}}
+            
         </h2>
         <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-            <a href="{{route('procurement.purchase-order.print', ['id' => $purchase->id])}}" target="_blank" class="btn btn-primary shadow-md mr-2">Print PO</a>
+            <a href="" target="_blank" class="btn btn-primary shadow-md mr-2">Lihat PO Pembelian</a>
         </div>
     </div>
     <!-- BEGIN: Transaction Details -->
@@ -16,30 +16,30 @@
         <div class="col-span-12 lg:col-span-4 2xl:col-span-3">
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
-                    <div class="font-medium text-base truncate">Informasi Pembelian</div>
-                    <a href="" class="flex items-center ml-auto text-success"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Change Status </a>
+                    <div class="font-medium text-base truncate">Informasi Penerimaan</div>
+                    <a href="" class="flex items-center ml-auto text-success"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit </a>
                 </div>
                 <div id="horizontal-form" class="p-5">
                     <div class="preview">
                         <div class="form-inline">
                             <label for="horizontal-form-2" class="form-label sm:w-20">Supplier</label>
-                            <input id="horizontal-form-1" type="text" class="form-control" name="supplier" value="{{$purchase->name}}" readonly>
+                            <input id="horizontal-form-1" type="text" class="form-control" name="date"  value="{{$goodsReceive->name}}" readonly>
                         </div>
                         <div class="form-inline mt-5">
-                            <label for="horizontal-form-2" class="form-label sm:w-20">Tanggal PO</label>
-                            <input id="horizontal-form-1" type="date" class="form-control" name="date"  value="{{$purchase->date}}" readonly>
+                            <label for="horizontal-form-2" class="form-label sm:w-20">No PO</label>
+                            <input id="horizontal-form-1" type="text" class="form-control" name="supplier" value="{{$goodsReceive->po_no}}" readonly>
                         </div>
                         <div class="form-inline mt-5">
-                            <label for="horizontal-form-2" class="form-label sm:w-20">Jenis Pajak</label>
-                            <input id="horizontal-form-1" type="text" class="form-control" name="jenis_pajak" value="{{$purchase->tax_type}}" readonly>
+                            <label for="horizontal-form-2" class="form-label sm:w-20">No Surat Jalan</label>
+                            <input id="horizontal-form-1" type="text" class="form-control" name="jenis_pajak" value="{{$goodsReceive->gr_no}}" readonly>
                         </div>
                         <div class="form-inline mt-5">
-                            <label for="horizontal-form-2" class="form-label sm:w-20">Status</label>
-                            <input id="horizontal-form-1" type="text" class="form-control" name="jenis_pajak" value="{{$purchase->status}}" readonly>
+                            <label for="horizontal-form-2" class="form-label sm:w-20">Tanggal</label>
+                            <input id="horizontal-form-1" type="datetime-local" class="form-control" name="jenis_pajak" value="{{$goodsReceive->date}}" readonly>
                         </div>
                         <div class="form-inline mt-5">
-                            <label for="vertical-form-1" class="form-label sm:w-20">Catatan</label>
-                            <textarea id="vertical-form-1" type="text" class="form-control" name="remarks" readonly>{{$purchase->remarks}}</textarea>
+                            <label for="horizontal-form-2" class="form-label sm:w-20">Penerima</label>
+                            <input id="horizontal-form-1" type="text" class="form-control" name=""  value="{{$goodsReceive->receiver}}" readonly>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
         <div class="col-span-12 lg:col-span-7 2xl:col-span-8">
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
-                    <div class="font-medium text-base truncate">Detail Pembelian</div>
+                    <div class="font-medium text-base truncate">Detail Penerimaan</div>
                     <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="flex items-center ml-auto text-white btn btn-primary shadow-md"> <i data-lucide="plus"
                             class="w-4 h-4 mr-2"></i>
                         Tambah Barang </a>
@@ -62,29 +62,11 @@
                                 <th class="whitespace-nowrap text-center">UKURAN (CM)</th>
                                 <th class="whitespace-nowrap text-center">JUMLAH</th>
                                 <th class="whitespace-nowrap text-center">SATUAN</th>
-                                <th class="whitespace-nowrap text-center">HARGA</th>
                                 <th class="whitespace-nowrap text-center">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $data)
-                            <tr>
-                                <td>{{$data->name}}</td>
-                                <td class="text-center">{{$data->gramature}} {{$data->unit}}</td>
-                                <td class="text-center">L {{$data->width}}</td>
-                                <td class="text-center">{{$data->quantity}}</td>
-                                <td class="text-center">{{$data->measure_unit}}</td>
-                                <td class="text-center">{{$data->price}}</td>
-                                <td class="table-report__action w-56">
-                                    <div class="flex justify-center items-center">
-                                        <a class="flex items-center text-success mr-3" href=""><i
-                                        data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
-                                        <a class="flex items-center text-danger mr-3" href="{{route('procurement.purchase-order.detail.delete', ['id' => $data->id])}}" title="Print SPK"><i data-lucide="trash"
-                                        class="w-4 h-4 mr-1"></i> Delete</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
+                            
                         </tbody>
                     </table>
                 </div>
@@ -101,7 +83,7 @@
                                         </h2>
                                     </div>
                                     <div id="horizontal-form" class="p-5">
-                                        <form method="POST" action="{{route('procurement.purchase-order.detail.save')}}">
+                                        <form method="POST" action="{{route('procurement.goods-receive.detail.save')}}">
                                             @csrf
                                             <div class="preview">
                                                 <div class="form-inline mt-5">
@@ -109,18 +91,19 @@
                                                     <select data-placeholder="Pilih Material" class="tom-select w-full form-control" name="material_id" required>
                                                         <option value=" ">-</option>
                                                         @foreach($materials as $material)
-                                                        <option value="{{$material->id}}">{{$material->name}}</option>
+                                                        <option value="{{$material->id}}">{{$material->name}} L {{$material->width}} CM QTY: {{$material->quantity}}</option>
                                                         @endforeach
+                                                        
                                                     </select>
                                                 </div>
+                                                <!-- <div class="form-inline mt-5">
+                                                    <label for="vertical-form-1" class="form-label sm:w-20">Nomor Roll</label>
+                                                    <input id="vertical-form-1" type="text" class="form-control" name="width" required>
+                                                </div> -->
                                                 <div class="form-inline mt-5">
-                                                    <label for="vertical-form-1" class="form-label sm:w-20">Ukuran (CM)</label>
-                                                    <input id="vertical-form-1" type="number" class="form-control" name="width" required>
-                                                </div>
-                                                <div class="form-inline mt-5">
-                                                    <label for="vertical-form-1" class="form-label sm:w-20">Jumlah</label>
+                                                    <label for="vertical-form-1" class="form-label sm:w-20">Quantity</label>
                                                     <input id="vertical-form-1" type="number" class="form-control" name="quantity" required>
-                                                    <input id="vertical-form-1" type="hidden" class="form-control" name="purchase_id" value="{{$purchase->id}}">
+                                                    
                                                 </div>
                                                 <div class="form-inline mt-5">
                                                     <label for="vertical-form-1" class="form-label sm:w-20">Satuan</label>
@@ -129,10 +112,6 @@
                                                         <option value="ROLL">ROLL</option>
                                                         <option value="KG">KG</option>
                                                     </select>
-                                                </div>
-                                                <div class="form-inline mt-5">
-                                                    <label for="vertical-form-1" class="form-label sm:w-20">Harga</label>
-                                                    <input id="vertical-form-1" type="number" class="form-control" name="price" value="0" required>
                                                 </div>
                                             </div>
                                             <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">

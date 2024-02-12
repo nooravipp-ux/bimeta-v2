@@ -12,7 +12,7 @@
                 <div
                     class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                     <h2 class="font-medium text-base mr-auto">
-                        KALKULATOR INDEX HARGA
+                        Kalkulator Index Harga
                     </h2>
                 </div>
                 <div id="horizontal-form" class="p-5">
@@ -78,6 +78,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-inline mt-5" id="form-lem">
+                            <label for="vertical-form-1" class="form-label sm:w-20">Lem</label>
+                            <div class="flex flex-col sm:flex-row">
+                                <div class="form-check mr-2">
+                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="flag-lem"
+                                        value="0" checked>
+                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                </div>
+                                <div class="form-check mr-2 sm:mt-0">
+                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="flag-lem"
+                                        value="1">
+                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-inline mt-5 add-price">
                             <label for="vertical-form-1" class="form-label sm:w-20">Jumlah Pesanan</label>
                             <input type="number" class="form-control" id="order-qty">
@@ -127,7 +142,7 @@
         <div class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5">
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
-                    <div class="font-medium text-base truncate">INDEX HARGA</div>
+                    <div class="font-medium text-base truncate">Index Harga</div>
                     <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview"
                         class="btn btn-primary flex items-center ml-auto text-white"> <i data-lucide="plus"
                             class="w-4 h-4 mr-2"></i>
@@ -140,7 +155,7 @@
                                 <th class="whitespace-nowrap">PLY TYPE</th>
                                 <th class="whitespace-nowrap text-center">FLUTE TYPE</th>
                                 <th class="whitespace-nowrap">SUBSTANCE</th>
-                                <th class="whitespace-nowrap">PRICE</th>
+                                <th class="whitespace-nowrap">HARGA</th>
                                 <th class="whitespace-nowrap">INDEX TAG</th>
                                 <th class="whitespace-nowrap text-center">ACTION</th>
                             </tr>
@@ -186,22 +201,19 @@
                                             <div id="horizontal-form" class="p-5">
                                                 <div class="preview">
                                                     <div class="form-inline">
-                                                        <label for="horizontal-form-2" class="form-label sm:w-20">Jenis
-                                                            Ply</label>
-                                                        <select data-placeholder="Pilih Jenis Flute"
-                                                            class="tom-select w-full form-control" name="ply_type">
-                                                            <option value="">-</option>
-                                                            <option value="SF">SF</option>
-                                                            <option value="SW">SW</option>
-                                                            <option value="DW">DW</option>
-                                                            <option value="TW">TW</option>
+                                                        <label for="horizontal-form-2" class="form-label sm:w-20">Jenis Ply</label>
+                                                        <select data-placeholder="Pilih Jenis Flute" class="tom-select w-full form-control" name="ply_type">
+                                                            <option value=" ">-</option>
+                                                            <option value="SF">Single Face</option>
+                                                            <option value="SW">Single Wall</option>
+                                                            <option value="DW">Double Wall</option>
+                                                            <option value="TW">Triple Wall</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-inline mt-5">
-                                                        <label for="horizontal-form-2" class="form-label sm:w-20">Jenis
-                                                            Flute</label>
-                                                        <select data-placeholder="Pilih Jenis Flute"
-                                                            class="tom-select w-full form-control" name="flute_type">
+                                                        <label for="horizontal-form-2" class="form-label sm:w-20">Jenis Flute</label>
+                                                        <select data-placeholder="Pilih Jenis Flute" class="tom-select w-full form-control" name="flute_type">
+                                                            <option value=" ">-</option>
                                                             <option value="B">BF</option>
                                                             <option value="C">CF</option>
                                                             <option value="B/C">B/CF</option>
@@ -209,10 +221,8 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-inline mt-5">
-                                                        <label for="vertical-form-2"
-                                                            class="form-label sm:w-20">Substance</label>
-                                                        <select data-placeholder="Pilih Substance"
-                                                            class="tom-select w-full form-control" name="substance">
+                                                        <label for="vertical-form-2" class="form-label sm:w-20">Substance</label>
+                                                        <select data-placeholder="Pilih Substance" class="tom-select w-full form-control" name="substance">
                                                             @foreach($substances as $substance)
                                                             <option value="{{$substance->id}}">{{$substance->substance}}
                                                             </option>
@@ -220,19 +230,17 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-inline mt-5">
-                                                        <label for="vertical-form-1" class="form-label sm:w-20">Harga
-                                                            (Rp)</label>
+                                                        <label for="vertical-form-1" class="form-label sm:w-20">Harga (Rp)</label>
                                                         <input type="text" class="form-control" name="index_price">
                                                     </div>
                                                     <div class="form-inline mt-5">
-                                                        <label for="vertical-form-1" class="form-label sm:w-20">Index
-                                                            Tag</label>
+                                                        <label for="vertical-form-1" class="form-label sm:w-20">Index Tag</label>
                                                         <input type="date" class="form-control" name="index_tag">
                                                     </div>
                                                 </div>
                                                 <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
-                                                    <button type="submit"
-                                                        class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
+                                                    <button type="button" data-tw-dismiss="modal" class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
+                                                    <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -299,6 +307,7 @@ $(function() {
     $(".form-sheet").hide();
     $(".form-box").hide();
     $(".pounch").hide();
+    $("#form-lem").hide();
 
     $("#jenis-barang").change(function() {
         if ($(this).val() === "sheet") {
@@ -365,6 +374,12 @@ $(function() {
                 $("#index-price").val(response.price);
                 var ply_type = $("#substance option:selected").text().split(" ");
                 $("#ply-type").val(ply_type[0]);
+
+                if(ply_type[0] === "SF" && $("#jenis-barang").val() === "sheet") {
+                    $("#form-lem").show();
+                } else {
+                    $("#form-lem").hide();
+                }
             },
             error: function(error) {
                 // Handle errors here
@@ -400,6 +415,10 @@ $(function() {
             console.log(index_price);
             console.log("jenis ply : " + jenis_fly);
 
+            if ($('input[name=flag-ppn]:checked').val() === "1" || $('input[name=flag-ppn]:checked').val() === 1) {
+                index_price = (index_price * 0.11) + index_price;
+            } 
+
             if ($('input[name=flag-pounch]:checked').val() === "1" || $('input[name=flag-pounch]:checked').val() === 1) {
                 var order_qty = parseFloat($("#order-qty").val());
                 var knife_price = parseFloat($("#knife-price").val());
@@ -408,18 +427,29 @@ $(function() {
                 var index_price = index_price + additional_price;
 
                 console.log("Index Price After tambah pounch : " + index_price)
-            }              
-
-            if ($('input[name=flag-ppn]:checked').val() === "1" || $('input[name=flag-ppn]:checked').val() === 1) {
-                var hpp_before_ppn = (length * width * index_price) / 10000;
-                var hpp = ((hpp_before_ppn / 100) * 11) + hpp_before_ppn;
-
-                console.log("PPN True" + hpp)
-            } else {
-                var hpp = (length * width * index_price) / 10000;
-
-                console.log("PPN False" + hpp)
             }
+            
+            if ($('input[name=flag-lem]:checked').val() === "1" || $('input[name=flag-lem]:checked').val() === 1) {
+
+                var index_price = index_price + 500;
+
+                console.log("Index Price After tambah lem : " + index_price)
+            }
+
+            // if ($('input[name=flag-ppn]:checked').val() === "1" || $('input[name=flag-ppn]:checked').val() === 1) {
+            //     var hpp_before_ppn = (length * width * index_price) / 10000;
+            //     var hpp = ((hpp_before_ppn / 100) * 11) + hpp_before_ppn;
+
+            //     console.log("PPN True" + hpp)
+            // } else {
+            //     var hpp = (length * width * index_price) / 10000;
+
+            //     console.log("PPN False" + hpp)
+            // }
+            
+            var hpp = (length * width * index_price) / 10000;
+
+            console.log("PPN" + hpp)
 
 
             $("#harga-hpp").val(formatNumberWithCommas(Math.ceil(hpp)));

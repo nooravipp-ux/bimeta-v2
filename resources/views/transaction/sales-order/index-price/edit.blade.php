@@ -16,7 +16,7 @@
                         @csrf
                         <div class="preview">
                             <div class="form-inline">
-                                <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Ply</label>
+                                <label for="horizontal-form-2" class="form-label sm:w-20">Jenis Ply</label>
                                 <select data-placeholder="Pilih Jenis Flute" class="tom-select w-full form-control" name="ply_type">
                                     <option value="">-</option>
                                     <option value="SF" <?php echo ($indexPrice->ply_type == "SF") ? "selected" : "" ?>>Single Face (SF)</option>
@@ -26,7 +26,7 @@
                                 </select>
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Flute</label>
+                                <label for="horizontal-form-2" class="form-label sm:w-20">Jenis Flute</label>
                                 <select data-placeholder="Pilih Jenis Flute" class="tom-select w-full form-control" name="flute_type">
                                     <option value="">-</option>
                                     <option value="B" <?php echo ($indexPrice->flute_type == "B") ? "selected" : "" ?>>BF</option>
@@ -36,7 +36,7 @@
                                 </select>
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-2" class="form-label sm:w-40">Substance</label>
+                                <label for="vertical-form-2" class="form-label sm:w-20">Substance</label>
                                 <select data-placeholder="Pilih Substance" class="tom-select w-full form-control" name="substance">
                                     @foreach($substances as $substance)
                                     <option value="{{$substance->id}}"  <?php echo ($indexPrice->substance_id == $substance->id) ? "selected" : "" ?>>{{$substance->substance}}</option>
@@ -44,11 +44,11 @@
                                 </select>
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Harga (Rp)</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Harga (Rp)</label>
                                 <input type="number" class="form-control" name="index_price" value="{{$indexPrice->price}}">
                             </div>
                             <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-40">Index Tag</label>
+                                <label for="vertical-form-1" class="form-label sm:w-20">Index Tag</label>
                                 <input type="date" class="form-control" name="index_tag" value="{{$indexPrice->tag}}">
                             </div>
                         </div>

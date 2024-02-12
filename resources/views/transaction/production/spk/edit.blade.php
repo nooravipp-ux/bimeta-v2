@@ -91,11 +91,11 @@
                             <div class="form-inline mt-5">
                                 <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
                                 @if($data->type == 1)
-                                <input type="text" class="form-control" value="{{$data->length}} X {{$data->width}} {{$data->meas_unit}}" >
+                                <input type="text" class="form-control" value="{{$data->length}} X {{$data->width}} {{$data->meas_unit}}" readonly>
                                 @elseif($data->type == 2)
-                                <input type="text" class="form-control" value="{{$data->length}} X {{$data->width}} X {{$data->height}} {{$data->meas_unit}} ({{$data->meas_type}})">
+                                <input type="text" class="form-control" value="{{$data->length}} X {{$data->width}} X {{$data->height}} {{$data->meas_unit}} ({{$data->meas_type}})" readonly>
                                 @else
-                                <input type="text" class="form-control" value="{{$data->bottom_length}} X {{$data->bottom_width}} X {{$data->bottom_height}} {{$data->bottom_meas_unit}} / {{$data->top_length}} X {{$data->top_width}} {{$data->top_meas_unit}}">
+                                <input type="text" class="form-control" value="{{$data->bottom_length}} X {{$data->bottom_width}} X {{$data->bottom_height}} {{$data->bottom_meas_unit}} / {{$data->top_length}} X {{$data->top_width}} {{$data->top_meas_unit}}" readonly>
                                 @endif
                             </div>
                             <div class="form-inline mt-5">
@@ -166,7 +166,7 @@
                                     @elseif($process->status == 2)
                                     <div class="py-1 px-2 rounded-full text-xs bg-warning text-white cursor-pointer font-medium">WORK IN PROGRESS</div>
                                     @else
-                                    <div class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">WORK IN PROGRESS</div>
+                                    <div class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">COMPLETED</div>
                                     @endif
                                 </td>
                             </tr>

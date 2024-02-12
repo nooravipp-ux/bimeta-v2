@@ -21,7 +21,10 @@
                             class="w-4 h-4 mr-2"></i> Change </a>
                 </div>
                 <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    NO. PO: <a href="" class="underline decoration-dotted ml-1">{{$deliveryOrder->ref_po_customer}}</a>
+                    NO. PO: <a href="{{route('sales.edit', ['id' => $deliveryOrder->sales_order_id])}}" target="_blank" class="underline decoration-dotted ml-1" title="Klik untuk melihat detail pesanan">{{$deliveryOrder->ref_po_customer}}</a>
+                </div>
+                <div class="flex items-center mt-3"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i>
+                    NO. DO: <strong> {{$deliveryOrder->travel_permit_no}}</strong>
                 </div>
                 <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i>
                     Tanggal Pengiriman: <?php echo date("d M Y", strtotime($deliveryOrder->actual_delivery_date)); ?>
@@ -80,7 +83,7 @@
         <div class="col-span-12 lg:col-span-7 2xl:col-span-8">
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
-                    <div class="font-medium text-base truncate">Detail Barang</div>
+                    <div class="font-medium text-base truncate">Detail Pengiriman</div>
                     <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview"
                         class="flex items-center ml-auto text-white btn btn-primary shadow-md"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
                         Tambah Barang </a>
@@ -158,10 +161,8 @@
                                                 </div>
                                             </div>
                                             <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
-                                                <button type="button"
-                                                    class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Batal</button>
-                                                <button type="submit"
-                                                    class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
+                                                <button type="button" data-tw-dismiss="modal" class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
+                                                <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
                                             </div>
                                         </form>
                                     </div>

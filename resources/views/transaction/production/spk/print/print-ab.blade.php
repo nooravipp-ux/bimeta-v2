@@ -10,11 +10,6 @@
     .container {
         width: 100%;
         max-width: 1200px;
-        /* Customize the max width as needed */
-        margin-right: auto;
-        margin-left: auto;
-        padding-right: 15px;
-        padding-left: 15px;
         font-size: 12px;
     }
 
@@ -108,52 +103,170 @@
             width: 100%;
         }
     }
+
+    .page_break {
+        page-break-before: always;
+    }
     </style>
 </head>
 
 <body>
-    <div class="container" style="border: 1px solid #ddd;">
-        <div class="row">
-            <div class="col col-4">
-                <div class="row">
-                    <div class="col col-12">
-                        <p>PT. BIMETA KARNUSA BANDUNG</p>
-                        <p>NO. SPK : {{$data->spk_no}}</p>
-                    </div>
+    <div class="container" style="border: 1px solid black;">
+        <div style="margin: 10px;">
+            <div class="row">
+                <div class="col col-4">
+                    <p>PT. BIMETA KARNUSA BANDUNG</p>
+                    <p>NO. SPK : {{$data->spk_no}}</p>
+                </div>
+                <div class="col col-4"></div>
+                <div class="col col-4">
+                    <p>NO.SO : {{$data->transaction_no}} </p>
                 </div>
             </div>
-            <div class="col col-4">
 
+            <div class="row">
+                <div class="col col-8">
+                    <p>KONSUMEN : {{$data->customer_name}}</p>
+                    <p>NAMA BARANG : {{$data->name}}</p>
+                </div>
+                <div class="col col-4">
+                    <p>NO. PO : {{$data->ref_po_customer}}</p>
+                    <p>TANGGAL PENGIRIMAN : <?php echo date("d/m/Y", strtotime($data->delivery_date)); ?></p>
+                </div>
             </div>
-            <div class="col col-4">
-                <div class="row">
-                    <div class="col col-12">
-                        <p>NO.SO : {{$data->transaction_no}} </p>
-                    </div>
+
+            <div class="row">
+                <div class="col col-3 text-center" style="border: 1px solid black; height: 30px; padding-top: 10px;">
+                    <span>BANYAK SHEET</span>
+                </div>
+                <div class="col col-3 text-center" style="border: 1px solid black; height: 30px; padding-top: 10px;">
+                    <span>KUANTITAS ORDER</span>
+                </div>
+                <div class="col col-6 text-center" style="border: 1px solid black; height: 30px; padding-top: 10px;">
+                    <span>UKURAN</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-3 text-center" style="border: 1px solid black; height: 40px; padding-top: 30px;">
+                    <span>750</span>
+                </div>
+                <div class="col col-3 text-center" style="border: 1px solid black; height: 40px; padding-top: 30px;">
+                    <span>750</span>
+                </div>
+                <div class="col col-6 text-center" style="border: 1px solid black; height: 40px; padding-top: 30px;">
+                    <span>UK : 17 X 27.5 X 17</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-6 text-center" style="border: 1px solid black; height: 30px; padding-top: 10px;">
+                    <span>KUALITAS</span>
+                </div>
+                <div class="col col-6 text-center" style="border: 1px solid black; height: 30px; padding-top: 10px;">
+                    <span>UKURAN SHEET</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-6 text-center" style="border: 1px solid black; height: 40px; padding-top: 30px;">
+                    <span>DW 125K/M4</span>
+                </div>
+                <div class="col col-3 text-center" style="border: 1px solid black; height: 40px; padding-top: 30px;">
+                    <span>712 X 1049</span>
+                </div>
+                <div class="col col-3 text-center" style="border: 1px solid black; height: 40px; padding-top: 30px;">
+                    <span>1500 X 1070</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-8 text-center" style="border: 1px solid black; height: 180px; padding-top: 30px;">
+
+                </div>
+                <div class="col col-4 text-center" style="border: 1px solid black; height: 30px; padding-top: 10px;">
+                    <span>CETAKAN</span>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col col-8">
-                <div class="row">
-                    <div class="col col-12">
-                        <p>KONSUMEN : {{$data->customer_name}}</p>
-                        <p>NAMA BARANG :</p>
-                    </div>
+    </div>
+
+    <div class="page_break"></div>
+
+    <div class="container" style="border: 1px solid black;">
+        <div style="margin: 10px;">
+            <div class="row">
+                <div class="col col-4">
+                    <p>PT. BIMETA KARNUSA BANDUNG</p>
+                    <p>NO. SPK : {{$data->spk_no}}</p>
+                </div>
+                <div class="col col-4"></div>
+                <div class="col col-4">
+                    <p>NO.SO : {{$data->transaction_no}} </p>
                 </div>
             </div>
-            <div class="col col-4">
-                <div class="row">
-                    <div class="col col-12">
-                        <p>NO. PO : {{$data->ref_po_customer}}</p>
-                        <p>TANGGAL PENGIRIMAN : <?php echo date("d/m/Y", strtotime($data->delivery_date)); ?></p>
-                    </div>
+
+            <div class="row">
+                <div class="col col-8">
+                    <p>KONSUMEN : {{$data->customer_name}}</p>
+                    <p>NAMA BARANG : {{$data->name}}</p>
+                </div>
+                <div class="col col-4">
+                    <p>NO. PO : {{$data->ref_po_customer}}</p>
+                    <p>TANGGAL PENGIRIMAN : <?php echo date("d/m/Y", strtotime($data->delivery_date)); ?></p>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col col-12">
-                
+
+            <div class="row">
+                <div class="col col-3 text-center" style="border: 1px solid black; height: 30px; padding-top: 10px;">
+                    <span>BANYAK SHEET</span>
+                </div>
+                <div class="col col-3 text-center" style="border: 1px solid black; height: 30px; padding-top: 10px;">
+                    <span>KUANTITAS ORDER</span>
+                </div>
+                <div class="col col-6 text-center" style="border: 1px solid black; height: 30px; padding-top: 10px;">
+                    <span>UKURAN</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-3 text-center" style="border: 1px solid black; height: 40px; padding-top: 30px;">
+                    <span>750</span>
+                </div>
+                <div class="col col-3 text-center" style="border: 1px solid black; height: 40px; padding-top: 30px;">
+                    <span>750</span>
+                </div>
+                <div class="col col-6 text-center" style="border: 1px solid black; height: 40px; padding-top: 30px;">
+                    <span>UK : 17 X 27.5 X 17</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-6 text-center" style="border: 1px solid black; height: 30px; padding-top: 10px;">
+                    <span>KUALITAS</span>
+                </div>
+                <div class="col col-6 text-center" style="border: 1px solid black; height: 30px; padding-top: 10px;">
+                    <span>UKURAN SHEET</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-6 text-center" style="border: 1px solid black; height: 40px; padding-top: 30px;">
+                    <span>DW 125K/M4</span>
+                </div>
+                <div class="col col-3 text-center" style="border: 1px solid black; height: 40px; padding-top: 30px;">
+                    <span>712 X 1049</span>
+                </div>
+                <div class="col col-3 text-center" style="border: 1px solid black; height: 40px; padding-top: 30px;">
+                    <span>1500 X 1070</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-8 text-center" style="border: 1px solid black; height: 180px; padding-top: 30px;">
+
+                </div>
+                <div class="col col-4 text-center" style="border: 1px solid black; height: 30px; padding-top: 10px;">
+                    <span>CETAKAN</span>
+                </div>
             </div>
         </div>
     </div>

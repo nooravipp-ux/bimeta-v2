@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Transaction;
+namespace App\Http\Controllers\transaction;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -121,7 +121,7 @@ class ProductionController extends Controller
 
     public function saveSPK(Request $request){
         if($request->goods_type == 1) {
-            $spk = DB::table('transaction.t_spk')->insertGetId([
+            $spk = DB::table('transaction.t_spk')->insertGetid([
                 "spk_no" => DB::select("SELECT transaction.generate_spk_number($request->goods_type) as spk_no")[0]->spk_no,
                 "detail_sales_order_id" => $request->detail_sales_order_id,
                 "quantity" => $request->spk_quantity,
@@ -142,7 +142,7 @@ class ProductionController extends Controller
         } 
         
         if ($request->goods_type == 2) {
-            $spk = DB::table('transaction.t_spk')->insertGetId([
+            $spk = DB::table('transaction.t_spk')->insertGetid([
                 "spk_no" => DB::select("SELECT transaction.generate_spk_number($request->goods_type) as spk_no")[0]->spk_no,
                 "detail_sales_order_id" => $request->detail_sales_order_id,
                 "quantity" => $request->spk_quantity,
@@ -171,21 +171,10 @@ class ProductionController extends Controller
         }
         
         if ($request->goods_type == 3) {
-            $spk = DB::table('transaction.t_spk')->insertGetId([
+
+            $spk = DB::table('transaction.t_spk')->insertGetid([
                 "spk_no" => DB::select("SELECT transaction.generate_spk_number($request->goods_type) as spk_no")[0]->spk_no,
                 "detail_sales_order_id" => $request->detail_sales_order_id,
-                "top_quantity" => $request->top_spk_quantity,
-                "top_width" => $request->top_width,
-                "top_length" => $request->top_length,
-                "top_netto_width" => $request->top_netto_width,
-                "top_netto_length" => $request->top_netto_length,
-                "top_bruto_width" => $request->top_bruto_width,
-                "top_bruto_length" => $request->top_bruto_length,
-                "top_sheet_quantity" => $request->top_sheet_quantity,
-                "top_flag_stitching" => $request->top_flag_stitching,
-                "top_flag_glue" => $request->top_flag_glue,
-                "top_flag_pounch" => $request->top_flag_pounch,
-
                 "bottom_quantity" => $request->bottom_spk_quantity,
                 "bottom_length" => $request->bottom_length,
                 "bottom_width" => $request->bottom_width,
@@ -210,10 +199,53 @@ class ProductionController extends Controller
                 "created_at" => date('Y-m-d H:i:s'),
                 "created_by" => Auth::user()->name,
             ]);
+
+            $spk = DB::table('transaction.t_spk')->insertGetid([
+                "spk_no" => DB::select("SELECT transaction.generate_spk_number($request->goods_type) as spk_no")[0]->spk_no,
+                "detail_sales_order_id" => $request->detail_sales_order_id,
+                "top_quantity" => $request->top_spk_quantity,
+                "top_width" => $request->top_width,
+                "top_length" => $request->top_length,
+                "top_netto_width" => $request->top_netto_width,
+                "top_netto_length" => $request->top_netto_length,
+                "top_bruto_width" => $request->top_bruto_width,
+                "top_bruto_length" => $request->top_bruto_length,
+                "top_sheet_quantity" => $request->top_sheet_quantity,
+                "top_flag_stitching" => $request->top_flag_stitching,
+                "top_flag_glue" => $request->top_flag_glue,
+                "top_flag_pounch" => $request->top_flag_pounch,
+
+                "status" => 1,
+                "created_at" => date('Y-m-d H:i:s'),
+                "created_by" => Auth::user()->name,
+            ]);
         }
 
         if ($request->goods_type == 4) {
-            $spk = DB::table('transaction.t_spk')->insertGetId([
+
+            $spk = DB::table('transaction.t_spk')->insertGetid([
+                "spk_no" => DB::select("SELECT transaction.generate_spk_number($request->goods_type) as spk_no")[0]->spk_no,
+                "detail_sales_order_id" => $request->detail_sales_order_id,
+                "bottom_quantity" => $request->bottom_spk_quantity,
+                "bottom_width" => $request->bottom_width,
+                "bottom_length" => $request->bottom_length,
+                "bottom_height" => $request->bottom_length,
+                "bottom_netto_width" => $request->bottom_netto_width,
+                "bottom_netto_length" => $request->bottom_netto_length,
+                "bottom_bruto_width" => $request->bottom_bruto_width,
+                "bottom_bruto_length" => $request->bottom_bruto_length,
+                "bottom_sheet_quantity" => $request->bottom_sheet_quantity,
+                "bottom_flag_stitching" => $request->bottom_flag_stitching,
+                "bottom_flag_glue" => $request->bottom_flag_glue,
+                "bottom_flag_pounch" => $request->bottom_flag_pounch,
+                
+                "status" => 1,
+                "created_at" => date('Y-m-d H:i:s'),
+                "created_by" => Auth::user()->name,
+                
+            ]);
+
+            $spk = DB::table('transaction.t_spk')->insertGetid([
                 "spk_no" => DB::select("SELECT transaction.generate_spk_number($request->goods_type) as spk_no")[0]->spk_no,
                 "detail_sales_order_id" => $request->detail_sales_order_id,
                 "top_quantity" => $request->top_spk_quantity,
@@ -229,19 +261,6 @@ class ProductionController extends Controller
                 "top_flag_glue" => $request->top_flag_glue,
                 "top_flag_pounch" => $request->top_flag_pounch,
 
-                "bottom_quantity" => $request->bottom_spk_quantity,
-                "bottom_width" => $request->bottom_width,
-                "bottom_length" => $request->bottom_length,
-                "bottom_height" => $request->bottom_length,
-                "bottom_netto_width" => $request->bottom_netto_width,
-                "bottom_netto_length" => $request->bottom_netto_length,
-                "bottom_bruto_width" => $request->bottom_bruto_width,
-                "bottom_bruto_length" => $request->bottom_bruto_length,
-                "bottom_sheet_quantity" => $request->bottom_sheet_quantity,
-                "bottom_flag_stitching" => $request->bottom_flag_stitching,
-                "bottom_flag_glue" => $request->bottom_flag_glue,
-                "bottom_flag_pounch" => $request->bottom_flag_pounch,
-                
                 "status" => 1,
                 "created_at" => date('Y-m-d H:i:s'),
                 "created_by" => Auth::user()->name,
@@ -317,7 +336,44 @@ class ProductionController extends Controller
             ]);
         }
 
-        return redirect()->route('production.spk.monitoring.production-progress', ['id' => $request->production_process_id]);
+        if($request->process_name == "MUAT" && $request->status == 3) {
+            DB::table('transaction.t_spk')->where('id', $request->spk_id)->update([
+                "current_process" => $request->process_name,
+                "status" => 4, // Completed
+                "updated_at" => date('Y-m-d H:i:s'),
+                "updated_by" => Auth::user()->name,
+            ]);
+
+            $spk = DB::table('transaction.t_spk as spk')
+                ->join('transaction.t_detail_sales_order as detail_sales_order', 'detail_sales_order.id', '=', 'spk.detail_sales_order_id')
+                ->join('master.m_goods as goods', 'goods.id', '=', 'detail_sales_order.goods_id')
+                ->where('spk.id', $request->spk_id)
+                ->first();
+
+            DB::table('transaction.t_stock_finish_goods')->insert([
+                "goods_id" => $spk->goods_id,
+                "date" => date('Y-m-d H:i:s'),
+                "quantity" => $spk->quantity,
+                "source_from" => $spk->spk_no,
+                "created_at" => date('Y-m-d H:i:s'),
+                "created_by" => Auth::user()->name,
+            ]);
+        }
+
+        if($request->status == 3) {
+            $percentageResult = DB::table('transaction.t_production_process_item')
+                            ->selectRaw('(SUM(CASE WHEN spk_id = ? AND status = 3 THEN 1 ELSE 0 END) * 100) / COUNT(*) AS percentage', [$request->spk_id])
+                            ->where('spk_id', $request->spk_id)
+                            ->first();
+
+            DB::table('transaction.t_spk')->where('id', $request->spk_id)->update([
+                "persentage" => $percentageResult->percentage,
+                "updated_at" => date('Y-m-d H:i:s'),
+                "updated_by" => Auth::user()->name,
+            ]);
+        }
+
+        return redirect()->route('production.spk.monitoring.detail', ['id' => $request->spk_id]);
     }
 
     public function schedule($id) {
@@ -410,6 +466,7 @@ class ProductionController extends Controller
                     'spk.id',
                     'spk.spk_no',
                     'spk.start_date',
+                    'spk.persentage',
                     DB::raw("CASE
                                 WHEN goods.type IN ('1', '2') THEN CAST(spk.bruto_width AS varchar)
                                 WHEN goods.type IN ('3', '4') THEN CONCAT('<div>',CAST(spk.top_bruto_width AS varchar), '</div><div>', CAST(spk.bottom_bruto_width AS varchar),'</div>')
@@ -427,8 +484,8 @@ class ProductionController extends Controller
                                 WHEN goods.type IN ('3', '4') THEN CONCAT(CAST(spk.top_sheet_quantity AS varchar), ' / ', CAST(spk.bottom_sheet_quantity AS varchar))
                             END AS sheet_quantity"),
                     DB::raw("CASE
-                                WHEN goods.type IN ('1', '2') THEN CONCAT(goods.ply_type, ' ', goods.flute_type, ' ', goods.substance)
-                                WHEN goods.type IN ('3', '4') THEN CONCAT('<div>', goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance, '</div><div>', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance,'</div>')
+                                WHEN goods.type IN ('1', '2') THEN CONCAT(goods.substance)
+                                WHEN goods.type IN ('3', '4') THEN CONCAT('<div>', goods.bottom_substance, '</div><div>', goods.top_substance,'</div>')
                             END AS specification"),
                     'spk.status',
                     'spk.current_process'
@@ -436,7 +493,10 @@ class ProductionController extends Controller
                 ->whereIn('spk.status', [2, 3, 4])
                 ->orderByDesc('spk.created_at')
                 ->paginate(20);
-        return view('transaction.production.spk.monitoring.index', compact('data'));
+
+        $productionProcesses = DB::table('master.m_production_process')->get();
+
+        return view('transaction.production.spk.monitoring.index', compact('data', 'productionProcesses'));
     }
 
     public function monitoringDetail($id) {
@@ -501,7 +561,7 @@ class ProductionController extends Controller
         DB::table('transaction.t_detail_production_process_item')->insert([
             'production_process_item_id' => $request->production_process_id,
             'date' => $request->date,
-            'operator_id' => $request->operator,
+            'operator' => $request->operator,
             'result' => $request->result,
             'remarks' => $request->remarks,
             "created_at" => date('Y-m-d H:i:s'),
@@ -509,6 +569,59 @@ class ProductionController extends Controller
         ]);
 
         return redirect()->route('production.spk.monitoring.production-progress', ['id' => $request->production_process_id]);
+    }
+
+    public function monitoringPersonalProgress(Request $request) {
+        $spk = DB::table('transaction.t_spk as spk')
+                ->select('spk.id', 'spk.spk_no', 'sales_order.ref_po_customer')
+                ->join('transaction.t_detail_sales_order AS detail_sales_order', 'detail_sales_order.id', '=', 'spk.detail_sales_order_id')
+                ->join('transaction.t_sales_order AS sales_order', 'sales_order.id', '=', 'detail_sales_order.sales_order_id')
+                ->get();
+
+        $productionProcess = DB::table('master.m_production_process as production_process')
+                        ->where('id', $request->process_id)
+                        ->first();
+
+        $data = DB::table('transaction.t_detail_production_process_item AS detail_production_process_item')
+                ->join('transaction.t_production_process_item AS production_process_item', 'production_process_item.id', '=', 'detail_production_process_item.production_process_item_id')
+                ->join('transaction.t_spk AS spk', 'spk.id', '=', 'production_process_item.spk_id')
+                ->join('transaction.t_detail_sales_order AS detail_sales_order', 'detail_sales_order.id', '=', 'spk.detail_sales_order_id')
+                ->join('transaction.t_sales_order AS sales_order', 'sales_order.id', '=', 'detail_sales_order.sales_order_id')
+                ->join('master.m_customer AS customer', 'customer.id', '=', 'sales_order.customer_id')
+                ->where('production_process_item.process_id', '=', $request->process_id)
+                ->where('detail_production_process_item.date', '=', $request->date)
+                ->select(
+                    'detail_production_process_item.date',
+                    'customer.name',
+                    'sales_order.ref_po_customer',
+                    'spk.spk_no',
+                    'detail_production_process_item.operator',
+                    'detail_production_process_item.result',
+                    'detail_production_process_item.remarks'
+                )
+                ->orderBy('detail_production_process_item.created_at', 'DESC')
+                ->paginate(20);
+
+        return view('transaction.production.spk.monitoring.personal-prod-progress', compact('productionProcess', 'data', 'spk'));
+    }
+
+    public function monitoringPersonalProgressSave(Request $request) {
+        $processItem = DB::table('transaction.t_production_process_item')
+                    ->where('spk_id', $request->spk_id)
+                    ->where('process_id', $request->process_id)
+                    ->first();
+
+        DB::table('transaction.t_detail_production_process_item')->insert([
+            'production_process_item_id' => $processItem->id,
+            'date' => $request->date,
+            'operator' => $request->operator,
+            'result' => $request->result,
+            'remarks' => $request->remarks,
+            "created_at" => date('Y-m-d H:i:s'),
+            "created_by" => Auth::user()->name,
+        ]);
+
+        return redirect()->back();
     }
 
     public function printSpk($id) {

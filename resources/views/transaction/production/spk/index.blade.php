@@ -50,10 +50,10 @@
                         <th class="whitespace-nowrap">NO. SPK</th>
                         <th class="whitespace-nowrap">NAMA BARANG</th>
                         <th class="text-center whitespace-nowrap">QUANTITY</th>
-                        <th class="text-center whitespace-nowrap">SHEET QUANTITY</th>
                         <th class="text-center whitespace-nowrap">QUALITY</th>
                         <th class="text-center whitespace-nowrap">NETTO (L X P)</th>
                         <th class="text-center whitespace-nowrap">BRUTO (L X P)</th>
+                        <th class="text-center whitespace-nowrap">SHEET QUANTITY</th>
                         <th class="text-center whitespace-nowrap">STATUS</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
@@ -64,10 +64,10 @@
                         <td>{{$item->spk_no}}</td>
                         <td>{{$item->goods_name}}</td>
                         <td class="text-center whitespace-nowrap">{{$item->quantity}}</td>
-                        <td class="text-center whitespace-nowrap">{{$item->sheet_quantity}}</td>
                         <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->specification);?></td>
                         <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->netto);?></td>
                         <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->bruto);?></td>
+                        <td class="text-center whitespace-nowrap">{{$item->sheet_quantity}}</td>
                         <td class="text-center">
                             @if($item->status == 1)
                             <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">INIT</div>
@@ -81,10 +81,10 @@
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3"
+                                <a class="flex items-center mr-3 text-success"
                                     href="{{route('production.spk.edit', ['id' => $item->id])}}" title="Edit SPK"><i
                                         data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
-                                <a class="flex items-center mr-3" href="{{route('production.spk.print', ['id' => $item->id])}}" title="Print SPK"><i data-lucide="printer"
+                                <a class="flex items-center mr-3 text-warning" href="{{route('production.spk.print', ['id' => $item->id])}}" target="_blank" title="Print SPK"><i data-lucide="printer"
                                         class="w-4 h-4 mr-1"></i> Print</a>
                                 @if($item->status == 1)
                                 <a class="flex items-center mr-3"

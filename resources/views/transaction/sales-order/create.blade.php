@@ -43,6 +43,7 @@
                                     <option value="0">V0 (Kawasan Berikat)</option>
                                     <option value="1">V1 (Exclude PPN)</option>
                                     <option value="2">V2 (Include PPN)</option>
+                                    <option value="3">V3 (Sample)</option>
                                 </select>
                             </div>
                             <div class="form-inline mt-5">

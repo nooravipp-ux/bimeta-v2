@@ -98,14 +98,14 @@
                 <li>
                     <a href="javascript:;" class="menu">
                         <div class="menu__icon"> <i data-lucide="home"></i> </div>
-                        <div class="menu__title"> Warehouse <i data-lucide="chevron-down" class="menu__sub-icon "></i>
+                        <div class="menu__title"> Gudang <i data-lucide="chevron-down" class="menu__sub-icon "></i>
                         </div>
                     </a>
                     <ul class="">
                         <li>
                             <a href="{{route('warehouse.delivery.index')}}" class="menu">
                                 <div class="menu__icon"> <i data-lucide="truck"></i> </div>
-                                <div class="menu__title"> Shipping </div>
+                                <div class="menu__title"> Pengiriman </div>
                             </a>
                         </li>
                         <li>
@@ -118,7 +118,7 @@
                                 <li>
                                     <a href="{{route('warehouse.finish-goods.index')}}" class="menu">
                                         <div class="menu__icon"> <i data-lucide="package"></i> </div>
-                                        <div class="menu__title"> Finish Goods </div>
+                                        <div class="menu__title"> Barang Jadi </div>
                                     </a>
                                 </li>
                                 <!-- <li>
@@ -130,7 +130,7 @@
                                 <li>
                                     <a href="{{route('warehouse.raw-material.index')}}" class="menu">
                                         <div class="menu__icon"> <i data-lucide="layers"></i> </div>
-                                        <div class="menu__title"> Raw Materials </div>
+                                        <div class="menu__title"> Bahan Baku </div>
                                     </a>
                                 </li>
                             </ul>
@@ -140,7 +140,7 @@
                 <li>
                     <a href="javascript:;" class="menu">
                         <div class="menu__icon"> <i data-lucide="shopping-cart"></i> </div>
-                        <div class="menu__title"> Procurement <i data-lucide="chevron-down" class="menu__sub-icon "></i>
+                        <div class="menu__title"> Pembelian <i data-lucide="chevron-down" class="menu__sub-icon "></i>
                         </div>
                     </a>
                     <ul class="">
@@ -153,7 +153,7 @@
                         <li>
                             <a href="" class="menu">
                                 <div class="menu__icon"> <i data-lucide="activity"></i> </div>
-                                <div class="menu__title"> Goods Receive </div>
+                                <div class="menu__title"> Penerimaan Barang </div>
                             </a>
                         </li>
                     </ul>
@@ -161,7 +161,7 @@
                 <li>
                     <a href="javascript:;" class="menu">
                         <div class="menu__icon"> <i data-lucide="dollar-sign"></i> </div>
-                        <div class="menu__title"> Finance <i data-lucide="chevron-down" class="menu__sub-icon "></i>
+                        <div class="menu__title"> Keuangan <i data-lucide="chevron-down" class="menu__sub-icon "></i>
                         </div>
                     </a>
                     <ul class="">
@@ -253,8 +253,7 @@
     </div>
     <!-- END: Mobile Menu -->
     <!-- BEGIN: Top Bar -->
-    <div
-        class="top-bar-boxed top-bar-boxed--top-menu h-[70px] md:h-[65px] z-[51] border-b border-white/[0.08] mt-12 md:mt-0 -mx-3 sm:-mx-8 md:-mx-0 px-3 md:border-b-0 relative md:fixed md:inset-x-0 md:top-0 sm:px-8 md:px-10 md:pt-10 md:bg-gradient-to-b md:from-slate-100 md:to-transparent dark:md:from-darkmode-700">
+    <div class="top-bar-boxed top-bar-boxed--top-menu h-[70px] md:h-[65px] z-[51] border-b border-white/[0.08] mt-12 md:mt-0 -mx-3 sm:-mx-8 md:-mx-0 px-3 md:border-b-0 relative md:fixed md:inset-x-0 md:top-0 sm:px-8 md:px-10 md:pt-10 md:bg-gradient-to-b md:from-slate-100 md:to-transparent dark:md:from-darkmode-700">
         <div class="h-full flex items-center">
             <!-- BEGIN: Logo -->
             <a href="" class="logo -intro-x hidden md:flex xl:w-[180px] block">
@@ -289,8 +288,8 @@
                     <ul
                         class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
                         <li class="p-2">
-                            <div class="font-medium">Kevin Spacey</div>
-                            <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">Backend Engineer</div>
+                            <div class="font-medium">{{Auth::user()->name}}</div>
+                            <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">Production</div>
                         </li>
                         <li>
                             <hr class="dropdown-divider border-white/[0.08]">
@@ -356,7 +355,7 @@
                     <li>
                         <a href="{{route('index-price.index')}}" class="top-menu">
                             <div class="top-menu__icon"> <i data-lucide="smartphone"></i> </div>
-                            <div class="top-menu__title"> Calculator Index</div>
+                            <div class="top-menu__title"> Kalkulator Index Harga</div>
                         </a>
                     </li>
                 </ul>
@@ -388,8 +387,8 @@
                     </li>
                     <li>
                         <a href="" class="top-menu">
-                            <div class="top-menu__icon"> <i data-lucide="activity"></i> </div>
-                            <div class="top-menu__title"> Material Used </div>
+                            <div class="top-menu__icon"> <i data-lucide="clipboard"></i> </div>
+                            <div class="top-menu__title"> Pemakaian Kertas </div>
                         </a>
                     </li>
                 </ul>
@@ -404,7 +403,7 @@
                     <li>
                         <a href="{{route('warehouse.delivery.index')}}" class="top-menu">
                             <div class="top-menu__icon"> <i data-lucide="truck"></i> </div>
-                            <div class="top-menu__title"> Shipping </div>
+                            <div class="top-menu__title"> Pengiriman </div>
                         </a>
                     </li>
                     <li>
@@ -439,7 +438,7 @@
             <li>
                 <a href="javascript:;" class="top-menu">
                     <div class="top-menu__icon"> <i data-lucide="shopping-cart"></i> </div>
-                    <div class="top-menu__title"> Procurement <i data-lucide="chevron-down"
+                    <div class="top-menu__title"> Pengadaan <i data-lucide="chevron-down"
                             class="top-menu__sub-icon"></i> </div>
                 </a>
                 <ul class="">
@@ -450,9 +449,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="top-menu-dark-point-of-sale.html" class="top-menu">
-                            <div class="top-menu__icon"> <i data-lucide="activity"></i> </div>
-                            <div class="top-menu__title"> Goods Receive </div>
+                        <a href="{{route('procurement.goods-receive.index')}}" class="top-menu">
+                            <div class="top-menu__icon"> <i data-lucide="file-text"></i> </div>
+                            <div class="top-menu__title"> Penerimaan Barang </div>
                         </a>
                     </li>
                 </ul>
@@ -511,7 +510,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <!-- <li>
                 <a href="javascript:;" class="top-menu">
                     <div class="top-menu__icon"> <i data-lucide="settings"></i> </div>
                     <div class="top-menu__title"> Settings <i data-lucide="chevron-down" class="top-menu__sub-icon"></i>
@@ -546,7 +545,7 @@
                         </ul>
                     </li>
                 </ul>
-            </li>
+            </li> -->
         </ul>
     </nav>
     <!-- END: Top Menu -->

@@ -10,7 +10,7 @@
     </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="{{route('warehouse.delivery.create')}}" class="btn btn-primary shadow-md mr-2">Buat Surat Jalan</a>
+            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary shadow-md mr-2">Buat Surat Jalan</a>
             <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
@@ -62,14 +62,17 @@
                         <td>{{$item->transaction_no}}</td>
                         <td>{{$item->customer_name}}</td>
                         <td class="text-center">{{$item->ref_po_customer}}</td>
-                        <td class="text-center"><?php echo date("d/m/Y", strtotime($item->actual_delivery_date)); ?></td>
+                        <td class="text-center"><?php echo date("d/m/Y", strtotime($item->actual_delivery_date)); ?>
+                        </td>
                         <td class="text-center">
                             @if($item->tax_type == 0)
-                                V0 (Kawasan Berikat)
+                            V0 (Kawasan Berikat)
                             @elseif($item->tax_type == 1)
-                                V1 (Exlude PPN)
+                            V1 (Exlude PPN)
+                            @elseif($item->tax_type == 2)
+                            V2 (Exlude PPN)
                             @else
-                                V2 (Inlude PPN)
+                            SAMPLE
                             @endif
                         </td>
                         <td class="table-report__action w-56">
@@ -77,8 +80,10 @@
                                 <a class="flex items-center mr-3 text-success"
                                     href="{{route('warehouse.delivery.edit', ['id' => $item->id])}}" title="Edit SPK"><i
                                         data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
-                                <a class="flex items-center mr-3" href="{{route('warehouse.delivery.print', ['id' => $item->id])}}" title="Print Surat jalan"><i
-                                        data-lucide="printer" class="w-4 h-4 mr-1"></i> Print</a>
+                                <a class="flex items-center mr-3"
+                                    href="{{route('warehouse.delivery.print', ['id' => $item->id])}}" target="_blank"
+                                    title="Print Surat jalan"><i data-lucide="printer" class="w-4 h-4 mr-1"></i>
+                                    Print</a>
                             </div>
                         </td>
                     </tr>
@@ -132,24 +137,58 @@
         <!-- END: Pagination -->
     </div>
     <!-- BEGIN: Delete Confirmation Modal -->
-    <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+    <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-body p-0">
-                    <div class="p-5 text-center">
-                        <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                        <div class="text-3xl mt-5">Are you sure?</div>
-                        <div class="text-slate-500 mt-2">
-                            Do you really want to delete these records?
-                            <br>
-                            This process cannot be undone.
+                <div class="modal-body">
+                    <!-- BEGIN: Horizontal Form -->
+                    <div class="intro-y box">
+                        <div
+                            class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                            <h2 class="font-medium text-base mr-auto">
+                                Buat Surat Jalan
+                            </h2>
+                        </div>
+                        <div id="horizontal-form" class="p-5">
+                            <form method="POST" action="{{route('warehouse.delivery.save')}}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="preview">
+                                    <div class="form-inline mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">No. PO</label>
+                                        <select data-placeholder="Pilih PO Customer"
+                                            class="tom-select w-full form-control" name="sales_order_id" required>
+                                            <option value=" "> - </option>
+                                            @foreach($salesOrders as $order)
+                                            <option value="{{$order->id}}">{{$order->transaction_no}} -
+                                                {{$order->ref_po_customer}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Tanggal
+                                            Pengiriman</label>
+                                        <input id="horizontal-form-1" type="date" class="form-control"
+                                            name="delivery_date" required>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Plat Nomor</label>
+                                        <input id="vertical-form-1" type="text" class="form-control"
+                                            name="licence_plate" required>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Pengemudi</label>
+                                        <input id="vertical-form-1" type="text" class="form-control" name="driver_name"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                    <button type="button" data-tw-dismiss="modal" class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
+                                    <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="px-5 pb-8 text-center">
-                        <button type="button" data-tw-dismiss="modal"
-                            class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                        <button type="button" class="btn btn-danger w-24">Delete</button>
-                    </div>
+                    <!-- END: Horizontal Form -->
                 </div>
             </div>
         </div>

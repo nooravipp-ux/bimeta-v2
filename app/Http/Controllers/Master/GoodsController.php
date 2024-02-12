@@ -10,6 +10,7 @@ use Auth;
 class GoodsController extends Controller
 {
     public function index() {
+        $substances = DB::table('master.m_substance')->orderBy('id', 'ASC')->get();
         $data = DB::table('master.m_goods AS goods')
                 ->select([
                     'goods.id',
@@ -31,7 +32,7 @@ class GoodsController extends Controller
                             END AS measure"),
                 ])->orderBy('id', 'ASC')->paginate(10);
 
-        return view('master.goods.index', compact('data'));
+        return view('master.goods.index', compact('data', 'substances'));
     }
 
     public function create() {

@@ -131,7 +131,7 @@
                             <div
                                 class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                                 <h2 class="font-medium text-base mr-auto">
-                                    Form Tambah Customer
+                                    Tambah Customer
                                 </h2>
                             </div>
                             <div id="horizontal-form" class="p-5">
@@ -175,6 +175,7 @@
                                             </div>
                                         </div>
                                         <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                            <button type="button" data-tw-dismiss="modal" class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
                                             <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
                                         </div>
                                     </div>

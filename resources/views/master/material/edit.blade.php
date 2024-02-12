@@ -1,103 +1,78 @@
 @extends('layouts._base')
 @section('main-content')
-<div class="content-wrapper pb-0">
-    <!-- first row starts here -->
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="page-header flex-wrap">
-                        <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                            <h4 class="card-title">Master List Materials</h4>
-                        </div>
-                        <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-
-                        </div>
-                    </div>
-                    <hr />
-                    <form method="POST" action="{{route('material.update')}}" id="collapse-form">
+<div class="content content--top-nav">
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <div class="intro-y col-span-12 lg:col-span-8">
+            <!-- BEGIN: Horizontal Form -->
+            <div class="intro-y box mt-5">
+                <div
+                    class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                    <h2 class="font-medium text-base mr-auto">
+                        Edit Material
+                    </h2>
+                </div>
+                <div id="horizontal-form" class="p-5">
+                    <form method="POST" action="{{route('material.update')}}">
                         @csrf
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Name<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="name" value="{{$data->name}}" >
-                                        <input type="hidden" class="form-control" name="id" value="{{$data->id}}">
-                                    </div>
+                        <div id="horizontal-form" class="p-5">
+                            <div class="preview">
+                                <div class="form-inline">
+                                    <label for="vertical-form-1" class="form-label sm:w-20">Code</label>
+                                    <input type="text" class="form-control" name="name" value="{{$data->code}}">
                                 </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Type<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control" name="type">
-                                            <option value="">-</option>
-                                            <option value="KRAFT" <?php echo ($data->type == "KRAFT") ? "selected" : ""; ?>>KRAFT</option>
-                                            <option value="MEDIUM" <?php echo ($data->type == "MEDIUM") ? "selected" : ""; ?>>MEDIUM</option>
-                                        </select>
-                                    </div>
+                                <div class="form-inline mt-5">
+                                    <label for="vertical-form-1" class="form-label sm:w-20">Nama </label>
+                                    <input type="text" class="form-control" name="name" value="{{$data->name}}" >
+                                    <input type="hidden" class="form-control" name="id" value="{{$data->id}}">
                                 </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Paper Type<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control" name="paper_type" >
-                                            <option value="">-</option>
-                                            <option value="BROWN KRAFT" <?php echo ($data->paper_type == "BROWN KRAFT") ? "selected" : ""; ?>>BROWN KRAFT</option>
-                                            <option value="TEST LINER" <?php echo ($data->paper_type == "TEST LINER") ? "selected" : ""; ?>>TEST LINER</option>
-                                            <option value="WHITE KRAFT" <?php echo ($data->paper_type == "WHITE KRAFT") ? "selected" : ""; ?>>WHITE KRAFT</option>
-                                            <option value="MEDIUM" <?php echo ($data->paper_type == "MEDIUM") ? "selected" : ""; ?>>MEDIUM</option>
-                                        </select>
-                                    </div>
+                                <div class="form-inline mt-5">
+                                    <label for="vertical-form-1" class="form-label sm:w-20">Tipe</label>
+                                    <select data-placeholder="Pilih Tipe Pajak" class="tom-select w-full form-control" name="type">
+                                        <option value=" ">-</option>
+                                        <option value="KRAFT" <?php echo ($data->type == "KRAFT") ? "selected" : ""; ?>>KRAFT</option>
+                                        <option value="MEDIUM" <?php echo ($data->type == "MEDIUM") ? "selected" : ""; ?>>MEDIUM</option>
+                                    </select>
                                 </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Gramature<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="number" class="form-control" name="gramature" value="{{$data->gramature}}">
-                                    </div>
+                                <div class="form-inline mt-5">
+                                    <label for="vertical-form-1" class="form-label sm:w-20">Jenis Kertas</label>
+                                    <select data-placeholder="Pilih Tipe Pajak" class="tom-select w-full form-control" name="paper_type">
+                                        <option value="">-</option>
+                                        <option value="BROWN KRAFT" <?php echo ($data->paper_type == "BROWN KRAFT") ? "selected" : ""; ?>>BROWN KRAFT</option>
+                                        <option value="TEST LINER" <?php echo ($data->paper_type == "TEST LINER") ? "selected" : ""; ?>>TEST LINER</option>
+                                        <option value="WHITE KRAFT" <?php echo ($data->paper_type == "WHITE KRAFT") ? "selected" : ""; ?>>WHITE KRAFT</option>
+                                        <option value="MEDIUM" <?php echo ($data->paper_type == "MEDIUM") ? "selected" : ""; ?>>MEDIUM</option>
+                                    </select>
                                 </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Unit<span class="mandatory-sign">
-                                            *</span></label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control" name="unit" >
-                                            <option value="">-</option>
-                                            <option value="GSM" <?php echo ($data->unit == "GSM") ? "selected" : ""; ?>>GSM</option>
-                                            <option value="ROLL" <?php echo ($data->unit == "ROLL") ? "selected" : ""; ?>>ROLL</option>
-                                        </select>
-                                    </div>
+                                <div class="form-inline mt-5">
+                                    <label for="vertical-form-1" class="form-label sm:w-20">Gramature</label>
+                                    <input type="text" class="form-control" name="gramature" value="{{$data->gramature}}">
                                 </div>
-                                <hr />
+                                <div class="form-inline mt-5">
+                                    <label for="vertical-form-1" class="form-label sm:w-20">Satuan</label>
+                                    <select data-placeholder="Pilih Tipe Pajak" class="tom-select w-full form-control" name="unit">
+                                        <option value="">-</option>
+                                        <option value="GSM" <?php echo ($data->unit == "GSM") ? "selected" : ""; ?>>GSM</option>
+                                        <option value="ROLL" <?php echo ($data->unit == "ROLL") ? "selected" : ""; ?>>ROLL</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="page-header flex-wrap">
-                                <div class="header-left d-flex flex-wrap mt-2 mt-sm-0">
-                                    <h4 class="card-title"></h4>
-                                </div>
-                                <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
-                                    <button type="submit" class="btn btn-primary btn-rounded btn-fw"
-                                        style="padding: 10px;">Update</button>
-                                </div>
+                            <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+            <!-- END: Horizontal Form -->
         </div>
     </div>
-    <!-- chart row starts here -->
 </div>
 @endsection
 
 @section('script')
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
-$(function() {
-    $(".loader").hide();
-})
+
 </script>
 @endsection

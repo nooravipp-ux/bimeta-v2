@@ -79,7 +79,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/production/spk/mark-as-done/{id}', [App\Http\Controllers\Transaction\ProductionController::class, 'markAsDone'])->name('production.spk.mark-as-done');
     Route::post('/production/spk/schedule/save', [App\Http\Controllers\Transaction\ProductionController::class, 'scheduleSave'])->name('production.spk.schedule.save');
     Route::get('/production/spk/print/{id}', [App\Http\Controllers\Transaction\ProductionController::class, 'printSpk'])->name('production.spk.print');
-    Route::get('/production/spk/search', [App\Http\Controllers\Transaction\ProductionController::class, 'search'])->name('production.spk.search');
+    Route::get('/production/spk/search/test', [App\Http\Controllers\Transaction\ProductionController::class, 'search'])->name('production.spk.search');
     
     Route::post('/production/progress-item/save', [App\Http\Controllers\Transaction\ProductionController::class, 'progressItemSave'])->name('production.spk.progress-item.save');
     Route::get('/production/monitoring', [App\Http\Controllers\Transaction\ProductionController::class, 'monitoring'])->name('production.spk.monitoring.index');
@@ -87,7 +87,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/production/monitoring/production-progress/{id}', [App\Http\Controllers\Transaction\ProductionController::class, 'progressProductionUpdate'])->name('production.spk.monitoring.production-progress');
     Route::post('/production/monitoring/production-progress/update', [App\Http\Controllers\Transaction\ProductionController::class, 'progressItemUpdate'])->name('production.spk.monitoring.production-progress.update'); //
     Route::post('/production/monitoring/production-progress/detail/save', [App\Http\Controllers\Transaction\ProductionController::class, 'progressProductionDetailSave'])->name('production.spk.monitoring.production-progress.detail.save');
-    Route::post('/production/monitoring/personal-progress', [App\Http\Controllers\Transaction\ProductionController::class, 'monitoringPersonalProgress'])->name('production.spk.monitoring.personal-progress');
+    Route::get('/production/monitoring/personal-progress/q', [App\Http\Controllers\Transaction\ProductionController::class, 'monitoringPersonalProgress'])->name('production.spk.monitoring.personal-progress');
+    Route::post('/production/monitoring/personal-progress/save', [App\Http\Controllers\Transaction\ProductionController::class, 'monitoringPersonalProgressSave'])->name('production.spk.monitoring.personal-progress.save');
 
     Route::get('/warehouse/shipping', [App\Http\Controllers\Transaction\DeliveryController::class, 'index'])->name('warehouse.delivery.index');
     Route::get('/warehouse/shipping/create', [App\Http\Controllers\Transaction\DeliveryController::class, 'create'])->name('warehouse.delivery.create');
@@ -106,6 +107,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/procurement/purchase-order/{id}', [App\Http\Controllers\Transaction\PurchaseOrderController::class, 'edit'])->name('procurement.purchase-order.edit');
     Route::post('/procurement/purchase-order/detail/save', [App\Http\Controllers\Transaction\PurchaseOrderController::class, 'saveDetail'])->name('procurement.purchase-order.detail.save');
     Route::get('/procurement/purchase-order/delete/{id}', [App\Http\Controllers\Transaction\PurchaseOrderController::class, 'deleteDetail'])->name('procurement.purchase-order.detail.delete');
+    Route::get('/procurement/purchase-order/print/{id}', [App\Http\Controllers\Transaction\PurchaseOrderController::class, 'print'])->name('procurement.purchase-order.print');
+
+    Route::get('/procurement/goods-receive', [App\Http\Controllers\Transaction\GoodsReceiveController::class, 'index'])->name('procurement.goods-receive.index');
+    Route::post('/procurement/goods-receive/save', [App\Http\Controllers\Transaction\GoodsReceiveController::class, 'save'])->name('procurement.goods-receive.save');
+    Route::get('/procurement/goods-receive/edit/{id}', [App\Http\Controllers\Transaction\GoodsReceiveController::class, 'edit'])->name('procurement.goods-receive.edit');
+    Route::post('/procurement/goods-receive/detail/save', [App\Http\Controllers\Transaction\GoodsReceiveController::class, 'saveDetail'])->name('procurement.goods-receive.detail.save');
 });
 
 Auth::routes();

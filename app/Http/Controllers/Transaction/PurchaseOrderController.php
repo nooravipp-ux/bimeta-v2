@@ -6,15 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+use PDF;
 
 class PurchaseOrderController extends Controller
 {
     public function index(){
+        $suppliers = DB::table('master.m_supplier')->get();
         $data = DB::table('transaction.t_purchase as purchase')
                     ->select('purchase.*', 'supplier.name', 'supplier.code')
                     ->join('master.m_supplier as supplier', 'supplier.id', '=', 'purchase.supplier_id')
                     ->paginate(20);
-        return view('transaction.procurement.purchase-order.index', compact('data'));
+        return view('transaction.procurement.purchase-order.index', compact('data', 'suppliers'));
     }
 
     public function create() {
@@ -48,7 +50,7 @@ class PurchaseOrderController extends Controller
         $materials = DB::table('master.m_material')->get();
 
         $data = DB::table('transaction.t_detail_purchase as detail_purchase')
-                ->select('detail_purchase.*', 'material.name', 'material.paper_type')
+                ->select('detail_purchase.*', 'material.name', 'material.gramature', 'material.unit')
                 ->join('master.m_material as material', 'material.id', '=', 'detail_purchase.material_id')
                 ->where('detail_purchase.purchase_id', $id)
                 ->get();
@@ -61,7 +63,7 @@ class PurchaseOrderController extends Controller
             "purchase_id" => $request->purchase_id,
             "material_id" => $request->material_id,
             "width" => $request->width,
-            "weight" => $request->weight,
+            "measure_unit" => $request->measure_unit,
             "quantity" => $request->quantity,
             "price" => $request->price,
             "created_at" => date('Y-m-d H:i:s'),
@@ -74,5 +76,39 @@ class PurchaseOrderController extends Controller
     public function deleteDetail($id){
         DB::table('transaction.t_detail_purchase')->where('id', $id)->delete();
         return redirect()->back();
+    }
+
+    public function print($id) {
+        $purchaseOrder = DB::table('transaction.t_purchase as purchase')
+                    ->select('purchase.*', 'supplier.name', 'supplier.code')
+                    ->join('master.m_supplier as supplier', 'supplier.id', '=', 'purchase.supplier_id')
+                    ->where('purchase.id', $id)
+                    ->first();
+
+        $detailPurchaseOrder = DB::table('transaction.t_detail_purchase as detail_purchase')
+                ->select('detail_purchase.*', 'material.name', 'material.gramature', 'material.unit')
+                ->join('master.m_material as material', 'material.id', '=', 'detail_purchase.material_id')
+                ->where('detail_purchase.purchase_id', $id)
+                ->get();
+
+        $pdf = PDF::loadView('transaction.procurement.purchase-order.print', [
+            'purchaseOrder' => $purchaseOrder,
+            'detailPurchaseOrder' => $detailPurchaseOrder,
+        ]);
+                
+        // Set paper size and orientation
+        $pdf->setPaper('letter', 'portrait'); // Adjust the paper size and orientation as needed
+                
+        // Set options for domPDF
+        $pdf->setOptions([
+            'isHtml5ParserEnabled' => true,
+            'isPhpEnabled' => true,
+            'isHtmlParsingEnabled' => true,
+            'isCssEnabled' => true,
+            'isPhpEnabled' => true,
+        ]);
+                
+        // Download the PDF
+        return $pdf->stream($purchaseOrder->po_no.'.pdf');
     }
 }

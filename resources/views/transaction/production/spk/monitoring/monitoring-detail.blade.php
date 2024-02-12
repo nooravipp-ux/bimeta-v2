@@ -123,7 +123,7 @@
                         <thead class="table-primary">
                             <tr>
                                 <th>Nama Proses</th>
-                                <th class="text-center">Urutan</th>
+                                <th class="text-center">Hasil</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Action</th>
                             </tr>
@@ -132,7 +132,7 @@
                             @foreach($productionProcessesItem as $process)
                             <tr>
                                 <td>{{$process->process_name}}</td>
-                                <td class="text-center">{{$process->sequence_order}}</td>
+                                <td class="text-center">0</td>
                                 <td class="text-center">
                                     @if($process->status == 1)
                                     <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">INIT</div>

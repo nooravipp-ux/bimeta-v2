@@ -86,14 +86,10 @@
                             </div>
                             <div class="form-inline mt-5">
                                 <label for="vertical-form-1" class="form-label sm:w-20">Status</label>
-                                <select data-placeholder="Pilih Status" class="tom-select w-full form-control"
-                                    name="status">
-                                    <option value="1" <?php echo ($processItem->status == 1) ? "selected" : ""; ?>>Init
-                                    </option>
-                                    <option value="2" <?php echo ($processItem->status == 2) ? "selected" : ""; ?>>Work
-                                        in Progress</option>
-                                    <option value="3" <?php echo ($processItem->status == 3) ? "selected" : ""; ?>>Done
-                                    </option>
+                                <select data-placeholder="Pilih Status" class="tom-select w-full form-control" name="status">
+                                    <option value="1" <?php echo ($processItem->status == 1) ? "selected" : ""; ?>>INIT</option>
+                                    <option value="2" <?php echo ($processItem->status == 2) ? "selected" : ""; ?>>WORK IN PROGRESS</option>
+                                    <option value="3" <?php echo ($processItem->status == 3) ? "selected" : ""; ?>>COMPLETED</option>
                                 </select>
                             </div>
                         </div>
@@ -117,9 +113,9 @@
                     <table class="table table-striped">
                         <thead class="bg-success">
                             <tr>
-                                <th class="whitespace-nowrap">NAMA OPERATOR</th>
                                 <th class="whitespace-nowrap">TANGGAL PROSES</th>
                                 <th class="whitespace-nowrap">HASIL</th>
+                                <th class="whitespace-nowrap">OPERATOR</th>
                                 <th class="whitespace-nowrap">CATATAN</th>
                                 <th class="whitespace-nowrap text-center">ACTION</th>
                             </tr>
@@ -127,13 +123,13 @@
                         <tbody>
                             @foreach($processItemDetails as $details)
                             <tr>
-                                <td>{{$details->operator_id}}</td>
                                 <td>{{$details->date}}</td>
                                 <td>{{$details->result}}</td>
+                                <td>{{$details->operator}}</td>
                                 <td>{{$details->remarks}}</td>
                                 <td class="table-report__action w-56">
                                     <div class="flex justify-center items-center">
-                                        <a class="flex items-center mr-3"
+                                        <a class="flex items-center mr-3 text-success"
                                             href=""> <i
                                                 data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
                                         <a class="flex items-center text-danger" href="javascript:;"

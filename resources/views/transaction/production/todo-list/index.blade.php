@@ -66,7 +66,7 @@
                         <td class="text-center"><?php echo date("d/m/Y", strtotime($item->delivery_date)); ?></td>
                         <td class="text-center">
                             @if($item->status == 1)
-                            <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">NEW ORDER</div>
+                            <div class="py-1 px-2 rounded-full text-xs bg-danger text-white cursor-pointer font-medium">NEW ORDER</div>
                             @endif
                             @if($item->status == 2)
                             <div class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">CLAIMED</div>

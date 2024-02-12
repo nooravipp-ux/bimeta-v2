@@ -201,15 +201,15 @@
                                     <div class="preview">
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
-                                            <input type="number" class="form-control"name="spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            <input type="number" class="form-control"name="spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}" required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
                                             <input type="hidden" class="form-control" name="detail_sales_order_id" value="{{$goodsInformations->detail_sales_order_id}}">
                                         </div>
                                         <div class="form-inline mt-5 ">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-6" placeholder="L" id="width" name="width">
-                                                <input type="text" class="form-control col-span-6" placeholder="P" id="length" name="length">
+                                                <input type="text" class="form-control col-span-6" placeholder="L" id="width" name="width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-6" placeholder="P" id="length" name="length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                     </div>
@@ -363,9 +363,9 @@
                                         <div class="form-inline mt-5 ">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="length">
-                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="width">
-                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="height">
+                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="height" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
@@ -450,32 +450,32 @@
                             <div class="md:col-span-6">
                                 <div class="flex flex-row">
                                     <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                        <!-- <div class="layout-box-l h-4 bg-gray-300"></div> -->
                                         <div class="layout-box-l h-4 bg-gray-300" id="l-l2">L2</div>
                                         <div class="layout-box-l h-4 bg-gray-300"></div>
                                     </div>
                                     <div class="flex flex-col">
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
+                                        <!-- <div class="layout-box-p h-4 bg-gray-300"></div> -->
                                         <div class="layout-box-p h-4 bg-gray-300" id="l-p1">P1</div>
                                         <div class="layout-box-p h-4 bg-gray-300"></div>
                                     </div>
                                     <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
+                                        <!-- <div class="layout-box-l h-4 bg-gray-300"></div> -->
                                         <div class="layout-box-l h-4 bg-gray-300" id="l-l1">L1</div>
                                         <div class="layout-box-l h-4 bg-gray-300"></div>
                                     </div>
                                     <div class="flex flex-col">
-                                        <div class="layout-box-t h-4 bg-gray-300" id="l-plape-1"></div>
+                                        <!-- <div class="layout-box-t h-4 bg-gray-300" id="l-plape-1"></div> -->
                                         <div class="layout-box-t h-4 bg-gray-300" id="l-t">T</div>
                                         <div class="layout-box-t h-4 bg-gray-300" id="l-plape-2">P</div>
                                     </div>
                                     <div class="flex flex-col">
-                                        <div class="layout-box-p-2 h-4 bg-gray-300"></div>
+                                        <!-- <div class="layout-box-p-2 h-4 bg-gray-300"></div> -->
                                         <div class="layout-box-p-2 h-4 bg-gray-300" id="l-p2">P2</div>
                                         <div class="layout-box-p-2 h-4 bg-gray-300"></div>
                                     </div>
                                     <div class="flex flex-col">
-                                        <div class="layout-box-k h-4 bg-gray-300"></div>
+                                        <!-- <div class="layout-box-k h-4 bg-gray-300"></div> -->
                                         <div class="layout-box-k h-4 bg-gray-300" id="l-k">K</div>
                                         <div class="layout-box-k h-4 bg-gray-300"></div>
                                     </div>
@@ -491,7 +491,7 @@
                                     <div class="preview">
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
-                                            <input type="number" class="form-control"name="bottom_spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            <input type="number" class="form-control"name="bottom_spk_quantity" id="tr-spk-qty" placeholder="Max {{$goodsInformations->quantity - $totalSPKCreated}}" required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
                                             <input type="hidden" class="form-control" name="detail_sales_order_id" value="{{$goodsInformations->detail_sales_order_id}}">
                                         </div>
@@ -601,7 +601,7 @@
                                     <div class="preview">
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
-                                            <input type="number" class="form-control"name="top_spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : "readonly"; ?>>
+                                            <input type="number" class="form-control"name="top_spk_quantity" id="tr-spk-qty" placeholder="Max {{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
                                             <input type="hidden" class="form-control" name="detail_sales_order_id" value="{{$goodsInformations->detail_sales_order_id}}">
                                         </div>
@@ -610,6 +610,7 @@
                                             <div class="grid grid-cols-12 gap-2 mr-0">
                                                 <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="top_length">
                                                 <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="top_width">
+                                                <input type="text" class="form-control col-span-4" placeholder="T" id="hieght" name="top_height">
                                             </div>
                                         </div>
                                     </div>
@@ -769,7 +770,7 @@
                                     <div class="preview">
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
-                                            <input type="number" class="form-control"name="top_spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : "readonly"; ?>>
+                                            <input type="number" class="form-control"name="top_spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
                                             <input type="hidden" class="form-control" name="detail_sales_order_id" value="{{$goodsInformations->detail_sales_order_id}}">
                                         </div>

@@ -6,7 +6,7 @@
     </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="{{route('goods.create')}}" class="btn btn-primary shadow-md mr-2">Tambah Barang</a>
+            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary shadow-md mr-2">Tambah Barang</a>
             <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
@@ -115,24 +115,236 @@
         <!-- END: Pagination -->
     </div>
     <!-- BEGIN: Delete Confirmation Modal -->
-    <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+    <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-body p-0">
-                    <div class="p-5 text-center">
-                        <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                        <div class="text-3xl mt-5">Are you sure?</div>
-                        <div class="text-slate-500 mt-2">
-                            Do you really want to delete these records?
-                            <br>
-                            This process cannot be undone.
+                <div class="modal-body">
+                    <!-- BEGIN: Horizontal Form -->
+                    <div class="intro-y box">
+                        <div
+                            class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                            <h2 class="font-medium text-base mr-auto">
+                                Tambah Barang
+                            </h2>
+                        </div>
+                        <div id="horizontal-form" class="p-5">
+                            <form method="POST" action="{{route('goods.save')}}">
+                                @csrf
+                                <div class="preview">
+                                    <div class="form-inlin mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Nama Barang</label>
+                                        <input id="vertical-form-1" type="text" class="form-control" name="name">
+                                    </div>
+                                    <div class="form-inlin mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Barang</label>
+                                        <select data-placeholder="Pilih Jenis Ply"
+                                            class="tom-select w-full form-control" name="goods_type" id="goods-type">
+                                            <option value="">-</option>
+                                            <option value="1">SHEET</option>
+                                            <option value="2">BOX</option>
+                                            <option value="3">BADAN TUTUP (AB)</option>
+                                            <option value="4">BADAN TUTUP (BB)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-inlin mt-5 standard-type">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Ply</label>
+                                        <select data-placeholder="Pilih Jenis Ply"
+                                            class="tom-select w-full form-control" name="ply_type">
+                                            <option value="">-</option>
+                                            <option value="SF">SINGLE FACE</option>
+                                            <option value="SW">SINGLE WALL</option>
+                                            <option value="DW">DOUBLE WALL</option>
+                                            <option value="TW">TRIPLE WALL</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-inlin mt-5 standard-type">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Flute</label>
+                                        <select data-placeholder="Pilih Jenis Flute"
+                                            class="tom-select w-full form-control" name="flute_type">
+                                            <option value=" ">-</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="E">E</option>
+                                            <option value="B/C">B/C</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-inlin mt-5 standard-type">
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Substance</label>
+                                        <select data-placeholder="Pilih Substance"
+                                            class="tom-select w-full form-control" name="substance">
+                                            <option value=" ">-</option>
+                                            @foreach($substances as $substance)
+                                            <option value="{{$substance->code}}">{{$substance->code}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inlin mt-5 standard-type">
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Ukuran</label>
+                                        <div class="grid grid-cols-12 gap-2">
+                                            <input type="text" class="form-control col-span-4" placeholder="P"
+                                                name="length" id="length">
+                                            <input type="text" class="form-control col-span-4" placeholder="L"
+                                                name="width" id="width">
+                                            <input type="text" class="form-control col-span-4" placeholder="T"
+                                                name="height" id="height">
+                                        </div>
+                                    </div>
+                                    <div class="form-inlin mt-5 standard-type">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Satuan Ukuran</label>
+                                        <select data-placeholder="Pilih Jenis Flute"
+                                            class="tom-select w-full form-control" name="meas_unit">
+                                            <option value="">-</option>
+                                            <option value="INCH">INCH</option>
+                                            <option value="MM">MM</option>
+                                            <option value="CM">CM</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-inlin mt-5 standard-type">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Ukuran</label>
+                                        <select data-placeholder="Pilih Jenis Flute"
+                                            class="tom-select w-full form-control" name="meas_type">
+                                            <option value=" ">-</option>
+                                            <option value="UD">UD</option>
+                                            <option value="UL">UL</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-inlin mt-5 standard-type">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Harga</label>
+                                        <input id="vertical-form-1" type="number" class="form-control" name="price"
+                                            value="0">
+                                    </div>
+                                    <div class="form-inlin mt-5 top-bottom">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Ply
+                                            (Top)</label>
+                                        <select data-placeholder="Pilih Jenis Ply"
+                                            class="tom-select w-full form-control" name="top_ply_type">
+                                            <option value=" ">-</option>
+                                            <option value="SF">SINGLE FACE</option>
+                                            <option value="SW">SINGLE WALL</option>
+                                            <option value="DW">DOUBLE WALL</option>
+                                            <option value="TW">TRIPLE WALL</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-inlin mt-5 top-bottom">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Flute
+                                            (Top)</label>
+                                        <select data-placeholder="Pilih Jenis Flute"
+                                            class="tom-select w-full form-control" name="top_flute_type">
+                                            <option value=" ">-</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="E">E</option>
+                                            <option value="B/C">B/C</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-inlin mt-5 top-bottom">
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Substance (Top)</label>
+                                        <select data-placeholder="Pilih Substance"
+                                            class="tom-select w-full form-control" name="top_substance">
+                                            <option value="">-</option>
+                                            @foreach($substances as $substance)
+                                            <option value="{{$substance->code}}">{{$substance->code}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inlin mt-5 top-bottom">
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Ukuran (Top)</label>
+                                        <div class="grid grid-cols-12 gap-2">
+                                            <input type="text" class="form-control col-span-4" placeholder="P"
+                                                name="top_length" id="top_length">
+                                            <input type="text" class="form-control col-span-4" placeholder="L"
+                                                name="top_width" id="top_width">
+                                            <input type="text" class="form-control col-span-4" placeholder="T"
+                                                name="top_height" id="top_height">
+                                        </div>
+                                    </div>
+                                    <div class="form-inlin mt-5 top-bottom">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Satuan Ukuran
+                                            (Top)</label>
+                                        <select data-placeholder="Pilih Jenis Flute"
+                                            class="tom-select w-full form-control" name="top_meas_unit">
+                                            <option value="">-</option>
+                                            <option value="INCH">INCH</option>
+                                            <option value="MM">MM</option>
+                                            <option value="CM">CM</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-inlin mt-5 top-bottom">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Harga (Top)</label>
+                                        <input id="vertical-form-1" type="number" class="form-control" name="top_price"
+                                            value="0">
+                                    </div>
+                                    <div class="form-inlin mt-5 top-bottom">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Ply
+                                            (Bottom)</label>
+                                        <select data-placeholder="Pilih Jenis Ply"
+                                            class="tom-select w-full form-control" name="bottom_ply_type">
+                                            <option value="">-</option>
+                                            <option value="SF">SINGLE FACE</option>
+                                            <option value="SW">SINGLE WALL</option>
+                                            <option value="DW">DOUBLE WALL</option>
+                                            <option value="TW">TRIPLE WALL</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-inlin mt-5 top-bottom">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Flute
+                                            (Bottom)</label>
+                                        <select data-placeholder="Pilih Jenis Flute"
+                                            class="tom-select w-full form-control" name="bottom_flute_type">
+                                            <option value=" ">-</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="E">E</option>
+                                            <option value="B/C">B/C</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-inlin mt-5 top-bottom">
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Substance
+                                            (Bottom)</label>
+                                        <select data-placeholder="Pilih Substance"
+                                            class="tom-select w-full form-control" name="bottom_substance">
+                                            <option value="">-</option>
+                                            @foreach($substances as $substance)
+                                            <option value="{{$substance->code}}">{{$substance->code}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inlin mt-5 top-bottom">
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Ukuran (Bottom)</label>
+                                        <div class="grid grid-cols-12 gap-2">
+                                            <input type="text" class="form-control col-span-4" placeholder="P"
+                                                name="bottom_length" id="top_length">
+                                            <input type="text" class="form-control col-span-4" placeholder="L"
+                                                name="bottom_width" id="top_width">
+                                            <input type="text" class="form-control col-span-4" placeholder="T"
+                                                name="bottom_height" id="top_height">
+                                        </div>
+                                    </div>
+                                    <div class="form-inlin mt-5 top-bottom">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Satuan Ukuran
+                                            (Bottom)</label>
+                                        <select data-placeholder="Pilih Jenis Flute"
+                                            class="tom-select w-full form-control" name="bottom_meas_unit">
+                                            <option value="">-</option>
+                                            <option value="INCH">INCH</option>
+                                            <option value="MM">MM</option>
+                                            <option value="CM">CM</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-inlin mt-5 top-bottom">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Harga (Bottom)</label>
+                                        <input id="vertical-form-1" type="number" class="form-control"
+                                            name="bottom_price" value="0">
+                                    </div>
+                                </div>
+                                <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                    <button type="button" data-tw-dismiss="modal" class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
+                                    <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="px-5 pb-8 text-center">
-                        <button type="button" data-tw-dismiss="modal"
-                            class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                        <button type="button" class="btn btn-danger w-24">Delete</button>
-                    </div>
+                    <!-- END: Horizontal Form -->
                 </div>
             </div>
         </div>
@@ -142,9 +354,20 @@
 @endsection
 
 @section('script')
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
-$(function() {
+$(document).ready(function() {
+    $("#superlarge-modal-size-preview .top-bottom").hide();
+    var goods_type = $("#superlarge-modal-size-preview #goods-type").val();
 
-})
-</script>
+    $("#superlarge-modal-size-preview #goods-type").change(function(){
+        if($(this).val() === "3" || $(this).val() === "4") {
+            $("#superlarge-modal-size-preview .top-bottom").show(); 
+            $("#superlarge-modal-size-preview .standard-type").hide();
+        } else {
+            $("#superlarge-modal-size-preview .top-bottom").hide();
+            $("#superlarge-modal-size-preview .standard-type").show();
+        }
+    })
+});
 @endsection

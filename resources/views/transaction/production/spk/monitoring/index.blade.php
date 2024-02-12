@@ -10,8 +10,8 @@
     </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <button class="btn btn-primary shadow-md mr-2">Input Progress Harian</button>
-            <button class="btn btn-primary shadow-md mr-2">Update Progress Produksi</button>
+            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary shadow-md mr-2">Laporan Progress Harian</a>
+            <button class="btn btn-primary shadow-md mr-2">Memo Pengiriman</button>
             <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
@@ -39,14 +39,14 @@
             </div>
         </div>
         <!-- BEGIN: Data List -->
-        <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-            <table class="table table-report -mt-2">
+        <div class="intro-y col-span-12 overflow-auto lg:overflow-visible  xl:overflow-visible">
+            <table class="table table-report -mt-2 table-responsive">
                 <thead class="bg-success">
                     <tr>
                         <th class="whitespace-nowrap">TANGGAL PROD.</th>
                         <th class="whitespace-nowrap">NO. PO</th>
-                        <th class="text-center whitespace-nowrap">NO. SPK</th>
                         <th class="text-center whitespace-nowrap">CUSTOMER</th>
+                        <th class="text-center whitespace-nowrap">NO. SPK</th>
                         <th class="text-center whitespace-nowrap">LEBAR</th>
                         <th class="text-center whitespace-nowrap">PANJANG</th>
                         <th class="text-center whitespace-nowrap">KUALITAS</th>
@@ -62,23 +62,34 @@
                     <tr class="intro-x">
                         <td><?php echo date("d/m/Y", strtotime($item->start_date)); ?></td>
                         <td>{{$item->ref_po_customer}}</td>
-                        <td class="text-center whitespace-nowrap">{{$item->spk_no}}</td>
                         <td class="text-center whitespace-nowrap">{{$item->customer_name}}</td>
-                        <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->bruto_width);?></td>
-                        <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->bruto_length);?></td>
-                        <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->specification);?></td>
+                        <td class="text-center whitespace-nowrap">{{$item->spk_no}}</td>
+                        <td class="text-center whitespace-nowrap">
+                            <?php echo htmlspecialchars_decode($item->bruto_width);?></td>
+                        <td class="text-center whitespace-nowrap">
+                            <?php echo htmlspecialchars_decode($item->bruto_length);?></td>
+                        <td class="text-center whitespace-nowrap">
+                            <?php echo htmlspecialchars_decode($item->specification);?></td>
                         <td class="text-center whitespace-nowrap">{{$item->quantity}}</td>
                         <td class="text-center whitespace-nowrap">{{$item->current_process}}</td>
-                        <td class="text-center whitespace-nowrap">50%</td>
+                        <td class="text-center whitespace-nowrap">{{$item->persentage}} %</td>
                         <td class="text-center">
                             @if($item->status == 1)
-                            <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">INIT</div>
+                            <div
+                                class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">
+                                INIT</div>
                             @elseif($item->status == 2)
-                            <div class="py-1 px-2 rounded-full text-xs bg-warning text-white cursor-pointer font-medium">SCHEDULED</div>
+                            <div
+                                class="py-1 px-2 rounded-full text-xs bg-warning text-white cursor-pointer font-medium">
+                                SCHEDULED</div>
                             @elseif($item->status == 3)
-                            <div class="py-1 px-2 rounded-full text-xs bg-warning text-white cursor-pointer font-medium">WORK IN PROGRESS</div>
+                            <div
+                                class="py-1 px-2 rounded-full text-xs bg-warning text-white cursor-pointer font-medium">
+                                WORK IN PROGRESS</div>
                             @else
-                            <div class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">COMPLETED</div>
+                            <div
+                                class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">
+                                COMPLETED</div>
                             @endif
                         </td>
                         <td class="table-report__action w-56">
@@ -86,8 +97,7 @@
                                 @if($item->status != 4)
                                 <a class="flex items-center mr-3 text-success"
                                     href="{{route('production.spk.mark-as-done', ['id' => $item->id])}}"
-                                    title="Masrk As Done"><i data-lucide="check-square"
-                                        class="w-4 h-4 mr-1"></i>Done</a>
+                                    title="Masrk As Done"><i data-lucide="check-square" class="w-4 h-4 mr-1"></i>Done</a>
                                 @endif
                                 <a class="flex items-center mr-3 text-warning"
                                     href="{{route('production.spk.monitoring.detail', ['id' => $item->id])}}"
@@ -145,24 +155,41 @@
         <!-- END: Pagination -->
     </div>
     <!-- BEGIN: Delete Confirmation Modal -->
-    <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+    <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-body p-0">
-                    <div class="p-5 text-center">
-                        <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                        <div class="text-3xl mt-5">Are you sure?</div>
-                        <div class="text-slate-500 mt-2">
-                            Do you really want to delete these records?
-                            <br>
-                            This process cannot be undone.
+                <div class="modal-body">
+                    <!-- BEGIN: Horizontal Form -->
+                    <div class="intro-y box">
+                        <div
+                            class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                            <h2 class="font-medium text-base mr-auto">
+                                Progress Harian
+                            </h2>
+                        </div>
+                        <div id="horizontal-form" class="p-5">
+                            <form method="GET" action="{{route('production.spk.monitoring.personal-progress')}}">
+                                <div class="preview">
+                                    <div class="form-inline">
+                                    <label for="vertical-form-1" class="form-label sm:w-40">Nama Bagian</label>
+                                        <select data-placeholder="Pilih Proses" class="tom-select w-full form-control" name="process_id">
+                                            @foreach($productionProcesses as $process)
+                                            <option value="{{$process->id}}">{{$process->process_name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Tanggal</label>
+                                        <input id="vertical-form-1" type="date" class="form-control" name="date" required>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                    <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Laporan Progress</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="px-5 pb-8 text-center">
-                        <button type="button" data-tw-dismiss="modal"
-                            class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                        <button type="button" class="btn btn-danger w-24">Delete</button>
-                    </div>
+                    <!-- END: Horizontal Form -->
                 </div>
             </div>
         </div>

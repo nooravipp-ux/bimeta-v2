@@ -45,6 +45,7 @@
                 <thead class="bg-success">
                     <tr>
                         <th class="whitespace-nowrap">CODE</th>
+                        <th class="whitespace-nowrap">NAMA MATERIAL</th>
                         <th class="text-center whitespace-nowrap">TYPE</th>
                         <th class="text-center whitespace-nowrap">PAPER TYPE</th>
                         <th class="text-center whitespace-nowrap">GRAMATURE</th>
@@ -55,6 +56,7 @@
                 <tbody>
                     @foreach($data as $item)
                     <tr class="intro-x">
+                        <td>{{$item->code}}</td>
                         <td>{{$item->name}}</td>
                         <td class="text-center">{{$item->type}}</td>
                         <td class="text-center">{{$item->paper_type}}</td>
@@ -62,9 +64,9 @@
                         <td class="text-center">{{$item->unit}}</td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3" href="javascript:;"> <i data-lucide="edit"
+                                <a class="flex items-center mr-3" href="{{route('material.edit', ['id' => $item->id])}}"> <i data-lucide="edit"
                                         class="w-4 h-4 mr-1"></i> Edit </a>
-                                <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal"
+                                <a class="flex items-center text-danger" href="{{route('material.delete', ['id' => $item->id])}}" data-tw-toggle="modal"
                                     data-tw-target="#delete-confirmation-modal"> <i data-lucide="trash-2"
                                         class="w-4 h-4 mr-1"></i> Delete </a>
                             </div>
@@ -126,7 +128,7 @@
                             <div
                                 class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                                 <h2 class="font-medium text-base mr-auto">
-                                    Form Tambah Material
+                                    Tambah Material
                                 </h2>
                             </div>
                             <div id="horizontal-form" class="p-5">
@@ -135,11 +137,15 @@
                                     <div id="horizontal-form" class="p-5">
                                         <div class="preview">
                                             <div class="form-inline">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Code</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-20">Code </label>
                                                 <input type="text" class="form-control" name="code">
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Type</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-20">Nama</label>
+                                                <input type="text" class="form-control" name="name">
+                                            </div>
+                                            <div class="form-inline mt-5">
+                                                <label for="vertical-form-1" class="form-label sm:w-20">Tipe</label>
                                                 <select data-placeholder="Pilih Tipe Pajak" class="tom-select w-full form-control" name="type">
                                                     <option value=" ">-</option>
                                                     <option value="KRAFT">KRAFT</option>
@@ -147,7 +153,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Paper Type</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-20">Jenis Kertas</label>
                                                 <select data-placeholder="Pilih Tipe Pajak" class="tom-select w-full form-control" name="paper_type">
                                                     <option value=" ">-</option>
                                                     <option value="BROWN KRAFT">BROWN KRAFT</option>
@@ -161,7 +167,7 @@
                                                 <input type="text" class="form-control" name="gramature">
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Unit</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-20">Satuan</label>
                                                 <select data-placeholder="Pilih Tipe Pajak" class="tom-select w-full form-control" name="unit">
                                                     <option value=" ">-</option>
                                                     <option value="GSM">GSM</option>
@@ -169,6 +175,7 @@
                                             </div>
                                         </div>
                                         <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                            <button type="button" data-tw-dismiss="modal" class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
                                             <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
                                         </div>
                                     </div>

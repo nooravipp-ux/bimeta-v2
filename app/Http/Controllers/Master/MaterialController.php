@@ -16,7 +16,8 @@ class MaterialController extends Controller
 
     public function save(Request $request) {
         $data = DB::table('master.m_material')->insert([
-            "code" => $request->name,
+            "code" => $request->code,
+            "name" => $request->name,
             "type" => $request->type,
             "paper_type" => $request->paper_type,
             "gramature" => $request->gramature,
@@ -34,6 +35,7 @@ class MaterialController extends Controller
 
     public function update(Request $request) {
         $data = DB::table('master.m_material')->where('id', $request->id)->update([
+            "code" => $request->code,
             "name" => $request->name,
             "type" => $request->type,
             "paper_type" => $request->paper_type,

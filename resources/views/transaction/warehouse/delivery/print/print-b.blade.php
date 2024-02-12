@@ -10,13 +10,7 @@
     .container {
         width: 100%;
         max-width: 1200px;
-        /* Customize the max width as needed */
-        margin: 0 auto;
-        /* padding-right: 15px;
-        padding-left: 15px; */
-        padding: 0 15px;
         font-size: 14px;
-        box-sizing: border-box;
     }
 
     /* Row */
@@ -88,12 +82,12 @@
     table {
         width: 100%;
         border-collapse: collapse;
-        margin-bottom: 20px;
-        border: 1px solid #ddd;
+        border: 1px solid black;
+        font-weight: bold;
     }
 
     table th {
-        border: 1px solid #ddd;
+        border: 1px solid black;
         padding: 8px;
         text-align: left;
     }
@@ -113,105 +107,110 @@
 </head>
 
 <body>
-    <div class="container" style="border: 1px solid #ddd;">
-        <div class="row text-center">
-            <h3>SURAT JALAN</h3>
-        </div>
-        <div class="row">
-            <div class="col col-4">
-                <div class="row">
-                    <div class="col col-12">
-                        <p>PT. BIMETA KARNUSA BANDUNG</p>
+    <div class="container" style="border: 1px solid black;">
+        <div style="margin: 10px;">
+            <div class="row text-center">
+                <h3>SURAT JALAN</h3>
+            </div>
+            <div class="row">
+                <div class="col col-4">
+                    <div class="row">
+                        <div class="col col-12">
+                            <p>PT. BIMETA KARNUSA BANDUNG</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col col-4">
+                <div class="col col-4">
 
-            </div>
-            <div class="col col-4">
-                <div class="row">
-                    <div class="col col-12">
-                        <p>NO. {{$deliveryOrder->travel_permit_no}}</p>
+                </div>
+                <div class="col col-4">
+                    <div class="row">
+                        <div class="col col-12">
+                            <p>NO. {{$deliveryOrder->travel_permit_no}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col col-8">
-                <div class="row">
-                    <div class="col col-12">
-                        <p>DO NO. & Tgl : {{$deliveryOrder->travel_permit_no}} / <?php echo date("d M Y", strtotime($deliveryOrder->delivery_date)); ?></p>
-                        <p>PO NO. & Tgl : {{$deliveryOrder->ref_po_customer}}</p>
+            <div class="row">
+                <div class="col col-8">
+                    <div class="row">
+                        <div class="col col-12">
+                            <p>DO NO. & Tgl : {{$deliveryOrder->travel_permit_no}} /
+                                <?php echo date("d M Y", strtotime($deliveryOrder->delivery_date)); ?></p>
+                            <p>PO NO. & Tgl : {{$deliveryOrder->ref_po_customer}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-4">
+                    <div class="row">
+                        <div class="col col-12">
+                            <p>Kepada Yth : </p>
+                            <p>{{$deliveryOrder->customer_name}}</p>
+                            <p>{{$deliveryOrder->shipping_address}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col col-4">
-                <div class="row">
-                    <div class="col col-12">
-                        <p>Kepada Yth : </p>
-                        <p>{{$deliveryOrder->customer_name}}</p>
-                        <p>{{$deliveryOrder->shipping_address}}</p>
-                    </div>
+            <div class="row">
+                <div class="col col-12">
+                    <p>Bersama kendaraan dengan Nopol <strong> {{$deliveryOrder->licence_plate}} </strong>, kami kirim barang - barang tersebut dibawah ini :</p>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col col-8">
-                <p>Bersama ini kami kirimkan barang - barang seperti tercantum dibawah ini :</p>
+            <div class="row">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="text-center">NO.</th>
+                            <th>JENIS BARANG / UKURAN</th>
+                            <th class="text-center">QTY</th>
+                            <th>KETERANGAN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $no = 1; ?>
+                        @foreach($detailDeliveryOrder as $do)
+                        <tr>
+                            <td class="text-center"><?php echo $no++.'.'; ?></td>
+                            <td>
+                                <div>{{$do->goods_name}}</div>
+                                <div>UK : {{$do->measure}}</div>
+                            </td>
+                            <td class="text-center">{{$do->quantity}}</td>
+                            <td>{{$do->specification}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-        </div>
-        <div class="row">
-            <table>
-                <thead>
-                    <tr>
-                        <th>NO.</th>
-                        <th>JENIS BARANG / UKURAN</th>
-                        <th>QTY</th>
-                        <th>KETERANGAN</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $no = 1; ?>
-                    @foreach($detailDeliveryOrder as $do)
-                    <tr>
-                        <td class="text-center"><?php echo $no++.'.'; ?></td>
-                        <td>
-                            <div>{{$do->goods_name}}</div>
-                            <div>UK : {{$do->measure}}</div>
-                        </td>
-                        <td>{{$do->quantity}}</td>
-                        <td>{{$do->specification}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="row">
-            <p>Atas nama perusahaan kami telah menerima barang - barang tersebut dengan baik dan benar.</p>
-        </div>
-        <div class="row" style="border: 1px solid #ddd;">
-            <div class="col col-4 text-center">
-                <p>Diterima Tgl ......................</p>
+            <div class="row">
+                <p>Atas nama perusahaan kami telah menerima barang - barang tersebut dengan baik dan benar.</p>
+            </div>
+            <div class="row" style="border: 1px solid black;">
+                <div class="col col-4 text-center">
+                    <p>Diterima Tgl ......................</p>
 
-                <p style="margin-top: 100px;">(---------------------------------)</p>
-                <p>Nama Terang & Stempel Perusahaan</p>
+                    <p style="margin-top: 100px;">(---------------------------------)</p>
+                    <p>Nama Terang & Stempel Perusahaan</p>
+                </div>
+                <div class="col col-4 text-center">
+                    <p>Pengemudi</p>
+                    <p style="margin-top: 100px;">(---------------------------------)</p>
+                    <p>Nama Terang</p>
+                </div>
+                <div class="col col-4 text-center">
+                    <p>Dibuat Tgl, <?php echo date("d M Y", strtotime($deliveryOrder->delivery_date)); ?></p>
+                    <p style="margin-top: 100px;">(---------------------------------)</p>
+                    <p>Nama Terang</p>
+                </div>
             </div>
-            <div class="col col-4 text-center">
-                <p>Pengemudi</p>
-                <p style="margin-top: 100px;">(---------------------------------)</p>
-                <p>Nama Terang</p>
+            <div class="row">
+                <p>Catatan : Barang - barang yang keluar dari gudang diluar tanggung jawab pengirim. Lembar asli dari
+                    surat
+                    jalan ini harap dikirim kembali ke pengirim dalam waktu
+                    3 (Tiga) hari sejak tanggal penerimaan barang. Hak kepemilikan barang - barang tersebut tetap pada
+                    kami.
+                </p>
             </div>
-            <div class="col col-4 text-center">
-                <p>Dibuat Tgl, <?php echo date("d M Y", strtotime($deliveryOrder->delivery_date)); ?></p>
-                <p style="margin-top: 100px;">(---------------------------------)</p>
-                <p>Nama Terang</p>
-            </div>
-        </div>
-        <div class="row">
-            <p>Catatan : Barang - barang yang keluar dari gudang diluar tanggung jawab pengirim. Lembar asli dari surat
-                jalan ini harap dikirim kembali ke pengirim dalam waktu
-                3 (Tiga) hari sejak tanggal penerimaan barang. Hak kepemilikan barang - barang tersebut tetap pada kami.
-            </p>
         </div>
     </div>
 </body>

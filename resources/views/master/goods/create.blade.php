@@ -2,7 +2,7 @@
 @section('main-content')
 <div class="content content--top-nav">
     <div class="grid grid-cols-12 gap-6 mt-5">
-        <div class="intro-y col-span-12 lg:col-span-8">
+        <div class="intro-y col-span-8 lg:col-span-8">
             <!-- BEGIN: Horizontal Form -->
             <div class="intro-y box mt-5">
                 <div
@@ -15,11 +15,11 @@
                     <form method="POST" action="{{route('goods.save')}}">
                         @csrf
                         <div class="preview">
-                            <div class="form-inline mt-5">
+                            <div class="form-inlin mt-5">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Nama Barang</label>
                                 <input id="vertical-form-1" type="text" class="form-control" name="name">
                             </div>
-                            <div class="form-inline mt-5">
+                            <div class="form-inlin mt-5">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Barang</label>
                                 <select data-placeholder="Pilih Jenis Ply" class="tom-select w-full form-control" name="goods_type" id="goods-type">
                                     <option value="">-</option>
@@ -29,7 +29,7 @@
                                     <option value="4">BADAN TUTUP (BB)</option>
                                 </select>
                             </div>
-                            <div class="form-inline mt-5 standard-type">
+                            <div class="form-inlin mt-5 standard-type">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Ply</label>
                                 <select data-placeholder="Pilih Jenis Ply" class="tom-select w-full form-control" name="ply_type">
                                     <option value="">-</option>
@@ -39,7 +39,7 @@
                                     <option value="TW">TRIPLE WALL</option>
                                 </select>
                             </div>
-                            <div class="form-inline mt-5 standard-type">
+                            <div class="form-inlin mt-5 standard-type">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Flute</label>
                                 <select data-placeholder="Pilih Jenis Flute" class="tom-select w-full form-control" name="flute_type">
                                     <option value=" ">-</option>
@@ -49,7 +49,7 @@
                                     <option value="B/C">B/C</option>
                                 </select>
                             </div>
-                            <div class="form-inline mt-5 standard-type">
+                            <div class="form-inlin mt-5 standard-type">
                                 <label for="vertical-form-1" class="form-label sm:w-40">Substance</label>
                                 <select data-placeholder="Pilih Substance" class="tom-select w-full form-control" name="substance">
                                     <option value=" ">-</option>
@@ -58,7 +58,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-inline mt-5 standard-type">
+                            <div class="form-inlin mt-5 standard-type">
                                 <label for="vertical-form-1" class="form-label sm:w-40">Ukuran</label>
                                 <div class="grid grid-cols-12 gap-2">
                                     <input type="text" class="form-control col-span-4" placeholder="P" name="length" id="length">
@@ -66,7 +66,7 @@
                                     <input type="text" class="form-control col-span-4" placeholder="T" name="height" id="height">
                                 </div>
                             </div>
-                            <div class="form-inline mt-5 standard-type">
+                            <div class="form-inlin mt-5 standard-type">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Satuan Ukuran</label>
                                 <select data-placeholder="Pilih Jenis Flute" class="tom-select w-full form-control" name="meas_unit">
                                     <option value="">-</option>
@@ -75,7 +75,7 @@
                                     <option value="CM">CM</option>
                                 </select>
                             </div>
-                            <div class="form-inline mt-5 standard-type">
+                            <div class="form-inlin mt-5 standard-type">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Ukuran</label>
                                 <select data-placeholder="Pilih Jenis Flute" class="tom-select w-full form-control" name="meas_type">
                                     <option value=" ">-</option>
@@ -83,11 +83,11 @@
                                     <option value="UL">UL</option>
                                 </select>
                             </div>
-                            <div class="form-inline mt-5 standard-type">
+                            <div class="form-inlin mt-5 standard-type">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Harga</label>
                                 <input id="vertical-form-1" type="number" class="form-control" name="price" value="0">
                             </div>
-                            <div class="form-inline mt-5 top-bottom">
+                            <div class="form-inlin mt-5 top-bottom">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Ply (Top)</label>
                                 <select data-placeholder="Pilih Jenis Ply" class="tom-select w-full form-control" name="top_ply_type">
                                     <option value=" ">-</option>
@@ -97,7 +97,7 @@
                                     <option value="TW">TRIPLE WALL</option>
                                 </select>
                             </div>
-                            <div class="form-inline mt-5 top-bottom">
+                            <div class="form-inlin mt-5 top-bottom">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Flute (Top)</label>
                                 <select data-placeholder="Pilih Jenis Flute" class="tom-select w-full form-control" name="top_flute_type">
                                     <option value=" ">-</option>
@@ -107,7 +107,7 @@
                                     <option value="B/C">B/C</option>
                                 </select>
                             </div>
-                            <div class="form-inline mt-5 top-bottom">
+                            <div class="form-inlin mt-5 top-bottom">
                                 <label for="vertical-form-1" class="form-label sm:w-40">Substance (Top)</label>
                                 <select data-placeholder="Pilih Substance" class="tom-select w-full form-control" name="top_substance">
                                     <option value="">-</option>
@@ -116,7 +116,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-inline mt-5 top-bottom">
+                            <div class="form-inlin mt-5 top-bottom">
                                 <label for="vertical-form-1" class="form-label sm:w-40">Ukuran (Top)</label>
                                 <div class="grid grid-cols-12 gap-2">
                                     <input type="text" class="form-control col-span-4" placeholder="P" name="top_length" id="top_length">
@@ -124,7 +124,7 @@
                                     <input type="text" class="form-control col-span-4" placeholder="T" name="top_height" id="top_height">
                                 </div>
                             </div>
-                            <div class="form-inline mt-5 top-bottom">
+                            <div class="form-inlin mt-5 top-bottom">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Satuan Ukuran (Top)</label>
                                 <select data-placeholder="Pilih Jenis Flute" class="tom-select w-full form-control" name="top_meas_unit">
                                     <option value="">-</option>
@@ -133,11 +133,11 @@
                                     <option value="CM">CM</option>
                                 </select>
                             </div>
-                            <div class="form-inline mt-5 top-bottom">
+                            <div class="form-inlin mt-5 top-bottom">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Harga (Top)</label>
                                 <input id="vertical-form-1" type="number" class="form-control" name="top_price" value="0">
                             </div>
-                            <div class="form-inline mt-5 top-bottom">
+                            <div class="form-inlin mt-5 top-bottom">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Ply (Bottom)</label>
                                 <select data-placeholder="Pilih Jenis Ply" class="tom-select w-full form-control" name="bottom_ply_type">
                                     <option value="">-</option>
@@ -147,7 +147,7 @@
                                     <option value="TW">TRIPLE WALL</option>
                                 </select>
                             </div>
-                            <div class="form-inline mt-5 top-bottom">
+                            <div class="form-inlin mt-5 top-bottom">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Flute (Bottom)</label>
                                 <select data-placeholder="Pilih Jenis Flute" class="tom-select w-full form-control" name="bottom_flute_type">
                                     <option value=" ">-</option>
@@ -157,7 +157,7 @@
                                     <option value="B/C">B/C</option>
                                 </select>
                             </div>
-                            <div class="form-inline mt-5 top-bottom">
+                            <div class="form-inlin mt-5 top-bottom">
                                 <label for="vertical-form-1" class="form-label sm:w-40">Substance (Bottom)</label>
                                 <select data-placeholder="Pilih Substance" class="tom-select w-full form-control" name="bottom_substance">
                                     <option value="">-</option>
@@ -166,7 +166,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-inline mt-5 top-bottom">
+                            <div class="form-inlin mt-5 top-bottom">
                                 <label for="vertical-form-1" class="form-label sm:w-40">Ukuran (Bottom)</label>
                                 <div class="grid grid-cols-12 gap-2">
                                     <input type="text" class="form-control col-span-4" placeholder="P" name="bottom_length" id="top_length">
@@ -174,7 +174,7 @@
                                     <input type="text" class="form-control col-span-4" placeholder="T" name="bottom_height" id="top_height">
                                 </div>
                             </div>
-                            <div class="form-inline mt-5 top-bottom">
+                            <div class="form-inlin mt-5 top-bottom">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Satuan Ukuran (Bottom)</label>
                                 <select data-placeholder="Pilih Jenis Flute" class="tom-select w-full form-control" name="bottom_meas_unit">
                                     <option value="">-</option>
@@ -183,7 +183,7 @@
                                     <option value="CM">CM</option>
                                 </select>
                             </div>
-                            <div class="form-inline mt-5 top-bottom">
+                            <div class="form-inlin mt-5 top-bottom">
                                 <label for="horizontal-form-2" class="form-label sm:w-40">Harga (Bottom)</label>
                                 <input id="vertical-form-1" type="number" class="form-control" name="bottom_price" value="0">
                             </div>
