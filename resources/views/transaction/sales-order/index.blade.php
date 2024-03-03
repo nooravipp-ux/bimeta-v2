@@ -5,46 +5,20 @@
 @endsection
 @section('main-content')
 <div class="content content--top-nav">
-    <h2 class="intro-y text-lg font-medium mt-10">
-        Sales Order (PO Customer)
-    </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
-        <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="javascript:;"  data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary shadow-md mr-2">Tambah Pesanan</a>
-            <div class="dropdown">
-                <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
-                    <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
-                    </span>
-                </button>
-                <div class="dropdown-menu w-40">
-                    <ul class="dropdown-content">
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
-                                Export to Excel </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
-                                Export to PDF </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="hidden md:block mx-auto text-slate-500"></div>
-            <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-                <div class="w-56 relative text-slate-500">
-                    <input type="text" class="form-control w-56 box pr-10" placeholder="Search...">
-                    <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-lucide="search"></i>
-                </div>
-            </div>
-        </div>
         <!-- BEGIN: Data List -->
         <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+            <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
+                <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary flex items-center mr-auto text-white"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
+                    Tambah Pesanan
+                </a>
+                <div class="w-56 relative text-slate-500 flex items-center ml-auto">
+                    <input type="text" class="form-control w-56 box pr-10" placeholder="Search..."><i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-lucide="search"></i>
+                </div>
+            </div>
+
             <table class="table table-report -mt-2">
-                <thead class="bg-success">
+                <thead class="bg-primary text-white">
                     <tr>
                         <th class="whitespace-nowrap">NO. SALES ORDER</th>
                         <th class="whitespace-nowrap">NO. PO CUSTOMER</th>
@@ -63,8 +37,8 @@
                         <td>{{$item->transaction_no}}</td>
                         <td>{{$item->ref_po_customer}}</td>
                         <td>{{$item->customer_name}}</td>
-                        <td class="text-center"><?php echo date("d M Y", strtotime($item->order_date)); ?></td>
-                        <td class="text-center"><?php echo date("d M Y", strtotime($item->delivery_date)); ?></td>
+                        <td class="text-center"><?php echo date("d/m/Y", strtotime($item->order_date)); ?></td>
+                        <td class="text-center"><?php echo date("d/m/Y", strtotime($item->delivery_date)); ?></td>
                         <td class="text-center">{{$item->assigned_to}}</td>
                         <td class="text-center">
                             @if($item->tax_type == 0)
@@ -91,7 +65,7 @@
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3 text-success"
+                                <a class="flex items-center mr-3 text-primary"
                                     href="{{route('sales.edit', ['id' => $item->id])}}">
                                     <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Detail Pesanan </a>
                             </div>
@@ -202,7 +176,7 @@
                                         </select>
                                     </div>
                                     <div class="form-inline mt-5">
-                                        <label for="vertical-form-2" class="form-label sm:w-40">PIC</label>
+                                        <label for="vertical-form-2" class="form-label sm:w-40">PIC Produksi</label>
                                         <select data-placeholder="Pilih customer" class="tom-select w-full form-control"
                                             name="assign_to" required>
                                             <option value=" "> - </option>
@@ -212,10 +186,12 @@
                                         </select>
                                     </div>
                                     <div class="form-inline mt-5">
-                                        <label for="vertical-form-1" class="form-label sm:w-40">Alamat
-                                            Pengiriman</label>
-                                        <textarea id="vertical-form-1" type="text" class="form-control"
-                                            name="shipping_address" required></textarea>
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Alamat Pengiriman</label>
+                                        <textarea id="vertical-form-1" type="text" class="form-control" name="shipping_address" required></textarea>
+                                    </div>
+                                    <div class="form-inline mt-2">
+                                        <label for="vertical-form-1" class="form-label sm:w-40"></label>
+                                        <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="flag_use_customer_addr" value="1"> <label class="form-check-label" for="checkbox-switch-1">Gunakan Alamat Custumer Sebagai Alamat Pengiriman</label>
                                     </div>
                                     <div class="form-inline mt-5">
                                         <label for="vertical-form-1" class="form-label sm:w-40">Catatan</label>

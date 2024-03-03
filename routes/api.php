@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::prefix('v1')->group(function () {
+    Route::prefix('production')->group(function () {
+        Route::get('/monitoring', [App\Http\Controllers\API\ProductionController::class, 'page'])->name('api.production.monitoring');
+    });
+
+    Route::prefix('master')->group(function () {
+        Route::get('/supplier', [App\Http\Controllers\API\SupplierController::class, 'page'])->name('api.master.supplier');
+    });
 });

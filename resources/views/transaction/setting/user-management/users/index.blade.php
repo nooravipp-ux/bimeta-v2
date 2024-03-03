@@ -1,13 +1,14 @@
 @extends('layouts._base')
 @section('active-url')
-<li class="breadcrumb-item" aria-current="page">Procurement</li>
-<li class="breadcrumb-item active" aria-current="page">Penerimaan Barang</li>
+<li class="breadcrumb-item" aria-current="page">Settings</li>
+<li class="breadcrumb-item" aria-current="page">User Management</li>
+<li class="breadcrumb-item active" aria-current="page">Users</li>
 @endsection
 @section('main-content')
 <div class="content content--top-nav">
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary shadow-md mr-2">Buat Penerimaan</a>
+            <a href="javascript:;"  data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary shadow-md mr-2">Tambah User</a>
             <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
@@ -42,26 +43,29 @@
         <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
             <table class="table table-report -mt-2">
                 <thead class="bg-primary text-white">
-                    <tr> 
-                        <th class="whitespace-nowrap">SUPPLIER</th>
-                        <th class="whitespace-nowrap">NO. SURAT JALAN</th>
-                        <th class="whitespace-nowrap">NO. PEMBELIAN</th>
-                        <th class="whitespace-nowrap text-center">TANGGAL</th>
-                        <th class="whitespace-nowrap text-center">PENERIMA</th>
+                    <tr>
+                        <th class="whitespace-nowrap">USERNAME</th>
+                        <th class="whitespace-nowrap">EMAIL</th>
+                        <th class="whitespace-nowrap">ROLE</th>
+                        <th class="whitespace-nowrap text-center">STATUS</th>
+                        <th class="whitespace-nowrap text-center">LAST LOGIN</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($data as $item)
                     <tr>
-                        <td>{{$item->name}}</td>
-                        <td>{{$item->gr_no}}</td>
-                        <td>{{$item->po_no}}</td>
-                        <td class="text-center">{{$item->date}}</td>
-                        <td class="text-center">{{$item->receiver}}</td>
+                        <td>{{$item->user_name}}</td>
+                        <td>{{$item->email}}</td>
+                        <td>{{$item->role_name}}</td>
+                        <td class="whitespace-nowrap text-center">{{$item->status}}</td>
+                        <td class="whitespace-nowrap text-center">{{$item->last_login}}</td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3 text-primary" href="{{route('procurement.goods-receive.edit', ['id' => $item->id])}}"><i data-lucide="edit" class="w-4 h-4 mr-1"></i> Detail Penerimaan </a>
+                                <a class="flex items-center mr-3 text-primary"
+                                    href="" title="Edit Role"><i
+                                        data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
+                                
                             </div>
                         </td>
                     </tr>
@@ -105,12 +109,6 @@
                     @endif
                 </ul>
             </nav>
-            <select class="w-20 form-select box mt-3 sm:mt-0">
-                <option>10</option>
-                <option>25</option>
-                <option>35</option>
-                <option>50</option>
-            </select>
         </div>
         <!-- END: Pagination -->
     </div>
@@ -124,38 +122,29 @@
                         <div
                             class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                             <h2 class="font-medium text-base mr-auto">
-                                Penerimaan Material
+                                Tambah User
                             </h2>
                         </div>
                         <div id="horizontal-form" class="p-5">
-                            <form method="POST" action="{{route('procurement.goods-receive.save')}}">
+                            <form method="POST" action="">
                                 @csrf
                                 <div class="preview">
                                     <div class="form-inline mt-5">
-                                        <label for="horizontal-form-2" class="form-label sm:w-40">No Pembelian</label>
-                                        <select data-placeholder="Pilih Material" class="tom-select w-full form-control" name="purchase_id" required>
-                                            <option value=" ">-</option>
-                                            @foreach($purchase as $po)
-                                            <option value="{{$po->id}}">{{$po->po_no}} - {{$po->name}}</option>
+                                        <label for="horizontal-form-2" class="form-label sm:w-20">Username</label>
+                                        <input id="horizontal-form-1" type="text" class="form-control" name="username" required>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-20">Email</label>
+                                        <input id="horizontal-form-1" type="text" class="form-control" name="email" required>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-20">Role</label>
+                                        <select data-placeholder="Pilih Role" class="tom-select w-full form-control" name="role_id" required>
+                                            <option value=" "> - </option>
+                                            @foreach($roles as $role)
+                                            <option value="{{$role->id}}">{{$role->name}}</option>
                                             @endforeach
                                         </select>
-                                    </div>
-                                    <div class="form-inline mt-5">
-                                        <label for="vertical-form-1" class="form-label sm:w-40">No. Surat Jalan</label>
-                                        <input id="vertical-form-1" type="text" class="form-control" name="gr_no" required>
-                                    </div>
-                                    <div class="form-inline mt-5">
-                                        <label for="vertical-form-1" class="form-label sm:w-40">Tanggal Penerimaan</label>
-                                        <input id="vertical-form-1" type="datetime-local" class="form-control" name="date"
-                                            required>
-                                    </div>
-                                    <div class="form-inline mt-5">
-                                        <label for="vertical-form-1" class="form-label sm:w-40">Plat No. Kendaraan</label>
-                                        <input id="vertical-form-1" type="text" class="form-control" name="receiver" required>
-                                    </div>
-                                    <div class="form-inline mt-5">
-                                        <label for="vertical-form-1" class="form-label sm:w-40">Penerima</label>
-                                        <input id="vertical-form-1" type="text" class="form-control" name="receiver" required>
                                     </div>
                                 </div>
                                 <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">

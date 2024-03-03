@@ -5,12 +5,9 @@
 @endsection
 @section('main-content')
 <div class="content content--top-nav">
-    <h2 class="intro-y text-lg font-medium mt-10">
-        Purchase Order
-    </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="javascript:;"  data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary shadow-md mr-2">Buat PO</a>
+            <a href="javascript:;"  data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary shadow-md mr-2">Buat Purchase Order</a>
             <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
@@ -44,11 +41,12 @@
         <!-- BEGIN: Data List -->
         <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
             <table class="table table-report -mt-2">
-                <thead class="bg-success">
+                <thead class="bg-primary text-white">
                     <tr>
                         <th class="whitespace-nowrap">NO. PO</th>
                         <th class="whitespace-nowrap">SUPPLIER</th>
                         <th class="whitespace-nowrap text-center">TANGGAL PEMESANAN</th>
+                        <th class="whitespace-nowrap text-center">TOTAL HARGA</th>
                         <th class="whitespace-nowrap text-center">STATUS</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
@@ -58,7 +56,8 @@
                     <tr>
                         <td>{{$item->po_no}}</td>
                         <td>{{$item->name}} ({{$item->code}})</td>
-                        <td class="text-center">{{$item->date}}</td>
+                        <td class="text-center"><?php echo date("d/m/Y", strtotime($item->date)); ?></td>
+                        <td class="text-center">Rp. 2,250,000</td>
                         <td class="text-center">
                             @if($item->status == 1)
                             <div
@@ -73,7 +72,7 @@
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center text-success mr-3"
+                                <a class="flex items-center text-primary mr-3"
                                     href="{{route('procurement.purchase-order.edit', ['id' => $item->id])}}"><i
                                         data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
                                 <a class="flex items-center text-warning mr-3" href="{{route('procurement.purchase-order.print', ['id' => $item->id])}}" target="_blank"
@@ -167,9 +166,9 @@
                                         <select data-placeholder="Pilih Jenis Pajak"
                                             class="tom-select w-full form-control" name="tax_type" required>
                                             <option value=" "> - </option>
-                                            <option value="V0">V0 (Kawasan Berikat)</option>
-                                            <option value="V1">V1 (Exclude PPN)</option>
-                                            <option value="V2">V2 (Include PPN)</option>
+                                            <option value="0">V0 (Kawasan Berikat)</option>
+                                            <option value="1">V1 (Exclude PPN)</option>
+                                            <option value="2">V2 (Include PPN)</option>
                                         </select>
                                     </div>
                                     <div class="form-inline mt-5">

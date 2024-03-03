@@ -1,7 +1,7 @@
 @extends('layouts._base')
 @section('active-url')
 <li class="breadcrumb-item" aria-current="page">Sales Order</li>
-<li class="breadcrumb-item active" aria-current="page">Calculator Index Price</li>
+<li class="breadcrumb-item active" aria-current="page">Kalkulator Index Harga</li>
 @endsection
 @section('main-content')
 <div class="content content--top-nav">
@@ -19,8 +19,7 @@
                     <div class="preview">
                         <div class="form-inline">
                             <label for="horizontal-form-1" class="form-label sm:w-30">Jenis Barang</label>
-                            <select data-placeholder="Pilih Jenis Barang" class="tom-select w-full form-control"
-                                id="jenis-barang">
+                            <select data-placeholder="Pilih Jenis Barang" class="tom-select w-full form-control" id="jenis-barang">
                                 <option value="">-</option>
                                 <option value="sheet">SHEET</option>
                                 <option value="box">BOX</option>
@@ -142,15 +141,17 @@
         <div class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5">
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
-                    <div class="font-medium text-base truncate">Index Harga</div>
-                    <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview"
-                        class="btn btn-primary flex items-center ml-auto text-white"> <i data-lucide="plus"
-                            class="w-4 h-4 mr-2"></i>
-                        Tambah Index </a>
+                    <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary flex items-center mr-auto text-white"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
+                        Tambah Index 
+                    </a>
+                    <div class="w-56 relative text-slate-500 flex items-center ml-auto">
+                        <input type="text" class="form-control w-56 box pr-10" placeholder="Search...">
+                        <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-lucide="search"></i>
+                    </div>
                 </div>
                 <div class="overflow-auto lg:overflow-visible -mt-3">
                     <table class="table table-striped">
-                        <thead class="bg-success">
+                        <thead class="bg-primary text-white">
                             <tr>
                                 <th class="whitespace-nowrap">PLY TYPE</th>
                                 <th class="whitespace-nowrap text-center">FLUTE TYPE</th>
@@ -170,7 +171,7 @@
                                 <td><?php echo date("d M Y", strtotime($item->tag)); ?></td>
                                 <td class="table-report__action w-56">
                                     <div class="flex justify-center items-center">
-                                        <a class="flex items-center mr-3 text-success"
+                                        <a class="flex items-center mr-3 text-primary"
                                             href="{{route('index-price.edit', ['id' => $item->id])}}"> <i
                                                 data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>
                                         <a class="flex items-center text-danger"
@@ -286,12 +287,6 @@
                         @endif
                     </ul>
                 </nav>
-                <select class="w-20 form-select box mt-3 sm:mt-0">
-                    <option>10</option>
-                    <option>25</option>
-                    <option>35</option>
-                    <option>50</option>
-                </select>
             </div>
         </div>
     </div>
@@ -435,21 +430,10 @@ $(function() {
 
                 console.log("Index Price After tambah lem : " + index_price)
             }
-
-            // if ($('input[name=flag-ppn]:checked').val() === "1" || $('input[name=flag-ppn]:checked').val() === 1) {
-            //     var hpp_before_ppn = (length * width * index_price) / 10000;
-            //     var hpp = ((hpp_before_ppn / 100) * 11) + hpp_before_ppn;
-
-            //     console.log("PPN True" + hpp)
-            // } else {
-            //     var hpp = (length * width * index_price) / 10000;
-
-            //     console.log("PPN False" + hpp)
-            // }
             
             var hpp = (length * width * index_price) / 10000;
 
-            console.log("PPN" + hpp)
+            console.log("hpp: " + hpp)
 
 
             $("#harga-hpp").val(formatNumberWithCommas(Math.ceil(hpp)));

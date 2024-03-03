@@ -39,6 +39,7 @@ class SalesOrderController extends Controller
                         'assign_to' => $request->assign_to,
                         'status' => 1, // 0 = initial (Inputed By Sales), 1 = Claimed by production PIC, 3 = SPK created (Pratial) 4 = SPK Finish created (All)
                         'shipping_address' => $request->shipping_address,
+                        'flag_use_customer_addr' => $request->flag_use_customer_addr,
                         'remarks' => $request->remarks,
                         'created_at' => date('Y-m-d H:i:s'),
                         'created_by' => Auth::user()->name,
@@ -69,13 +70,13 @@ class SalesOrderController extends Controller
                                         ELSE 'BADAN TUTUP (BB)' 
                                     END AS goods_type"),
                             DB::raw("CASE  
-                                        WHEN goods.type IN ('1', '2') THEN CONCAT(goods.ply_type, ' ', goods.flute_type, ' ', goods.substance) 
-                                        WHEN goods.type IN ('3', '4') THEN CONCAT(goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance, ' / ', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance) 
+                                        WHEN goods.type IN ('1', '2') THEN CONCAT(goods.ply_type, ' ', goods.flute_type,'/F' , ' ', goods.substance) 
+                                        WHEN goods.type IN ('3', '4') THEN CONCAT(goods.bottom_ply_type, ' ', goods.bottom_flute_type,'/F', ' ', goods.bottom_substance, ' | ', goods.top_ply_type, ' ', goods.top_flute_type,'/F', ' ', goods.top_substance) 
                                     END AS specification"),
                             DB::raw("CASE
                                         WHEN goods.type = '1' THEN CONCAT(goods.length, ' X ', goods.width, ' ', goods.meas_unit) 
                                         WHEN goods.type = '2' THEN CONCAT(goods.length, ' X ', goods.width, ' X ', goods.height, ' ', goods.meas_unit, ' (', goods.meas_type, ')') 
-                                        WHEN goods.type IN ('3', '4') THEN CONCAT(goods.bottom_length, ' X ', goods.bottom_width, ' X ', goods.bottom_height, ' ', goods.bottom_meas_unit, ' / ', goods.top_length, ' X ', goods.top_width, ' ', goods.top_meas_unit) 
+                                        WHEN goods.type IN ('3', '4') THEN CONCAT(goods.bottom_length, ' X ', goods.bottom_width, ' X ', goods.bottom_height, ' ', goods.bottom_meas_unit, ' | ', goods.top_length, ' X ', goods.top_width, ' ', goods.top_meas_unit) 
                                     END AS measure"),
                             'detail_sales_order.quantity'
                         )

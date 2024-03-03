@@ -4,6 +4,8 @@ namespace App\Http\Controllers\transaction;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Exports\CorReportExport;
+use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use Auth;
 use PDF;
@@ -73,31 +75,16 @@ class ProductionController extends Controller
                     'spk.spk_no',
                     'goods.name AS goods_name',
                     DB::raw("CASE
-                                WHEN goods.type = '1' THEN 'SHEET' 
-                                WHEN goods.type = '2' THEN 'BOX' 
-                                WHEN goods.type = '3' THEN 'BADAN TUTUP (AB)' 
-                                ELSE 'BADAN TUTUP (BB)' 
+                                WHEN goods.type = '1' THEN 'A' 
+                                WHEN goods.type = '2' THEN 'B' 
+                                WHEN goods.type = '3' THEN 'AB' 
+                                ELSE 'BB' 
                             END AS goods_type"),
-                    DB::raw("CASE  
-                                WHEN goods.type IN ('1', '2') THEN CONCAT(goods.ply_type, ' ', goods.flute_type, ' ', goods.substance) 
-                                WHEN goods.type IN ('3', '4') THEN CONCAT('<div>',goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance, '</div><div>', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance, '</div>') 
-                            END AS specification"),
-                    DB::raw("CASE
-                                WHEN goods.type IN ('1', '2') THEN spk.quantity
-                                WHEN goods.type IN ('3', '4') THEN spk.bottom_quantity
-                            END AS quantity"),
-                    DB::raw("CASE
-                                WHEN goods.type IN ('1', '2') THEN spk.sheet_quantity
-                                WHEN goods.type IN ('3', '4') THEN spk.bottom_sheet_quantity
-                            END AS sheet_quantity"),
-                    DB::raw("CASE
-                                WHEN goods.type IN ('1', '2') THEN CONCAT(spk.netto_width, ' X ', spk.netto_length) 
-                                WHEN goods.type IN ('3', '4') THEN CONCAT('<div>',spk.top_netto_width, ' X ', spk.top_netto_length, '</div><div>', spk.bottom_netto_width, ' X ', spk.bottom_netto_length, '</div>')
-                            END AS netto"),
-                    DB::raw("CASE
-                                WHEN goods.type IN ('1', '2') THEN CONCAT(spk.netto_width, ' X ', spk.netto_length) 
-                                WHEN goods.type IN ('3', '4') THEN CONCAT('<div>',spk.top_bruto_width, ' X ', spk.top_bruto_length, '</div><div>', spk.bottom_bruto_width, ' X ', spk.bottom_bruto_length, '</div>')
-                            END AS bruto"),
+                    'spk.specification',
+                    'spk.sheet_quantity',
+                    'spk.quantity',
+                    DB::raw("CONCAT(spk.netto_width, ' X ', spk.netto_length) AS netto"),
+                    DB::raw("CONCAT(spk.bruto_width, ' X ', spk.bruto_length) AS bruto"),
                     'spk.status'
                 )
                 ->orderBy('spk.created_at', 'DESC')
@@ -125,6 +112,7 @@ class ProductionController extends Controller
                 "spk_no" => DB::select("SELECT transaction.generate_spk_number($request->goods_type) as spk_no")[0]->spk_no,
                 "detail_sales_order_id" => $request->detail_sales_order_id,
                 "quantity" => $request->spk_quantity,
+                "specification" => $request->spec,
                 "length" => $request->length,
                 "width" => $request->width,
                 "netto_width" => $request->netto_width,
@@ -146,6 +134,7 @@ class ProductionController extends Controller
                 "spk_no" => DB::select("SELECT transaction.generate_spk_number($request->goods_type) as spk_no")[0]->spk_no,
                 "detail_sales_order_id" => $request->detail_sales_order_id,
                 "quantity" => $request->spk_quantity,
+                "specification" => $request->spec,
                 "length" => $request->length,
                 "width" => $request->width,
                 "height" => $request->length,
@@ -175,25 +164,27 @@ class ProductionController extends Controller
             $spk = DB::table('transaction.t_spk')->insertGetid([
                 "spk_no" => DB::select("SELECT transaction.generate_spk_number($request->goods_type) as spk_no")[0]->spk_no,
                 "detail_sales_order_id" => $request->detail_sales_order_id,
-                "bottom_quantity" => $request->bottom_spk_quantity,
-                "bottom_length" => $request->bottom_length,
-                "bottom_width" => $request->bottom_width,
-                "bottom_height" => $request->bottom_length,
-                "bottom_l2" => $request->bottom_l2,
-                "bottom_p1" => $request->bottom_p1,
-                "bottom_l1" => $request->bottom_l1,
-                "bottom_p2" => $request->bottom_p2,
-                "bottom_t" => $request->bottom_t,
-                "bottom_plape" => $request->bottom_plape,
-                "bottom_k" => $request->bottom_k,
-                "bottom_netto_width" => $request->bottom_netto_width,
-                "bottom_netto_length" => $request->bottom_netto_length,
-                "bottom_bruto_width" => $request->bottom_bruto_width,
-                "bottom_bruto_length" => $request->bottom_bruto_length,
-                "bottom_sheet_quantity" => $request->bottom_sheet_quantity,
-                "bottom_flag_stitching" => $request->bottom_flag_stitching,
-                "bottom_flag_glue" => $request->bottom_flag_glue,
-                "bottom_flag_pounch" => $request->bottom_flag_pounch,
+                "spk_type" => "B",
+                "quantity" => $request->bottom_spk_quantity,
+                "specification" => $request->bottom_spec,
+                "length" => $request->bottom_length,
+                "width" => $request->bottom_width,
+                "height" => $request->bottom_length,
+                "l2" => $request->bottom_l2,
+                "p1" => $request->bottom_p1,
+                "l1" => $request->bottom_l1,
+                "p2" => $request->bottom_p2,
+                "t" => $request->bottom_t,
+                "plape" => $request->bottom_plape,
+                "k" => $request->bottom_k,
+                "netto_width" => $request->bottom_netto_width,
+                "netto_length" => $request->bottom_netto_length,
+                "bruto_width" => $request->bottom_bruto_width,
+                "bruto_length" => $request->bottom_bruto_length,
+                "sheet_quantity" => $request->bottom_sheet_quantity,
+                "flag_stitching" => $request->bottom_flag_stitching,
+                "flag_glue" => $request->bottom_flag_glue,
+                "flag_pounch" => $request->bottom_flag_pounch,
 
                 "status" => 1,
                 "created_at" => date('Y-m-d H:i:s'),
@@ -203,22 +194,25 @@ class ProductionController extends Controller
             $spk = DB::table('transaction.t_spk')->insertGetid([
                 "spk_no" => DB::select("SELECT transaction.generate_spk_number($request->goods_type) as spk_no")[0]->spk_no,
                 "detail_sales_order_id" => $request->detail_sales_order_id,
-                "top_quantity" => $request->top_spk_quantity,
-                "top_width" => $request->top_width,
-                "top_length" => $request->top_length,
-                "top_netto_width" => $request->top_netto_width,
-                "top_netto_length" => $request->top_netto_length,
-                "top_bruto_width" => $request->top_bruto_width,
-                "top_bruto_length" => $request->top_bruto_length,
-                "top_sheet_quantity" => $request->top_sheet_quantity,
-                "top_flag_stitching" => $request->top_flag_stitching,
-                "top_flag_glue" => $request->top_flag_glue,
-                "top_flag_pounch" => $request->top_flag_pounch,
+                "spk_type" => "A",
+                "quantity" => $request->top_spk_quantity,
+                "specification" => $request->top_spec,
+                "width" => $request->top_width,
+                "length" => $request->top_length,
+                "netto_width" => $request->top_netto_width,
+                "netto_length" => $request->top_netto_length,
+                "bruto_width" => $request->top_bruto_width,
+                "bruto_length" => $request->top_bruto_length,
+                "sheet_quantity" => $request->top_sheet_quantity,
+                "flag_stitching" => $request->top_flag_stitching,
+                "flag_glue" => $request->top_flag_glue,
+                "flag_pounch" => $request->top_flag_pounch,
 
                 "status" => 1,
                 "created_at" => date('Y-m-d H:i:s'),
                 "created_by" => Auth::user()->name,
             ]);
+            
         }
 
         if ($request->goods_type == 4) {
@@ -226,18 +220,19 @@ class ProductionController extends Controller
             $spk = DB::table('transaction.t_spk')->insertGetid([
                 "spk_no" => DB::select("SELECT transaction.generate_spk_number($request->goods_type) as spk_no")[0]->spk_no,
                 "detail_sales_order_id" => $request->detail_sales_order_id,
-                "bottom_quantity" => $request->bottom_spk_quantity,
-                "bottom_width" => $request->bottom_width,
-                "bottom_length" => $request->bottom_length,
-                "bottom_height" => $request->bottom_length,
-                "bottom_netto_width" => $request->bottom_netto_width,
-                "bottom_netto_length" => $request->bottom_netto_length,
-                "bottom_bruto_width" => $request->bottom_bruto_width,
-                "bottom_bruto_length" => $request->bottom_bruto_length,
-                "bottom_sheet_quantity" => $request->bottom_sheet_quantity,
-                "bottom_flag_stitching" => $request->bottom_flag_stitching,
-                "bottom_flag_glue" => $request->bottom_flag_glue,
-                "bottom_flag_pounch" => $request->bottom_flag_pounch,
+                "quantity" => $request->bottom_spk_quantity,
+                "specification" => $request->bottom_spec,
+                "width" => $request->bottom_width,
+                "length" => $request->bottom_length,
+                "height" => $request->bottom_length,
+                "netto_width" => $request->bottom_netto_width,
+                "netto_length" => $request->bottom_netto_length,
+                "bruto_width" => $request->bottom_bruto_width,
+                "bruto_length" => $request->bottom_bruto_length,
+                "sheet_quantity" => $request->bottom_sheet_quantity,
+                "flag_stitching" => $request->bottom_flag_stitching,
+                "flag_glue" => $request->bottom_flag_glue,
+                "flag_pounch" => $request->bottom_flag_pounch,
                 
                 "status" => 1,
                 "created_at" => date('Y-m-d H:i:s'),
@@ -248,18 +243,19 @@ class ProductionController extends Controller
             $spk = DB::table('transaction.t_spk')->insertGetid([
                 "spk_no" => DB::select("SELECT transaction.generate_spk_number($request->goods_type) as spk_no")[0]->spk_no,
                 "detail_sales_order_id" => $request->detail_sales_order_id,
-                "top_quantity" => $request->top_spk_quantity,
-                "top_width" => $request->top_width,
-                "top_length" => $request->top_length,
-                "top_height" => $request->top_length,
-                "top_netto_width" => $request->top_netto_width,
-                "top_netto_length" => $request->top_netto_length,
-                "top_bruto_width" => $request->top_bruto_width,
-                "top_bruto_length" => $request->top_bruto_length,
-                "top_sheet_quantity" => $request->top_sheet_quantity,
-                "top_flag_stitching" => $request->top_flag_stitching,
-                "top_flag_glue" => $request->top_flag_glue,
-                "top_flag_pounch" => $request->top_flag_pounch,
+                "quantity" => $request->top_spk_quantity,
+                "specification" => $request->top_spec,
+                "width" => $request->top_width,
+                "length" => $request->top_length,
+                "height" => $request->top_length,
+                "netto_width" => $request->top_netto_width,
+                "netto_length" => $request->top_netto_length,
+                "bruto_width" => $request->top_bruto_width,
+                "bruto_length" => $request->top_bruto_length,
+                "sheet_quantity" => $request->top_sheet_quantity,
+                "flag_stitching" => $request->top_flag_stitching,
+                "flag_glue" => $request->top_flag_glue,
+                "flag_pounch" => $request->top_flag_pounch,
 
                 "status" => 1,
                 "created_at" => date('Y-m-d H:i:s'),
@@ -267,7 +263,7 @@ class ProductionController extends Controller
             ]);
         }
         
-        return redirect()->route('production.spk.edit', ['id' => $spk]);
+        return redirect()->route('production.spk.index');
     }
 
     public function editSPK($id) {
@@ -279,17 +275,15 @@ class ProductionController extends Controller
                     'spk.spk_no',
                     'spk.*',
                     'detail_sales_order.quantity AS order_quantity',
-                    'goods.*',
+                    'goods.name',
+                    'goods.type',
+                    'spk.spk_type',
                     DB::raw("CASE
-                                WHEN goods.type = '1' THEN 'SHEET' 
-                                WHEN goods.type = '2' THEN 'BOX' 
-                                WHEN goods.type = '3' THEN 'BADAN TUTUP (AB)' 
-                                ELSE 'BADAN TUTUP (BB)' 
+                                WHEN goods.type = '1' THEN 'A' 
+                                WHEN goods.type = '2' THEN 'B' 
+                                WHEN goods.type = '3' THEN 'AB' 
+                                ELSE 'BB' 
                             END AS goods_type_name"),
-                    DB::raw("CASE  
-                                WHEN goods.type IN ('1', '2') THEN CONCAT(goods.ply_type, ' ', goods.flute_type, ' ', goods.substance) 
-                                WHEN goods.type IN ('3', '4') THEN CONCAT(goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance, ' / ', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance) 
-                            END AS specification"),
                     'spk.status'
                 )
                 ->where('spk.id', $id)
@@ -385,26 +379,19 @@ class ProductionController extends Controller
                     'spk.spk_no',
                     'spk.*',
                     'detail_sales_order.quantity AS order_quantity',
-                    'goods.*',
-                    'goods.substance AS substance_name',
+                    'goods.name',
+                    'goods.type',
+                    'spk.spk_type',
                     DB::raw("CASE
-                                WHEN goods.type = '1' THEN 'SHEET' 
-                                WHEN goods.type = '2' THEN 'BOX' 
-                                WHEN goods.type = '3' THEN 'BADAN TUTUP (AB)' 
-                                ELSE 'BADAN TUTUP (BB)' 
+                                WHEN goods.type = '1' THEN 'A' 
+                                WHEN goods.type = '2' THEN 'B' 
+                                WHEN goods.type = '3' THEN 'AB' 
+                                ELSE 'BB' 
                             END AS goods_type_name"),
-                    'spk.quantity',
-                    'spk.sheet_quantity',
-                    DB::raw("CASE  
-                                WHEN goods.type IN ('1', '2') THEN CONCAT(goods.ply_type, ' ', goods.flute_type, ' ', goods.substance) 
-                                WHEN goods.type IN ('3', '4') THEN CONCAT(goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance, ' / ', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance) 
-                            END AS specification"),
-                    DB::raw("CONCAT(spk.netto_width, ' X ', spk.netto_length) AS netto"),
-                    DB::raw("CONCAT(spk.bruto_width, ' X ', spk.bruto_length) AS bruto"),
                     'spk.status'
                 )
                 ->where('spk.id', $id)
-                ->get();
+                ->first(); 
 
         $productionProcessesItem = DB::table('transaction.t_production_process_item AS item')
                                 ->join('master.m_production_process AS process', 'process.id', '=', 'item.process_id')
@@ -461,34 +448,28 @@ class ProductionController extends Controller
                 ->join('master.m_goods as goods', 'goods.id', '=', 'detail_sales_order.goods_id')
                 ->join('master.m_customer as customer', 'customer.id', '=', 'sales_order.customer_id')
                 ->select(
-                    'sales_order.ref_po_customer',
-                    'customer.name as customer_name',
                     'spk.id',
-                    'spk.spk_no',
-                    'spk.start_date',
-                    'spk.persentage',
+                    'spk.*',
+                    'goods.name AS goods_name',
+                    'customer.name as customer_name',
+                    'sales_order.ref_po_customer',
                     DB::raw("CASE
-                                WHEN goods.type IN ('1', '2') THEN CAST(spk.bruto_width AS varchar)
-                                WHEN goods.type IN ('3', '4') THEN CONCAT('<div>',CAST(spk.top_bruto_width AS varchar), '</div><div>', CAST(spk.bottom_bruto_width AS varchar),'</div>')
-                            END AS bruto_width"),
+                                WHEN goods.type = '1' THEN 'A' 
+                                WHEN goods.type = '2' THEN 'B' 
+                                WHEN goods.type = '3' THEN 'AB' 
+                                ELSE 'BB' 
+                            END AS goods_type"),
+                    'spk.specification',
+                    'spk.sheet_quantity',
+                    'spk.quantity',
+                    DB::raw("CONCAT(spk.netto_width, ' X ', spk.netto_length) AS netto"),
+                    DB::raw("CONCAT(spk.bruto_width, ' X ', spk.bruto_length) AS bruto"),
+                    'spk.current_process',
                     DB::raw("CASE
-                                WHEN goods.type IN ('1', '2') THEN CAST(spk.bruto_width AS varchar)
-                                WHEN goods.type IN ('3', '4') THEN CONCAT('<div>',CAST(spk.top_bruto_length AS varchar), '</div><div>', CAST(spk.bottom_bruto_length AS varchar),'</div>')
-                            END AS bruto_length"),
-                    DB::raw("CASE
-                                WHEN goods.type IN ('1', '2') THEN spk.quantity
-                                WHEN goods.type IN ('3', '4') THEN spk.bottom_quantity
-                        END AS quantity"),
-                    DB::raw("CASE
-                                WHEN goods.type IN ('1', '2') THEN CAST(spk.sheet_quantity AS varchar)
-                                WHEN goods.type IN ('3', '4') THEN CONCAT(CAST(spk.top_sheet_quantity AS varchar), ' / ', CAST(spk.bottom_sheet_quantity AS varchar))
-                            END AS sheet_quantity"),
-                    DB::raw("CASE
-                                WHEN goods.type IN ('1', '2') THEN CONCAT(goods.substance)
-                                WHEN goods.type IN ('3', '4') THEN CONCAT('<div>', goods.bottom_substance, '</div><div>', goods.top_substance,'</div>')
-                            END AS specification"),
-                    'spk.status',
-                    'spk.current_process'
+                            WHEN spk.status = '2' THEN 'SCHEDULED' 
+                            WHEN spk.status = '3' THEN 'WORK IN PROGRESS' 
+                            ELSE 'COMPLETED' 
+                        END AS status")
                 )
                 ->whereIn('spk.status', [2, 3, 4])
                 ->orderByDesc('spk.created_at')
@@ -500,35 +481,26 @@ class ProductionController extends Controller
     }
 
     public function monitoringDetail($id) {
-        $data = DB::table('transaction.t_detail_sales_order as detail_sales_order')
+        $data = DB::table('transaction.t_detail_sales_order AS detail_sales_order')
+                ->join('master.m_goods AS goods', 'goods.id', '=', 'detail_sales_order.goods_id')
+                ->join('transaction.t_spk AS spk', 'spk.detail_sales_order_id', '=', 'detail_sales_order.id')
                 ->select(
-                    'spk.id as spk_id',
+                    'spk.id AS spk_id',
                     'spk.spk_no',
                     'spk.*',
-                    'detail_sales_order.quantity as order_quantity',
-                    'goods.*',
-                    DB::raw("
-                        CASE
-                            WHEN goods.type = '1' THEN 'SHEET'
-                            WHEN goods.type = '2' THEN 'BOX'
-                            WHEN goods.type = '3' THEN 'BADAN TUTUP (AB)'
-                            ELSE 'BADAN TUTUP (BB)'
-                        END AS goods_type_name
-                    "),
-                    'spk.quantity',
-                    'spk.sheet_quantity',
+                    'detail_sales_order.quantity AS order_quantity',
+                    'goods.name',
+                    'goods.type',
+                    'spk.spk_type',
                     DB::raw("CASE
-                                WHEN goods.type IN ('1', '2') THEN CONCAT(goods.ply_type, ' ', goods.flute_type, ' ', goods.substance)
-                                WHEN goods.type IN ('3', '4') THEN CONCAT(goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance, ' / ', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance)
-                            END AS specification"
-                    ),
-                    DB::raw("CONCAT(spk.netto_width, ' X ', spk.netto_length) AS netto"),
-                    DB::raw("CONCAT(spk.bruto_width, ' X ', spk.bruto_length) AS bruto"),
+                                WHEN goods.type = '1' THEN 'A' 
+                                WHEN goods.type = '2' THEN 'B' 
+                                WHEN goods.type = '3' THEN 'AB' 
+                                ELSE 'BB' 
+                            END AS goods_type_name"),
                     'spk.status'
                 )
-                ->join('master.m_goods as goods', 'goods.id', '=', 'detail_sales_order.goods_id')
-                ->join('transaction.t_spk as spk', 'spk.detail_sales_order_id', '=', 'detail_sales_order.id')
-                ->where('spk.id', '=', $id)
+                ->where('spk.id', $id)
                 ->first();
 
         $productionProcesses = DB::table('master.m_production_process')->get();
@@ -634,20 +606,18 @@ class ProductionController extends Controller
                     'spk.id AS spk_id',
                     'spk.spk_no',
                     'spk.*',
+                    'spk.length',
+                    'spk.width',
+                    'spk.height',
                     'detail_sales_order.quantity AS order_quantity',
-                    'goods.*',
+                    'detail_sales_order.flag_print',
+                    'goods.name',
+                    'goods.type',
                     'sales_order.*',
                     'customer.name AS customer_name',
-                    DB::raw("CASE
-                                WHEN goods.type = '1' THEN 'SHEET' 
-                                WHEN goods.type = '2' THEN 'BOX' 
-                                WHEN goods.type = '3' THEN 'BADAN TUTUP (AB)' 
-                                ELSE 'BADAN TUTUP (BB)' 
-                            END AS goods_type_name"),
-                    DB::raw("CASE  
-                                WHEN goods.type IN ('1', '2') THEN CONCAT(goods.ply_type, ' ', goods.flute_type, ' ', goods.substance) 
-                                WHEN goods.type IN ('3', '4') THEN CONCAT(goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance, ' / ', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance) 
-                            END AS specification"),
+                    DB::raw("CONCAT(spk.netto_width, ' X ', spk.netto_length) AS netto"),
+                    DB::raw("CONCAT(spk.bruto_width, ' X ', spk.bruto_length) AS bruto"),
+                    DB::raw("CONCAT(spk.length, ' X ', spk.width, ' X ', spk.height) AS measure"),
                     'spk.status'
                 )
                 ->where('spk.id', $id)
@@ -660,27 +630,10 @@ class ProductionController extends Controller
                                 ->where('item.spk_id', $id)
                                 ->get();
 
-        if($data->type == 1){
-            $pdf = PDF::loadView('transaction.production.spk.print.print-a', [
+        $pdf = PDF::loadView('transaction.production.spk.print', [
                 'data' => $data,
                 'productionProcessesItem' => $productionProcessesItem,
-            ]);
-        } elseif($data->type == 2) {
-            $pdf = PDF::loadView('transaction.production.spk.print.print-b', [
-                'data' => $data,
-                'productionProcessesItem' => $productionProcessesItem,
-            ]);
-        } elseif ($data->type == 3) {
-            $pdf = PDF::loadView('transaction.production.spk.print.print-ab', [
-                'data' => $data,
-                'productionProcessesItem' => $productionProcessesItem,
-            ]);
-        } else {
-            $pdf = PDF::loadView('transaction.production.spk.print.print-bb', [
-                'data' => $data,
-                'productionProcessesItem' => $productionProcessesItem,
-            ]);
-        }
+            ]);                        
                 
         // Set paper size and orientation
         $pdf->setPaper('letter', 'portrait'); // Adjust the paper size and orientation as needed
@@ -739,5 +692,9 @@ class ProductionController extends Controller
                 ->paginate(20);
 
         return view('transaction.production.spk.index', compact('data'));
+    }
+
+    public function corReportExport(Request $request) {
+        return Excel::download(new CorReportExport($request->start_date, $request->end_date), 'Laporan COR Tanggal '.date("d-m-Y", strtotime($request->start_date)).' - '.date("d-m-Y", strtotime($request->end_date)).'.xlsx');
     }
 }

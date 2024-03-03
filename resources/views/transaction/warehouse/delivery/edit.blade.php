@@ -5,10 +5,10 @@
 <div class="content content--top-nav">
     <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
         <h2 class="text-lg font-medium mr-auto">
-            {{$deliveryOrder->travel_permit_no}}
+            
         </h2>
         <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-            <a href="{{route('warehouse.delivery.print', ['id' => $deliveryOrder->id])}}" class="btn btn-primary shadow-md mr-2">Print Surat Jalan</a>
+            <a href="{{route('warehouse.delivery.print', ['id' => $deliveryOrder->id])}}" target="_blank" class="btn btn-primary shadow-md mr-2"><i data-lucide="printer" class="w-4 h-4 mr-2"></i>Print Surat Jalan</a>
         </div>
     </div>
     <!-- BEGIN: Transaction Details -->
@@ -52,7 +52,7 @@
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
-                        <thead class="bg-success">
+                        <thead class="bg-primary text-white">
                             <tr>
                                 <th>NO. SPK</th>
                                 <th class="text-center">STATUS</th>
@@ -83,20 +83,21 @@
         <div class="col-span-12 lg:col-span-7 2xl:col-span-8">
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
-                    <div class="font-medium text-base truncate">Detail Pengiriman</div>
+                    <div class="font-medium text-base truncate">Detail Pengiriman
+                        
+                    </div>
                     <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview"
                         class="flex items-center ml-auto text-white btn btn-primary shadow-md"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
                         Tambah Barang </a>
                 </div>
                 <div class="overflow-auto lg:overflow-visible -mt-3">
                     <table class="table table-striped">
-                        <thead class="bg-success">
+                        <thead class="bg-primary text-white">
                             <tr>
                                 <th class="whitespace-nowrap">NAMA BARANG</th>
                                 <th class="whitespace-nowrap">SPESIFIKASI</th>
                                 <th class="whitespace-nowrap text-center">UKURAN</th>
                                 <th class="whitespace-nowrap text-center">QUANTITY</th>
-                                <th class="whitespace-nowrap text-center">REFERENCE</th>
                                 <th class="whitespace-nowrap text-center">ACTION</th>
                             </tr>
                         </thead>
@@ -107,12 +108,11 @@
                                 <td>{{$do->specification}}</td>
                                 <td class="text-center">{{$do->measure}}</td>
                                 <td class="text-center">{{$do->quantity}}</td>
-                                <td class="text-center">{{$do->ref}}</td>
                                 <td class="table-report__action w-56">
                                     <div class="flex justify-center items-center">
-                                        <a class="flex items-center mr-3" href=""> <i data-lucide="edit"
+                                        <a class="flex items-center mr-3 text-primary" href=""> <i data-lucide="edit"
                                                 class="w-4 h-4 mr-1"></i> Edit </a>
-                                        <a class="flex items-center mr-3 text-danger" href="{{route('warehouse.delivery.detail.delete', ['id' => $do->id ])}}"> <i data-lucide="trash-2"
+                                        <a class="flex items-center mr-3 text-danger" href="{{route('warehouse.delivery.detail.delete', ['id' => $do->id ])}}" onclick="return confirm('Apakah anda yakin ?')"> <i data-lucide="trash-2"
                                                 class="w-4 h-4 mr-1"></i> Hapus </a>
                                     </div>
                                 </td>
@@ -143,10 +143,10 @@
                                             <div class="preview">
                                                 <div class="form-inline mt-5">
                                                     <label for="horizontal-form-2" class="form-label sm:w-20">Barang</label>
-                                                    <select data-placeholder="Pilih Barang" class="tom-select w-full form-control" name="fg_id" required>
+                                                    <select data-placeholder="Pilih Barang" class="tom-select w-full form-control" name="detail_sales_order_id" required>
                                                         <option value=" ">-</option>
                                                         @foreach($goodsList as $goods)
-                                                        <option value="{{$goods->fg_id}}" <?php echo ($goods->quantity == 0) ? "disabled" : "" ?>>{{$goods->spk_no}} | {{$goods->specification}} | {{$goods->measure}} | QTY : {{$goods->quantity}}</option>
+                                                        <option value="{{$goods->id}}" <?php echo ($goods->quantity == 0) ? "disabled" : "" ?>>{{$goods->goods_name}} | {{$goods->specification}} | {{$goods->measure}} | QTY : {{$goods->quantity}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

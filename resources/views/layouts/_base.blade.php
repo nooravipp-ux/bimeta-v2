@@ -10,6 +10,7 @@
     <title>Bimeta V2</title>
     <!-- BEGIN: CSS Assets-->
     <link rel="stylesheet" href="{{asset('assets/dist/css/app.css')}}" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css" />
     @yield('css')
     <!-- END: CSS Assets-->
 </head>
@@ -510,7 +511,7 @@
                     </li>
                 </ul>
             </li>
-            <!-- <li>
+            <li>
                 <a href="javascript:;" class="top-menu">
                     <div class="top-menu__icon"> <i data-lucide="settings"></i> </div>
                     <div class="top-menu__title"> Settings <i data-lucide="chevron-down" class="top-menu__sub-icon"></i>
@@ -525,27 +526,33 @@
                         </a>
                         <ul class="">
                             <li>
-                                <a href="" class="top-menu">
+                                <a href="{{route('settings.user-management.user.index')}}" class="top-menu">
                                     <div class="top-menu__icon"> <i data-lucide="users"></i> </div>
                                     <div class="top-menu__title">Users</div>
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-lucide="zap"></i> </div>
+                                <a href="{{route('settings.user-management.role.index')}}" class="top-menu">
+                                    <div class="top-menu__icon"> <i data-lucide="refresh-cw"></i> </div>
                                     <div class="top-menu__title">Roles</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-lucide="zap"></i> </div>
-                                    <div class="top-menu__title">Permissions</div>
                                 </a>
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="" class="top-menu">
+                            <div class="top-menu__icon"> <i data-lucide="settings"></i> </div>
+                            <div class="top-menu__title">Numbering Scheme</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="top-menu">
+                            <div class="top-menu__icon"> <i data-lucide="settings"></i> </div>
+                            <div class="top-menu__title">Backup Database</div>
+                        </a>
+                    </li>
                 </ul>
-            </li> -->
+            </li>
         </ul>
     </nav>
     <!-- END: Top Menu -->
@@ -558,8 +565,11 @@
     <script
         src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=[" your-google-map-api"]&libraries=places"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=[" your-google-map-api"]&libraries=places"></script> -->
     <script src="{{asset('assets/dist/js/app.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+    
     @yield('script')
     <!-- END: JS Assets-->
 </body>

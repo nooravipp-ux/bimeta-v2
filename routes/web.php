@@ -89,6 +89,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/production/monitoring/production-progress/detail/save', [App\Http\Controllers\Transaction\ProductionController::class, 'progressProductionDetailSave'])->name('production.spk.monitoring.production-progress.detail.save');
     Route::get('/production/monitoring/personal-progress/q', [App\Http\Controllers\Transaction\ProductionController::class, 'monitoringPersonalProgress'])->name('production.spk.monitoring.personal-progress');
     Route::post('/production/monitoring/personal-progress/save', [App\Http\Controllers\Transaction\ProductionController::class, 'monitoringPersonalProgressSave'])->name('production.spk.monitoring.personal-progress.save');
+    Route::post('/production/monitoring/cor-report-export', [App\Http\Controllers\Transaction\ProductionController::class, 'corReportExport'])->name('production.spk.monitoring.cor.report.export');
 
     Route::get('/warehouse/shipping', [App\Http\Controllers\Transaction\DeliveryController::class, 'index'])->name('warehouse.delivery.index');
     Route::get('/warehouse/shipping/create', [App\Http\Controllers\Transaction\DeliveryController::class, 'create'])->name('warehouse.delivery.create');
@@ -113,6 +114,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/procurement/goods-receive/save', [App\Http\Controllers\Transaction\GoodsReceiveController::class, 'save'])->name('procurement.goods-receive.save');
     Route::get('/procurement/goods-receive/edit/{id}', [App\Http\Controllers\Transaction\GoodsReceiveController::class, 'edit'])->name('procurement.goods-receive.edit');
     Route::post('/procurement/goods-receive/detail/save', [App\Http\Controllers\Transaction\GoodsReceiveController::class, 'saveDetail'])->name('procurement.goods-receive.detail.save');
+    Route::get('/procurement/goods-receive/delete/{id}', [App\Http\Controllers\Transaction\GoodsReceiveController::class, 'deleteDetail'])->name('procurement.goods-receive.detail.delete');
+
+    Route::get('/settings/user-management/users', [App\Http\Controllers\Transaction\UserManagementController::class, 'index'])->name('settings.user-management.user.index');
+
+    Route::get('/settings/user-management/roles', [App\Http\Controllers\Transaction\RoleController::class, 'index'])->name('settings.user-management.role.index');
+    Route::post('/settings/user-management/roles/create', [App\Http\Controllers\Transaction\RoleController::class, 'save'])->name('settings.user-management.role.save');
+    Route::get('/settings/user-management/roles/edit/{id}', [App\Http\Controllers\Transaction\RoleController::class, 'edit'])->name('settings.user-management.role.edit');
+    Route::post('/settings/user-management/roles/update', [App\Http\Controllers\Transaction\RoleController::class, 'update'])->name('settings.user-management.role.update');
+    Route::get('/settings/user-management/roles/delete/{id}', [App\Http\Controllers\Transaction\RoleController::class, 'delete'])->name('settings.user-management.role.delete');
 });
 
 Auth::routes();

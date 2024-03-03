@@ -60,6 +60,10 @@
 }
 </style>
 @endsection
+@section('active-url')
+<li class="breadcrumb-item" aria-current="page">Production</li>
+<li class="breadcrumb-item active" aria-current="page">Monitoring</li>
+@endsection
 @section('main-content')
 <div class="content content--top-nav">
     <div class="grid grid-cols-12 gap-6 mt-5">
@@ -111,7 +115,7 @@
                 </div>
                 <div class="overflow-auto lg:overflow-visible -mt-3">
                     <table class="table table-striped">
-                        <thead class="bg-success">
+                        <thead class="bg-primary text-white">
                             <tr>
                                 <th class="whitespace-nowrap">TANGGAL PROSES</th>
                                 <th class="whitespace-nowrap">HASIL</th>
@@ -148,8 +152,7 @@
                             <div class="modal-body">
                                 <!-- BEGIN: Horizontal Form -->
                                 <div class="intro-y box">
-                                    <div
-                                        class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                                    <div class="bg-primary text-white flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                                         <h2 class="font-medium text-base mr-auto">
                                             Tambah Barang
                                         </h2>

@@ -1,12 +1,13 @@
 @extends('layouts._base')
+@section('active-url')
+<li class="breadcrumb-item" aria-current="page">Master Data</li>
+<li class="breadcrumb-item active" aria-current="page">Barang</li>
+@endsection
 @section('main-content')
 <div class="content content--top-nav">
-    <h2 class="intro-y text-lg font-medium mt-10">
-        Master Data Barang
-    </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary shadow-md mr-2">Tambah Barang</a>
+            <a href="{{route('goods.create')}}" class="btn btn-primary shadow-md mr-2">Tambah Barang</a>
             <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
@@ -40,8 +41,9 @@
         <!-- BEGIN: Data List -->
         <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
             <table class="table table-report -mt-2">
-                <thead class="bg-success">
+                <thead class="bg-primary text-white">
                     <tr>
+                        <th class="whitespace-nowrap">KODE</th>
                         <th class="whitespace-nowrap">NAMA BARANG</th>
                         <th class="whitespace-nowrap">SPESIFIKASI</th>
                         <th class="whitespace-nowrap">UKURAN</th>
@@ -51,12 +53,13 @@
                 <tbody>
                     @foreach($data as $item)
                     <tr>
+                        <td></td>
                         <td>{{$item->goods_name}}</td>
                         <td>{{$item->specification}}</td>
                         <td>{{$item->measure}}</td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3 text-success"
+                                <a class="flex items-center mr-3 text-primary"
                                     href="{{route('goods.edit', ['id' => $item->id])}}"> <i data-lucide="edit"
                                         class="w-4 h-4 mr-1"></i> Edit </a>
                                 <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal"

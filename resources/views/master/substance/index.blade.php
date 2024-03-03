@@ -1,9 +1,10 @@
 @extends('layouts._base')
+@section('active-url')
+<li class="breadcrumb-item" aria-current="page">Master Data</li>
+<li class="breadcrumb-item active" aria-current="page">Substances</li>
+@endsection
 @section('main-content')
 <div class="content content--top-nav">
-    <h2 class="intro-y text-lg font-medium mt-10">
-        Master List Substances
-    </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
             <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary shadow-md mr-2">Tambah Substance</a>
@@ -40,7 +41,7 @@
         <!-- BEGIN: Data List -->
         <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
             <table class="table table-report -mt-2">
-                <thead class="bg-success">
+                <thead class="bg-primary text-white">
                     <tr>
                         <th class="whitespace-nowrap">CODE</th>
                         <th class="whitespace-nowrap">SUBSTANCE</th>
@@ -56,7 +57,7 @@
                         <td class="text-center">{{$item->cor_code}}</td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3" href="{{route('substance.edit', ['id' => $item->id])}}"> <i data-lucide="edit"
+                                <a class="flex items-center mr-3 text-primary" href="{{route('substance.edit', ['id' => $item->id])}}"> <i data-lucide="edit"
                                         class="w-4 h-4 mr-1"></i> Edit </a>
                                 <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal"
                                     data-tw-target="#delete-confirmation-modal"> <i data-lucide="trash-2"

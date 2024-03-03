@@ -23,12 +23,12 @@ class GoodsController extends Controller
                             END AS goods_type"),
                     DB::raw("CASE
                                 WHEN goods.type = '1' OR goods.type = '2' THEN CONCAT(goods.ply_type, ' ', goods.flute_type, ' ', goods.substance)
-                                WHEN goods.type = '3' OR goods.type = '4' THEN CONCAT(goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance, ' / ', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance)
+                                WHEN goods.type = '3' OR goods.type = '4' THEN CONCAT(goods.bottom_ply_type, ' ', goods.bottom_flute_type, ' ', goods.bottom_substance, ' | ', goods.top_ply_type, ' ', goods.top_flute_type, ' ', goods.top_substance)
                             END AS specification"),
                     DB::raw("CASE
                                 WHEN goods.type = '1' THEN CONCAT(goods.length, ' X ', goods.width, ' ', goods.meas_unit)
                                 WHEN goods.type = '2' THEN CONCAT(goods.length, ' X ', goods.width, ' X ', goods.height, ' ', goods.meas_unit, ' (', goods.meas_type, ')')
-                                WHEN goods.type = '3' OR goods.type = '4' THEN CONCAT(goods.bottom_length, ' X ', goods.bottom_width, ' X ', goods.bottom_height, ' ', goods.bottom_meas_unit, ' / ', goods.top_length, ' X ', goods.top_width, ' X ', goods.top_height, ' ', goods.top_meas_unit)
+                                WHEN goods.type = '3' OR goods.type = '4' THEN CONCAT(goods.bottom_length, ' X ', goods.bottom_width, ' X ', goods.bottom_height, ' ', goods.bottom_meas_unit, ' | ', goods.top_length, ' X ', goods.top_width, ' X ', goods.top_height, ' ', goods.top_meas_unit)
                             END AS measure"),
                 ])->orderBy('id', 'ASC')->paginate(10);
 

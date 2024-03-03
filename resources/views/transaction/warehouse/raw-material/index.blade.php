@@ -6,12 +6,10 @@
 @endsection
 @section('main-content')
 <div class="content content--top-nav">
-    <h2 class="intro-y text-lg font-medium mt-10">
-        Stock Raw Materials
-    </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
             <a href="{{route('goods.create')}}" class="btn btn-primary shadow-md mr-2">Stock Opname</a>
+            <a href="{{route('goods.create')}}" class="btn btn-primary shadow-md mr-2">Stock Adjustment</a>
             <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
@@ -45,23 +43,25 @@
         <!-- BEGIN: Data List -->
         <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
             <table class="table table-report -mt-2">
-                <thead class="bg-success">
-                    <tr>
-                        <th class="whitespace-nowrap">SPESIFIKASI</th>
-                        <th class="whitespace-nowrap">UKURAN</th>
-                        <th class="whitespace-nowrap text-center">JUMLAH STOCK</th>
-                        <th class="whitespace-nowrap">REFERENCE</th>
+                <thead class="bg-primary text-white">
+                    <tr> 
+                        <th class="whitespace-nowrap">NAMA BARANG</th>
+                        <th class="whitespace-nowrap">GRAMATURE</th>
+                        <th class="whitespace-nowrap text-center">LEBAR (CM)</th>
+                        <th class="whitespace-nowrap text-center">BERAT (KG)</th>
+                        <th class="whitespace-nowrap">SUMBER</th>
                         <th class="whitespace-nowrap">TANGGAL MASUK</th>
-                        <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($data as $item)
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        
+                        <td>{{$item->name}}</td>
+                        <td>{{$item->gramature}} {{$item->unit}}</td>
+                        <td class="whitespace-nowrap text-center">{{$item->width}}</td>
+                        <td class="whitespace-nowrap text-center">{{$item->weight}}</td>
+                        <td>{{$item->source_from}}</td>
+                        <td>{{$item->created_at}}</td>
                     </tr>
                     @endforeach
                 </tbody>

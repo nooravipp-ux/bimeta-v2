@@ -82,13 +82,13 @@
                             <div class="form-inline mt-5">
                                 <label for="vertical-form-1" class="form-label sm:w-20">Jenis</label>
                                 @if($goodsInformations->type == 1)
-                                <input type="text" class="form-control" value="SHEET" readonly>
+                                <input type="text" class="form-control" value="A" readonly>
                                 @elseif($goodsInformations->type == 2)
-                                <input type="text" class="form-control" value="BOX" readonly>
+                                <input type="text" class="form-control" value="B" readonly>
                                 @else
-                                <input type="text" class="form-control" value="BOX (Badan + Tutup)" readonly>
+                                <input type="text" class="form-control" value="AB" readonly>
                                 @endif
-                                <input type="hidden" class="form-control" value="{{$goodsInformations->type}}" id="goods-type">
+                                <input type="hidden" class="form-control" value="BB" id="goods-type">
                             </div>
                             <div class="form-inline mt-5">
                                 <label for="vertical-form-1" class="form-label sm:w-20">Spesifikasi</label>
@@ -166,7 +166,7 @@
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
-                                            <label for="vertical-form-1" class="form-label sm:w-40">lem</label>
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Lem</label>
                                             <div class="flex flex-col sm:flex-row">
                                                 <div class="form-check mr-2">
                                                     <input id="radio-switch-4" class="form-check-input" type="radio" name="flag_glue" value="0" checked>
@@ -199,6 +199,10 @@
                             <div class="md:col-span-6">
                                 <div id="horizontal-form">
                                     <div class="preview">
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Spesifikasi</label>
+                                            <input type="text" class="form-control" value="{{$goodsInformations->ply_type}} {{$goodsInformations->flute_type}} {{$goodsInformations->substance}}" name="spec" readonly>
+                                        </div>
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
                                             <input type="number" class="form-control"name="spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}" required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
@@ -355,6 +359,10 @@
                                             </select>
                                         </div>
                                         <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Spesifikasi</label>
+                                            <input type="text" class="form-control" value="{{$goodsInformations->ply_type}} {{$goodsInformations->flute_type}} {{$goodsInformations->substance}}" name="spec" readonly>
+                                        </div>
+                                        <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
                                             <input type="number" class="form-control"name="spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
@@ -482,7 +490,49 @@
                                 </div>
                             </div>
                             <div class="md:col-span-6">
-                                
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Stitching</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="bottom_flag_stitching" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="bottom_flag_stitching" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Lem</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="bottom_flag_glue" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="bottom_flag_glue" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Pounch</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="bottom_flag_pounch" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="bottom_flag_pounch" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="flex flex-col sm:flex-row mt-5">
@@ -490,17 +540,21 @@
                                 <div id="horizontal-form">
                                     <div class="preview">
                                         <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Spesifikasi</label>
+                                            <input type="text" class="form-control" value="{{$goodsInformations->bottom_ply_type}} {{$goodsInformations->bottom_flute_type}} {{$goodsInformations->bottom_substance}}" name="bottom_spec" readonly>
+                                        </div>
+                                        <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
                                             <input type="number" class="form-control"name="bottom_spk_quantity" id="tr-spk-qty" placeholder="Max {{$goodsInformations->quantity - $totalSPKCreated}}" required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
                                             <input type="hidden" class="form-control" name="detail_sales_order_id" value="{{$goodsInformations->detail_sales_order_id}}">
                                         </div>
                                         <div class="form-inline mt-5 ">
-                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran SPK</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="bottom_length">
-                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="bottom_width">
-                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="bottom_height">
+                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="bottom_length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="bottom_width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="bottom_height" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
@@ -592,7 +646,49 @@
                                 </div>
                             </div>
                             <div class="md:col-span-6">
-                                
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Stitching</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="top_flag_stitching" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="top_flag_stitching" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Lem</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="top_flag_glue" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="top_flag_glue" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Pounch</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="top_flag_pounch" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="top_flag_pounch" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="flex flex-col sm:flex-row mt-5">
@@ -600,17 +696,21 @@
                                 <div id="horizontal-form">
                                     <div class="preview">
                                         <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Spesifikasi</label>
+                                            <input type="text" class="form-control" value="{{$goodsInformations->top_ply_type}} {{$goodsInformations->top_flute_type}} {{$goodsInformations->top_substance}}" name="top_spec" readonly>
+                                        </div>
+                                        <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
                                             <input type="number" class="form-control"name="top_spk_quantity" id="tr-spk-qty" placeholder="Max {{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
                                             <input type="hidden" class="form-control" name="detail_sales_order_id" value="{{$goodsInformations->detail_sales_order_id}}">
                                         </div>
                                         <div class="form-inline mt-5 ">
-                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran SPK</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="top_length">
-                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="top_width">
-                                                <input type="text" class="form-control col-span-4" placeholder="T" id="hieght" name="top_height">
+                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="top_length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="top_width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <!-- <input type="text" class="form-control col-span-4" placeholder="T" id="hieght" name="top_height"> -->
                                             </div>
                                         </div>
                                     </div>
@@ -681,7 +781,49 @@
                                 </div>
                             </div>
                             <div class="md:col-span-6">
-                                
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Stitching</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="bottom_flag_stitching" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="bottom_flag_stitching" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Lem</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="bottom_flag_glue" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="bottom_flag_glue" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Pounch</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="bottom_flag_pounch" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="bottom_flag_pounch" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="flex flex-col sm:flex-row mt-5">
@@ -689,17 +831,21 @@
                                 <div id="horizontal-form">
                                     <div class="preview">
                                         <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Spesifikasi</label>
+                                            <input type="text" class="form-control" value="{{$goodsInformations->bottom_ply_type}} {{$goodsInformations->bottom_flute_type}} {{$goodsInformations->bottom_substance}}" name="bottom_spec" readonly>
+                                        </div>
+                                        <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
                                             <input type="number" class="form-control" name="bottom_spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
                                             <input type="hidden" class="form-control" name="detail_sales_order_id" value="{{$goodsInformations->detail_sales_order_id}}">
                                         </div>
                                         <div class="form-inline mt-5 ">
-                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran SPK</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="bottom_length">
-                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="bottom_width">
-                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="bottom_height">
+                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="bottom_length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="bottom_width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="bottom_height" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                     </div>
@@ -761,7 +907,49 @@
                                 </div>
                             </div>
                             <div class="md:col-span-6">
-                                
+                                <div id="horizontal-form">
+                                    <div class="preview">
+                                        <div class="form-inline">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Stitching</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="top_flag_stitching" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="top_flag_stitching" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Lem</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="top_flag_glue" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="top_flag_glue" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-40">Pounch</label>
+                                            <div class="flex flex-col sm:flex-row">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="top_flag_pounch" value="0" checked>
+                                                    <label class="form-check-label" for="radio-switch-4">Tidak</label>
+                                                </div>
+                                                <div class="form-check mr-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="top_flag_pounch" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Ya</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="flex flex-col sm:flex-row mt-5">
@@ -769,17 +957,21 @@
                                 <div id="horizontal-form">
                                     <div class="preview">
                                         <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Spesifikasi</label>
+                                            <input type="text" class="form-control" value="{{$goodsInformations->top_ply_type}} {{$goodsInformations->top_flute_type}} {{$goodsInformations->top_substance}}" name="top_spec" readonly>
+                                        </div>
+                                        <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
                                             <input type="number" class="form-control"name="top_spk_quantity" id="tr-spk-qty" placeholder="{{$goodsInformations->quantity - $totalSPKCreated}}"required <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             <input type="hidden" class="form-control" name="goods_type" value="{{$goodsInformations->type}}">
                                             <input type="hidden" class="form-control" name="detail_sales_order_id" value="{{$goodsInformations->detail_sales_order_id}}">
                                         </div>
                                         <div class="form-inline mt-5 ">
-                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran SPK</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="top_length">
-                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="top_width">
-                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="top_height">
+                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="top_length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="top_width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="top_height" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                     </div>

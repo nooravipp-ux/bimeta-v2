@@ -4,9 +4,9 @@
 @section('main-content')
 <div class="content content--top-nav">
     <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-        <h2 class="text-lg font-medium mr-auto">
+        <!-- <h2 class="text-lg font-medium mr-auto">
             {{$salesOrder->transaction_no}}
-        </h2>
+        </h2> -->
         <!-- <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
             <button class="btn btn-primary shadow-md mr-2">Print</button>
         </div> -->
@@ -17,8 +17,7 @@
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Informasi Pesanan</div>
-                    <a href="" class="flex items-center ml-auto text-primary"> <i data-lucide="edit"
-                            class="w-4 h-4 mr-2"></i> Edit </a>
+                    <a href="" class="flex items-center ml-auto text-primary"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit </a>
                 </div>
                 <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i>
                     NO. PO: <a href="" class="ml-1">{{$salesOrder->ref_po_customer}}</a>
@@ -39,6 +38,9 @@
                         @endif
                     </span>
                 </div>
+                <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i>
+                    Tipe Pajak : V{{$salesOrder->tax_type}}
+                </div>
             </div>
             <div class="box p-5 rounded-md mt-5">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
@@ -51,17 +53,12 @@
                 <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i>
                     Phone Number: {{$salesOrder->phone_number}} 
                 </div>
-                <div class="flex items-center mt-3"> <i data-lucide="map-pin" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    Alamat: {{$salesOrder->address}} </div>
             </div>
             <div class="box p-5 rounded-md mt-5">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Informasi Pengiriman</div>
-                    <a href="" class="flex items-center ml-auto text-primary"> <i data-lucide="map-pin"
-                            class="w-4 h-4 mr-2"></i> Tracking Info </a>
                 </div>
-                <div class="flex items-center mt-3"> <i data-lucide="map-pin" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    Alamat Pengiriman: {{$salesOrder->shipping_address}} </div>
+                <div class="flex items-center mt-3"> <i data-lucide="map-pin" class="w-4 h-4 text-slate-500 mr-2"></i>{{$salesOrder->shipping_address}} </div>
             </div>
         </div>
         <div class="col-span-12 lg:col-span-7 2xl:col-span-8">
@@ -74,35 +71,64 @@
                 </div>
                 <div class="overflow-auto lg:overflow-visible -mt-3">
                     <table class="table table-striped">
-                        <thead class="bg-success">
+                        <thead class="bg-primary text-white">
                             <tr>
+                                <th class="whitespace-nowrap text-center">ACTION</th>
                                 <th class="whitespace-nowrap">NAMA BARANG</th>
                                 <th class="whitespace-nowrap">SPESIFIKASI</th>
-                                <th class="whitespace-nowrap text-center">UKURAN</th>
+                                <th class="whitespace-nowrap">UKURAN</th>
                                 <th class="whitespace-nowrap text-center">JUMLAH</th>
-                                <th class="whitespace-nowrap text-center">HARGA</th>
-                                <th class="whitespace-nowrap text-center">ACTION</th>
+                                <th class="whitespace-nowrap text-right">HARGA</th>
+                                <th class="whitespace-nowrap text-right">TOTAL HARGA</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($detailSalesOrders as $detail)
                             <tr>
-                                <td>{{$detail->goods_name}}</td>
-                                <td>{{$detail->specification}}</td>
-                                <td class="text-center">{{$detail->measure}}</td>
-                                <td class="text-center">{{$detail->quantity}}</td>
-                                <td class="text-center">{{$detail->price}}</td>
                                 <td class="table-report__action w-56">
                                     <div class="flex justify-center items-center">
-                                        <a class="flex items-center text-success mr-3" href=""> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>
-                                        @if($salesOrder->status == 1)
-                                        <a class="flex items-center text-danger" href="{{route('sales.detail.delete', ['id' => $detail->id])}}" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
-                                        @endif
+                                        <a class="flex items-center text-primary mr-3" href=""> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>              
+                                        <a class="flex items-center text-danger" href="{{route('sales.detail.delete', ['id' => $detail->id])}}" onclick="return confirm('Apakah anda yakin ?')"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
                                     </div>
                                 </td>
+                                <td>{{$detail->goods_name}}</td>
+                                <td>{{$detail->specification}}</td>
+                                <td>{{$detail->measure}}</td>
+                                <td class="text-center quantity">{{$detail->quantity}}</td>
+                                <td class="text-right price">{{$detail->price}}</td>
+                                <td class="text-right total-price">0.00</td>
                             </tr>
                             @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="whitespace-nowrap"></td>
+                                <td class="whitespace-nowrap"></td>
+                                <td class="whitespace-nowrap"></td>
+                                <td class="whitespace-nowrap"></td>
+                                <td class="whitespace-nowrap text-center"></td>
+                                <td class="whitespace-nowrap text-right font-bold">Sub Total</td>
+                                <td class="whitespace-nowrap text-right sub-total">0,00</td>
+                            </tr>
+                            <tr>
+                                <td class="whitespace-nowrap"></td>
+                                <td class="whitespace-nowrap"></td>
+                                <td class="whitespace-nowrap"></td>
+                                <td class="whitespace-nowrap"></td>
+                                <td class="whitespace-nowrap text-center"></td>
+                                <td class="whitespace-nowrap text-right font-bold">Tax (11%)</td>
+                                <td class="whitespace-nowrap text-right tax">0,00</td>
+                            </tr>
+                            <tr>
+                                <td class="whitespace-nowrap"></td>
+                                <td class="whitespace-nowrap"></td>
+                                <td class="whitespace-nowrap"></td>
+                                <td class="whitespace-nowrap"></td>
+                                <td class="whitespace-nowrap text-center"></td>
+                                <td class="whitespace-nowrap text-right font-bold">Jumlah Total</td>
+                                <td class="whitespace-nowrap text-right total-amount">0,00</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
                 <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
@@ -152,7 +178,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-inline mt-5">
-                                                    <label for="vertical-form-1" class="form-label sm:w-20">Remarks </label>
+                                                    <label for="vertical-form-1" class="form-label sm:w-20">Catatan </label>
                                                     <textarea id="vertical-form-1" type="number" class="form-control" name="remarks"></textarea>
                                                 </div>
                                             </div>
@@ -176,7 +202,46 @@
 @endsection
 
 @section('script')
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
+    $(function() {
+        updateTotals()
+        // Function to update totals when quantity or price changes
+        function updateTotals() {
+            var subtotal = 0;
+            var taxRate = 0.11; // 11% tax rate
+
+            // Iterate through each row in the tbody
+            $('tbody tr').each(function(){
+                var quantity = parseFloat($(this).find('.quantity').text());
+                var price = parseFloat($(this).find('.price').text().replace(/,/g, '')); // Remove commas from the price
+
+                $(this).find('.price').text(price.toLocaleString('en-US', {minimumFractionDigits: 2}));
+
+                // Calculate total for the current row
+                var total = quantity * price;
+
+                // Update the total column for the current row
+                $(this).find('.total-price').text(total.toLocaleString('en-US', {minimumFractionDigits: 2}));
+
+                // Add the total to the subtotal
+                subtotal += total;
+            });
+
+            var taxType = {{$salesOrder->tax_type}};
+
+            if(taxType === 0 || taxType === 1) {
+                taxRate = 0;
+            }
+
+            // Calculate tax and total amount
+            var tax = subtotal * taxRate;
+            var totalAmount = subtotal + tax;
+
+            // Update the subtotal, tax, and total amount in the footer
+            $('.sub-total').text(subtotal.toLocaleString('en-US', {minimumFractionDigits: 2}));
+            $('.tax').text(tax.toLocaleString('en-US', {minimumFractionDigits: 2}));
+            $('.total-amount').text(totalAmount.toLocaleString('en-US', {minimumFractionDigits: 2}));
+        }
+    });
 </script>
 @endsection

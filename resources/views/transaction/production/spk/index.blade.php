@@ -5,9 +5,6 @@
 @endsection
 @section('main-content')
 <div class="content content--top-nav">
-    <h2 class="intro-y text-lg font-medium mt-10">
-        List SPK
-    </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
             <div class="dropdown">
@@ -45,10 +42,11 @@
         <!-- BEGIN: Data List -->
         <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
             <table class="table table-report -mt-2">
-                <thead class="bg-success">
+                <thead class="bg-primary text-white">
                     <tr>
                         <th class="whitespace-nowrap">NO. SPK</th>
                         <th class="whitespace-nowrap">NAMA BARANG</th>
+                        <th class="text-center whitespace-nowrap">TIPE SPK</th>
                         <th class="text-center whitespace-nowrap">QUANTITY</th>
                         <th class="text-center whitespace-nowrap">QUALITY</th>
                         <th class="text-center whitespace-nowrap">NETTO (L X P)</th>
@@ -63,10 +61,11 @@
                     <tr class="intro-x">
                         <td>{{$item->spk_no}}</td>
                         <td>{{$item->goods_name}}</td>
+                        <td class="text-center whitespace-nowrap">{{$item->goods_type}}</td>
                         <td class="text-center whitespace-nowrap">{{$item->quantity}}</td>
                         <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->specification);?></td>
-                        <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->netto);?></td>
-                        <td class="text-center whitespace-nowrap"><?php echo htmlspecialchars_decode($item->bruto);?></td>
+                        <td class="text-center whitespace-nowrap">{{$item->netto}}</td>
+                        <td class="text-center whitespace-nowrap">{{$item->bruto}}</td>
                         <td class="text-center whitespace-nowrap">{{$item->sheet_quantity}}</td>
                         <td class="text-center">
                             @if($item->status == 1)
@@ -81,7 +80,7 @@
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3 text-success"
+                                <a class="flex items-center mr-3 text-primary"
                                     href="{{route('production.spk.edit', ['id' => $item->id])}}" title="Edit SPK"><i
                                         data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
                                 <a class="flex items-center mr-3 text-warning" href="{{route('production.spk.print', ['id' => $item->id])}}" target="_blank" title="Print SPK"><i data-lucide="printer"

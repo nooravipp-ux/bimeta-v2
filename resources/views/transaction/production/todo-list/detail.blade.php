@@ -4,9 +4,9 @@
 @section('main-content')
 <div class="content content--top-nav">
     <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-        <h2 class="text-lg font-medium mr-auto">
+        <!-- <h2 class="text-lg font-medium mr-auto">
             {{$salesOrder->transaction_no}}
-        </h2>
+        </h2> -->
         <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
             
         </div>
@@ -64,11 +64,11 @@
                 </div>
                 <div class="overflow-auto lg:overflow-visible -mt-3">
                     <table class="table table-striped">
-                        <thead class="bg-success">
+                        <thead class="bg-primary text-white">
                             <tr>
                                 <th class="whitespace-nowrap">NAMA BARANG</th>
                                 <th class="whitespace-nowrap">SPESIFIKASI</th>
-                                <th class="whitespace-nowrap text-center">UKURAN</th>
+                                <th class="whitespace-nowrap">UKURAN</th>
                                 <th class="whitespace-nowrap text-center">QUANTITY</th>
                                 <th class="whitespace-nowrap text-center">ACTION</th>
                             </tr>
@@ -78,13 +78,13 @@
                             <tr>
                                 <td>{{$detail->goods_name}}</td>
                                 <td>{{$detail->specification}}</td>
-                                <td class="text-center">{{$detail->measure}}</td>
+                                <td>{{$detail->measure}}</td>
                                 <td class="text-center">{{$detail->quantity}}</td>
                                 <td class="table-report__action w-56">
                                     <div class="flex justify-center items-center">
-                                        <a class="flex items-center mr-3 text-success"
+                                        <a class="flex items-center mr-3 text-primary"
                                             href="{{route('production.spk.create', ['id' => $detail->id])}}"> <i
-                                            data-lucide="edit" class="w-4 h-4 mr-1 text-success"></i> Buat SPK </a>
+                                            data-lucide="edit" class="w-4 h-4 mr-1 text-primary"></i> Buat SPK </a>
                                     </div>
                                 </td>
                             </tr>

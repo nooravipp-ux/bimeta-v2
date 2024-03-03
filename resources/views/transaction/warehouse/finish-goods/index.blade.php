@@ -6,9 +6,6 @@
 @endsection
 @section('main-content')
 <div class="content content--top-nav">
-    <h2 class="intro-y text-lg font-medium mt-10">
-        Stock Finish Goods
-    </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
             <a href="{{route('goods.create')}}" class="btn btn-primary shadow-md mr-2">Stock Opname</a>
@@ -46,11 +43,12 @@
         <!-- BEGIN: Data List -->
         <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
             <table class="table table-report -mt-2">
-                <thead class="bg-success">
+                <thead class="bg-primary text-white">
                     <tr>
+                        <th class="whitespace-nowrap">NAMA BARANG</th>
                         <th class="whitespace-nowrap">SPESIFIKASI</th>
                         <th class="whitespace-nowrap">UKURAN</th>
-                        <th class="whitespace-nowrap text-center">JUMLAH STOCK</th>
+                        <th class="whitespace-nowrap text-center">JUMLAH</th>
                         <th class="whitespace-nowrap text-center">REFERENCE</th>
                         <th class="whitespace-nowrap text-center">TANGGAL MASUK</th>
                     </tr>
@@ -58,6 +56,7 @@
                 <tbody>
                     @foreach($data as $item)
                     <tr>
+                        <td></td>
                         <td>{{$item->specification}}</td>
                         <td>{{$item->measure}}</td>
                         <td class="text-center">{{$item->quantity}}</td>

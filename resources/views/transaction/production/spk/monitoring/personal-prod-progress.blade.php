@@ -91,6 +91,10 @@
 }
 </style>
 @endsection
+@section('active-url')
+<li class="breadcrumb-item" aria-current="page">Production</li>
+<li class="breadcrumb-item active" aria-current="page">Monitoring</li>
+@endsection
 @section('main-content')
 <div class="content content--top-nav">
     <div class="grid grid-cols-12mt-5">
@@ -129,7 +133,7 @@
             <!-- BEGIN: Data List -->
             <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
                 <table class="table table-report -mt-2">
-                    <thead class="bg-success">
+                    <thead class="bg-primary text-white">
                         <tr>
                             <th class="whitespace-nowrap">TANGGAL</th>
                             <th class="whitespace-nowrap">KONSUMEN</th>
@@ -257,10 +261,8 @@
                                             </div>
                                         </div>
                                         <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
-                                            <button type="button" data-tw-dismiss="modal"
-                                                class="btn py-3 btn-danger w-full md:w-52">Batal</button>
-                                            <button type="submit"
-                                                class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
+                                            <button type="button" data-tw-dismiss="modal" class="btn py-3 btn-danger w-full md:w-52">Batal</button>
+                                            <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
                                         </div>
                                     </form>
                                 </div>

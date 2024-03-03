@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                             <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
-                                <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
+                                <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Update</button>
                             </div>
                         </div>
                     </form>
