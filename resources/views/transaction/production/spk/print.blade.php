@@ -458,7 +458,7 @@
 
             <table style="width: 100%;border: 1px solid black;border-collapse: collapse;border: 1px solid black;">
                 <tr style="padding: 8px;">
-                    <th style="border: 1px solid black; padding: 5px;">BAGIAN</th>
+                    <td style="border: 1px solid black; padding: 5px;">BAGIAN</td>
                     <th style="border: 1px solid black; text-align: center;">TGL</th>
                     <th style="border: 1px solid black; text-align: center">OPT</th>
                     <th style="border: 1px solid black; text-align: center">HSL</th>

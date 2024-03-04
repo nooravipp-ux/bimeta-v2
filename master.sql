@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : psql_bimeta
+ Source Server         : bimeta
  Source Server Type    : PostgreSQL
  Source Server Version : 160001 (160001)
  Source Host           : localhost:5432
@@ -12,7 +12,7 @@
  Target Server Version : 160001 (160001)
  File Encoding         : 65001
 
- Date: 25/01/2024 01:37:15
+ Date: 05/03/2024 02:33:12
 */
 
 
@@ -193,7 +193,6 @@ INSERT INTO "master"."m_customer" VALUES (1653, NULL, 'CV TANJUNG DUA', 'JL TANJ
 INSERT INTO "master"."m_customer" VALUES (1654, NULL, 'CV TEGUH JAYA', 'JL TERUSAN PASIR KOJA NO 133', NULL, NULL, NULL, NULL, '8112399118', 'GOPAR', 'V2', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "master"."m_customer" VALUES (1655, NULL, 'CV USAHA ABADI', 'JL MEKAR RAYA KAV 21', NULL, NULL, NULL, NULL, '-', 'AHMAD', 'V1', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "master"."m_customer" VALUES (1656, NULL, 'CYCIL', 'CITRA GREEN DAGO K 3', NULL, NULL, NULL, NULL, '85862096266', 'DAVID', 'V2', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "master"."m_customer" VALUES (1590, NULL, 'ANGGA', 'JL PAGARSIH NO 97', NULL, NULL, NULL, NULL, '-', NULL, 'PERSONAL', NULL, NULL, NULL, '2024-01-23 16:13:02', 'ali');
 INSERT INTO "master"."m_customer" VALUES (1657, NULL, 'D & R', 'JL CIBADUYUT', NULL, NULL, NULL, NULL, '8122334487', 'GOPAR', 'V2', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "master"."m_customer" VALUES (1658, NULL, 'DAVID KESHIDO', 'JL SAMPORA CILISUNG KULON NO 83A', NULL, NULL, NULL, NULL, '87833081306', 'DAVID', 'V2', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "master"."m_customer" VALUES (1659, NULL, 'DAVIN SENJAYA', 'JL ANDIR NO 89', NULL, NULL, NULL, NULL, '8122002470', 'GOPAR', 'V2', NULL, NULL, NULL, NULL, NULL);
@@ -500,6 +499,7 @@ INSERT INTO "master"."m_customer" VALUES (1959, NULL, 'YUDO', 'JL CIPAMOKOLAN DE
 INSERT INTO "master"."m_customer" VALUES (1960, NULL, 'YUNUS', 'JL HEGAR MANAH NO 63', NULL, NULL, NULL, NULL, '8', 'AHMAD', 'V2', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "master"."m_customer" VALUES (1630, 'CR', 'CV CARIN INTERNATIONAL', 'JL CARINGIN NO 37B', NULL, NULL, NULL, NULL, '225404119', 'ali', 'V1', NULL, NULL, NULL, '2024-01-23 16:10:45', 'ali');
 INSERT INTO "master"."m_customer" VALUES (1570, 'AS', 'ABADI SENTOSA', 'JL H SAFARI SILIH ASIH NO 5', NULL, NULL, NULL, NULL, '85860180550', 'ALI', 'V1', 'PERSONAL', NULL, NULL, '2024-01-24 14:03:26', 'ALI');
+INSERT INTO "master"."m_customer" VALUES (1590, NULL, 'ANGGA', 'JL PAGARSIH NO 97', NULL, NULL, NULL, NULL, '-', NULL, 'V1', NULL, NULL, NULL, '2024-02-29 10:11:59', 'ALI');
 
 -- ----------------------------
 -- Table structure for m_goods
@@ -550,7 +550,9 @@ INSERT INTO "master"."m_goods" VALUES (4, 4, 'BOX BADAN TUTUP (BB)', NULL, NULL,
 INSERT INTO "master"."m_goods" VALUES (6, 2, 'CARTON/LAYER', 'DW', 'B', '200K/M3/200K', 'CM', 'UL', 85, 53, 27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-19 16:47:15', 'ali', NULL, NULL, 0.00, NULL, NULL);
 INSERT INTO "master"."m_goods" VALUES (7, 1, 'CARTON/LAYER', 'SW', 'B', 'SW ALLMED', 'CM', NULL, 82, 51, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-19 16:51:53', 'ali', NULL, NULL, 0.00, NULL, NULL);
 INSERT INTO "master"."m_goods" VALUES (5, 1, 'CARTON/LAYER', 'DW', 'B', '200K/M3/200K', 'CM', 'UL', 85, 53, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-19 16:44:56', 'ali', '2024-01-21 13:49:25', 'ali', 0.00, NULL, NULL);
-INSERT INTO "master"."m_goods" VALUES (1, 2, 'BOX', 'SW', 'B', '125K/M/125K', 'CM', 'UL', 15, 17.5, 15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-18 12:58:04', 'ali', '2024-01-23 14:07:25', 'ali', 0.00, NULL, NULL);
+INSERT INTO "master"."m_goods" VALUES (8, 1, 'LAYER K200', 'SW', 'B', '125K/M/125K', 'CM', NULL, 35.8, 27.3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-30 17:26:54', 'ALI', NULL, NULL, 641.00, NULL, NULL);
+INSERT INTO "master"."m_goods" VALUES (9, 2, 'BOX SAMPLE PARFUME', 'SW', 'B', '125K/M/125K', 'CM', 'UL', 30.5, 15, 20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-02-04 06:26:09', 'ALI', NULL, NULL, 0.00, NULL, NULL);
+INSERT INTO "master"."m_goods" VALUES (1, 2, 'BOX', 'SW', 'B', '125K/M/125K', 'CM', 'UL', 15, 17.5, 15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-18 12:58:04', 'ali', '2024-02-26 04:27:34', 'ALI', 1290.00, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for m_material
@@ -566,25 +568,25 @@ CREATE TABLE "master"."m_material" (
   "created_at" timestamp(6),
   "created_by" varchar(255) COLLATE "pg_catalog"."default",
   "updated_at" timestamp(6),
-  "updated_by" varchar COLLATE "pg_catalog"."default"
+  "updated_by" varchar COLLATE "pg_catalog"."default",
+  "code" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
 
 -- ----------------------------
 -- Records of m_material
 -- ----------------------------
-INSERT INTO "master"."m_material" VALUES (1, 'K125', 'KRAFT', 'BROWN KRAFT', '125', 'GSM', NULL, NULL, NULL, NULL);
-INSERT INTO "master"."m_material" VALUES (2, 'K150', 'KRAFT', 'BROWN KRAFT', '150', 'GSM', NULL, NULL, NULL, NULL);
-INSERT INTO "master"."m_material" VALUES (3, 'K200', 'KRAFT', 'BROWN KRAFT', '200', 'GSM', NULL, NULL, NULL, NULL);
-INSERT INTO "master"."m_material" VALUES (4, 'K275', 'KRAFT', 'BROWN KRAFT', '275', 'GSM', NULL, NULL, NULL, NULL);
-INSERT INTO "master"."m_material" VALUES (5, 'K300', 'KRAFT', 'BROWN KRAFT', '300', 'GSM', NULL, NULL, NULL, NULL);
-INSERT INTO "master"."m_material" VALUES (6, 'TL125', 'KRAFT', 'TEST LINER', '125', 'GSM', NULL, NULL, NULL, NULL);
-INSERT INTO "master"."m_material" VALUES (7, 'TL150', 'KRAFT', 'TEST LINER', '150', 'GSM', NULL, NULL, NULL, NULL);
-INSERT INTO "master"."m_material" VALUES (8, 'WK150 ', 'KRAFT', 'WHITE KRAFT', '150', 'GSM', NULL, NULL, NULL, NULL);
-INSERT INTO "master"."m_material" VALUES (9, 'WK200', 'KRAFT', 'WHITE KRAFT', '200', 'GSM', NULL, NULL, NULL, NULL);
-INSERT INTO "master"."m_material" VALUES (10, 'M125', 'MEDIUM', 'MEDIUM', '125', 'GSM', NULL, NULL, NULL, NULL);
-INSERT INTO "master"."m_material" VALUES (11, 'M150', 'MEDIUM', 'MEDIUM', '150', 'GSM', NULL, NULL, NULL, NULL);
-INSERT INTO "master"."m_material" VALUES (14, NULL, 'KRAFT', 'BROWN KRAFT', '150', 'GSM', '2024-01-23 14:46:13', 'ali', NULL, NULL);
+INSERT INTO "master"."m_material" VALUES (19, 'KRAFT 150', 'KRAFT', 'BROWN KRAFT', '150', 'GSM', '2024-02-26 06:23:17', 'ALI', NULL, NULL, 'K150');
+INSERT INTO "master"."m_material" VALUES (20, 'KRAFT 200', 'KRAFT', 'BROWN KRAFT', '200', 'GSM', '2024-02-26 06:23:42', 'ALI', NULL, NULL, 'K200');
+INSERT INTO "master"."m_material" VALUES (21, 'KRAFT 275', 'KRAFT', 'BROWN KRAFT', '275', 'GSM', '2024-02-26 06:24:08', 'ALI', NULL, NULL, 'K275');
+INSERT INTO "master"."m_material" VALUES (22, 'KRAFT 300', 'KRAFT', 'BROWN KRAFT', '300', 'GSM', '2024-02-26 06:24:30', 'ALI', NULL, NULL, 'K300');
+INSERT INTO "master"."m_material" VALUES (23, 'TL 125', 'KRAFT', 'TEST LINER', '125', 'GSM', '2024-02-26 06:25:44', 'ALI', NULL, NULL, 'TL125');
+INSERT INTO "master"."m_material" VALUES (24, 'TL 150', 'KRAFT', 'TEST LINER', '150', 'GSM', '2024-02-26 06:26:12', 'ALI', NULL, NULL, 'TL150');
+INSERT INTO "master"."m_material" VALUES (25, 'WK 150', 'KRAFT', 'WHITE KRAFT', '150', 'GSM', '2024-02-26 06:26:50', 'ALI', NULL, NULL, 'WK150');
+INSERT INTO "master"."m_material" VALUES (26, 'WK 200', 'KRAFT', 'WHITE KRAFT', '200', 'GSM', '2024-02-26 06:27:15', 'ALI', NULL, NULL, 'WK200');
+INSERT INTO "master"."m_material" VALUES (27, 'M 125', 'MEDIUM', 'MEDIUM', '125', 'GSM', '2024-02-26 06:27:46', 'ALI', NULL, NULL, 'M125');
+INSERT INTO "master"."m_material" VALUES (28, 'M 150', 'MEDIUM', 'MEDIUM', '150', 'GSM', '2024-02-26 06:28:09', 'ALI', NULL, NULL, 'M150');
+INSERT INTO "master"."m_material" VALUES (18, 'KRAFT 125 PK', 'KRAFT', 'BROWN KRAFT', '125', 'GSM', '2024-02-26 06:22:47', 'ALI', '2024-03-01 04:17:38', 'ALI', NULL);
 
 -- ----------------------------
 -- Table structure for m_production_process
@@ -732,16 +734,16 @@ CREATE TABLE "master"."m_supplier" (
 -- ----------------------------
 INSERT INTO "master"."m_supplier" VALUES (1, 'CIK', 'PT CAKRAWALA INDAH KIAT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "master"."m_supplier" VALUES (2, 'CMN', 'PT CITRA MEGA NUSANTARA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "master"."m_supplier" VALUES (3, 'ESK ', 'PT ENGGAL SUBUR KERTAS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "master"."m_supplier" VALUES (4, 'MDI', 'PT MOUNT DREAMS INDONESIA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "master"."m_supplier" VALUES (5, 'PB', 'PT PURA BARUTAMA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "master"."m_supplier" VALUES (6, 'PK', 'PT PAKERIN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "master"."m_supplier" VALUES (7, 'PS', 'PELANGI STEEL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "master"."m_supplier" VALUES (8, 'SGB', 'PT SHINE GOLDEN BRIDGE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "master"."m_supplier" VALUES (9, 'SI', 'PT SINAR INDAH KERTAS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "master"."m_supplier" VALUES (10, 'SPM', 'PT SUMBER PELITA MAKMUR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "master"."m_supplier" VALUES (11, 'SPS', 'PT STAR PAPER SUPPLY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "master"."m_supplier" VALUES (13, 'SUP-0001', 'PT INDEX PERKASA', 'BANDUNG', NULL, NULL, NULL, NULL, 88989, 'KENEDY', 'V1', '2024-01-23 14:36:22', 'ali', '2024-01-23 16:19:19', 'ali');
+INSERT INTO "master"."m_supplier" VALUES (7, 'PS', 'PT PELANGI STEEL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-25 18:26:14', 'ALI');
+INSERT INTO "master"."m_supplier" VALUES (3, 'ESK', 'PT ENGGAL SUBUR KERTAS', 'JL. RAYA KUDUS - PATI KM. 12.5 KUDUS 59382', NULL, NULL, NULL, NULL, 291424611923, NULL, 'V0', NULL, NULL, '2024-02-29 11:04:26', 'ALI');
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -751,12 +753,12 @@ SELECT setval('"master"."m_customer_seq"', 1960, true);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"master"."m_goods_id_seq"', 7, true);
+SELECT setval('"master"."m_goods_id_seq"', 9, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"master"."m_material_seq"', 14, true);
+SELECT setval('"master"."m_material_seq"', 28, true);
 
 -- ----------------------------
 -- Alter sequences owned by

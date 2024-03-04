@@ -123,6 +123,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/settings/user-management/roles/edit/{id}', [App\Http\Controllers\Transaction\RoleController::class, 'edit'])->name('settings.user-management.role.edit');
     Route::post('/settings/user-management/roles/update', [App\Http\Controllers\Transaction\RoleController::class, 'update'])->name('settings.user-management.role.update');
     Route::get('/settings/user-management/roles/delete/{id}', [App\Http\Controllers\Transaction\RoleController::class, 'delete'])->name('settings.user-management.role.delete');
+
+    Route::prefix('finance')->group(function () {
+        Route::prefix('invoice')->group(function () {
+            Route::get('/', [App\Http\Controllers\Transaction\InvoiceController::class, 'index'])->name('finance.invoice.index');
+            Route::post('/save', [App\Http\Controllers\Transaction\InvoiceController::class, 'save'])->name('finance.invoice.save');
+        });
+    });
 });
 
 Auth::routes();

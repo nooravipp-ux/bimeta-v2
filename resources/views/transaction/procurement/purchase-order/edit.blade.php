@@ -77,7 +77,7 @@
                                     <div class="flex justify-center items-center">
                                         <a class="flex items-center text-primary mr-3" href=""><i
                                         data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
-                                        <a class="flex items-center text-danger mr-3" href="{{route('procurement.purchase-order.detail.delete', ['id' => $data->id])}}" onclick="return confirm('Apakah anda yakin ?')" title="Print SPK"><i data-lucide="trash"
+                                        <a class="flex items-center text-danger mr-3" href="{{route('procurement.purchase-order.detail.delete', ['id' => $data->id])}}" onclick="return confirm('Apakah anda yakin ?')" title="Print SPK"><i data-lucide="trash-2"
                                         class="w-4 h-4 mr-1"></i> Delete</a>
                                     </div>
                                 </td>

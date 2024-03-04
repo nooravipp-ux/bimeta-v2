@@ -94,20 +94,16 @@
                     <table class="table table-striped">
                         <thead class="bg-primary text-white">
                             <tr>
+                                <th class="whitespace-nowrap text-center">ACTION</th>
                                 <th class="whitespace-nowrap">NAMA BARANG</th>
                                 <th class="whitespace-nowrap">SPESIFIKASI</th>
-                                <th class="whitespace-nowrap text-center">UKURAN</th>
+                                <th class="whitespace-nowrap">UKURAN</th>
                                 <th class="whitespace-nowrap text-center">QUANTITY</th>
-                                <th class="whitespace-nowrap text-center">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($detailDeliveryOrder as $do)
                             <tr>
-                                <td>{{$do->goods_name}}</td>
-                                <td>{{$do->specification}}</td>
-                                <td class="text-center">{{$do->measure}}</td>
-                                <td class="text-center">{{$do->quantity}}</td>
                                 <td class="table-report__action w-56">
                                     <div class="flex justify-center items-center">
                                         <a class="flex items-center mr-3 text-primary" href=""> <i data-lucide="edit"
@@ -116,6 +112,10 @@
                                                 class="w-4 h-4 mr-1"></i> Hapus </a>
                                     </div>
                                 </td>
+                                <td>{{$do->goods_name}}</td>
+                                <td>{{$do->specification}}</td>
+                                <td>{{$do->measure}}</td>
+                                <td class="text-center">{{$do->quantity}}</td>
                             </tr>
                             @endforeach
                         </tbody>
