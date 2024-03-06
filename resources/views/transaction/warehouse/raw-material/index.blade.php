@@ -45,22 +45,24 @@
             <table class="table table-report -mt-2">
                 <thead class="bg-primary text-white">
                     <tr> 
+                        <th class="whitespace-nowrap">NO ROLL</th>
                         <th class="whitespace-nowrap">NAMA BARANG</th>
-                        <th class="whitespace-nowrap">GRAMATURE</th>
                         <th class="whitespace-nowrap text-center">LEBAR (CM)</th>
+                        <th class="whitespace-nowrap">GRAMATURE</th>
                         <th class="whitespace-nowrap text-center">BERAT (KG)</th>
-                        <th class="whitespace-nowrap">SUMBER</th>
+                        <!-- <th class="whitespace-nowrap">SUMBER</th> -->
                         <th class="whitespace-nowrap">TANGGAL MASUK</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($data as $item)
                     <tr>
+                        <td>{{$item->no_roll}}</td>
                         <td>{{$item->name}}</td>
-                        <td>{{$item->gramature}} {{$item->unit}}</td>
                         <td class="whitespace-nowrap text-center">{{$item->width}}</td>
+                        <td>{{$item->gramature}} {{$item->unit}}</td>
                         <td class="whitespace-nowrap text-center">{{$item->weight}}</td>
-                        <td>{{$item->source_from}}</td>
+                        <!-- <td>{{$item->source_from}}</td> -->
                         <td>{{$item->created_at}}</td>
                     </tr>
                     @endforeach

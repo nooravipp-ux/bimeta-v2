@@ -13,7 +13,7 @@ class DeliveryController extends Controller
     public function index() {
         $salesOrders = DB::table('transaction.t_sales_order')->get();
         $data = DB::table('transaction.t_delivery_order AS delivery_order')
-                ->select('delivery_order.id','delivery_order.travel_permit_no','sales_order.tax_type', 'customer.name AS customer_name', 'sales_order.transaction_no', 'sales_order.ref_po_customer', 'delivery_order.delivery_date AS actual_delivery_date')
+                ->select('delivery_order.id','delivery_order.travel_permit_no','delivery_order.status','sales_order.tax_type', 'customer.name AS customer_name', 'sales_order.transaction_no', 'sales_order.ref_po_customer', 'delivery_order.delivery_date AS actual_delivery_date')
                 ->join('transaction.t_sales_order AS sales_order', 'sales_order.id', '=', 'delivery_order.sales_order_id')
                 ->join('master.m_customer AS customer', 'customer.id', '=', 'sales_order.customer_id')
                 ->orderBy('delivery_order.created_at', 'DESC')
@@ -37,6 +37,7 @@ class DeliveryController extends Controller
             "delivery_date" => $request->delivery_date,
             "licence_plate" => $request->licence_plate,
             "driver_name" => $request->driver_name,
+            "status" => 1, // 0 = Draft, 1 = On Delivery, 2 = Recieved  by customer, 3 = Rejecte by customer
             'created_at' => date('Y-m-d H:i:s'),
             'created_by' => Auth::user()->name,
         ]);
@@ -46,7 +47,7 @@ class DeliveryController extends Controller
 
     public function edit($id) {
         $deliveryOrder = DB::table('transaction.t_delivery_order AS delivery_order')
-                    ->select('sales_order.id AS sales_order_id','sales_order.shipping_address','delivery_order.id','delivery_order.travel_permit_no', 'customer.name AS customer_name', 'customer.address', 'customer.phone_number', 'sales_order.transaction_no', 'sales_order.ref_po_customer', 'sales_order.tax_type', 'delivery_order.delivery_date AS actual_delivery_date', 'delivery_order.licence_plate', 'delivery_order.driver_name')
+                    ->select('sales_order.id AS sales_order_id','sales_order.shipping_address','delivery_order.id','delivery_order.status','delivery_order.travel_permit_no', 'customer.name AS customer_name', 'customer.address', 'customer.phone_number', 'sales_order.transaction_no', 'sales_order.ref_po_customer', 'sales_order.tax_type', 'delivery_order.delivery_date AS actual_delivery_date', 'delivery_order.licence_plate', 'delivery_order.driver_name')
                     ->join('transaction.t_sales_order AS sales_order', 'sales_order.id', '=', 'delivery_order.sales_order_id')
                     ->join('master.m_customer AS customer', 'customer.id', '=', 'sales_order.customer_id')
                     ->where('delivery_order.id', $id)

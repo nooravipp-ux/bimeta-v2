@@ -556,8 +556,7 @@
         </ul>
     </nav>
     <!-- END: Top Menu -->
-
-
+    
     <!-- BEGIN: Content -->
     @yield('main-content')
 

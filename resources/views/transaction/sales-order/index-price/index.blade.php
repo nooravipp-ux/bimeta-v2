@@ -9,8 +9,7 @@
         <div class="intro-y col-span-12 lg:col-span-4 2xl:col-span-4">
             <!-- BEGIN: Horizontal Form -->
             <div class="intro-y box mt-5" id="calc-index">
-                <div
-                    class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                     <h2 class="font-medium text-base mr-auto">
                         Kalkulator Index Harga
                     </h2>
@@ -102,8 +101,7 @@
                         </div>
                         <div class="form-inline mt-5">
                             <label for="horizontal-form-1" class="form-label sm:w-20">Satuan</label>
-                            <select data-placeholder="Pilih Satuan Ukuran" class="tom-select w-full form-control"
-                                name="satuan-ukuran">
+                            <select data-placeholder="Pilih Satuan Ukuran" class="tom-select w-full form-control" name="satuan-ukuran">
                                 <option value="">-</option>
                                 <option value="INCH">INCH</option>
                                 <option value="MM">MM</option>
@@ -131,8 +129,7 @@
                         </div>
                     </div>
                     <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
-                        <button type="button" id="calculate-hpp"
-                            class="btn py-3 btn-primary w-full md:w-52">Hitung</button>
+                        <button type="button" id="calculate-hpp" class="btn py-3 btn-primary w-full md:w-52">Hitung</button>
                     </div>
                 </div>
             </div>
@@ -165,7 +162,7 @@
                             @foreach($data as $item)
                             <tr>
                                 <td>{{$item->ply_type}}</td>
-                                <td class="text-center">{{$item->flute_type}}</td>
+                                <td class="text-center">{{$item->flute_type}}/F</td>
                                 <td>{{$item->substance}}</td>
                                 <td>{{$item->price}}</td>
                                 <td><?php echo date("d M Y", strtotime($item->tag)); ?></td>
@@ -175,7 +172,7 @@
                                             href="{{route('index-price.edit', ['id' => $item->id])}}"> <i
                                                 data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>
                                         <a class="flex items-center text-danger"
-                                            href="{{route('index-price.delete', ['id' => $item->id])}}"> <i
+                                            href="{{route('index-price.delete', ['id' => $item->id])}}" onclick="return confirm('Apakah anda yakin ?')"> <i
                                                 data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
                                     </div>
                                 </td>
@@ -215,10 +212,10 @@
                                                         <label for="horizontal-form-2" class="form-label sm:w-20">Jenis Flute</label>
                                                         <select data-placeholder="Pilih Jenis Flute" class="tom-select w-full form-control" name="flute_type">
                                                             <option value=" ">-</option>
-                                                            <option value="B">BF</option>
-                                                            <option value="C">CF</option>
+                                                            <option value="B">B/F</option>
+                                                            <option value="C">C/F</option>
                                                             <option value="B/C">B/CF</option>
-                                                            <option value="E">EF</option>
+                                                            <option value="E">E/F</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-inline mt-5">
@@ -292,6 +289,7 @@
     </div>
 </div>
 @endsection
+
 
 @section('script')
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

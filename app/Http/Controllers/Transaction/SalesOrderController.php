@@ -28,6 +28,14 @@ class SalesOrderController extends Controller
     }
 
     public function save(Request $request) {
+
+        if($request->exists('flag_use_customer_addr')){
+            $customer = DB::table('master.m_customer')->where('id', $request->customer_id)->first();
+            $cust_addr = $customer->address;
+        } else {
+            $cust_addr = $request->shipping_address;
+        }
+        
         $salesOrder = DB::table('transaction.t_sales_order')
                     ->insertGetId([
                         'transaction_no' => DB::select("SELECT transaction.generate_sales_order_number() as transaction_no")[0]->transaction_no,
@@ -38,8 +46,7 @@ class SalesOrderController extends Controller
                         'tax_type' => $request->tax_type,
                         'assign_to' => $request->assign_to,
                         'status' => 1, // 0 = initial (Inputed By Sales), 1 = Claimed by production PIC, 3 = SPK created (Pratial) 4 = SPK Finish created (All)
-                        'shipping_address' => $request->shipping_address,
-                        'flag_use_customer_addr' => $request->flag_use_customer_addr,
+                        'shipping_address' => $cust_addr,
                         'remarks' => $request->remarks,
                         'created_at' => date('Y-m-d H:i:s'),
                         'created_by' => Auth::user()->name,
@@ -52,7 +59,20 @@ class SalesOrderController extends Controller
         $users = DB::table('public.users')->get();
         $customers = DB::table('master.m_customer')->get();
         $salesOrder = DB::table('transaction.t_sales_order as sales_order')
-                        ->select('sales_order.*', 'customer.name as cust_name', 'customer.address', 'customer.phone_number')
+                        ->select(
+                            'sales_order.*', 
+                            'customer.name as cust_name',
+                            DB::raw("CASE
+                                        WHEN sales_order.status = '1' THEN 'DRAFT' 
+                                        WHEN sales_order.status = '2' THEN 'Claimed By PIC'
+                                        ELSE 'V2 (Include Tax)' 
+                            END AS str_status"),
+                            DB::raw("CASE
+                                        WHEN sales_order.tax_type = '0' THEN 'V0 (Kawasan Berikat)' 
+                                        WHEN sales_order.tax_type = '1' THEN 'V1 (Exlude Pajak)'
+                                        ELSE 'V2 (Include Pajak)' 
+                            END AS str_tax_type"),
+                        )
                         ->join('master.m_customer as customer', 'customer.id', '=', 'sales_order.customer_id')
                         ->where('sales_order.id', $id)
                         ->first();
@@ -108,8 +128,22 @@ class SalesOrderController extends Controller
         return view('transaction.sales-order.edit', compact('customers', 'salesOrder', 'users', 'detailSalesOrders', 'data'));
     }
 
-    public function update($id){
-
+    public function update(Request $request){
+        DB::table('transaction.t_sales_order')
+                    ->where('id', $request->id)
+                    ->update([
+                        'ref_po_customer' => $request->ref_po_customer,
+                        'customer_id' => $request->customer_id,
+                        'order_date' => $request->order_date,
+                        'delivery_date' => $request->delivery_date,
+                        'tax_type' => $request->tax_type,
+                        'assign_to' => $request->assign_to,
+                        'shipping_address' => $cust_addr,
+                        'remarks' => $request->remarks,
+                        'updated_at' => date('Y-m-d H:i:s'),
+                        'updated_by' => Auth::user()->name,
+                    ]);
+        return redirect()->back();
     }
 
     public function createDetail($id) {

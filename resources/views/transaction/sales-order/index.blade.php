@@ -10,7 +10,7 @@
         <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
             <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
                 <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary flex items-center mr-auto text-white"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
-                    Tambah Pesanan
+                    Input P.O Customer
                 </a>
                 <div class="w-56 relative text-slate-500 flex items-center ml-auto">
                     <input type="text" class="form-control w-56 box pr-10" placeholder="Search..."><i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-lucide="search"></i>
@@ -130,7 +130,7 @@
                         <div
                             class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                             <h2 class="font-medium text-base mr-auto">
-                                Tambah Pesanan
+                                Input P.O Customer
                             </h2>
                         </div>
                         <div id="horizontal-form" class="p-5">
@@ -187,7 +187,7 @@
                                     </div>
                                     <div class="form-inline mt-5">
                                         <label for="vertical-form-1" class="form-label sm:w-40">Alamat Pengiriman</label>
-                                        <textarea id="vertical-form-1" type="text" class="form-control" name="shipping_address" required></textarea>
+                                        <textarea id="vertical-form-1" type="text" class="form-control" name="shipping_address"></textarea>
                                     </div>
                                     <div class="form-inline mt-2">
                                         <label for="vertical-form-1" class="form-label sm:w-40"></label>
@@ -195,8 +195,7 @@
                                     </div>
                                     <div class="form-inline mt-5">
                                         <label for="vertical-form-1" class="form-label sm:w-40">Catatan</label>
-                                        <textarea id="vertical-form-1" type="text" class="form-control" name="remarks"
-                                            required></textarea>
+                                        <textarea id="vertical-form-1" type="text" class="form-control" name="remarks"></textarea>
                                     </div>
                                 </div>
                                 <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
@@ -217,8 +216,10 @@
 
 @section('script')
 <script>
+
 $(function() {
     $(".loader").hide();
+    $("#superlarge-modal-size-preview").show();
     $("#collapse-form").hide();
 
     $("#add-data").click(function() {

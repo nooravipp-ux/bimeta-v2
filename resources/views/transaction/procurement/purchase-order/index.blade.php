@@ -60,14 +60,14 @@
                         <td class="text-center">Rp. 2,250,000</td>
                         <td class="text-center">
                             @if($item->status == 1)
-                            <div
-                                class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">
-                                DRAFT</div>
+                                <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">
+                                    DRAFT
+                                </div>
                             @endif
                             @if($item->status == 2)
-                            <div
-                                class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">
-                                CLAIMED BY PIC</div>
+                                <div class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">
+                                    CLAIMED BY PIC
+                                </div>
                             @endif
                         </td>
                         <td class="table-report__action w-56">

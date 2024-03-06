@@ -14,7 +14,7 @@ class IndexPriceController extends Controller
                 ->select('index_price.*', 'substance.substance')
                 ->join('master.m_substance as substance', 'substance.id', '=', 'index_price.substance_id')
                 ->orderBy('index_price.id', 'ASC')
-                ->paginate(20);
+                ->paginate(10);
                 
         $tags = DB::table('transaction.t_mapping_index_price as index_price')
                 ->select('index_price.tag')

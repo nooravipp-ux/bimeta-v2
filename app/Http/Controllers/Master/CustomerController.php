@@ -11,7 +11,7 @@ class CustomerController extends Controller
 {
     public function index() {
         $pic = DB::table('public.users')->get();
-        $data = DB::table('master.m_customer')->orderBy('id')->paginate(20);
+        $data = DB::table('master.m_customer')->orderBy('id')->paginate(10);
         return view('master.customer.index', compact('data', 'pic'));
     }
 

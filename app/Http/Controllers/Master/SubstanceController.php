@@ -10,7 +10,7 @@ use Auth;
 class SubstanceController extends Controller
 {
     public function index() {
-        $data = DB::table('master.m_substance')->orderBy('id')->paginate(20);
+        $data = DB::table('master.m_substance')->orderBy('id')->paginate(10);
         return view('master.substance.index', compact('data'));
     }
 

@@ -8,6 +8,7 @@
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
             <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary shadow-md mr-2">Buat Penerimaan</a>
+            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#log-goods-received" class="btn btn-primary shadow-md mr-2">Log History Penerimaan Material</a>
             <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
@@ -161,6 +162,47 @@
                                 <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
                                     <button type="button" data-tw-dismiss="modal" class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
                                     <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- END: Horizontal Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Delete Confirmation Modal -->
+
+    <!-- BEGIN: Delete Confirmation Modal -->
+    <div id="log-goods-received" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <!-- BEGIN: Horizontal Form -->
+                    <div class="intro-y box">
+                        <div
+                            class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                            <h2 class="font-medium text-base mr-auto">
+                                Log Penerimaan Material
+                            </h2>
+                        </div>
+                        <div id="horizontal-form" class="p-5">
+                            <form method="POST" action="{{route('procurement.goods-receive.save')}}">
+                                @csrf
+                                <div class="preview">
+                                    <div class="form-inline mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">No Pembelian</label>
+                                        <select data-placeholder="Pilih Material" class="tom-select w-full form-control" name="purchase_id" required>
+                                            <option value=" ">-</option>
+                                            @foreach($purchase as $po)
+                                            <option value="{{$po->id}}">{{$po->po_no}} - {{$po->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                    <button type="button" data-tw-dismiss="modal" class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
+                                    <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Lihat Log</button>
                                 </div>
                             </form>
                         </div>

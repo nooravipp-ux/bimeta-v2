@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+use PDF;
 
 class InvoiceController extends Controller
 {
@@ -17,7 +18,7 @@ class InvoiceController extends Controller
                     ->get();
 
         $data = DB::table('transaction.t_invoice as invoice')
-                ->select('invoice.id', 'invoice.invoice_no', 'invoice.date', 'delivery_order.travel_permit_no','sales_order.ref_po_customer', 'customer.name as customer_name')
+                ->select('invoice.id', 'invoice.invoice_no', 'invoice.date','sales_order.tax_type', 'delivery_order.travel_permit_no','sales_order.ref_po_customer', 'customer.name as customer_name')
                 ->join('transaction.t_delivery_order as delivery_order', 'delivery_order.id', '=', 'invoice.delivery_order_id')
                 ->join('transaction.t_sales_order as sales_order', 'sales_order.id', '=', 'delivery_order.sales_order_id')
                 ->join('master.m_customer as customer', 'customer.id', '=', 'sales_order.customer_id')
@@ -38,11 +39,37 @@ class InvoiceController extends Controller
         return redirect()->back();
     }
 
-    public function edit() {
+    public function edit($id) {
 
     }
 
-    public function print() {
+    public function print($id) {
 
+        $invInfo = DB::table('transaction.t_invoice as invoice')
+                ->select('invoice.id', 'invoice.invoice_no', 'invoice.date','sales_order.tax_type', 'delivery_order.travel_permit_no','sales_order.ref_po_customer', 'customer.name as customer_name')
+                ->join('transaction.t_delivery_order as delivery_order', 'delivery_order.id', '=', 'invoice.delivery_order_id')
+                ->join('transaction.t_sales_order as sales_order', 'sales_order.id', '=', 'delivery_order.sales_order_id')
+                ->join('master.m_customer as customer', 'customer.id', '=', 'sales_order.customer_id')
+                ->where('invoice.id', $id)
+                ->first();
+
+        $pdf = PDF::loadView('transaction.finance.invoices.print.invoice-v1', [
+            'infInfo' => $invInfo,
+        ]);                        
+            
+        // Set paper size and orientation
+        $pdf->setPaper('letter', 'portrait'); // Adjust the paper size and orientation as needed
+                
+        // Set options for domPDF
+        $pdf->setOptions([
+            'isHtml5ParserEnabled' => true,
+            'isPhpEnabled' => true,
+            'isHtmlParsingEnabled' => true,
+            'isCssEnabled' => true,
+            'isPhpEnabled' => true,
+        ]);
+                
+        // Download the PDF
+        return $pdf->stream($invInfo->invoice_no.'.pdf');
     }
 }

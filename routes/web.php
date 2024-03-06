@@ -116,18 +116,28 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/procurement/goods-receive/detail/save', [App\Http\Controllers\Transaction\GoodsReceiveController::class, 'saveDetail'])->name('procurement.goods-receive.detail.save');
     Route::get('/procurement/goods-receive/delete/{id}', [App\Http\Controllers\Transaction\GoodsReceiveController::class, 'deleteDetail'])->name('procurement.goods-receive.detail.delete');
 
-    Route::get('/settings/user-management/users', [App\Http\Controllers\Transaction\UserManagementController::class, 'index'])->name('settings.user-management.user.index');
+    Route::prefix('settings')->group(function () {
+        Route::prefix('user-management')->group(function () {
+            Route::prefix('users')->group(function () {
+                Route::get('/', [App\Http\Controllers\Transaction\UserManagementController::class, 'index'])->name('settings.user-management.user.index');
+            });
 
-    Route::get('/settings/user-management/roles', [App\Http\Controllers\Transaction\RoleController::class, 'index'])->name('settings.user-management.role.index');
-    Route::post('/settings/user-management/roles/create', [App\Http\Controllers\Transaction\RoleController::class, 'save'])->name('settings.user-management.role.save');
-    Route::get('/settings/user-management/roles/edit/{id}', [App\Http\Controllers\Transaction\RoleController::class, 'edit'])->name('settings.user-management.role.edit');
-    Route::post('/settings/user-management/roles/update', [App\Http\Controllers\Transaction\RoleController::class, 'update'])->name('settings.user-management.role.update');
-    Route::get('/settings/user-management/roles/delete/{id}', [App\Http\Controllers\Transaction\RoleController::class, 'delete'])->name('settings.user-management.role.delete');
+            Route::prefix('roles')->group(function () {
+                Route::get('/', [App\Http\Controllers\Transaction\RoleController::class, 'index'])->name('settings.user-management.role.index');
+                Route::post('/create', [App\Http\Controllers\Transaction\RoleController::class, 'save'])->name('settings.user-management.role.save');
+                Route::get('/edit/{id}', [App\Http\Controllers\Transaction\RoleController::class, 'edit'])->name('settings.user-management.role.edit');
+                Route::post('/update', [App\Http\Controllers\Transaction\RoleController::class, 'update'])->name('settings.user-management.role.update');
+                Route::get('/delete/{id}', [App\Http\Controllers\Transaction\RoleController::class, 'delete'])->name('settings.user-management.role.delete');
+            });
+        });
+    });
 
     Route::prefix('finance')->group(function () {
         Route::prefix('invoice')->group(function () {
             Route::get('/', [App\Http\Controllers\Transaction\InvoiceController::class, 'index'])->name('finance.invoice.index');
             Route::post('/save', [App\Http\Controllers\Transaction\InvoiceController::class, 'save'])->name('finance.invoice.save');
+            Route::get('/edit/{id}', [App\Http\Controllers\Transaction\InvoiceController::class, 'edit'])->name('finance.invoice.edit');
+            Route::get('/print/{id}', [App\Http\Controllers\Transaction\InvoiceController::class, 'print'])->name('finance.invoice.print');
         });
     });
 });

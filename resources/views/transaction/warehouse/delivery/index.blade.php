@@ -52,6 +52,7 @@
                         <th class="text-center whitespace-nowrap">NO. PO</th>
                         <th class="text-center whitespace-nowrap">TANGGAL PENGIRIMAN</th>
                         <th class="text-center whitespace-nowrap">JENIS PAJAK</th>
+                        <th class="text-center whitespace-nowrap">STATUS</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
                 </thead>
@@ -71,6 +72,23 @@
                             V1 (Exlude PPN)
                             @elseif($item->tax_type == 2)
                             V2 (Exlude PPN)
+                            @else
+                            SAMPLE
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            @if($item->status == 1)
+                                <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">
+                                    DRAFT
+                                </div>
+                            @elseif($item->status == 2)
+                                <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">
+                                    ON DELIVERY
+                                </div>
+                            @elseif($item->status == 3)
+                                <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">
+                                    COMPLETED
+                                </div>
                             @else
                             SAMPLE
                             @endif

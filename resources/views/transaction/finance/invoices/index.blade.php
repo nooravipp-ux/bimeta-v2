@@ -33,11 +33,12 @@
                 <thead class="bg-primary text-white">
                     <tr>
                         <th style="text-align: left;">NO. INVOICE</th>
-                        <th>REFERENCE</th>
                         <th>TANGGAL</th>
+                        <th>REFERENCE</th>
                         <th>CUSTOMER</th>
                         <th>NO. PO</th>
-                        <th>PAJAK (11%)</th>
+                        <th class="text-center">JENIS PAJAK</th>
+                        <th>TOTAL PAJAK (11%)</th>
                         <th>TOTAL</th>
                         <th style="text-align: center;">ACTIONS</th>
                     </tr>
@@ -46,10 +47,11 @@
                     @foreach($data as $item)
                     <tr>
                         <td>{{$item->invoice_no}}</td>
+                        <td><?php echo date("d/m/Y", strtotime($item->date)) ?></td>
                         <td>{{$item->travel_permit_no}}</td>
-                        <td>{{$item->date}}</td>
                         <td>{{$item->customer_name}}</td>
                         <td>{{$item->ref_po_customer}}</td>
+                        <td class="text-center">V{{$item->tax_type}}</td>
                         <td></td>
                         <td></td>
                         <td class="table-report__action w-56">
@@ -57,8 +59,7 @@
                                 <a class="flex items-center mr-3 text-primary"
                                     href="{{route('sales.edit', ['id' => $item->id])}}">
                                     <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Detail Invoice </a>
-                                <a class="flex items-center mr-3 text-primary"
-                                    href="{{route('sales.edit', ['id' => $item->id])}}">
+                                <a class="flex items-center mr-3 text-primary" target="_blank" href="{{route('finance.invoice.print', ['id' => $item->id])}}">
                                     <i data-lucide="printer" class="w-4 h-4 mr-1"></i> Print </a>
                             </div>
                         </td>
@@ -101,6 +102,10 @@
                                     <div class="form-inline mt-5">
                                         <label for="vertical-form-1" class="form-label sm:w-40">Tanggal</label>
                                         <input id="vertical-form-1" type="date" class="form-control" name="date" required>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Down Payment</label>
+                                        <input id="vertical-form-1" type="text" class="form-control" name="down_payment">
                                     </div>
                                 </div>
                                 <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">

@@ -21,13 +21,25 @@
                             class="w-4 h-4 mr-2"></i> Change </a>
                 </div>
                 <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    NO. PO: <a href="{{route('sales.edit', ['id' => $deliveryOrder->sales_order_id])}}" target="_blank" class="underline decoration-dotted ml-1" title="Klik untuk melihat detail pesanan">{{$deliveryOrder->ref_po_customer}}</a>
+                    NO. PO : <a href="{{route('sales.edit', ['id' => $deliveryOrder->sales_order_id])}}" target="_blank" class="underline decoration-dotted ml-1" title="Klik untuk melihat detail pesanan">{{$deliveryOrder->ref_po_customer}}</a>
                 </div>
                 <div class="flex items-center mt-3"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    NO. DO: <strong> {{$deliveryOrder->travel_permit_no}}</strong>
+                    NO. DO : <strong> {{$deliveryOrder->travel_permit_no}}</strong>
                 </div>
                 <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    Tanggal Pengiriman: <?php echo date("d M Y", strtotime($deliveryOrder->actual_delivery_date)); ?>
+                    Tanggal Pengiriman : <?php echo date("d M Y", strtotime($deliveryOrder->actual_delivery_date)); ?>
+                </div>
+                <div class="flex items-center mt-3"> <i data-lucide="clock" class="w-4 h-4 text-slate-500 mr-2"></i>
+                    Status Pengirman :
+                    <span class="bg-success/20 text-success rounded px-2 ml-1">
+                        @if($deliveryOrder->status == 1)
+                            DRAFT
+                        @elseif($deliveryOrder->status == 2)
+                            ON DELIVERY
+                        @else
+                            COMPLETED
+                        @endif
+                    </span>
                 </div>
                 <div class="flex items-center mt-3"> <i data-lucide="map-pin" class="w-4 h-4 text-slate-500 mr-2"></i>
                     Alamat Pengiriman: {{$deliveryOrder->shipping_address}}

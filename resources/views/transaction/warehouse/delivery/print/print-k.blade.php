@@ -120,7 +120,7 @@
                 <div class="col col-4">
                     <div class="row">
                         <div class="col col-12">
-                            <p>Bandung, {{$deliveryOrder->delivery_date}}</p>
+                            <p>Bandung, <?php echo date("d/m/Y", strtotime($deliveryOrder->delivery_date)) ?></p>
                             <p>{{$deliveryOrder->customer_name}}</p>
                             <p>{{$deliveryOrder->shipping_address}}</p>
                         </div>
