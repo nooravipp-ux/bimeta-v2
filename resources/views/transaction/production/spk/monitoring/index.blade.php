@@ -13,13 +13,6 @@
             <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary shadow-md mr-2">Laporan Progress Harian</a>
             <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#cor-report" class="btn btn-primary shadow-md mr-2">Export COR</a>
             <div class="hidden md:block mx-auto text-slate-500"></div>
-
-            <!-- <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0 mr-3">
-                <div class="w-56 relative text-slate-500">
-                    <input type="text" data-daterange="true" class="datepicker form-control w-56 block mx-auto" id="date-range-input">
-                    <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-lucide="search"></i>
-                </div>
-            </div> -->
             <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
                 <div class="w-56 relative text-slate-500">
                     <input type="text" class="form-control w-56 box pr-10" id="searchInput" placeholder="Cari ...">
@@ -34,6 +27,7 @@
                 <thead class="bg-primary text-white">
                     <tr>
                         <th style="text-align: left;">TANGGAL PROD.</th>
+                        <th style="text-align: left;">PIC</th>
                         <th>NO. PO</th>
                         <th>CUSTOMER</th>
                         <th>NO. SPK</th>
@@ -51,6 +45,7 @@
                     @foreach($data as $item)
                     <tr>
                         <td><?php echo date("d/m/Y", strtotime($item->start_date)) ?></td>
+                        <td>{{$item->pic}}</td>
                         <td>{{$item->ref_po_customer}}</td>
                         <td>{{$item->customer_name}}</td>
                         <td>{{$item->spk_no}}</td>
@@ -60,7 +55,17 @@
                         <td style="text-align: center;">{{$item->sheet_quantity}}</td>
                         <td style="text-align: center;">{{$item->current_process}}</td>
                         <td style="text-align: center;">{{$item->persentage}}</td>
-                        <td style="text-align: center;">{{$item->status}}</td>
+                        <td style="text-align: center;">
+                            @if($item->status == 1)
+                                <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">INIT</div>
+                            @elseif($item->status == 2)
+                                <div class="py-1 px-2 rounded-full text-xs bg-warning text-white cursor-pointer font-medium">SCHEDULED</div>
+                            @elseif($item->status == 3)
+                                <div class="py-1 px-2 rounded-full text-xs bg-warning text-white cursor-pointer font-medium">WORK IN PROGRESS</div>
+                            @else
+                                <div class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">COMPLETED</div>
+                            @endif
+                        </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 <a class="flex items-center mr-3 text-success" onclick="return confirm('Apakah anda yakin sudah menyelesaikan SPK ?')" 
@@ -82,6 +87,7 @@
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
             <nav class="w-full sm:w-auto sm:mr-auto">
                 <ul class="pagination">
+                    <!-- Previous Page Link -->
                     @if ($data->onFirstPage())
                     <li class="page-item disabled" aria-disabled="true">
                         <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
@@ -94,12 +100,14 @@
                     </li>
                     @endif
 
-                    @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
+                    <!-- Pagination Elements -->
+                    @foreach ($data->getUrlRange(max(1, $data->currentPage() - 2), min($data->lastPage(), $data->currentPage() + 2)) as $page => $url)
                     <li class="page-item @if($page == $data->currentPage()) active @endif">
                         <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                     </li>
                     @endforeach
 
+                    <!-- Next Page Link -->
                     @if ($data->hasMorePages())
                     <li class="page-item">
                         <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4"
@@ -113,12 +121,7 @@
                     @endif
                 </ul>
             </nav>
-            <select class="w-20 form-select box mt-3 sm:mt-0">
-                <option>10</option>
-                <option>25</option>
-                <option>35</option>
-                <option>50</option>
-            </select>
+            <p class="pagination-text">Halaman {{ $data->currentPage() }} Dari {{ $data->lastPage() }}</p>
         </div>
         <!-- END: Pagination -->
     </div>
@@ -238,6 +241,7 @@ $(function() {
             // console.log(item)
             var row = `<tr>
                         <td>${item.start_date}</td>
+                        <td>${item.pic}</td>
                         <td>${item.ref_po_customer}</td>
                         <td>${item.customer_name}</td>
                         <td>${item.spk_no}</td>

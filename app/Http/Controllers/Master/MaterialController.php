@@ -10,7 +10,7 @@ use Auth;
 class MaterialController extends Controller
 {
     public function index() {
-        $data = DB::table('master.m_material')->orderBy('id')->paginate(20);
+        $data = DB::table('master.m_material')->orderBy('id')->paginate(10);
         return view('master.material.index', compact('data'));
     }
 

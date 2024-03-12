@@ -111,12 +111,7 @@
                     @endif
                 </ul>
             </nav>
-            <select class="w-20 form-select box mt-3 sm:mt-0">
-                <option>10</option>
-                <option>25</option>
-                <option>35</option>
-                <option>50</option>
-            </select>
+            <p class="pagination-text">Halaman {{ $data->currentPage() }} Dari {{ $data->lastPage() }}</p>
         </div>
         <!-- END: Pagination -->
     </div>
@@ -139,13 +134,11 @@
                                 <div class="preview">
                                     <div class="form-inline">
                                         <label for="horizontal-form-1" class="form-label sm:w-40">PO. Customer</label>
-                                        <input id="horizontal-form-1" type="text" class="form-control"
-                                            name="ref_po_customer" required>
+                                        <input type="text" class="form-control" id="ref_po_customer" name="ref_po_customer" required>
                                     </div>
                                     <div class="form-inline mt-5">
                                         <label for="horizontal-form-2" class="form-label sm:w-40">Customer</label>
-                                        <select data-placeholder="Pilih customer" class="tom-select w-full form-control"
-                                            name="customer_id" required>
+                                        <select data-placeholder="Pilih customer" class="tom-select w-full form-control" id="customer_id" name="customer_id" required>
                                             <option value=" "> - </option>
                                             @foreach($customers as $customer)
                                             <option value="{{$customer->id}}">{{$customer->name}}</option>
@@ -153,21 +146,16 @@
                                         </select>
                                     </div>
                                     <div class="form-inline mt-5">
-                                        <label for="horizontal-form-2" class="form-label sm:w-40">Tanggal
-                                            Pesanan</label>
-                                        <input id="horizontal-form-1" type="date" class="form-control" name="order_date"
-                                            required>
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Tanggal Pesanan</label>
+                                        <input type="date" class="form-control" id="order_date" name="order_date" required>
                                     </div>
                                     <div class="form-inline mt-5">
-                                        <label for="horizontal-form-2" class="form-label sm:w-40">Tanggal
-                                            Pengiriman</label>
-                                        <input id="horizontal-form-1" type="date" class="form-control"
-                                            name="delivery_date" required>
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Tanggal Pengiriman</label>
+                                        <input type="date" class="form-control" id="delivery_date" name="delivery_date" required>
                                     </div>
                                     <div class="form-inline mt-5">
                                         <label for="horizontal-form-2" class="form-label sm:w-40">Jenis Pajak</label>
-                                        <select data-placeholder="Pilih Jenis Pajak"
-                                            class="tom-select w-full form-control" name="tax_type" required>
+                                        <select data-placeholder="Pilih Jenis Pajak" class="tom-select w-full form-control" id="tax_type" name="tax_type" required>
                                             <option value=" "> - </option>
                                             <option value="0">V0 (Kawasan Berikat)</option>
                                             <option value="1">V1 (Exclude PPN)</option>
@@ -177,25 +165,25 @@
                                     </div>
                                     <div class="form-inline mt-5">
                                         <label for="vertical-form-2" class="form-label sm:w-40">PIC Produksi</label>
-                                        <select data-placeholder="Pilih customer" class="tom-select w-full form-control"
-                                            name="assign_to" required>
+                                        <select data-placeholder="Pilih customer" class="tom-select w-full form-control" id="assign_to" name="assign_to" required>
                                             <option value=" "> - </option>
                                             @foreach($users as $user)
                                             <option value="{{$user->id}}">{{$user->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-inline mt-5">
+                                    <div class="form-inline mt-5 shipping-address">
                                         <label for="vertical-form-1" class="form-label sm:w-40">Alamat Pengiriman</label>
-                                        <textarea id="vertical-form-1" type="text" class="form-control" name="shipping_address"></textarea>
+                                        <textarea type="text" class="form-control" id="shipping_address" name="shipping_address"></textarea>
                                     </div>
                                     <div class="form-inline mt-2">
                                         <label for="vertical-form-1" class="form-label sm:w-40"></label>
-                                        <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="flag_use_customer_addr" value="1"> <label class="form-check-label" for="checkbox-switch-1">Gunakan Alamat Custumer Sebagai Alamat Pengiriman</label>
+                                        <input class="form-check-input" type="checkbox" id="flag_use_customer_addr" name="flag_use_customer_addr" value="1"> 
+                                        <label class="form-check-label" for="checkbox-switch-1">Gunakan Alamat Custumer Sebagai Alamat Pengiriman</label>
                                     </div>
                                     <div class="form-inline mt-5">
                                         <label for="vertical-form-1" class="form-label sm:w-40">Catatan</label>
-                                        <textarea id="vertical-form-1" type="text" class="form-control" name="remarks"></textarea>
+                                        <textarea type="text" class="form-control" id="remarks" name="remarks"></textarea>
                                     </div>
                                 </div>
                                 <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
@@ -224,6 +212,14 @@ $(function() {
 
     $("#add-data").click(function() {
         $("#collapse-form").slideToggle("slow");
+    });
+
+    $("#flag_use_customer_addr").change(function () {
+            if($(this).is(":checked")) {
+                $("#shipping_address").prop("readonly", true);
+            } else {
+                $("#shipping_address").prop("readonly", false);
+            }
     });
 })
 </script>

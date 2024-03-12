@@ -302,6 +302,161 @@
                         </table>
                         @endif
 
+                        @if($data->type == 3)
+                            @if($data->spk_type == "B")
+                            <table style="border-collapse: collapse; margin-right: 5px;">
+                                <tr>
+                                    <td width="50px" style="text-align: center;">
+                                        
+                                    </td>
+                                    <td style="text-align: center;">
+                                        
+                                    </td>
+                                    <td width="70px" style="text-align: center;">
+                                        
+                                    </td>
+                                    <td style="text-align: center;padding: 8px">
+                                        JP: {{$data->netto_length}}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        
+                                    </td>
+                                    <td width="70px" style="text-align: center;">
+                                        
+                                    </td>
+                                    <td style="text-align: center;">
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="50px" style="text-align: center;">
+                                        
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                        {{$data->plape}}
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                    <td style="text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="writing-mode: vertical-rl;padding: 5px;">
+                                        JL: {{$data->netto_width}}
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:17px; height: 20px;">
+                                        {{$data->l2}}
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                        {{$data->p1}}
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                        {{$data->l1}}
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                        {{$data->t}}
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                        {{$data->p2}}
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:17px;width: 5px;">
+                                        {{$data->k}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">
+                                        
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                        {{$data->plape}}
+                                    </td>
+                                    <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                    <td style="text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                </tr>
+                            </table>
+                            @else
+                            <table style="border-collapse: collapse; margin-right: 5px; margin-left: 50px;margin-right: 100px;">
+                                <tr>
+                                    <td width="50px" style="text-align: center;">
+                                        
+                                    </td>
+                                    <td style="text-align: center;">
+                                        
+                                    </td>
+                                    <td width="70px" style="text-align: center;">
+                                        JP: {{$data->netto_length}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="50px" style="text-align: center;">
+                                        
+                                    </td>
+                                    <td style="border-top: 1px solid black;border-left: 1px solid black;text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                    <td style="border-top: 1px solid black;text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                    <td style="border-top: 1px solid black;border-right: 1px solid black;text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="writing-mode: vertical-rl;padding: 5px;">
+                                        JL: {{$data->netto_width}}
+                                    </td>
+                                    <td style="border-left: 1px solid black;text-align: center; padding:17px; height: 20px;">
+                                        {{$data->l2}}
+                                    </td>
+                                    <td style="text-align: center; padding:17px;">
+                                        {{$data->p1}}
+                                    </td>
+                                    <td style="border-right: 1px solid black;text-align: center; padding:17px;">
+                                        {{$data->l1}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">
+                                        
+                                    </td>
+                                    <td style="border-bottom: 1px solid black;border-left: 1px solid black;text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                    <td style="border-bottom: 1px solid black;text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                    <td style="border-bottom: 1px solid black;border-right: 1px solid black;text-align: center; padding:10px;">
+                                        
+                                    </td>
+                                </tr>
+                            </table>
+                            @endif
+                        @endif
+
                         @if($data->type == 4)
                         <table style="border-collapse: collapse; margin-right: 5px; margin-left: 50px;margin-right: 100px;">
                             <tr>

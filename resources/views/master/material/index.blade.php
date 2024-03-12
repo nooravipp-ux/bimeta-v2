@@ -7,7 +7,8 @@
 <div class="content content--top-nav">
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary text-white">
+            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview"
+                class="btn btn-primary text-white">
                 Tambah Material
             </a>
             <div class="dropdown">
@@ -65,9 +66,11 @@
                         <td class="text-center">{{$item->unit}}</td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3 text-primary" href="{{route('material.edit', ['id' => $item->id])}}"> <i data-lucide="edit"
+                                <a class="flex items-center mr-3 text-primary"
+                                    href="{{route('material.edit', ['id' => $item->id])}}"> <i data-lucide="edit"
                                         class="w-4 h-4 mr-1"></i> Edit </a>
-                                <a class="flex items-center text-danger" href="{{route('material.delete', ['id' => $item->id])}}" data-tw-toggle="modal"
+                                <a class="flex items-center text-danger"
+                                    href="{{route('material.delete', ['id' => $item->id])}}" data-tw-toggle="modal"
                                     data-tw-target="#delete-confirmation-modal"> <i data-lucide="trash-2"
                                         class="w-4 h-4 mr-1"></i> Delete </a>
                             </div>
@@ -81,6 +84,7 @@
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
             <nav class="w-full sm:w-auto sm:mr-auto">
                 <ul class="pagination">
+                    <!-- Previous Page Link -->
                     @if ($data->onFirstPage())
                     <li class="page-item disabled" aria-disabled="true">
                         <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
@@ -93,12 +97,14 @@
                     </li>
                     @endif
 
-                    @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
+                    <!-- Pagination Elements -->
+                    @foreach ($data->getUrlRange(max(1, $data->currentPage() - 2), min($data->lastPage(), $data->currentPage() + 2)) as $page => $url)
                     <li class="page-item @if($page == $data->currentPage()) active @endif">
                         <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                     </li>
                     @endforeach
 
+                    <!-- Next Page Link -->
                     @if ($data->hasMorePages())
                     <li class="page-item">
                         <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4"
@@ -112,12 +118,7 @@
                     @endif
                 </ul>
             </nav>
-            <select class="w-20 form-select box mt-3 sm:mt-0">
-                <option>10</option>
-                <option>25</option>
-                <option>35</option>
-                <option>50</option>
-            </select>
+            <p class="pagination-text">Halaman {{ $data->currentPage() }} Dari {{ $data->lastPage() }}</p>
         </div>
         <!-- END: Pagination -->
         <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
@@ -147,15 +148,18 @@
                                             </div>
                                             <div class="form-inline mt-5">
                                                 <label for="vertical-form-1" class="form-label sm:w-20">Tipe</label>
-                                                <select data-placeholder="Pilih Tipe Pajak" class="tom-select w-full form-control" name="type">
+                                                <select data-placeholder="Pilih Tipe Pajak"
+                                                    class="tom-select w-full form-control" name="type">
                                                     <option value=" ">-</option>
                                                     <option value="KRAFT">KRAFT</option>
                                                     <option value="MEDIUM">MEDIUM</option>
                                                 </select>
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Jenis Kertas</label>
-                                                <select data-placeholder="Pilih Tipe Pajak" class="tom-select w-full form-control" name="paper_type">
+                                                <label for="vertical-form-1" class="form-label sm:w-20">Jenis
+                                                    Kertas</label>
+                                                <select data-placeholder="Pilih Tipe Pajak"
+                                                    class="tom-select w-full form-control" name="paper_type">
                                                     <option value=" ">-</option>
                                                     <option value="BROWN KRAFT">BROWN KRAFT</option>
                                                     <option value="WHITE KRAFT">WHITE KRAFT</option>
@@ -164,20 +168,24 @@
                                                 </select>
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Gramature</label>
+                                                <label for="vertical-form-1"
+                                                    class="form-label sm:w-20">Gramature</label>
                                                 <input type="text" class="form-control" name="gramature">
                                             </div>
                                             <div class="form-inline mt-5">
                                                 <label for="vertical-form-1" class="form-label sm:w-20">Satuan</label>
-                                                <select data-placeholder="Pilih Tipe Pajak" class="tom-select w-full form-control" name="unit">
+                                                <select data-placeholder="Pilih Tipe Pajak"
+                                                    class="tom-select w-full form-control" name="unit">
                                                     <option value=" ">-</option>
                                                     <option value="GSM">GSM</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
-                                            <button type="button" data-tw-dismiss="modal" class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
-                                            <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
+                                            <button type="button" data-tw-dismiss="modal"
+                                                class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
+                                            <button type="submit"
+                                                class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
                                         </div>
                                     </div>
                                 </form>

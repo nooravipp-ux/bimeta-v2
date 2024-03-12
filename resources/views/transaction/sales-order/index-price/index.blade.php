@@ -26,8 +26,7 @@
                         </div>
                         <div class="form-inline mt-5">
                             <label for="horizontal-form-2" class="form-label sm:w-20">Index Tag</label>
-                            <select data-placeholder="Pilih Index Tag" class="tom-select w-full form-control"
-                                id="index-tag">
+                            <select data-placeholder="Pilih Index Tag" class="tom-select w-full form-control" id="index-tag">
                                 <option value="">-</option>
                                 @foreach($tags as $tag)
                                 <option value="{{$tag->tag}}"><?php echo date("d M Y", strtotime($tag->tag)); ?>
@@ -150,22 +149,17 @@
                     <table class="table table-striped">
                         <thead class="bg-primary text-white">
                             <tr>
-                                <th class="whitespace-nowrap">PLY TYPE</th>
+                                <th class="whitespace-nowrap text-center">ACTION</th>
+                                <th class="whitespace-nowrap text-center">PLY TYPE</th>
                                 <th class="whitespace-nowrap text-center">FLUTE TYPE</th>
                                 <th class="whitespace-nowrap">SUBSTANCE</th>
                                 <th class="whitespace-nowrap">HARGA</th>
                                 <th class="whitespace-nowrap">INDEX TAG</th>
-                                <th class="whitespace-nowrap text-center">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($data as $item)
                             <tr>
-                                <td>{{$item->ply_type}}</td>
-                                <td class="text-center">{{$item->flute_type}}/F</td>
-                                <td>{{$item->substance}}</td>
-                                <td>{{$item->price}}</td>
-                                <td><?php echo date("d M Y", strtotime($item->tag)); ?></td>
                                 <td class="table-report__action w-56">
                                     <div class="flex justify-center items-center">
                                         <a class="flex items-center mr-3 text-primary"
@@ -176,6 +170,11 @@
                                                 data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
                                     </div>
                                 </td>
+                                <td class="text-center">{{$item->ply_type}}</td>
+                                <td class="text-center">{{$item->flute_type}}/F</td>
+                                <td>{{$item->substance}}</td>
+                                <td>{{$item->price}}</td>
+                                <td><?php echo date("d/m/Y", strtotime($item->tag)); ?></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -202,10 +201,10 @@
                                                         <label for="horizontal-form-2" class="form-label sm:w-20">Jenis Ply</label>
                                                         <select data-placeholder="Pilih Jenis Flute" class="tom-select w-full form-control" name="ply_type">
                                                             <option value=" ">-</option>
-                                                            <option value="SF">Single Face</option>
-                                                            <option value="SW">Single Wall</option>
-                                                            <option value="DW">Double Wall</option>
-                                                            <option value="TW">Triple Wall</option>
+                                                            <option value="SF">SF</option>
+                                                            <option value="SW">SW</option>
+                                                            <option value="DW">DW</option>
+                                                            <option value="TW">TW</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-inline mt-5">
@@ -214,22 +213,22 @@
                                                             <option value=" ">-</option>
                                                             <option value="B">B/F</option>
                                                             <option value="C">C/F</option>
-                                                            <option value="B/C">B/CF</option>
                                                             <option value="E">E/F</option>
+                                                            <option value="B/C">B/C</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-inline mt-5">
                                                         <label for="vertical-form-2" class="form-label sm:w-20">Substance</label>
                                                         <select data-placeholder="Pilih Substance" class="tom-select w-full form-control" name="substance">
+                                                            <option value=" ">-</option>
                                                             @foreach($substances as $substance)
-                                                            <option value="{{$substance->id}}">{{$substance->substance}}
-                                                            </option>
+                                                            <option value="{{$substance->id}}">{{$substance->substance}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="form-inline mt-5">
                                                         <label for="vertical-form-1" class="form-label sm:w-20">Harga (Rp)</label>
-                                                        <input type="text" class="form-control" name="index_price">
+                                                        <input type="number" class="form-control" name="index_price" value="0">
                                                     </div>
                                                     <div class="form-inline mt-5">
                                                         <label for="vertical-form-1" class="form-label sm:w-20">Index Tag</label>
@@ -253,37 +252,37 @@
             <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-5">
                 <nav class="w-full sm:w-auto sm:mr-auto">
                     <ul class="pagination">
+                        <!-- Previous Page Link -->
                         @if ($data->onFirstPage())
-                        <li class="page-item disabled" aria-disabled="true">
-                            <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
-                                    data-lucide="chevrons-left"></i></span>
-                        </li>
+                            <li class="page-item disabled" aria-disabled="true">
+                                <span class="page-link" aria-hidden="true"><i class="w-4 h-4" data-lucide="chevrons-left"></i></span>
+                            </li>
                         @else
-                        <li class="page-item">
-                            <a class="page-link" href="{{ $data->previousPageUrl() }}" rel="prev"><i class="w-4 h-4"
-                                    data-lucide="chevron-left"></i></a>
-                        </li>
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $data->previousPageUrl() }}" rel="prev"><i class="w-4 h-4" data-lucide="chevron-left"></i></a>
+                            </li>
                         @endif
 
-                        @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
-                        <li class="page-item @if($page == $data->currentPage()) active @endif">
-                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                        </li>
+                        <!-- Pagination Elements -->
+                        @foreach ($data->getUrlRange(max(1, $data->currentPage() - 2), min($data->lastPage(), $data->currentPage() + 2)) as $page => $url)
+                            <li class="page-item @if($page == $data->currentPage()) active @endif">
+                                <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                            </li>
                         @endforeach
 
+                        <!-- Next Page Link -->
                         @if ($data->hasMorePages())
-                        <li class="page-item">
-                            <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4"
-                                    data-lucide="chevron-right"></i></a>
-                        </li>
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4" data-lucide="chevron-right"></i></a>
+                            </li>
                         @else
-                        <li class="page-item disabled" aria-disabled="true">
-                            <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
-                                    data-lucide="chevrons-right"></i></span>
-                        </li>
+                            <li class="page-item disabled" aria-disabled="true">
+                                <span class="page-link" aria-hidden="true"><i class="w-4 h-4" data-lucide="chevrons-right"></i></span>
+                            </li>
                         @endif
                     </ul>
                 </nav>
+                <p class="pagination-text">Halaman {{ $data->currentPage() }} Dari {{ $data->lastPage() }}</p>
             </div>
         </div>
     </div>

@@ -45,18 +45,22 @@
                     <tr>
                         <th class="whitespace-nowrap">KODE</th>
                         <th class="whitespace-nowrap">NAMA BARANG</th>
+                        <th class="whitespace-nowrap text-center">JENIS BARANG</th>
                         <th class="whitespace-nowrap">SPESIFIKASI</th>
                         <th class="whitespace-nowrap">UKURAN</th>
+                        <th class="whitespace-nowrap">HARGA DASAR (HPP)</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($data as $item)
                     <tr>
-                        <td></td>
+                        <td>{{$item->code}}</td>
                         <td>{{$item->goods_name}}</td>
+                        <td class="text-center">{{$item->goods_type}}</td>
                         <td>{{$item->specification}}</td>
                         <td>{{$item->measure}}</td>
+                        <td></td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 <a class="flex items-center mr-3 text-primary"
@@ -77,6 +81,7 @@
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
             <nav class="w-full sm:w-auto sm:mr-auto">
                 <ul class="pagination">
+                    <!-- Previous Page Link -->
                     @if ($data->onFirstPage())
                     <li class="page-item disabled" aria-disabled="true">
                         <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
@@ -89,12 +94,14 @@
                     </li>
                     @endif
 
-                    @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
+                    <!-- Pagination Elements -->
+                    @foreach ($data->getUrlRange(max(1, $data->currentPage() - 2), min($data->lastPage(), $data->currentPage() + 2)) as $page => $url)
                     <li class="page-item @if($page == $data->currentPage()) active @endif">
                         <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                     </li>
                     @endforeach
 
+                    <!-- Next Page Link -->
                     @if ($data->hasMorePages())
                     <li class="page-item">
                         <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4"
@@ -108,12 +115,7 @@
                     @endif
                 </ul>
             </nav>
-            <select class="w-20 form-select box mt-3 sm:mt-0">
-                <option>10</option>
-                <option>25</option>
-                <option>35</option>
-                <option>50</option>
-            </select>
+            <p class="pagination-text">Halaman {{ $data->currentPage() }} Dari {{ $data->lastPage() }}</p>
         </div>
         <!-- END: Pagination -->
     </div>
@@ -143,10 +145,10 @@
                                         <select data-placeholder="Pilih Jenis Ply"
                                             class="tom-select w-full form-control" name="goods_type" id="goods-type">
                                             <option value="">-</option>
-                                            <option value="1">SHEET</option>
-                                            <option value="2">BOX</option>
-                                            <option value="3">BADAN TUTUP (AB)</option>
-                                            <option value="4">BADAN TUTUP (BB)</option>
+                                            <option value="1">A</option>
+                                            <option value="2">B</option>
+                                            <option value="3">AB</option>
+                                            <option value="4">BB</option>
                                         </select>
                                     </div>
                                     <div class="form-inlin mt-5 standard-type">
@@ -154,10 +156,10 @@
                                         <select data-placeholder="Pilih Jenis Ply"
                                             class="tom-select w-full form-control" name="ply_type">
                                             <option value="">-</option>
-                                            <option value="SF">SINGLE FACE</option>
-                                            <option value="SW">SINGLE WALL</option>
-                                            <option value="DW">DOUBLE WALL</option>
-                                            <option value="TW">TRIPLE WALL</option>
+                                            <option value="SF">SF</option>
+                                            <option value="SW">SW</option>
+                                            <option value="DW">DW</option>
+                                            <option value="TW">TW</option>
                                         </select>
                                     </div>
                                     <div class="form-inlin mt-5 standard-type">
@@ -165,9 +167,9 @@
                                         <select data-placeholder="Pilih Jenis Flute"
                                             class="tom-select w-full form-control" name="flute_type">
                                             <option value=" ">-</option>
-                                            <option value="B">B</option>
-                                            <option value="C">C</option>
-                                            <option value="E">E</option>
+                                            <option value="B">B/F</option>
+                                            <option value="C">C/F</option>
+                                            <option value="E">E/F</option>
                                             <option value="B/C">B/C</option>
                                         </select>
                                     </div>
@@ -341,7 +343,8 @@
                                     </div>
                                 </div>
                                 <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
-                                    <button type="button" data-tw-dismiss="modal" class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
+                                    <button type="button" data-tw-dismiss="modal"
+                                        class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
                                     <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
                                 </div>
                             </form>
@@ -357,15 +360,16 @@
 @endsection
 
 @section('script')
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
 $(document).ready(function() {
     $("#superlarge-modal-size-preview .top-bottom").hide();
     var goods_type = $("#superlarge-modal-size-preview #goods-type").val();
 
-    $("#superlarge-modal-size-preview #goods-type").change(function(){
-        if($(this).val() === "3" || $(this).val() === "4") {
-            $("#superlarge-modal-size-preview .top-bottom").show(); 
+    $("#superlarge-modal-size-preview #goods-type").change(function() {
+        if ($(this).val() === "3" || $(this).val() === "4") {
+            $("#superlarge-modal-size-preview .top-bottom").show();
             $("#superlarge-modal-size-preview .standard-type").hide();
         } else {
             $("#superlarge-modal-size-preview .top-bottom").hide();

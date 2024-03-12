@@ -4,7 +4,7 @@
 .layout-box-p {
     width: 200px;
     height: 100px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     padding: 20px;
     font-size: 12px;
 }
@@ -12,7 +12,7 @@
 .layout-box-p-2 {
     width: 130px;
     height: 100px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     padding: 20px;
     font-size: 12px;
 }
@@ -20,7 +20,7 @@
 .layout-box-l {
     width: 100px;
     height: 100px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     padding: 20px;
     font-size: 12px;
 }
@@ -28,7 +28,7 @@
 .layout-box-t {
     width: 70px;
     height: 100px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     border-right-style: dotted;
     padding: 20px;
     font-size: 12px;
@@ -37,7 +37,7 @@
 .layout-box-k {
     width: 70px;
     height: 100px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     padding: 20px;
     font-size: 12px;
 }
@@ -45,7 +45,7 @@
 .layout-box-row-plep {
     width: 200px;
     height: 50px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     padding: 20px;
     font-size: 12px;
 }
@@ -129,27 +129,65 @@
                 </div>
                 <div class="md:col-span-6 sm:col-span-12">
                     <div class="overflow-y-auto max-h-screen">
-                        <div class="flex flex-col sm:flex-row">
-                            <div class="md:col-span-6">
-                                <div class="flex flex-row">
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="sheet-l-w">W</div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-p h-4 bg-gray-300" id="sheet-l-l">L</div>
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                </div>
+                        <div class="grid grid-cols-12 gap-6">
+                            <div class="col-span-4">
+                                <table style="width:100%;border-collapse: collapse; margin-right: 5px;margin-right: 100px;">
+                                    <tr>
+                                        <td width="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="60px" style="text-align: center;" id="sheet-l-l">
+                                            JP: 2345
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="80px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border-top: 1px solid black;border-left: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-top: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-top: 1px solid black;border-right: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="70px" style="padding: 5px;">
+                                            JL: 1243
+                                        </td>
+                                        <td style="border-left: 1px solid black;text-align: center; padding:17px; height: 20px;">
+                                            
+                                        </td>
+                                        <td style="text-align: center; padding:17px;">
+                                            
+                                        </td>
+                                        <td style="border-right: 1px solid black;text-align: center; padding:17px;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border-bottom: 1px solid black;border-left: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-bottom: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-bottom: 1px solid black;border-right: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
-                            <div class="md:col-span-6">
+                            <div class="col-span-4">
                                 <div id="horizontal-form">
                                     <div class="preview">
                                         <div class="form-inline">
@@ -265,46 +303,106 @@
                 </div>
                 <div class="md:col-span-6 sm:col-span-12">
                     <div class="overflow-y-auto max-h-screen">
-                        <div class="flex flex-col sm:flex-row">
-                            <div class="md:col-span-6">
-                                <div class="flex flex-row">
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l2">L2</div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                        <div class="layout-box-p h-4 bg-gray-300" id="l-p1">P1</div>
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l1">L1</div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-t h-4 bg-gray-300" id="l-plape-1">P</div>
-                                        <div class="layout-box-t h-4 bg-gray-300" id="l-t">T</div>
-                                        <div class="layout-box-t h-4 bg-gray-300" id="l-plape-2">P</div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-p-2 h-4 bg-gray-300"></div>
-                                        <div class="layout-box-p-2 h-4 bg-gray-300" id="l-p2">P2</div>
-                                        <div class="layout-box-p-2 h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-k h-4 bg-gray-300"></div>
-                                        <div class="layout-box-k h-4 bg-gray-300" id="l-k">K</div>
-                                        <div class="layout-box-k h-4 bg-gray-300"></div>
-                                    </div>
-                                </div>
+                        <div class="grid grid-cols-12 gap-6">
+                            <div class="col-span-6">
+                                <table style="border-collapse: collapse;">
+                                    <tr>
+                                        <td width="70px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="70px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="120px" style="text-align: center;">
+                                            JP: 1009
+                                        </td>
+                                        <td width="70px" style="text-align: center;padding: 8px">
+                                            
+                                        </td>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="80px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50px" height="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            PLAPE
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="70px" style="padding: 5px;">
+                                            JL: 1090
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px; height: 20px;">
+                                            L2
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            P1
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            L1
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            T
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            P2
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;width: 5px;">
+                                            K
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            PLAPE
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
-                            <div class="md:col-span-6">
-                                <div id="horizontal-form">
-                                    <div class="preview">
-                                        <div class="form-inline">
-                                            <label for="vertical-form-1" class="form-label sm:w-40">Stitching</label>
+                            <div class="col-span-6">
+                                <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Stitching</label>
                                             <div class="flex flex-col sm:flex-row">
                                                 <div class="form-check mr-2">
                                                     <input id="radio-switch-4" class="form-check-input" type="radio" name="flag_stitching" value="0" checked>
@@ -317,7 +415,7 @@
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
-                                            <label for="vertical-form-1" class="form-label sm:w-40">Lem</label>
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Lem</label>
                                             <div class="flex flex-col sm:flex-row">
                                                 <div class="form-check mr-2">
                                                     <input id="radio-switch-4" class="form-check-input" type="radio" name="flag_glue" value="0" checked>
@@ -330,7 +428,7 @@
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
-                                            <label for="vertical-form-1" class="form-label sm:w-40">Pounch</label>
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Pounch</label>
                                             <div class="flex flex-col sm:flex-row">
                                                 <div class="form-check mr-2">
                                                     <input id="radio-switch-4" class="form-check-input" type="radio" name="flag_pounch" value="0" checked>
@@ -342,15 +440,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <div class="flex flex-col sm:flex-row mt-5">
-                            <div class="md:col-span-6">
+                        <div class="grid grid-cols-12 mt-5">
+                            <div class="col-span-6">
                                 <div id="horizontal-form">
                                     <div class="preview">
-                                        <div class="form-inline">
+                                        <div class="form-inline mt-5">
                                             <label for="horizontal-form-1" class="form-label sm:w-20">Gabung</label>
                                             <select class="form-control" id="flag-join" name="flag_join" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "disabled" : ""; ?> required>
                                                 <option value="">-</option>
@@ -370,7 +466,7 @@
                                         </div>
                                         <div class="form-inline mt-5 ">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
-                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                            <div class="form-inline gap-2">
                                                 <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                                 <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                                 <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="height" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
@@ -409,21 +505,21 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="md:col-span-6">
+                            <div class="col-span-6">
                                 <div id="horizontal-form">
                                     <div class="preview">
-                                        <div class="form-inline">
+                                        <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Netto</label>
-                                            <div class="grid grid-cols-12 gap-2 mr-0">
+                                            <div class="form-inline gap-2">
                                                 <input type="text" class="form-control col-span-6" placeholder="L" name="netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                                 <input type="text" class="form-control col-span-6" placeholder="P" name="netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Bruto</label>
-                                            <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-6" placeholder="L" name="bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-6" placeholder="P" name="bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                            <div class="form-inline gap-2">
+                                                <input type="text" class="form-control" placeholder="L" name="bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="text" class="form-control" placeholder="P" name="bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
@@ -456,38 +552,77 @@
                     <div class="overflow-y-auto max-h-screen">
                         <div class="flex flex-col sm:flex-row gap-5 mr-0">
                             <div class="md:col-span-6">
-                                <div class="flex flex-row">
-                                    <div class="flex flex-col">
-                                        <!-- <div class="layout-box-l h-4 bg-gray-300"></div> -->
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l2">L2</div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <!-- <div class="layout-box-p h-4 bg-gray-300"></div> -->
-                                        <div class="layout-box-p h-4 bg-gray-300" id="l-p1">P1</div>
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <!-- <div class="layout-box-l h-4 bg-gray-300"></div> -->
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l1">L1</div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <!-- <div class="layout-box-t h-4 bg-gray-300" id="l-plape-1"></div> -->
-                                        <div class="layout-box-t h-4 bg-gray-300" id="l-t">T</div>
-                                        <div class="layout-box-t h-4 bg-gray-300" id="l-plape-2">P</div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <!-- <div class="layout-box-p-2 h-4 bg-gray-300"></div> -->
-                                        <div class="layout-box-p-2 h-4 bg-gray-300" id="l-p2">P2</div>
-                                        <div class="layout-box-p-2 h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <!-- <div class="layout-box-k h-4 bg-gray-300"></div> -->
-                                        <div class="layout-box-k h-4 bg-gray-300" id="l-k">K</div>
-                                        <div class="layout-box-k h-4 bg-gray-300"></div>
-                                    </div>
-                                </div>
+                                <table style="border-collapse: collapse;">
+                                    <tr>
+                                        <td width="70px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="70px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="120px" style="text-align: center;">
+                                            JP: 1009
+                                        </td>
+                                        <td width="70px" style="text-align: center;padding: 8px">
+                                            
+                                        </td>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="80px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="70px" style="padding: 5px;">
+                                            JL: 1090
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px; height: 20px;">
+                                            L2
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            P1
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            L1
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            T
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            P2
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;width: 5px;">
+                                            K
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            PLAPE
+                                        </td>
+                                        <td style="text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="md:col-span-6">
                                 <div id="horizontal-form">
@@ -627,23 +762,61 @@
                     <div class="overflow-y-auto max-h-screen">
                         <div class="flex flex-col sm:flex-row gap-5 mr-0">
                             <div class="md:col-span-6">
-                                <div class="flex flex-row">
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l2"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col -mx-1">
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                        <div class="layout-box-p h-4 bg-gray-300" id="l-p1"></div>
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l1"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                </div>
+                                <table style="width:100%;border-collapse: collapse; margin-right: 5px;margin-right: 100px;">
+                                    <tr>
+                                        <td width="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="60px" style="text-align: center;" id="sheet-l-l">
+                                            JP: 2345
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="80px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border-top: 1px solid black;border-left: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-top: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-top: 1px solid black;border-right: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="70px" style="padding: 5px;">
+                                            JL: 1243
+                                        </td>
+                                        <td style="border-left: 1px solid black;text-align: center; padding:17px; height: 20px;">
+                                            
+                                        </td>
+                                        <td style="text-align: center; padding:17px;">
+                                            
+                                        </td>
+                                        <td style="border-right: 1px solid black;text-align: center; padding:17px;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border-bottom: 1px solid black;border-left: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-bottom: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-bottom: 1px solid black;border-right: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="md:col-span-6">
                                 <div id="horizontal-form">
@@ -762,23 +935,64 @@
                     <div class="overflow-y-auto max-h-screen">
                         <div class="flex flex-col sm:flex-row gap-5 mr-0">
                             <div class="md:col-span-6">
-                                <div class="flex flex-row">
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l2"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                        <div class="layout-box-p h-4 bg-gray-300" id="l-p1">L</div>
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l1"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
-                                    </div>
-                                </div>
+                                <table style="border-collapse: collapse;">
+                                    <tr>
+                                        <td width="70px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="70px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="120px" style="text-align: center;">
+                                            JP: 1009
+                                        </td>
+                                        <td width="70px" style="text-align: center;padding: 8px">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50px" height="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            T
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            P
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            T
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="70px" style="padding: 5px;">
+                                            JL: 1090
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px; height: 20px;">
+                                            L
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            L
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            T
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            P
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            T
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="md:col-span-6">
                                 <div id="horizontal-form">
@@ -888,23 +1102,64 @@
                     <div class="overflow-y-auto max-h-screen">
                         <div class="flex flex-col sm:flex-row gap-5 mr-0">
                             <div class="md:col-span-6">
-                                <div class="flex flex-row">
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l2"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                        <div class="layout-box-p h-4 bg-gray-300" id="l-p1">L</div>
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l1"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300">T</div>
-                                    </div>
-                                </div>
+                                <table style="border-collapse: collapse;">
+                                    <tr>
+                                        <td width="70px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="70px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="120px" style="text-align: center;">
+                                            JP: 1009
+                                        </td>
+                                        <td width="70px" style="text-align: center;padding: 8px">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50px" height="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            T
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            P
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            T
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="70px" style="padding: 5px;">
+                                            JL: 1090
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px; height: 20px;">
+                                            L
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            L
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            T
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            P
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            T
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="md:col-span-6">
                                 <div id="horizontal-form">

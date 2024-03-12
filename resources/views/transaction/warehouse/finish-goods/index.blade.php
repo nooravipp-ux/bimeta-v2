@@ -56,12 +56,12 @@
                 <tbody>
                     @foreach($data as $item)
                     <tr>
-                        <td></td>
+                        <td>{{$item->name}}</td>
                         <td>{{$item->specification}}</td>
                         <td>{{$item->measure}}</td>
                         <td class="text-center">{{$item->quantity}}</td>
                         <td class="text-center">{{$item->source_from}}</td>
-                        <td class="text-center">{{$item->date}}</td>
+                        <td class="text-center">{{$item->created_at}}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -72,6 +72,7 @@
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
             <nav class="w-full sm:w-auto sm:mr-auto">
                 <ul class="pagination">
+                    <!-- Previous Page Link -->
                     @if ($data->onFirstPage())
                     <li class="page-item disabled" aria-disabled="true">
                         <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
@@ -84,12 +85,14 @@
                     </li>
                     @endif
 
-                    @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
+                    <!-- Pagination Elements -->
+                    @foreach ($data->getUrlRange(max(1, $data->currentPage() - 2), min($data->lastPage(), $data->currentPage() + 2)) as $page => $url)
                     <li class="page-item @if($page == $data->currentPage()) active @endif">
                         <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                     </li>
                     @endforeach
 
+                    <!-- Next Page Link -->
                     @if ($data->hasMorePages())
                     <li class="page-item">
                         <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4"
@@ -103,12 +106,7 @@
                     @endif
                 </ul>
             </nav>
-            <select class="w-20 form-select box mt-3 sm:mt-0">
-                <option>10</option>
-                <option>25</option>
-                <option>35</option>
-                <option>50</option>
-            </select>
+            <p class="pagination-text">Halaman {{ $data->currentPage() }} Dari {{ $data->lastPage() }}</p>
         </div>
         <!-- END: Pagination -->
     </div>

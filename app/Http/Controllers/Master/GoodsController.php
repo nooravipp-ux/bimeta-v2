@@ -14,12 +14,13 @@ class GoodsController extends Controller
         $data = DB::table('master.m_goods AS goods')
                 ->select([
                     'goods.id',
+                    'goods.code',
                     'goods.name AS goods_name',
                     DB::raw("CASE
-                                WHEN goods.type = '1' THEN 'SHEET'
-                                WHEN goods.type = '2' THEN 'BOX'
-                                WHEN goods.type = '3' THEN 'BADAN TUTUP (AB)'
-                                ELSE 'BADAN TUTUP (BB)'
+                                WHEN goods.type = '1' THEN 'A'
+                                WHEN goods.type = '2' THEN 'B'
+                                WHEN goods.type = '3' THEN 'AB'
+                                ELSE 'BB'
                             END AS goods_type"),
                     DB::raw("CASE
                                 WHEN goods.type = '1' OR goods.type = '2' THEN CONCAT(goods.ply_type, ' ', goods.flute_type, ' ', goods.substance)
@@ -43,6 +44,7 @@ class GoodsController extends Controller
     public function save(Request $request) {
         if($request->goods_type == 1) {
             DB::table('master.m_goods')->insert([
+                "code" => $request->code,
                 "name" => $request->name,
                 "type" => $request->goods_type,
                 "price" => $request->price,
@@ -58,6 +60,7 @@ class GoodsController extends Controller
             ]);
         } else if ($request->goods_type == 2) {
             DB::table('master.m_goods')->insert([
+                "code" => $request->code,
                 "name" => $request->name,
                 "type" => $request->goods_type,
                 "price" => $request->price,
@@ -74,6 +77,7 @@ class GoodsController extends Controller
             ]);
         } else {
             DB::table('master.m_goods')->insert([
+                "code" => $request->code,
                 "name" => $request->name,
                 "type" => $request->goods_type,
                 "top_price" => $request->top_price,
@@ -107,9 +111,9 @@ class GoodsController extends Controller
     }
 
     public function update(Request $request) {
-
         if($request->type <= 2) {
             DB::table('master.m_goods')->where('id', $request->id)->update([
+                "code" => $request->code,
                 "name" => $request->name,
                 "type" => $request->goods_type,
                 "price" => $request->price,
@@ -127,6 +131,7 @@ class GoodsController extends Controller
 
         if($request->type > 2) {
             DB::table('master.m_goods')->where('id', $request->id)->update([
+                "code" => $request->code,
                 "name" => $request->name,
                 "type" => $request->goods_type,
                 "top_price" => $request->top_price,

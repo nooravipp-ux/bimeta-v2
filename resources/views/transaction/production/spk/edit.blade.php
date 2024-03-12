@@ -105,60 +105,27 @@
                     </div>
                 </form>
             </div>
-
-            <div class="intro-y box mt-5">
-                <div
-                    class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
-                    <h2 class="font-medium text-base mr-auto">
-                        Proses Produksi
-                    </h2>
-                </div>
-                <form method="POST" action="{{route('production.spk.progress-item.save')}}">
-                    @csrf
-                    <div id="horizontal-form" class="p-5">
-                        <div class="preview">
-                            <div class="form-inline">
-                                <label for="vertical-form-1" class="form-label sm:w-20">Nama</label>
-                                <select data-placeholder="Pilih Proses" class="tom-select w-full form-control" name="process_id">
-                                    @foreach($productionProcesses as $process)
-                                    <option value="{{$process->id}}">{{$process->process_name}}</option>
-                                    @endforeach
-                                </select>
-                                <input type="hidden" class="form-control" name="spk_id" value="{{$data->spk_id}}">
-                            </div>
-                            <div class="form-inline mt-5">
-                                <label for="vertical-form-1" class="form-label sm:w-20">Ururtan</label>
-                                <input type="text" class="form-control" value="" name="sequence_order">
-                            </div>
-                        </div>
-                        <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
-                            <button type="submit" id="calculate-hpp"
-                                class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
             <div class="intro-y box mt-5">
                 <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                     <h2 class="font-medium text-base mr-auto">
-                        Urutan Proses Produksi
+                        Proses Produksi
                     </h2>
+                    <a href="javascript:;" class="flex items-center ml-auto text-primary" data-tw-toggle="modal" data-tw-target="#add-process-prod"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Tambah Proses </a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead class="bg-primary text-white">
                             <tr>
-                                <th>Nama Proses</th>
                                 <th class="text-center">Urutan</th>
+                                <th>Nama Proses</th>
                                 <th class="text-center">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($productionProcessesItem as $process)
                             <tr>
-                                <td>{{$process->process_name}}</td>
                                 <td class="text-center">{{$process->sequence_order}}</td>
+                                <td>{{$process->process_name}}</td>
                                 <td class="text-center">
                                     @if($process->status == 1)
                                     <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">INIT</div>
@@ -174,6 +141,50 @@
                     </table>
                 </div>
             </div>
+                <div id="add-process-prod" class="modal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <!-- BEGIN: Horizontal Form -->
+                                <div class="intro-y box">
+                                    <div
+                                        class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                                        <h2 class="font-medium text-base mr-auto">
+                                            Tambah Proses Produksi
+                                        </h2>
+                                    </div>
+                                    <div id="horizontal-form" class="p-5">
+                                        <form method="POST" action="{{route('production.spk.progress-item.save')}}">
+                                            @csrf
+                                            <div id="horizontal-form" class="p-5">
+                                                <div class="preview">
+                                                    <div class="form-inline">
+                                                        <label for="vertical-form-1" class="form-label sm:w-20">Nama</label>
+                                                        <select data-placeholder="Pilih Proses" class="tom-select w-full form-control" name="process_id">
+                                                            @foreach($productionProcesses as $process)
+                                                            <option value="{{$process->id}}">{{$process->process_name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <input type="hidden" class="form-control" name="spk_id" value="{{$data->spk_id}}">
+                                                    </div>
+                                                    <div class="form-inline mt-5">
+                                                        <label for="vertical-form-1" class="form-label sm:w-20">Ururtan</label>
+                                                        <input type="text" class="form-control" value="" name="sequence_order">
+                                                    </div>
+                                                </div>
+                                                <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                                    <button type="submit" id="calculate-hpp"
+                                                        class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- END: Horizontal Form -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
         @if($data->type == 2)
         <form method="POST" action="{{route('production.spk.save')}}"
@@ -183,46 +194,106 @@
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">NO. SPK : {{$data->spk_no}}</div>
                     <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i
-                            data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                            data-lucide="calculator" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
                 </div>
                 <div class="md:col-span-6 sm:col-span-12">
                     <div class="overflow-y-auto max-h-screen">
                         <div class="flex flex-col sm:flex-row">
                             <div class="md:col-span-6">
-                                <div class="flex flex-row">
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l2">{{$data->l2}}</div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                        <div class="layout-box-p h-4 bg-gray-300" id="l-p1">{{$data->p1}}</div>
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l1">{{$data->l1}}</div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-t h-4 bg-gray-300" id="l-plape-1">{{$data->plape}}
-                                        </div>
-                                        <div class="layout-box-t h-4 bg-gray-300" id="l-t">{{$data->t}}</div>
-                                        <div class="layout-box-t h-4 bg-gray-300" id="l-plape-2">{{$data->plape}}
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-p-2 h-4 bg-gray-300"></div>
-                                        <div class="layout-box-p-2 h-4 bg-gray-300" id="l-p2">{{$data->p2}}</div>
-                                        <div class="layout-box-p-2 h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-k h-4 bg-gray-300"></div>
-                                        <div class="layout-box-k h-4 bg-gray-300" id="l-k">{{$data->k}}</div>
-                                        <div class="layout-box-k h-4 bg-gray-300"></div>
-                                    </div>
-                                </div>
+                                <table style="border-collapse: collapse;">
+                                    <tr>
+                                        <td width="70px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="70px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="120px" style="text-align: center;">
+                                            JP: {{$data->netto_length}} 
+                                        </td>
+                                        <td width="70px" style="text-align: center;padding: 8px">
+                                            
+                                        </td>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="80px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50px" height="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            {{$data->plape}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="70px" style="padding: 5px;">
+                                            JL: {{$data->netto_width}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px; height: 20px;">
+                                            {{$data->l2}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            {{$data->p1}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            {{$data->l1}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            {{$data->t}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            {{$data->p2}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;width: 5px;">
+                                            {{$data->k}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            {{$data->plape}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="md:col-span-6">
                                 <div id="horizontal-form">
@@ -389,31 +460,67 @@
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">NO. SPK : {{$data->spk_no}}</div>
                     <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i
-                            data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                            data-lucide="calculator" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
                 </div>
                 <div class="md:col-span-6 sm:col-span-12">
                     <div class="overflow-y-auto max-h-screen">
                         <div class="flex flex-col sm:flex-row">
                             <div class="md:col-span-6">
-                                <div class="flex flex-row">
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="sheet-l-w">
-                                            {{$data->netto_width}}</div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-p h-4 bg-gray-300" id="sheet-l-l">
-                                            {{$data->netto_length}}</div>
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                </div>
+                                <table style="width:100%;border-collapse: collapse; margin-right: 5px;margin-right: 100px;">
+                                    <tr>
+                                        <td width="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="60px" style="text-align: center;" id="sheet-l-l">
+                                            JP: {{$data->netto_width}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="80px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border-top: 1px solid black;border-left: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-top: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-top: 1px solid black;border-right: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="70px" style="padding: 5px;">
+                                            JL: {{$data->netto_length}}
+                                        </td>
+                                        <td style="border-left: 1px solid black;text-align: center; padding:17px; height: 20px;">
+                                            
+                                        </td>
+                                        <td style="text-align: center; padding:17px;">
+                                            
+                                        </td>
+                                        <td style="border-right: 1px solid black;text-align: center; padding:17px;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border-bottom: 1px solid black;border-left: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-bottom: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-bottom: 1px solid black;border-right: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="md:col-span-6">
                                 <div id="horizontal-form">
@@ -544,44 +651,106 @@
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">NO. SPK : {{$data->spk_no}}</div>
-                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="calculator" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
                 </div>
                 <div class="md:col-span-6 sm:col-span-12">
                     <div class="overflow-y-auto max-h-screen">
                         <div class="flex flex-col sm:flex-row gap-5 mr-0">
                             <div class="md:col-span-6">
-                                <div class="flex flex-row">
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l2">{{$data->l2}}</div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                        <div class="layout-box-p h-4 bg-gray-300" id="l-p1">{{$data->p1}}</div>
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l1">{{$data->l1}}</div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-t h-4 bg-gray-300" id="l-plape-1"></div>
-                                        <div class="layout-box-t h-4 bg-gray-300" id="l-t">{{$data->t}}</div>
-                                        <div class="layout-box-t h-4 bg-gray-300" id="l-plape-2">{{$data->plape}}</div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-p-2 h-4 bg-gray-300"></div>
-                                        <div class="layout-box-p-2 h-4 bg-gray-300" id="l-p2">{{$data->p2}}</div>
-                                        <div class="layout-box-p-2 h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-k h-4 bg-gray-300"></div>
-                                        <div class="layout-box-k h-4 bg-gray-300" id="l-k">{{$data->k}}</div>
-                                        <div class="layout-box-k h-4 bg-gray-300"></div>
-                                    </div>
-                                </div>
+                                <table style="border-collapse: collapse;">
+                                    <tr>
+                                        <td width="70px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="70px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="120px" style="text-align: center;">
+                                            JP: {{$data->netto_length}} 
+                                        </td>
+                                        <td width="70px" style="text-align: center;padding: 8px">
+                                            
+                                        </td>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="80px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50px" height="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            {{$data->plape}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="70px" style="padding: 5px;">
+                                            JL: {{$data->netto_width}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px; height: 20px;">
+                                            {{$data->l2}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            {{$data->p1}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            {{$data->l1}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            {{$data->t}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            {{$data->p2}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;width: 5px;">
+                                            {{$data->k}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            {{$data->plape}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="md:col-span-6">
                                 <div id="horizontal-form">
@@ -725,29 +894,67 @@
             <div class="box p-5 rounded-md mt-2">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">NO. SPK : {{$data->spk_no}}</div>
-                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="calculator" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
                 </div>
                 <div class="md:col-span-6 sm:col-span-12">
                     <div class="overflow-y-auto max-h-screen">
                         <div class="flex flex-col sm:flex-row gap-5 mr-0">
                             <div class="md:col-span-6">
-                                <div class="flex flex-row">
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l2"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col -mx-1">
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                        <div class="layout-box-p h-4 bg-gray-300" id="l-p1"></div>
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l1"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300"></div>
-                                    </div>
-                                </div>
+                                <table style="width:100%;border-collapse: collapse; margin-right: 5px;margin-right: 100px;">
+                                    <tr>
+                                        <td width="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="60px" style="text-align: center;" id="sheet-l-l">
+                                            JP: {{$data->netto_width}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="80px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border-top: 1px solid black;border-left: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-top: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-top: 1px solid black;border-right: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="70px" style="padding: 5px;">
+                                            JL: {{$data->netto_length}}
+                                        </td>
+                                        <td style="border-left: 1px solid black;text-align: center; padding:17px; height: 20px;">
+                                            
+                                        </td>
+                                        <td style="text-align: center; padding:17px;">
+                                            
+                                        </td>
+                                        <td style="border-right: 1px solid black;text-align: center; padding:17px;">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border-bottom: 1px solid black;border-left: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-bottom: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                        <td style="border-bottom: 1px solid black;border-right: 1px solid black;text-align: center; padding:10px;">
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="md:col-span-6">
                                 <div id="horizontal-form">
@@ -866,29 +1073,70 @@
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">NO. SPK : {{$data->spk_no}}</div>
-                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="calculator" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
                 </div>
                 <div class="md:col-span-6 sm:col-span-12">
                     <div class="overflow-y-auto max-h-screen">
                         <div class="flex flex-col sm:flex-row gap-5 mr-0">
                             <div class="md:col-span-6">
-                                <div class="flex flex-row">
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"><span>{{$data->height}}</span></div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l2"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300"><span>{{$data->height}}</span></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-p h-4 bg-gray-300 pb-0"><span>{{$data->length}}</span></div>
-                                        <div class="layout-box-p h-4 bg-gray-300" id="l-p1"><span>{{$data->width}}</span></div>
-                                        <div class="layout-box-p h-4 bg-gray-300"></div>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <div class="layout-box-l h-4 bg-gray-300"><span>{{$data->height}}</span></div>
-                                        <div class="layout-box-l h-4 bg-gray-300" id="l-l1"></div>
-                                        <div class="layout-box-l h-4 bg-gray-300"><span>{{$data->height}}</span></div>
-                                    </div>
-                                </div>
+                                <table style="border-collapse: collapse;">
+                                    <tr>
+                                        <td width="70px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="70px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td width="120px" style="text-align: center;">
+                                            JP: {{$data->netto_length}}
+                                        </td>
+                                        <td width="70px" style="text-align: center;padding: 8px">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50px" height="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            {{$data->height}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            {{$data->length}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            {{$data->height}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="70px" style="padding: 5px;">
+                                            JL: {{$data->netto_width}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px; height: 20px;">
+                                            {{$data->width}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:17px;">
+                                            {{$data->width}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="50px" style="text-align: center;">
+                                            
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            {{$data->height}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            {{$data->length}}
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center; padding:10px;">
+                                            {{$data->height}}
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="md:col-span-6">
                                 <div id="horizontal-form">

@@ -18,7 +18,7 @@
                             <div class="preview">
                                 <div class="form-inline">
                                     <label for="vertical-form-1" class="form-label sm:w-20">Code</label>
-                                    <input type="text" class="form-control" name="name" value="{{$data->code}}">
+                                    <input type="text" class="form-control" name="code" value="{{$data->code}}">
                                 </div>
                                 <div class="form-inline mt-5">
                                     <label for="vertical-form-1" class="form-label sm:w-20">Nama </label>

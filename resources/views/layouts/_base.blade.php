@@ -355,7 +355,7 @@
                         </li> -->
                     <li>
                         <a href="{{route('index-price.index')}}" class="top-menu">
-                            <div class="top-menu__icon"> <i data-lucide="smartphone"></i> </div>
+                            <div class="top-menu__icon"> <i data-lucide="calculator"></i> </div>
                             <div class="top-menu__title"> Kalkulator Index Harga</div>
                         </a>
                     </li>
@@ -538,12 +538,6 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="" class="top-menu">
-                            <div class="top-menu__icon"> <i data-lucide="settings"></i> </div>
-                            <div class="top-menu__title">Numbering Scheme</div>
-                        </a>
                     </li>
                     <li>
                         <a href="" class="top-menu">

@@ -48,9 +48,9 @@
                         <th class="whitespace-nowrap">NO ROLL</th>
                         <th class="whitespace-nowrap">NAMA BARANG</th>
                         <th class="whitespace-nowrap text-center">LEBAR (CM)</th>
-                        <th class="whitespace-nowrap">GRAMATURE</th>
                         <th class="whitespace-nowrap text-center">BERAT (KG)</th>
-                        <!-- <th class="whitespace-nowrap">SUMBER</th> -->
+                        <th class="whitespace-nowrap text-center">REFERENCE</th>
+                        <th class="whitespace-nowrap text-center">LOKASI PENYIMPANAN</th>
                         <th class="whitespace-nowrap">TANGGAL MASUK</th>
                     </tr>
                 </thead>
@@ -60,9 +60,9 @@
                         <td>{{$item->no_roll}}</td>
                         <td>{{$item->name}}</td>
                         <td class="whitespace-nowrap text-center">{{$item->width}}</td>
-                        <td>{{$item->gramature}} {{$item->unit}}</td>
                         <td class="whitespace-nowrap text-center">{{$item->weight}}</td>
-                        <!-- <td>{{$item->source_from}}</td> -->
+                        <td class="text-center">{{$item->source_from}}</td>
+                        <td class="text-center">A15</td>
                         <td>{{$item->created_at}}</td>
                     </tr>
                     @endforeach

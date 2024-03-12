@@ -55,9 +55,70 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    @foreach($data as $item)
+                    <tr>
+                        <td class="whitespace-nowrap">{{$item->code}}</td>
+                        <td class="whitespace-nowrap">{{$item->name}}</td>
+                        <td class="whitespace-nowrap">{{$item->address}}</td>
+                        <td class="whitespace-nowrap">{{$item->phone_number}}</td>
+                        <td class="text-center">{{$item->pic}}</td>
+                        <td class="text-center">{{$item->tax_type}}</td>
+                        <td class="table-report__action w-56">
+                            <div class="flex justify-center items-center">
+                                <a class="flex items-center mr-3 text-primary"
+                                    href="{{route('supplier.edit', ['id' => $item->id])}}"> <i data-lucide="edit"
+                                        class="w-4 h-4 mr-1"></i> Edit </a>
+                                <a class="flex items-center text-danger"
+                                    href="{{route('supplier.delete', ['id' => $item->id])}}" data-tw-toggle="modal"
+                                    data-tw-target="#delete-confirmation-modal"> <i data-lucide="trash-2"
+                                        class="w-4 h-4 mr-1"></i> Delete </a>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
+        </div>
+
+        <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+            <nav class="w-full sm:w-auto sm:mr-auto">
+                <ul class="pagination">
+                    <!-- Previous Page Link -->
+                    @if ($data->onFirstPage())
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
+                                data-lucide="chevrons-left"></i></span>
+                    </li>
+                    @else
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $data->previousPageUrl() }}" rel="prev"><i class="w-4 h-4"
+                                data-lucide="chevron-left"></i></a>
+                    </li>
+                    @endif
+
+                    <!-- Pagination Elements -->
+                    @foreach ($data->getUrlRange(max(1, $data->currentPage() - 2), min($data->lastPage(),
+                    $data->currentPage() + 2)) as $page => $url)
+                    <li class="page-item @if($page == $data->currentPage()) active @endif">
+                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                    </li>
+                    @endforeach
+
+                    <!-- Next Page Link -->
+                    @if ($data->hasMorePages())
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4"
+                                data-lucide="chevron-right"></i></a>
+                    </li>
+                    @else
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
+                                data-lucide="chevrons-right"></i></span>
+                    </li>
+                    @endif
+                </ul>
+            </nav>
+            <p class="pagination-text">Halaman {{ $data->currentPage() }} Dari {{ $data->lastPage() }}</p>
         </div>
         <!-- END: Data List -->
         <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
@@ -125,40 +186,5 @@
 @endsection
 
 @section('script')
-<script>
-$(function() {
-        var dataTable = $('#data-table').DataTable({
-            processing: true,
-            serverSide: true,
-            searching: false, // Hide the search input
-            lengthChange: false, // Hide the "Show X entries" dropdown
-            info: false, // Hide the "Showing X of Y entries" info
-            autoWidth: true,
-            ajax: {
-                url: '{{route("api.master.supplier")}}', // Replace with your actual API endpoint
-                type: 'GET',
-                dataSrc: 'data',
-                data: function (d) {
-                    d.start = d.start || 0; // Start index
-                    d.length = d.length || 2; // Number of records per page
-                    d.draw = d.draw || 1;
-                    d.search = $('#searchInput').val(); // Get the value from the search input field
-                }
-            },
-            columns: [
-                { data: 'code' },
-                { data: 'name' },
-                { data: 'address' },
-                { data: 'phone_number' },
-                { data: 'pic' },
-                { data: 'tax_type' },
-                { data: 'tax_type' }
-            ]
-        });
 
-        $('#searchInput').on('input', function () {
-            dataTable.ajax.reload();
-        });
-})
-</script>
 @endsection

@@ -431,7 +431,6 @@ class ProductionController extends Controller
 
         DB::table('transaction.t_stock_finish_goods')->insert([
             "goods_id" => $spk->goods_id,
-            "date" => date('Y-m-d H:i:s'),
             "quantity" => $spk->quantity,
             "source_from" => $spk->spk_no,
             "created_at" => date('Y-m-d H:i:s'),
@@ -445,6 +444,7 @@ class ProductionController extends Controller
         $data = DB::table('transaction.t_detail_sales_order as detail_sales_order')
                 ->join('transaction.t_spk as spk', 'spk.detail_sales_order_id', '=', 'detail_sales_order.id')
                 ->join('transaction.t_sales_order as sales_order', 'sales_order.id', '=', 'detail_sales_order.sales_order_id')
+                ->join('public.users as user', 'user.id', '=', 'sales_order.assign_to')
                 ->join('master.m_goods as goods', 'goods.id', '=', 'detail_sales_order.goods_id')
                 ->join('master.m_customer as customer', 'customer.id', '=', 'sales_order.customer_id')
                 ->select(
@@ -453,6 +453,7 @@ class ProductionController extends Controller
                     'goods.name AS goods_name',
                     'customer.name as customer_name',
                     'sales_order.ref_po_customer',
+                    'user.name as pic',
                     DB::raw("CASE
                                 WHEN goods.type = '1' THEN 'A' 
                                 WHEN goods.type = '2' THEN 'B' 
@@ -605,6 +606,7 @@ class ProductionController extends Controller
                 ->select(
                     'spk.id AS spk_id',
                     'spk.spk_no',
+                    'spk.spk_type',
                     'spk.*',
                     'spk.length',
                     'spk.width',

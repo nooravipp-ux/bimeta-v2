@@ -10,7 +10,7 @@ use Auth;
 class SupplierController extends Controller
 {
     public function index() {
-        $data = DB::table('master.m_supplier')->orderBy('id')->paginate(20);
+        $data = DB::table('master.m_supplier')->orderBy('id')->paginate(10);
         return view('master.supplier.index', compact('data'));
     }
 

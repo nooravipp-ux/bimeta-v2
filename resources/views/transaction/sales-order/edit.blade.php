@@ -4,50 +4,51 @@
 @section('main-content')
 <div class="content content--top-nav">
     <!-- BEGIN: Transaction Details -->
-    <div class="intro-y grid grid-cols-11 gap-5 mt-5">
-        <div class="col-span-12 lg:col-span-4 2xl:col-span-3">
+    <div class="intro-y grid grid-cols-12 gap-5 mt-5">
+        <div class="col-span-12 lg:col-span-4 2xl:col-span-4">
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Informasi Pesanan</div>
                 </div>
-                <div class="mt-5">
-                    <label for="vertical-form-1" class="form-label">No Sales Order</label> 
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">No Sales Order</label> 
                     <input id="vertical-form-1" type="text" class="form-control" value="{{$salesOrder->transaction_no}}" readonly>
+                    <input id="vertical-form-1" type="hidden" class="form-control" name="id" value="{{$salesOrder->id}}" readonly>
                 </div>
-                <div class="mt-5">
-                    <label for="vertical-form-1" class="form-label">No P.O Customer</label> 
-                    <input id="vertical-form-1" type="text" class="form-control" value="{{$salesOrder->ref_po_customer}}">
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">No P.O Customer</label> 
+                    <input id="vertical-form-1" type="text" class="form-control" name="id" value="{{$salesOrder->ref_po_customer}}">
                 </div>
-                <div class="mt-5">
-                    <label for="vertical-form-1" class="form-label">Nama Customer</label> 
-                    <input id="vertical-form-1" type="text" class="form-control" value="{{$salesOrder->cust_name}}">
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">Nama Customer</label> 
+                    <input id="vertical-form-1" type="text" class="form-control" name="id" value="{{$salesOrder->cust_name}}">
                 </div>
-                <div class="mt-5">
-                    <label for="vertical-form-1" class="form-label">Tanggal P.O</label> 
-                    <input id="vertical-form-1" type="date" class="form-control" value="{{$salesOrder->order_date}}">
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">Tanggal P.O</label> 
+                    <input id="vertical-form-1" type="date" class="form-control" name="id" value="{{$salesOrder->order_date}}">
                 </div>
-                <div class="mt-5">
-                    <label for="vertical-form-1" class="form-label">Tanggal kirim (Plan)</label> 
-                    <input id="vertical-form-1" type="date" class="form-control" value="{{$salesOrder->delivery_date}}">
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">Tanggal kirim (Plan)</label> 
+                    <input id="vertical-form-1" type="date" class="form-control" name="id" value="{{$salesOrder->delivery_date}}">
                 </div>
-                <div class="mt-5">
-                    <label for="vertical-form-1" class="form-label">Status</label> 
-                    <input id="vertical-form-1" type="text" class="form-control" value="{{$salesOrder->str_status}}" readonly>
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">Status</label> 
+                    <input id="vertical-form-1" type="text" class="form-control" name="id" value="{{$salesOrder->str_status}}" readonly>
                 </div>
-                <div class="mt-5">
-                    <label for="vertical-form-1" class="form-label">Jenis Pajak</label> 
-                    <input id="vertical-form-1" type="text" class="form-control" value="{{$salesOrder->str_tax_type}}">
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">Jenis Pajak</label> 
+                    <input id="vertical-form-1" type="text" class="form-control" name="id" value="{{$salesOrder->str_tax_type}}">
                 </div>
-                <div class="mt-5">
-                    <label for="vertical-form-1" class="form-label">Alamat Pengiriman</label> 
-                    <textarea id="vertical-form-1" type="text" class="form-control">{{$salesOrder->shipping_address}}</textarea>
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">Alamat Pengiriman</label> 
+                    <textarea id="vertical-form-1" type="text" name="id" class="form-control">{{$salesOrder->shipping_address}}</textarea>
                 </div>
                 <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
                         <button type="button" id="calculate-hpp" class="btn py-3 btn-primary w-full md:w-52">Update</button>
                 </div>
             </div>
         </div>
-        <div class="col-span-12 lg:col-span-7 2xl:col-span-8">
+        <div class="col-span-12 lg:col-span-8 2xl:col-span-8">
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Detail Pesanan</div>
