@@ -82,14 +82,16 @@ class GoodsReceiveController extends Controller
             "created_by" => Auth::user()->name,
         ]);
 
-        $detail_purchase = DB::table('transaction.t_detail_purchase')->where('id', $request->detail_purchase_id)->first();
+        $detail_purchase = DB::table('transaction.t_detail_purchase as detail_purchase_order')
+                        ->join('transaction.t_purchase as purchase', 'purchase.id', '=', 'detail_purchase_order.purchase_id')
+                        ->where('detail_purchase_order.id', $request->detail_purchase_id)->first();
 
         DB::table('transaction.t_stock_raw_material')->insert([
             "material_id" => $detail_purchase->material_id,
             "width" => $detail_purchase->width,
             "no_roll" => $request->no_roll,
             "weight" => $request->weight,
-            "source_from" => "",
+            "source_from" => $detail_purchase->po_no,
             "created_at" => date('Y-m-d H:i:s'),
             "created_by" => Auth::user()->name,
         ]);

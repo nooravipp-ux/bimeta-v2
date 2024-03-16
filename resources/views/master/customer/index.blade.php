@@ -120,7 +120,7 @@
                     @endif
                 </ul>
             </nav>
-            <p class="pagination-text">Halaman {{ $data->currentPage() }} Dari {{ $data->lastPage() }}</p>
+            <p class="pagination-text">Halaman {{ $data->currentPage() }} Dari {{ $data->lastPage() }}</p>    
         </div>
         <!-- END: Pagination -->
         <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">

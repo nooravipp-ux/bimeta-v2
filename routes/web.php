@@ -99,8 +99,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/warehouse/shipping/detail/delete/{id}', [App\Http\Controllers\Transaction\DeliveryController::class, 'deleteDetail'])->name('warehouse.delivery.detail.delete');
     Route::get('/warehouse/shipping/print/{id}', [App\Http\Controllers\Transaction\DeliveryController::class, 'print'])->name('warehouse.delivery.print');
 
-    Route::get('/warehouse/finish-goods', [App\Http\Controllers\Transaction\FinishGoodsController::class, 'index'])->name('warehouse.finish-goods.index');
-    Route::get('/warehouse/raw-materials', [App\Http\Controllers\Transaction\RawMaterialController::class, 'index'])->name('warehouse.raw-material.index');
+    Route::prefix('warehouse')->group(function () {
+        Route::prefix('raw-materials')->group(function () {
+            Route::get('/', [App\Http\Controllers\Transaction\RawMaterialController::class, 'index'])->name('warehouse.raw-material.index');
+            Route::post('/stock-opname/save', [App\Http\Controllers\Transaction\RawMaterialController::class, 'saveStockOpname'])->name('warehouse.raw-materials.stock-opname.save');
+            Route::post('/stock-adjustment/save', [App\Http\Controllers\Transaction\RawMaterialController::class, 'saveStockAdjustment'])->name('warehouse.raw-materials.stock-adjustment.save');
+            Route::get('/print-label/{id}', [App\Http\Controllers\Transaction\RawMaterialController::class, 'printLabel'])->name('warehouse.raw-materials.print-label');
+        });
+
+        Route::prefix('finish-goods')->group(function () {
+            Route::get('/', [App\Http\Controllers\Transaction\FinishGoodsController::class, 'index'])->name('warehouse.finish-goods.index');
+        });
+    });
 
     Route::get('/procurement/purchase-order', [App\Http\Controllers\Transaction\PurchaseOrderController::class, 'index'])->name('procurement.purchase-order.index');
     Route::get('/procurement/purchase-order/create', [App\Http\Controllers\Transaction\PurchaseOrderController::class, 'create'])->name('procurement.purchase-order.create');
@@ -116,6 +126,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/procurement/goods-receive/detail/save', [App\Http\Controllers\Transaction\GoodsReceiveController::class, 'saveDetail'])->name('procurement.goods-receive.detail.save');
     Route::get('/procurement/goods-receive/delete/{id}', [App\Http\Controllers\Transaction\GoodsReceiveController::class, 'deleteDetail'])->name('procurement.goods-receive.detail.delete');
 
+    Route::prefix('finance')->group(function () {
+        Route::prefix('invoice')->group(function () {
+            Route::get('/', [App\Http\Controllers\Transaction\InvoiceController::class, 'index'])->name('finance.invoice.index');
+            Route::post('/save', [App\Http\Controllers\Transaction\InvoiceController::class, 'save'])->name('finance.invoice.save');
+            Route::get('/edit/{id}', [App\Http\Controllers\Transaction\InvoiceController::class, 'edit'])->name('finance.invoice.edit');
+            Route::get('/print/{id}', [App\Http\Controllers\Transaction\InvoiceController::class, 'print'])->name('finance.invoice.print');
+        });
+    });
+
     Route::prefix('settings')->group(function () {
         Route::prefix('user-management')->group(function () {
             Route::prefix('users')->group(function () {
@@ -129,15 +148,6 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/update', [App\Http\Controllers\Transaction\RoleController::class, 'update'])->name('settings.user-management.role.update');
                 Route::get('/delete/{id}', [App\Http\Controllers\Transaction\RoleController::class, 'delete'])->name('settings.user-management.role.delete');
             });
-        });
-    });
-
-    Route::prefix('finance')->group(function () {
-        Route::prefix('invoice')->group(function () {
-            Route::get('/', [App\Http\Controllers\Transaction\InvoiceController::class, 'index'])->name('finance.invoice.index');
-            Route::post('/save', [App\Http\Controllers\Transaction\InvoiceController::class, 'save'])->name('finance.invoice.save');
-            Route::get('/edit/{id}', [App\Http\Controllers\Transaction\InvoiceController::class, 'edit'])->name('finance.invoice.edit');
-            Route::get('/print/{id}', [App\Http\Controllers\Transaction\InvoiceController::class, 'print'])->name('finance.invoice.print');
         });
     });
 });

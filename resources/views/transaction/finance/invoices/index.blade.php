@@ -91,7 +91,7 @@
                                 @csrf
                                 <div class="preview">
                                     <div class="form-inline">
-                                    <label for="vertical-form-1" class="form-label sm:w-40">Reference</label>
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Reference</label>
                                         <select data-placeholder="Pilih Proses" class="tom-select w-full form-control" name="delivery_order_id">
                                             <option value=" ">-</option>
                                             @foreach($references as $ref)
@@ -100,7 +100,7 @@
                                         </select>
                                     </div>
                                     <div class="form-inline mt-5">
-                                        <label for="vertical-form-1" class="form-label sm:w-40">Tanggal</label>
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Tanggal Invoice</label>
                                         <input id="vertical-form-1" type="date" class="form-control" name="date" required>
                                     </div>
                                     <div class="form-inline mt-5">

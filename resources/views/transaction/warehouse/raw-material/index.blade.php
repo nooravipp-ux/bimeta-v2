@@ -8,8 +8,8 @@
 <div class="content content--top-nav">
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="{{route('goods.create')}}" class="btn btn-primary shadow-md mr-2">Stock Opname</a>
-            <a href="{{route('goods.create')}}" class="btn btn-primary shadow-md mr-2">Stock Adjustment</a>
+            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#stok-opname" class="btn btn-primary shadow-md mr-2">Stok Opname</a>
+            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#stok-adjustment" class="btn btn-primary shadow-md mr-2">Stok Adjustment</a>
             <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
@@ -46,12 +46,14 @@
                 <thead class="bg-primary text-white">
                     <tr> 
                         <th class="whitespace-nowrap">NO ROLL</th>
-                        <th class="whitespace-nowrap">NAMA BARANG</th>
+                        <th class="whitespace-nowrap">NAMA MATERIAL</th>
                         <th class="whitespace-nowrap text-center">LEBAR (CM)</th>
                         <th class="whitespace-nowrap text-center">BERAT (KG)</th>
                         <th class="whitespace-nowrap text-center">REFERENCE</th>
                         <th class="whitespace-nowrap text-center">LOKASI PENYIMPANAN</th>
-                        <th class="whitespace-nowrap">TANGGAL MASUK</th>
+                        <th class="whitespace-nowrap text-center">TANGGAL MASUK</th>
+                        <th class="whitespace-nowrap text-center">TERAKHIR DI PERBAHARUI</th>
+                        <th class="whitespace-nowrap text-center">ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,7 +65,20 @@
                         <td class="whitespace-nowrap text-center">{{$item->weight}}</td>
                         <td class="text-center">{{$item->source_from}}</td>
                         <td class="text-center">A15</td>
-                        <td>{{$item->created_at}}</td>
+                        <td class="text-center"><?php echo date("d/m/Y H:i:s", strtotime($item->created_at)); ?></td>
+                        <td class="text-center">
+                            @if($item->updated_at != NULL)
+                                <?php echo date("d/m/Y H:i:s", strtotime($item->updated_at)); ?>
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td class="table-report__action w-56">
+                            <div class="flex justify-center items-center">
+                                <a class="flex items-center text-warning mr-3" href="{{route('warehouse.raw-materials.print-label', ['id' => $item->id])}}" target="_blank" title="Print Label"><i data-lucide="printer" class="w-4 h-4 mr-1"></i> Print Label</a>
+                                <a class="flex items-center text-warning mr-3" href="" target="_blank" title="Print PO"><i data-lucide="repeat" class="w-4 h-4 mr-1"></i> Log</a>
+                            </div>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -74,6 +89,7 @@
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
             <nav class="w-full sm:w-auto sm:mr-auto">
                 <ul class="pagination">
+                    <!-- Previous Page Link -->
                     @if ($data->onFirstPage())
                     <li class="page-item disabled" aria-disabled="true">
                         <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
@@ -86,12 +102,15 @@
                     </li>
                     @endif
 
-                    @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
+                    <!-- Pagination Elements -->
+                    @foreach ($data->getUrlRange(max(1, $data->currentPage() - 2), min($data->lastPage(),
+                    $data->currentPage() + 2)) as $page => $url)
                     <li class="page-item @if($page == $data->currentPage()) active @endif">
                         <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                     </li>
                     @endforeach
 
+                    <!-- Next Page Link -->
                     @if ($data->hasMorePages())
                     <li class="page-item">
                         <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4"
@@ -105,39 +124,119 @@
                     @endif
                 </ul>
             </nav>
-            <select class="w-20 form-select box mt-3 sm:mt-0">
-                <option>10</option>
-                <option>25</option>
-                <option>35</option>
-                <option>50</option>
-            </select>
+            <p class="pagination-text">Halaman {{ $data->currentPage() }} Dari {{ $data->lastPage() }}</p>
         </div>
         <!-- END: Pagination -->
     </div>
-    <!-- BEGIN: Delete Confirmation Modal -->
-    <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- BEGIN: Stock Opname Modal -->
+    <div id="stok-opname" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-body p-0">
-                    <div class="p-5 text-center">
-                        <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                        <div class="text-3xl mt-5">Are you sure?</div>
-                        <div class="text-slate-500 mt-2">
-                            Do you really want to delete these records?
-                            <br>
-                            This process cannot be undone.
+                <div class="modal-body">
+                    <div class="intro-y box">
+                        <div
+                            class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                            <h2 class="font-medium text-base mr-auto">
+                                Form Stok Opname
+                            </h2>
                         </div>
-                    </div>
-                    <div class="px-5 pb-8 text-center">
-                        <button type="button" data-tw-dismiss="modal"
-                            class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                        <button type="button" class="btn btn-danger w-24">Delete</button>
+                        <div id="horizontal-form" class="p-5">
+                            <form method="POST" action="{{route('warehouse.raw-materials.stock-opname.save')}}">
+                                @csrf
+                                <div class="preview">
+                                    <div class="form-inline">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">No. Roll</label>
+                                        <input id="horizontal-form-1" type="text" class="form-control" name="no_roll" required>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Nama Material</label>
+                                        <select data-placeholder="Pilih Supplier" class="tom-select w-full form-control" name="material_id" required>
+                                            <option value=" "> - </option>
+                                            @foreach($materials as $material)
+                                            <option value="{{$material->id}}"> {{$material->name}} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Lebar (Cm)</label>
+                                        <input id="horizontal-form-1" type="number" class="form-control" name="width" required>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Berat (Kg)</label>
+                                        <input id="horizontal-form-1" type="number" class="form-control" name="weight" required>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Reference</label>
+                                        <input id="horizontal-form-1" type="text" class="form-control" name="reference" value="Stok Opname" readonly required>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Tanggal</label>
+                                        <input id="horizontal-form-1" type="date" class="form-control" name="date" required>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Catatan</label>
+                                        <textarea id="vertical-form-1" type="text" class="form-control" name="remarks"></textarea>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                    <button type="button" data-tw-dismiss="modal" class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
+                                    <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- END: Delete Confirmation Modal -->
+    <!-- END: Stock Opname Modal -->
+
+    <!-- BEGIN: Stock Opname Modal -->
+    <div id="stok-adjustment" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="intro-y box">
+                        <div
+                            class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                            <h2 class="font-medium text-base mr-auto">
+                                Form Stok Adjustment
+                            </h2>
+                        </div>
+                        <div id="horizontal-form" class="p-5">
+                            <form method="POST" action="{{route('warehouse.raw-materials.stock-adjustment.save')}}">
+                                @csrf
+                                <div class="preview">
+                                    <div class="form-inline mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Nama Material</label>
+                                        <select data-placeholder="Pilih Stok Material" class="tom-select w-full form-control" name="stock_id" required>
+                                            <option value=" "> - </option>
+                                            @foreach($stocks as $material)
+                                            <option value="{{$material->id}}">{{$material->no_roll}} - {{$material->name}} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Berat (Kg)</label>
+                                        <input id="horizontal-form-1" type="number" class="form-control" name="weight" required>
+                                    </div>
+                                    <div class="form-inline mt-5">
+                                        <label for="horizontal-form-2" class="form-label sm:w-40">Tanggal</label>
+                                        <input id="horizontal-form-1" type="date" class="form-control" name="date" required>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                    <button type="button" data-tw-dismiss="modal" class="btn btn-danger py-3 border-slate-300 dark:border-darkmode-400 w-full md:w-52">Batal</button>
+                                    <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Stock Opname Modal -->
 </div>
 @endsection
 

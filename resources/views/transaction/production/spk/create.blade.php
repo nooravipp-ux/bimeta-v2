@@ -117,15 +117,43 @@
                     </div>
                 </form>
             </div>
+            <div class="intro-y box mt-5">
+                <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                    <h2 class="font-medium text-base mr-auto">
+                        Proses Produksi
+                    </h2>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="bg-primary text-white">
+                            <tr>
+                                <th>Urutan</th>
+                                <th>Nama Proses</th>
+                                <th class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($productionProcesses as $process)
+                            <tr>
+                                <td>{{$process->id}}</td>
+                                <td>{{$process->process_name}}</td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" id="flag_use_customer_addr" name="flag_use_customer_addr" value="1">
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         @if($goodsInformations->type == 1)
-        <form  method="POST" action="{{route('production.spk.save')}}" class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5">
+        <form  method="POST" action="{{route('production.spk.save')}}" class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5" id="form-a">
             @csrf
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Parameter SPK</div>
-                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="plus"
-                            class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calc-form-a"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
                 </div>
                 <div class="md:col-span-6 sm:col-span-12">
                     <div class="overflow-y-auto max-h-screen">
@@ -139,8 +167,8 @@
                                         <td style="text-align: center;">
                                             
                                         </td>
-                                        <td width="60px" style="text-align: center;" id="sheet-l-l">
-                                            JP: 2345
+                                        <td width="60px" style="text-align: center;" id="jp">
+                                            JP: -
                                         </td>
                                     </tr>
                                     <tr>
@@ -158,8 +186,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td height="70px" style="padding: 5px;">
-                                            JL: 1243
+                                        <td height="70px" style="padding: 5px;" id="jl">
+                                            JL: -
                                         </td>
                                         <td style="border-left: 1px solid black;text-align: center; padding:17px; height: 20px;">
                                             
@@ -190,7 +218,7 @@
                             <div class="col-span-4">
                                 <div id="horizontal-form">
                                     <div class="preview">
-                                        <div class="form-inline">
+                                        <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-40">Stitching</label>
                                             <div class="flex flex-col sm:flex-row">
                                                 <div class="form-check mr-2">
@@ -293,13 +321,12 @@
         @endif
 
         @if($goodsInformations->type == 2)
-        <form  method="POST" action="{{route('production.spk.save')}}" class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5">
+        <form  method="POST" action="{{route('production.spk.save')}}" class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5" id="form-b">
             @csrf
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Parameter SPK</div>
-                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="plus"
-                            class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calc-form-b"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
                 </div>
                 <div class="md:col-span-6 sm:col-span-12">
                     <div class="overflow-y-auto max-h-screen">
@@ -442,7 +469,7 @@
                                         </div>
                             </div>
                         </div>
-                        <div class="grid grid-cols-12 mt-5">
+                        <div class="flex flex-col sm:flex-row mt-5">
                             <div class="col-span-6">
                                 <div id="horizontal-form">
                                     <div class="preview">
@@ -505,7 +532,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-span-6">
+                            <div class="col-span-5">
                                 <div id="horizontal-form">
                                     <div class="preview">
                                         <div class="form-inline mt-5">
@@ -541,12 +568,12 @@
         @endif
 
         @if($goodsInformations->type == 3)
-        <form  method="POST" action="{{route('production.spk.save')}}" class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5">
+        <form  method="POST" action="{{route('production.spk.save')}}" class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5" id="form-ab">
             @csrf
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Parameter SPK (Badan)</div>
-                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calc-form-ab"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
                 </div>
                 <div class="md:col-span-6 sm:col-span-12">
                     <div class="overflow-y-auto max-h-screen">
@@ -627,7 +654,7 @@
                             <div class="md:col-span-6">
                                 <div id="horizontal-form">
                                     <div class="preview">
-                                        <div class="form-inline">
+                                        <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-40">Stitching</label>
                                             <div class="flex flex-col sm:flex-row">
                                                 <div class="form-check mr-2">
@@ -677,6 +704,10 @@
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Spesifikasi</label>
                                             <input type="text" class="form-control" value="{{$goodsInformations->bottom_ply_type}} {{$goodsInformations->bottom_flute_type}} {{$goodsInformations->bottom_substance}}" name="bottom_spec" readonly>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                                            <input type="text" class="form-control" value="{{$goodsInformations->bottom_length}} X {{$goodsInformations->bottom_width}} X {{$goodsInformations->bottom_height}} {{$goodsInformations->bottom_meas_unit}}" name="" readonly>
                                         </div>
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
@@ -821,7 +852,7 @@
                             <div class="md:col-span-6">
                                 <div id="horizontal-form">
                                     <div class="preview">
-                                        <div class="form-inline">
+                                        <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-40">Stitching</label>
                                             <div class="flex flex-col sm:flex-row">
                                                 <div class="form-check mr-2">
@@ -871,6 +902,10 @@
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Spesifikasi</label>
                                             <input type="text" class="form-control" value="{{$goodsInformations->top_ply_type}} {{$goodsInformations->top_flute_type}} {{$goodsInformations->top_substance}}" name="top_spec" readonly>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                                            <input type="text" class="form-control" value="{{$goodsInformations->top_length}} X {{$goodsInformations->top_width}} {{$goodsInformations->top_meas_unit}}" name="" readonly>
                                         </div>
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
@@ -924,12 +959,12 @@
         @endif
 
         @if($goodsInformations->type == 4)
-        <form  method="POST" action="{{route('production.spk.save')}}" class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5">
+        <form  method="POST" action="{{route('production.spk.save')}}" class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5" id="form-bb">
             @csrf
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Parameter SPK (Badan)</div>
-                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calculate"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
+                    <a href="javascript:;" class="flex items-center ml-auto text-primary" id="calc-form-bb"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Hitung Otomatis </a>
                 </div>
                 <div class="md:col-span-6 sm:col-span-12">
                     <div class="overflow-y-auto max-h-screen">
@@ -997,7 +1032,7 @@
                             <div class="md:col-span-6">
                                 <div id="horizontal-form">
                                     <div class="preview">
-                                        <div class="form-inline">
+                                        <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-40">Stitching</label>
                                             <div class="flex flex-col sm:flex-row">
                                                 <div class="form-check mr-2">
@@ -1047,6 +1082,10 @@
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Spesifikasi</label>
                                             <input type="text" class="form-control" value="{{$goodsInformations->bottom_ply_type}} {{$goodsInformations->bottom_flute_type}} {{$goodsInformations->bottom_substance}}" name="bottom_spec" readonly>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                                            <input type="text" class="form-control" value="{{$goodsInformations->bottom_length}} X {{$goodsInformations->bottom_width}} X {{$goodsInformations->bottom_height}} {{$goodsInformations->bottom_meas_unit}}" name="" readonly>
                                         </div>
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
@@ -1164,7 +1203,7 @@
                             <div class="md:col-span-6">
                                 <div id="horizontal-form">
                                     <div class="preview">
-                                        <div class="form-inline">
+                                        <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-40">Stitching</label>
                                             <div class="flex flex-col sm:flex-row">
                                                 <div class="form-check mr-2">
@@ -1214,6 +1253,10 @@
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Spesifikasi</label>
                                             <input type="text" class="form-control" value="{{$goodsInformations->top_ply_type}} {{$goodsInformations->top_flute_type}} {{$goodsInformations->top_substance}}" name="top_spec" readonly>
+                                        </div>
+                                        <div class="form-inline mt-5">
+                                            <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
+                                            <input type="text" class="form-control" value="{{$goodsInformations->top_length}} X {{$goodsInformations->top_width}} X {{$goodsInformations->top_height}} {{$goodsInformations->top_meas_unit}}" name="" readonly>
                                         </div>
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty SPK</label>
@@ -1273,7 +1316,22 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
 $(function() {
-    $(".loader").hide();
+
+    $("#calc-form-a").click(function() {
+        alert("Form A Calculation");
+    });
+
+    $("#calc-form-b").click(function() {
+        alert("Form B Calculation");
+    });
+
+    $("#calc-form-ab").click(function() {
+        alert("Form AB Calculation");
+    });
+
+    $("#calc-form-bb").click(function() {
+        alert("Form BB Calculation");
+    });
 
     $("#flag-join").change(function() {
         var flag_join_form = $(".flag-join-form");

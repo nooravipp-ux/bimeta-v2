@@ -97,7 +97,7 @@ class PurchaseOrderController extends Controller
         ]);
                 
         // Set paper size and orientation
-        $pdf->setPaper('letter', 'portrait'); // Adjust the paper size and orientation as needed
+        $pdf->setPaper('a4', 'portrait'); // Adjust the paper size and orientation as needed
                 
         // Set options for domPDF
         $pdf->setOptions([

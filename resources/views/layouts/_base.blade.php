@@ -452,7 +452,7 @@
                     <li>
                         <a href="{{route('procurement.goods-receive.index')}}" class="top-menu">
                             <div class="top-menu__icon"> <i data-lucide="file-text"></i> </div>
-                            <div class="top-menu__title"> Penerimaan Barang </div>
+                            <div class="top-menu__title"> Penerimaan Material </div>
                         </a>
                     </li>
                 </ul>

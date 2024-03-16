@@ -98,12 +98,14 @@ class ProductionController extends Controller
                         ->join('master.m_goods AS goods', 'goods.id', '=', 'detail_sales_order.goods_id')
                         ->where('detail_sales_order.id', $id)
                         ->first();
+        
+        $productionProcesses = DB::table('master.m_production_process')->get();
 
         $totalSPKCreated = DB::table('transaction.t_spk AS spk')
                         ->where('spk.detail_sales_order_id', $id)
                         ->sum('spk.quantity');
         // dd($goodsInformations);
-        return view('transaction.production.spk.create', compact('goodsInformations', 'totalSPKCreated'));
+        return view('transaction.production.spk.create', compact('goodsInformations', 'totalSPKCreated', 'productionProcesses'));
     }
 
     public function saveSPK(Request $request){

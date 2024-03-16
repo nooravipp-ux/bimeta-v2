@@ -12,14 +12,13 @@
         </div>
     </div>
     <!-- BEGIN: Transaction Details -->
-    <div class="intro-y grid grid-cols-11 gap-5 mt-5">
-        <div class="col-span-12 lg:col-span-4 2xl:col-span-3">
+    <div class="intro-y grid grid-cols-12 gap-5 mt-5">
+        <div class="col-span-12 lg:col-span-4 2xl:col-span-4">
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Informasi Pembelian</div>
-                    <a href="" class="flex items-center ml-auto text-white btn btn-primary shadow-md mr-2"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit </a>
                 </div>
-                <div id="horizontal-form" class="p-5">
+                <div id="horizontal-form">
                     <div class="preview">
                         <div class="form-inline">
                             <label for="horizontal-form-2" class="form-label sm:w-20">No. PO</label>
@@ -27,29 +26,32 @@
                         </div>
                         <div class="form-inline mt-5">
                             <label for="horizontal-form-2" class="form-label sm:w-20">Supplier</label>
-                            <input id="horizontal-form-1" type="text" class="form-control" name="supplier" value="{{$purchase->name}}" readonly>
+                            <input id="horizontal-form-1" type="text" class="form-control" name="supplier" value="{{$purchase->name}}">
                         </div>
                         <div class="form-inline mt-5">
                             <label for="horizontal-form-2" class="form-label sm:w-20">Tanggal PO</label>
-                            <input id="horizontal-form-1" type="date" class="form-control" name="date"  value="{{$purchase->date}}" readonly>
+                            <input id="horizontal-form-1" type="date" class="form-control" name="date"  value="{{$purchase->date}}">
                         </div>
                         <div class="form-inline mt-5">
                             <label for="horizontal-form-2" class="form-label sm:w-20">Jenis Pajak</label>
-                            <input id="horizontal-form-1" type="text" class="form-control" name="jenis_pajak" value="{{$purchase->tax_type}}" readonly>
+                            <input id="horizontal-form-1" type="text" class="form-control" name="jenis_pajak" value="V{{$purchase->tax_type}}">
                         </div>
                         <div class="form-inline mt-5">
                             <label for="horizontal-form-2" class="form-label sm:w-20">Status</label>
-                            <input id="horizontal-form-1" type="text" class="form-control" name="jenis_pajak" value="{{$purchase->status}}" readonly>
+                            <input id="horizontal-form-1" type="text" class="form-control" name="jenis_pajak" value="{{$purchase->status}}">
                         </div>
-                        <!-- <div class="form-inline mt-5">
+                        <div class="form-inline mt-5">
                             <label for="vertical-form-1" class="form-label sm:w-20">Catatan</label>
-                            <textarea id="vertical-form-1" type="text" class="form-control" name="remarks" readonly>{{$purchase->remarks}}</textarea>
-                        </div> -->
+                            <textarea id="vertical-form-1" type="text" class="form-control" name="remarks">{{$purchase->remarks}}</textarea>
+                        </div>
+                        <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                            <button type="button" id="calculate-hpp" class="btn py-3 btn-primary w-full md:w-52">Update</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-span-12 lg:col-span-7 2xl:col-span-8">
+        <div class="col-span-12 lg:col-span-8 2xl:col-span-8">
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Detail Pembelian</div>
@@ -62,12 +64,12 @@
                             <tr> 
                                 <th class="whitespace-nowrap text-center">ACTION</th>
                                 <th class="whitespace-nowrap">NAMA BARANG</th>
-                                <th class="whitespace-nowrap text-center">GRAMATURE</th>
+                                <!-- <th class="whitespace-nowrap text-center">GRAMATURE</th> -->
                                 <th class="whitespace-nowrap text-center">UKURAN (CM)</th>
                                 <th class="whitespace-nowrap text-center">JUMLAH</th>
                                 <th class="whitespace-nowrap text-center">SATUAN</th>
                                 <th class="whitespace-nowrap text-right">HARGA</th>
-                                <th class="whitespace-nowrap text-right">TOTAL</th>
+                                <!-- <th class="whitespace-nowrap text-right">TOTAL</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -82,16 +84,16 @@
                                     </div>
                                 </td>
                                 <td>{{$data->name}}</td>
-                                <td class="text-center">{{$data->gramature}} {{$data->unit}}</td>
+                                <!-- <td class="text-center">{{$data->gramature}} {{$data->unit}}</td> -->
                                 <td class="text-center">L {{$data->width}}</td>
                                 <td class="text-center quantity">{{$data->quantity}}</td>
                                 <td class="text-center">{{$data->measure_unit}}</td>
                                 <td class="text-right price">{{$data->price}}</td>
-                                <td class="text-right total-price">0,00</td>
+                                <!-- <td class="text-right total-price">0,00</td> -->
                             </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
+                        <!-- <tfoot>
                             <tr>
                                 <td class="whitespace-nowrap"></td>
                                 <td class="whitespace-nowrap"></td>
@@ -122,7 +124,7 @@
                                 <td class="whitespace-nowrap text-right font-bold">Jumlah Total</td>
                                 <td class="whitespace-nowrap text-right total-amount">0,00</td>
                             </tr>
-                        </tfoot>
+                        </tfoot> -->
                     </table>
                 </div>
                 <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
