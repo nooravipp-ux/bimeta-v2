@@ -12,7 +12,7 @@
  Target Server Version : 160001 (160001)
  File Encoding         : 65001
 
- Date: 05/03/2024 02:33:12
+ Date: 16/03/2024 09:42:31
 */
 
 
@@ -537,22 +537,21 @@ CREATE TABLE "master"."m_goods" (
   "updated_by" varchar(255) COLLATE "pg_catalog"."default",
   "price" numeric(10,2),
   "top_price" numeric(10,2),
-  "bottom_price" numeric(10,2)
+  "bottom_price" numeric(10,2),
+  "code" varchar(50) COLLATE "pg_catalog"."default"
 )
 ;
 
 -- ----------------------------
 -- Records of m_goods
 -- ----------------------------
-INSERT INTO "master"."m_goods" VALUES (2, 1, 'SHEET', 'SF', 'E', 'SF ALLMED', 'MM', NULL, 125, 150, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-18 12:58:57', 'ali', NULL, NULL, 3000.00, NULL, NULL);
-INSERT INTO "master"."m_goods" VALUES (3, 3, 'BOX BADAN TUTUP (AB)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'SW', 'B', 'SF ALLMED', 'CM', 15, 15, 15, 'SF', 'B', 'SF ALLMED', 'CM', 15, 15, 15, '2024-01-18 13:01:31', 'ali', NULL, NULL, NULL, 3500.00, 4500.00);
-INSERT INTO "master"."m_goods" VALUES (4, 4, 'BOX BADAN TUTUP (BB)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'SF', 'B', 'SF ALLMED', 'CM', 15, 15, 15, 'SF', 'B', 'WK/M', 'CM', 10, 20, 20, '2024-01-18 13:03:03', 'ali', NULL, NULL, NULL, 2500.00, 2300.00);
-INSERT INTO "master"."m_goods" VALUES (6, 2, 'CARTON/LAYER', 'DW', 'B', '200K/M3/200K', 'CM', 'UL', 85, 53, 27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-19 16:47:15', 'ali', NULL, NULL, 0.00, NULL, NULL);
-INSERT INTO "master"."m_goods" VALUES (7, 1, 'CARTON/LAYER', 'SW', 'B', 'SW ALLMED', 'CM', NULL, 82, 51, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-19 16:51:53', 'ali', NULL, NULL, 0.00, NULL, NULL);
-INSERT INTO "master"."m_goods" VALUES (5, 1, 'CARTON/LAYER', 'DW', 'B', '200K/M3/200K', 'CM', 'UL', 85, 53, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-19 16:44:56', 'ali', '2024-01-21 13:49:25', 'ali', 0.00, NULL, NULL);
-INSERT INTO "master"."m_goods" VALUES (8, 1, 'LAYER K200', 'SW', 'B', '125K/M/125K', 'CM', NULL, 35.8, 27.3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-30 17:26:54', 'ALI', NULL, NULL, 641.00, NULL, NULL);
-INSERT INTO "master"."m_goods" VALUES (9, 2, 'BOX SAMPLE PARFUME', 'SW', 'B', '125K/M/125K', 'CM', 'UL', 30.5, 15, 20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-02-04 06:26:09', 'ALI', NULL, NULL, 0.00, NULL, NULL);
-INSERT INTO "master"."m_goods" VALUES (1, 2, 'BOX', 'SW', 'B', '125K/M/125K', 'CM', 'UL', 15, 17.5, 15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-18 12:58:04', 'ali', '2024-02-26 04:27:34', 'ALI', 1290.00, NULL, NULL);
+INSERT INTO "master"."m_goods" VALUES (2, 1, 'SHEET', 'SF', 'E', 'SF ALLMED', 'MM', NULL, 125, 150, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-18 12:58:57', 'ali', NULL, NULL, 3000.00, NULL, NULL, NULL);
+INSERT INTO "master"."m_goods" VALUES (3, 3, 'BOX BADAN TUTUP (AB)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'SW', 'B', 'SF ALLMED', 'CM', 15, 15, 15, 'SF', 'B', 'SF ALLMED', 'CM', 15, 15, 15, '2024-01-18 13:01:31', 'ali', NULL, NULL, NULL, 3500.00, 4500.00, NULL);
+INSERT INTO "master"."m_goods" VALUES (4, 4, 'BOX BADAN TUTUP (BB)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'SF', 'B', 'SF ALLMED', 'CM', 15, 15, 15, 'SF', 'B', 'WK/M', 'CM', 10, 20, 20, '2024-01-18 13:03:03', 'ali', NULL, NULL, NULL, 2500.00, 2300.00, NULL);
+INSERT INTO "master"."m_goods" VALUES (5, 1, 'CARTON/LAYER', 'DW', 'B', '200K/M3/200K', 'CM', 'UL', 85, 53, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-19 16:44:56', 'ali', '2024-01-21 13:49:25', 'ali', 0.00, NULL, NULL, NULL);
+INSERT INTO "master"."m_goods" VALUES (8, 1, 'LAYER K200', 'SW', 'B', '125K/M/125K', 'CM', NULL, 35.8, 27.3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-30 17:26:54', 'ALI', NULL, NULL, 641.00, NULL, NULL, NULL);
+INSERT INTO "master"."m_goods" VALUES (1, 2, 'BOX', 'SW', 'B', '125K/M/125K', 'CM', 'UL', 15, 17.5, 15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-18 12:58:04', 'ali', '2024-03-11 05:01:01', 'ALI', 1290.00, NULL, NULL, 'BOX-001');
+INSERT INTO "master"."m_goods" VALUES (9, 2, 'BOX SAMPLE PARFUME', 'SW', 'B', '125K/M/125K', 'CM', 'UL', 30.5, 15, 20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-02-04 06:26:09', 'ALI', '2024-03-11 05:04:51', 'ALI', 0.00, NULL, NULL, 'B-001');
 
 -- ----------------------------
 -- Table structure for m_material
@@ -586,7 +585,7 @@ INSERT INTO "master"."m_material" VALUES (25, 'WK 150', 'KRAFT', 'WHITE KRAFT', 
 INSERT INTO "master"."m_material" VALUES (26, 'WK 200', 'KRAFT', 'WHITE KRAFT', '200', 'GSM', '2024-02-26 06:27:15', 'ALI', NULL, NULL, 'WK200');
 INSERT INTO "master"."m_material" VALUES (27, 'M 125', 'MEDIUM', 'MEDIUM', '125', 'GSM', '2024-02-26 06:27:46', 'ALI', NULL, NULL, 'M125');
 INSERT INTO "master"."m_material" VALUES (28, 'M 150', 'MEDIUM', 'MEDIUM', '150', 'GSM', '2024-02-26 06:28:09', 'ALI', NULL, NULL, 'M150');
-INSERT INTO "master"."m_material" VALUES (18, 'KRAFT 125 PK', 'KRAFT', 'BROWN KRAFT', '125', 'GSM', '2024-02-26 06:22:47', 'ALI', '2024-03-01 04:17:38', 'ALI', NULL);
+INSERT INTO "master"."m_material" VALUES (18, 'KRAFT 125 PK', 'KRAFT', 'BROWN KRAFT', '125', 'GSM', '2024-02-26 06:22:47', 'ALI', '2024-03-09 07:32:57', 'ALI', 'K125');
 
 -- ----------------------------
 -- Table structure for m_production_process
@@ -753,7 +752,7 @@ SELECT setval('"master"."m_customer_seq"', 1960, true);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"master"."m_goods_id_seq"', 9, true);
+SELECT setval('"master"."m_goods_id_seq"', 12, true);
 
 -- ----------------------------
 -- Alter sequences owned by

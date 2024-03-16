@@ -12,7 +12,7 @@
  Target Server Version : 160001 (160001)
  File Encoding         : 65001
 
- Date: 05/03/2024 02:32:58
+ Date: 16/03/2024 09:42:49
 */
 
 
@@ -183,6 +183,8 @@ INSERT INTO "public"."roles" VALUES (1, 'Admin', '2024-02-16 02:27:48', 'ALI', N
 INSERT INTO "public"."roles" VALUES (2, 'Staff Produksi', '2024-02-20 12:24:20', 'ALI', NULL, NULL);
 INSERT INTO "public"."roles" VALUES (3, 'Staff Sales', '2024-02-26 04:24:27', 'ALI', NULL, NULL);
 INSERT INTO "public"."roles" VALUES (4, 'Staff Gudang', '2024-02-26 04:24:39', 'ALI', NULL, NULL);
+INSERT INTO "public"."roles" VALUES (5, 'Finance', '2024-03-06 12:50:08', 'ALI', NULL, NULL);
+INSERT INTO "public"."roles" VALUES (6, 'Operator', '2024-03-06 12:50:17', 'ALI', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for users
@@ -233,7 +235,7 @@ SELECT setval('"public"."personal_access_tokens_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"public"."role_id_seq"', 4, true);
+SELECT setval('"public"."role_id_seq"', 6, true);
 
 -- ----------------------------
 -- Alter sequences owned by

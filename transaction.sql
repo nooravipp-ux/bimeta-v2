@@ -12,7 +12,7 @@
  Target Server Version : 160001 (160001)
  File Encoding         : 65001
 
- Date: 12/03/2024 12:50:34
+ Date: 16/03/2024 09:43:05
 */
 
 
@@ -329,8 +329,8 @@ CREATE TABLE "transaction"."t_detail_goods_receive" (
 -- ----------------------------
 -- Records of t_detail_goods_receive
 -- ----------------------------
-INSERT INTO "transaction"."t_detail_goods_receive" VALUES (16, 9, 31, 128, 1090, '2024-02-29 19:56:04', 'ALI', NULL, NULL, '00009228389', '-');
-INSERT INTO "transaction"."t_detail_goods_receive" VALUES (17, 9, 31, 128, 1090, '2024-03-05 19:50:54', 'ALI', NULL, NULL, '000092283821', '-');
+INSERT INTO "transaction"."t_detail_goods_receive" VALUES (19, 11, 34, 150, 1090, '2024-03-15 16:27:46', 'ALI', NULL, NULL, '00009228389', '-');
+INSERT INTO "transaction"."t_detail_goods_receive" VALUES (20, 12, 34, 150, 1090, '2024-03-15 16:30:25', 'ALI', NULL, NULL, '00009228389', '-');
 
 -- ----------------------------
 -- Table structure for t_detail_production_process_item
@@ -354,7 +354,6 @@ CREATE TABLE "transaction"."t_detail_production_process_item" (
 -- ----------------------------
 -- Records of t_detail_production_process_item
 -- ----------------------------
-INSERT INTO "transaction"."t_detail_production_process_item" VALUES (30, 125, '2024-02-29', 'Jhon , Apip, Bayu', 2000, '2024-02-28 18:20:06', 'ALI', NULL, NULL, NULL, 'Kelebihan 3 lembar');
 
 -- ----------------------------
 -- Table structure for t_detail_purchase
@@ -381,6 +380,8 @@ CREATE TABLE "transaction"."t_detail_purchase" (
 -- ----------------------------
 INSERT INTO "transaction"."t_detail_purchase" VALUES (31, 10, 18, 5, 2500.00, '2024-02-28 12:27:15', 'ALI', NULL, NULL, 150, NULL, 'ROLL');
 INSERT INTO "transaction"."t_detail_purchase" VALUES (32, 10, 19, 10, 3500.00, '2024-02-28 12:27:33', 'ALI', NULL, NULL, 165, NULL, 'ROLL');
+INSERT INTO "transaction"."t_detail_purchase" VALUES (33, 13, 18, 5, 0.00, '2024-03-15 16:00:11', 'ALI', NULL, NULL, 150, NULL, 'ROLL');
+INSERT INTO "transaction"."t_detail_purchase" VALUES (34, 14, 19, 5, 2300.00, '2024-03-15 16:26:42', 'ALI', NULL, NULL, 150, NULL, 'ROLL');
 
 -- ----------------------------
 -- Table structure for t_detail_sales_order
@@ -408,6 +409,8 @@ INSERT INTO "transaction"."t_detail_sales_order" VALUES (50, 53, 2000, 0, '-', '
 INSERT INTO "transaction"."t_detail_sales_order" VALUES (53, 53, 5000, 0, '-', '2024-02-16 03:02:10', 'ALI', NULL, 8, NULL, 2350.00);
 INSERT INTO "transaction"."t_detail_sales_order" VALUES (52, 53, 200, 0, '-', '2024-02-16 03:01:52', 'ALI', NULL, 4, NULL, 1500.00);
 INSERT INTO "transaction"."t_detail_sales_order" VALUES (51, 53, 2000, 0, '-', '2024-02-16 03:01:37', 'ALI', NULL, 3, NULL, 3425.00);
+INSERT INTO "transaction"."t_detail_sales_order" VALUES (54, 55, 200, 1, '-', '2024-03-15 15:42:06', 'ALI', NULL, 2, NULL, 0.00);
+INSERT INTO "transaction"."t_detail_sales_order" VALUES (55, 55, 500, 0, '-', '2024-03-15 15:42:27', 'ALI', NULL, 1, NULL, 0.00);
 
 -- ----------------------------
 -- Table structure for t_goods_receive
@@ -430,10 +433,7 @@ CREATE TABLE "transaction"."t_goods_receive" (
 -- ----------------------------
 -- Records of t_goods_receive
 -- ----------------------------
-INSERT INTO "transaction"."t_goods_receive" VALUES (6, 8, 'SPS-2024-002212', '2024-02-29 15:30:00', 'ELIS', NULL, '2024-02-26 06:32:15', 'ALI', NULL, NULL);
-INSERT INTO "transaction"."t_goods_receive" VALUES (7, 9, 'ESK-2024-000123', '2024-02-29 10:17:00', 'ELIS', NULL, '2024-02-28 03:18:09', 'ALI', NULL, NULL);
-INSERT INTO "transaction"."t_goods_receive" VALUES (8, 9, 'ESK-2024-000124', '2024-02-29 10:19:00', 'ELIS', NULL, '2024-02-28 03:19:20', 'ALI', NULL, NULL);
-INSERT INTO "transaction"."t_goods_receive" VALUES (9, 10, 'SJ-000121', '2024-02-29 18:51:00', 'ELIS', NULL, '2024-02-29 10:51:29', 'ALI', NULL, NULL);
+INSERT INTO "transaction"."t_goods_receive" VALUES (12, 14, 'SJ-00023222', '2024-03-15 23:30:00', 'ELIS', NULL, '2024-03-15 16:30:10', 'ALI', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_invoice
@@ -583,16 +583,6 @@ CREATE TABLE "transaction"."t_production_process_item" (
 -- ----------------------------
 -- Records of t_production_process_item
 -- ----------------------------
-INSERT INTO "transaction"."t_production_process_item" VALUES (130, 86, 12, '2024-03-02 13:55:27', 'ALI', '2024-03-12 03:24:27', 'ALI', 3, 6);
-INSERT INTO "transaction"."t_production_process_item" VALUES (125, 86, 1, '2024-02-28 18:16:53', 'ALI', '2024-02-28 18:20:30', 'ALI', 3, 1);
-INSERT INTO "transaction"."t_production_process_item" VALUES (131, 86, 14, '2024-03-02 13:55:38', 'ALI', NULL, NULL, 1, 7);
-INSERT INTO "transaction"."t_production_process_item" VALUES (132, 90, 1, '2024-03-11 07:50:01', 'ALI', NULL, NULL, 1, 1);
-INSERT INTO "transaction"."t_production_process_item" VALUES (133, 90, 2, '2024-03-11 07:50:14', 'ALI', NULL, NULL, 1, 2);
-INSERT INTO "transaction"."t_production_process_item" VALUES (134, 90, 3, '2024-03-11 07:50:28', 'ALI', NULL, NULL, 1, 3);
-INSERT INTO "transaction"."t_production_process_item" VALUES (126, 86, 11, '2024-02-28 18:17:19', 'ALI', '2024-03-11 17:40:40', 'ALI', 3, 2);
-INSERT INTO "transaction"."t_production_process_item" VALUES (127, 86, 3, '2024-03-02 13:54:44', 'ALI', '2024-03-11 17:40:53', 'ALI', 3, 3);
-INSERT INTO "transaction"."t_production_process_item" VALUES (128, 86, 2, '2024-03-02 13:55:01', 'ALI', '2024-03-11 17:41:28', 'ALI', 3, 4);
-INSERT INTO "transaction"."t_production_process_item" VALUES (129, 86, 4, '2024-03-02 13:55:10', 'ALI', '2024-03-11 17:41:36', 'ALI', 3, 5);
 
 -- ----------------------------
 -- Table structure for t_purchase
@@ -616,9 +606,7 @@ CREATE TABLE "transaction"."t_purchase" (
 -- ----------------------------
 -- Records of t_purchase
 -- ----------------------------
-INSERT INTO "transaction"."t_purchase" VALUES (10, 3, '2024-02-28', '1', 1, '-', '2024-02-28 12:24:00', 'ALI', NULL, NULL, 'BK-PO-24-0010');
-INSERT INTO "transaction"."t_purchase" VALUES (11, 4, '2024-03-03', '1', 1, '-', '2024-03-03 09:48:11', 'ALI', NULL, NULL, '0000011-PO-BK-III-2024');
-INSERT INTO "transaction"."t_purchase" VALUES (12, 5, '2024-03-25', '1', 1, '-', '2024-03-03 09:49:10', 'ALI', NULL, NULL, '000012-PO-BK-III-2024');
+INSERT INTO "transaction"."t_purchase" VALUES (14, 1, '2024-03-15', '1', 1, '-', '2024-03-15 16:26:20', 'ALI', NULL, NULL, '000014-PO-BK-III-2024');
 
 -- ----------------------------
 -- Table structure for t_sales_order
@@ -648,6 +636,7 @@ CREATE TABLE "transaction"."t_sales_order" (
 -- Records of t_sales_order
 -- ----------------------------
 INSERT INTO "transaction"."t_sales_order" VALUES (53, 'SO240060', 'TESTPO', 1839, '2024-02-16', '2024-02-23', 1, 6, 2, NULL, '-', '2024-02-16 03:00:20', 'ALI', NULL, NULL, 'KP.BABAKAN KUDUL RT.07 / 04, CIGUGUR TENGAH, CIMAHI TENGAH');
+INSERT INTO "transaction"."t_sales_order" VALUES (55, 'SO24000062', 'PO-123345', 1572, '2024-03-15', '2024-03-22', 0, 6, 2, NULL, '-', '2024-03-15 15:41:48', 'ALI', NULL, NULL, 'JL KEMBAR 1 NO 4');
 
 -- ----------------------------
 -- Table structure for t_spk
@@ -693,12 +682,7 @@ CREATE TABLE "transaction"."t_spk" (
 -- ----------------------------
 -- Records of t_spk
 -- ----------------------------
-INSERT INTO "transaction"."t_spk" VALUES (89, 52, 'SPK-BB-24-0093', '2024-03-03', NULL, 100, 15, 15, 15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1788, 166, 166, 166, 200, 0, 0, 0, 2, '0', '2024-03-02 05:53:23', 'ALI', '2024-03-03 04:30:55', 'ALI', 0, 'SF B WK/M', NULL);
-INSERT INTO "transaction"."t_spk" VALUES (91, 51, 'SPK-AB-24-000095', '2024-03-11', NULL, 1000, 15, 15, 15, 15, 15, 15, 15, 15, 15, 30, 1900, 1900, 1900, 1900, 1000, 1, 0, 1, 2, '0', '2024-03-11 11:15:04', 'ALI', '2024-03-11 11:36:46', 'ALI', 0, 'SF B SF ALLMED', 'B');
-INSERT INTO "transaction"."t_spk" VALUES (92, 51, 'SPK-AB-24-000096', '2024-03-11', NULL, 1000, 15, 15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1900, 1900, 1900, 1900, 1000, 1, 1, 1, 2, '0', '2024-03-11 11:15:04', 'ALI', '2024-03-11 11:36:53', 'ALI', 0, 'SW B SF ALLMED', 'A');
-INSERT INTO "transaction"."t_spk" VALUES (88, 53, 'SPK-A-24-0092', '2024-03-03', '2024-03-11', 2000, 358, 273, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 273, 358, 356, 1094, 167, 1, 0, 1, 4, '0', '2024-03-01 21:50:03', 'ALI', '2024-03-11 13:40:21', 'ALI', 0, 'SW B 125K/M/125K', NULL);
-INSERT INTO "transaction"."t_spk" VALUES (90, 52, 'SPK-BB-24-0094', '2024-03-03', '2024-03-11', 100, 16, 16, 16, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1788, 166, 166, 166, 200, 0, 0, 1, 4, '0', '2024-03-02 05:53:23', 'ALI', '2024-03-11 13:46:31', 'ALI', 0, 'SF B SF ALLMED', NULL);
-INSERT INTO "transaction"."t_spk" VALUES (86, 50, 'SPK-B-24-0090', '2024-02-29', '2024-03-11', 2000, 150, 175, 150, 173, 150, 175, 149, 150, 88, 30, 326, 677, 700, 695, 1000, 0, 0, 1, 3, 'KUPAS', '2024-02-28 18:16:16', 'ALI', '2024-03-12 03:24:27', 'ALI', 85, 'SW B/F 125K/M/125K', NULL);
+INSERT INTO "transaction"."t_spk" VALUES (93, 50, 'SPK-B-24-000097', '2024-03-12', NULL, 1000, 150, 175, 150, 173, 150, 175, 149, 150, 88, 30, 326, 677, 700, 695, 1000, 1, 0, 0, 2, '0', '2024-03-12 06:10:29', 'ALI', '2024-03-12 06:17:34', 'ALI', 0, 'SW B 125K/M/125K', NULL);
 
 -- ----------------------------
 -- Table structure for t_stock_finish_goods
@@ -719,9 +703,6 @@ CREATE TABLE "transaction"."t_stock_finish_goods" (
 -- ----------------------------
 -- Records of t_stock_finish_goods
 -- ----------------------------
-INSERT INTO "transaction"."t_stock_finish_goods" VALUES (26, 1, 2000, '2024-03-11 13:37:33', 'ALI', NULL, NULL, 'SPK-B-24-0090');
-INSERT INTO "transaction"."t_stock_finish_goods" VALUES (27, 8, 5000, '2024-03-11 13:40:22', 'ALI', NULL, NULL, 'SPK-A-24-0092');
-INSERT INTO "transaction"."t_stock_finish_goods" VALUES (28, 4, 200, '2024-03-11 13:46:31', 'ALI', NULL, NULL, 'SPK-BB-24-0094');
 
 -- ----------------------------
 -- Table structure for t_stock_raw_material
@@ -731,19 +712,21 @@ CREATE TABLE "transaction"."t_stock_raw_material" (
   "id" int4 NOT NULL DEFAULT nextval('"transaction".t_stock_raw_material_id_seq'::regclass),
   "material_id" int4,
   "width" numeric,
-  "no_roll" varchar(255) COLLATE "pg_catalog"."default",
+  "no_roll" varchar(50) COLLATE "pg_catalog"."default",
   "weight" numeric,
-  "source_from" varchar(255) COLLATE "pg_catalog"."default",
+  "source_from" varchar(50) COLLATE "pg_catalog"."default",
   "created_at" timestamp(6),
-  "created_by" varchar(255) COLLATE "pg_catalog"."default"
+  "created_by" varchar(50) COLLATE "pg_catalog"."default",
+  "updated_at" timestamp(6),
+  "updated_by" varchar(50) COLLATE "pg_catalog"."default"
 )
 ;
 
 -- ----------------------------
 -- Records of t_stock_raw_material
 -- ----------------------------
-INSERT INTO "transaction"."t_stock_raw_material" VALUES (2, 18, 150, '00009228389', 1090, '31', '2024-02-29 19:56:04', 'ALI');
-INSERT INTO "transaction"."t_stock_raw_material" VALUES (3, 18, 150, '000092283821', 1090, '', '2024-03-05 19:50:54', 'ALI');
+INSERT INTO "transaction"."t_stock_raw_material" VALUES (6, 19, 150, '00009228389', 2090, '000014-PO-BK-III-2024', '2024-03-15 16:30:25', 'ALI', '2024-03-15 18:37:38', 'ALI');
+INSERT INTO "transaction"."t_stock_raw_material" VALUES (7, 19, 150, 'ROL10020200', 2690, 'Stok Opname', '2024-03-15 18:39:15', 'ALI', '2024-03-15 18:46:10', 'ALI');
 
 -- ----------------------------
 -- Function structure for generate_invoice_number
@@ -919,17 +902,17 @@ SELECT setval('"transaction"."m_mapping_index_price_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."purchase_order_seq"', 12, true);
+SELECT setval('"transaction"."purchase_order_seq"', 14, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."so_numbering_seq"', 61, true);
+SELECT setval('"transaction"."so_numbering_seq"', 62, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."spk_numbering_seq"', 96, true);
+SELECT setval('"transaction"."spk_numbering_seq"', 97, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -944,17 +927,17 @@ SELECT setval('"transaction"."t_detail_delivery_order_id_seq"', 51, true);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_detail_goods_receive_id_seq"', 17, true);
+SELECT setval('"transaction"."t_detail_goods_receive_id_seq"', 20, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_detail_purchase_id_seq"', 32, true);
+SELECT setval('"transaction"."t_detail_purchase_id_seq"', 34, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_detail_sales_order_id_seq"', 53, true);
+SELECT setval('"transaction"."t_detail_sales_order_id_seq"', 55, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -964,7 +947,7 @@ SELECT setval('"transaction"."t_detail_sales_order_seq"', 29, true);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_goods_receive_id_seq"', 9, true);
+SELECT setval('"transaction"."t_goods_receive_id_seq"', 12, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -984,17 +967,17 @@ SELECT setval('"transaction"."t_mapping_index_price_seq"', 120, true);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_production_process_item_id_seq"', 134, true);
+SELECT setval('"transaction"."t_production_process_item_id_seq"', 136, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_purchase_id_seq"', 12, true);
+SELECT setval('"transaction"."t_purchase_id_seq"', 14, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_sales_order_seq"', 54, true);
+SELECT setval('"transaction"."t_sales_order_seq"', 55, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -1004,7 +987,7 @@ SELECT setval('"transaction"."t_spk_production_process_id_seq"', 30, true);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_spk_seq"', 92, true);
+SELECT setval('"transaction"."t_spk_seq"', 93, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -1014,7 +997,7 @@ SELECT setval('"transaction"."t_stock_finish_goods_id_seq"', 28, true);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_stock_raw_material_id_seq"', 3, true);
+SELECT setval('"transaction"."t_stock_raw_material_id_seq"', 7, true);
 
 -- ----------------------------
 -- Alter sequences owned by
