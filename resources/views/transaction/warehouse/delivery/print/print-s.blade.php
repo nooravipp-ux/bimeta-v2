@@ -151,7 +151,7 @@
                         @foreach($detailDeliveryOrder as $do)
                         <tr>
                             <td class="text-center">{{$do->quantity}}</td>
-                            <td>{{$do->goods_name}}</td>
+                            <td>{{$do->goods_name}} UK : {{$do->measure}}</td>
                             <td>{{$do->specification}}</td>
                         </tr>
                         @endforeach

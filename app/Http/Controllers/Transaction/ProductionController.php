@@ -418,6 +418,7 @@ class ProductionController extends Controller
     
 
     public function markAsDone($spk_id){
+        
         DB::table('transaction.t_spk as spk')->where('id', $spk_id)->update([
             "status" => 4, // Update status SPK To Done
             "finish_date" => date('Y-m-d H:i:s'),

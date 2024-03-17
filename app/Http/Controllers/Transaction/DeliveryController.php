@@ -13,7 +13,7 @@ class DeliveryController extends Controller
     public function index() {
         $salesOrders = DB::table('transaction.t_sales_order')->get();
         $data = DB::table('transaction.t_delivery_order AS delivery_order')
-                ->select('delivery_order.id','delivery_order.travel_permit_no','delivery_order.status','sales_order.tax_type', 'customer.name AS customer_name', 'sales_order.transaction_no', 'sales_order.ref_po_customer', 'delivery_order.delivery_date AS actual_delivery_date')
+                ->select('delivery_order.id','delivery_order.travel_permit_no', 'customer.name AS customer_name', 'sales_order.ref_po_customer', 'delivery_order.delivery_date AS actual_delivery_date', 'delivery_order.licence_plate', 'delivery_order.driver_name')
                 ->join('transaction.t_sales_order AS sales_order', 'sales_order.id', '=', 'delivery_order.sales_order_id')
                 ->join('master.m_customer AS customer', 'customer.id', '=', 'sales_order.customer_id')
                 ->orderBy('delivery_order.created_at', 'DESC')
@@ -120,6 +120,13 @@ class DeliveryController extends Controller
 
     public function saveDetail(Request $request) {
 
+        $goods = DB::table('transaction.t_detail_sales_order')->where('id', $request->detail_sales_order_id)->first();
+
+        // Pengecekan jika barang tidak ada dan barang quantity = 0 
+        if(!$this->checkGoodsStock($goods->goods_id, $request->quantity)) {
+            return redirect()->back()->with('error', 'Stock Tidak Tersedia !!!');
+        } 
+
         DB::table('transaction.t_detail_delivery_order')->insert([
             "delivery_order_id" => $request->delivery_order_id,
             "detail_sales_order_id" => $request->detail_sales_order_id,
@@ -127,13 +134,7 @@ class DeliveryController extends Controller
             "remarks" => $request->remarks,
             "created_at"=> date('Y-m-d H:i:s'),
             "created_by" => Auth::user()->name,
-        ]); 
-
-        DB::table('transaction.t_stock_finish_goods')
-                ->where('id', $request->fg_id)
-                ->update([
-                    "quantity" => DB::raw('quantity - ' . $request->quantity),
-                ]);
+        ]);
 
         return redirect()->route('warehouse.delivery.edit', ['id' => $request->delivery_order_id]);
     }
@@ -178,14 +179,14 @@ class DeliveryController extends Controller
                     ->get();
 
         if($deliveryOrder->tax_type == 0 || $deliveryOrder->tax_type == 1){
-            $pdf = PDF::loadView('transaction.warehouse.delivery.print.print-k', [
+            $pdf = PDF::loadView('transaction.warehouse.delivery.print.print-b', [
                 'deliveryOrder' => $deliveryOrder,
                 'detailDeliveryOrder' => $detailDeliveryOrder,
             ]);
         } 
 
         if($deliveryOrder->tax_type == 2 ){
-            $pdf = PDF::loadView('transaction.warehouse.delivery.print.print-b', [
+            $pdf = PDF::loadView('transaction.warehouse.delivery.print.print-k', [
                 'deliveryOrder' => $deliveryOrder,
                 'detailDeliveryOrder' => $detailDeliveryOrder,
             ]);
@@ -212,5 +213,19 @@ class DeliveryController extends Controller
                 
         // Download the PDF
         return $pdf->stream($deliveryOrder->travel_permit_no.'.pdf');
+    }
+
+    public function checkGoodsStock($goods_id, $quantity) {
+        $stock = DB::table('transaction.t_stock_finish_goods as stock')->where('stock.goods_id', $goods_id)->first();
+
+        if($stock == NULL) {
+            return false;
+        }
+
+        DB::table('transaction.t_stock_finish_goods as stock')->where('stock.id', $stock->id)->update([
+            "quantity" => DB::raw('quantity - ' . $quantity),
+        ]);
+
+        return true;
     }
 }

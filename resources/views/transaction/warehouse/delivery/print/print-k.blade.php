@@ -82,12 +82,12 @@
     table {
         width: 100%;
         border-collapse: collapse;
-        margin-bottom: 20px;
-        border: 1px solid #ddd;
+        border: 1px solid black;
+        font-weight: bold;
     }
 
     table th {
-        border: 1px solid #ddd;
+        border: 1px solid black;
         padding: 8px;
         text-align: left;
     }
@@ -113,7 +113,9 @@
                 <div class="col col-8">
                     <div class="row">
                         <div class="col col-12">
-
+                            <p></p>
+                            <p>{{$deliveryOrder->travel_permit_no}}</p>
+                            <p></p>
                         </div>
                     </div>
                 </div>
@@ -125,6 +127,11 @@
                             <p>{{$deliveryOrder->shipping_address}}</p>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-12">
+                    <p>Bersama kendaraan dengan No. Kendaraan <strong> {{$deliveryOrder->licence_plate}} </strong>, kami kirim barang - barang tersebut dibawah ini :</p>
                 </div>
             </div>
             <div class="row">

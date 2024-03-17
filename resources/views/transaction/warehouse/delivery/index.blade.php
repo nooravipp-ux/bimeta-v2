@@ -10,35 +10,22 @@
     </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary shadow-md mr-2">Buat Surat Jalan</a>
+            <a href="javascript:;" class="btn btn-primary shadow-md mr-2">Surat Jalan Besar</a>
+            <a href="javascript:;" class="btn btn-primary shadow-md mr-2">Surat Jalan Kecil</a>
+            <a href="javascript:;" class="btn btn-primary shadow-md mr-2">Surat Jalan Sample</a>
             <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
-                    <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
+                    <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="filter"></i>
                     </span>
                 </button>
-                <div class="dropdown-menu w-40">
-                    <ul class="dropdown-content">
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
-                                Export to Excel </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
-                                Export to PDF </a>
-                        </li>
-                    </ul>
-                </div>
             </div>
             <div class="hidden md:block mx-auto text-slate-500"></div>
             <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-                <div class="w-56 relative text-slate-500">
+                <!-- <div class="w-56 relative text-slate-500">
                     <input type="text" class="form-control w-56 box pr-10" placeholder="Search...">
                     <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-lucide="search"></i>
-                </div>
+                </div> -->
+                <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary shadow-md mr-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Buat Surat Jalan</a>
             </div>
         </div>
         <!-- BEGIN: Data List -->
@@ -47,12 +34,11 @@
                 <thead class="bg-primary text-white">
                     <tr>
                         <th class="whitespace-nowrap">NO. SURAT JALAN</th>
-                        <th class="whitespace-nowrap">NO. SALES ORDER</th>
+                        <th class="whitespace-nowrap">NO. PO</th>
                         <th class="whitespace-nowrap">CUSTOMER</th>
-                        <th class="text-center whitespace-nowrap">NO. PO</th>
                         <th class="text-center whitespace-nowrap">TANGGAL PENGIRIMAN</th>
-                        <th class="text-center whitespace-nowrap">JENIS PAJAK</th>
-                        <th class="text-center whitespace-nowrap">STATUS</th>
+                        <th class="text-center whitespace-nowrap">NO. KENDARAAN</th>
+                        <th class="text-center whitespace-nowrap">PENEGEMUDI</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
                 </thead>
@@ -60,44 +46,16 @@
                     @foreach($data as $item)
                     <tr class="intro-x">
                         <td>{{$item->travel_permit_no}}</td>
-                        <td>{{$item->transaction_no}}</td>
+                        <td>{{$item->ref_po_customer}}</td>
                         <td>{{$item->customer_name}}</td>
-                        <td class="text-center">{{$item->ref_po_customer}}</td>
-                        <td class="text-center"><?php echo date("d/m/Y", strtotime($item->actual_delivery_date)); ?>
-                        </td>
-                        <td class="text-center">
-                            @if($item->tax_type == 0)
-                            V0 (Kawasan Berikat)
-                            @elseif($item->tax_type == 1)
-                            V1 (Exlude PPN)
-                            @elseif($item->tax_type == 2)
-                            V2 (Exlude PPN)
-                            @else
-                            SAMPLE
-                            @endif
-                        </td>
-                        <td class="text-center">
-                            @if($item->status == 1)
-                                <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">
-                                    DRAFT
-                                </div>
-                            @elseif($item->status == 2)
-                                <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">
-                                    ON DELIVERY
-                                </div>
-                            @elseif($item->status == 3)
-                                <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">
-                                    COMPLETED
-                                </div>
-                            @else
-                            SAMPLE
-                            @endif
-                        </td>
+                        <td class="text-center"><?php echo date("d/m/Y", strtotime($item->actual_delivery_date)); ?></td>
+                        <td class="text-center">{{$item->licence_plate}}</td>
+                        <td class="text-center">{{$item->driver_name}}</td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 <a class="flex items-center mr-3 text-primary"
                                     href="{{route('warehouse.delivery.edit', ['id' => $item->id])}}" title="Edit SPK"><i
-                                        data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
+                                        data-lucide="edit" class="w-4 h-4 mr-1"></i>Detail</a>
                                 <a class="flex items-center mr-3"
                                     href="{{route('warehouse.delivery.print', ['id' => $item->id])}}" target="_blank"
                                     title="Print Surat jalan"><i data-lucide="printer" class="w-4 h-4 mr-1"></i>
@@ -189,7 +147,7 @@
                                             name="delivery_date" required>
                                     </div>
                                     <div class="form-inline mt-5">
-                                        <label for="vertical-form-1" class="form-label sm:w-40">Plat Nomor</label>
+                                        <label for="vertical-form-1" class="form-label sm:w-40">No. Kendaraan</label>
                                         <input id="vertical-form-1" type="text" class="form-control"
                                             name="licence_plate" required>
                                     </div>

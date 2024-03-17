@@ -109,6 +109,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::prefix('finish-goods')->group(function () {
             Route::get('/', [App\Http\Controllers\Transaction\FinishGoodsController::class, 'index'])->name('warehouse.finish-goods.index');
+            Route::post('/stock-opname/save', [App\Http\Controllers\Transaction\FinishGoodsController::class, 'saveStockOpname'])->name('warehouse.finish-goods.stock-opname.save');
+            Route::post('/stock-adjustment/save', [App\Http\Controllers\Transaction\FinishGoodsController::class, 'saveStockAdjustment'])->name('warehouse.finish-goods.stock-adjustment.save');
+            Route::get('/print-label/{id}', [App\Http\Controllers\Transaction\FinishGoodsController::class, 'printLabel'])->name('warehouse.finish-goods.print-label');
         });
     });
 

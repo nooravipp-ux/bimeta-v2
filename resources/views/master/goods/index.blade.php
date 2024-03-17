@@ -84,38 +84,61 @@
                     <!-- Previous Page Link -->
                     @if ($data->onFirstPage())
                     <li class="page-item disabled" aria-disabled="true">
-                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
-                                data-lucide="chevrons-left"></i></span>
+                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4" data-lucide="chevrons-left"></i></span>
                     </li>
                     @else
                     <li class="page-item">
-                        <a class="page-link" href="{{ $data->previousPageUrl() }}" rel="prev"><i class="w-4 h-4"
-                                data-lucide="chevron-left"></i></a>
+                        <a class="page-link" href="{{ $data->previousPageUrl() }}" rel="prev"><i class="w-4 h-4" data-lucide="chevron-left"></i></a>
                     </li>
                     @endif
 
                     <!-- Pagination Elements -->
-                    @foreach ($data->getUrlRange(max(1, $data->currentPage() - 2), min($data->lastPage(), $data->currentPage() + 2)) as $page => $url)
-                    <li class="page-item @if($page == $data->currentPage()) active @endif">
-                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                    </li>
-                    @endforeach
+                    @php
+                    $currentPage = $data->currentPage();
+                    $lastPage = $data->lastPage();
+                    $maxVisibleLinks = 5;
+                    $halfMaxVisibleLinks = floor($maxVisibleLinks / 2);
+                    $startPage = max(1, $currentPage - $halfMaxVisibleLinks);
+                    $endPage = min($lastPage, $currentPage + $halfMaxVisibleLinks);
+                    @endphp
+
+                    @if ($startPage > 1)
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $data->url(1) }}">1</a>
+                        </li>
+                        @if ($startPage > 2)
+                            <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+                        @endif
+                    @endif
+
+                    @for ($page = $startPage; $page <= $endPage; $page++)
+                        <li class="page-item @if($page == $currentPage) active @endif">
+                            <a class="page-link" href="{{ $data->url($page) }}">{{ $page }}</a>
+                        </li>
+                    @endfor
+
+                    @if ($endPage < $lastPage)
+                        @if ($endPage < $lastPage - 1)
+                            <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+                        @endif
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $data->url($lastPage) }}">{{ $lastPage }}</a>
+                        </li>
+                    @endif
 
                     <!-- Next Page Link -->
                     @if ($data->hasMorePages())
                     <li class="page-item">
-                        <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4"
-                                data-lucide="chevron-right"></i></a>
+                        <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4" data-lucide="chevron-right"></i></a>
                     </li>
                     @else
                     <li class="page-item disabled" aria-disabled="true">
-                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4"
-                                data-lucide="chevrons-right"></i></span>
+                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4" data-lucide="chevrons-right"></i></span>
                     </li>
                     @endif
                 </ul>
             </nav>
-            <p class="pagination-text">Halaman {{ $data->currentPage() }} Dari {{ $data->lastPage() }}</p>
+            <p class="pagination-text">Page {{ $currentPage }} of {{ $lastPage }}</p>
         </div>
         <!-- END: Pagination -->
     </div>

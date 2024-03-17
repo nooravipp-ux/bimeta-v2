@@ -153,7 +153,7 @@
             </div>
             <div class="row">
                 <div class="col col-12">
-                    <p>Bersama kendaraan dengan Nopol <strong> {{$deliveryOrder->licence_plate}} </strong>, kami kirim barang - barang tersebut dibawah ini :</p>
+                    <p>Bersama kendaraan dengan No. Kendaraan <strong> {{$deliveryOrder->licence_plate}} </strong>, kami kirim barang - barang tersebut dibawah ini :</p>
                 </div>
             </div>
             <div class="row">

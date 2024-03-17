@@ -10,6 +10,7 @@
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
             <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#stok-opname" class="btn btn-primary shadow-md mr-2">Stok Opname</a>
             <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#stok-adjustment" class="btn btn-primary shadow-md mr-2">Stok Adjustment</a>
+            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#stok-adjustment" class="btn btn-primary shadow-md mr-2">Cetak Laporan Persediaan Bahan Baku</a>
             <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
