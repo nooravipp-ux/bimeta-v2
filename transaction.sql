@@ -12,7 +12,7 @@
  Target Server Version : 160001 (160001)
  File Encoding         : 65001
 
- Date: 18/03/2024 02:47:14
+ Date: 19/03/2024 04:35:37
 */
 
 
@@ -87,6 +87,17 @@ CACHE 1;
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "transaction"."t_detail_goods_receive_id_seq";
 CREATE SEQUENCE "transaction"."t_detail_goods_receive_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for t_detail_invoice_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "transaction"."t_detail_invoice_id_seq";
+CREATE SEQUENCE "transaction"."t_detail_invoice_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -334,6 +345,26 @@ INSERT INTO "transaction"."t_detail_goods_receive" VALUES (19, 11, 34, 150, 1090
 INSERT INTO "transaction"."t_detail_goods_receive" VALUES (20, 12, 34, 150, 1090, '2024-03-15 16:30:25', 'ALI', NULL, NULL, '00009228389', '-');
 
 -- ----------------------------
+-- Table structure for t_detail_invoice
+-- ----------------------------
+DROP TABLE IF EXISTS "transaction"."t_detail_invoice";
+CREATE TABLE "transaction"."t_detail_invoice" (
+  "id" int4 NOT NULL DEFAULT nextval('"transaction".t_detail_invoice_id_seq'::regclass),
+  "detail_delivery_order_id" int4,
+  "created_at" timestamp(6),
+  "created_by" varchar(50) COLLATE "pg_catalog"."default",
+  "updated_at" timestamp(6),
+  "updated_by" varchar(50) COLLATE "pg_catalog"."default",
+  "invoice_id" int4
+)
+;
+
+-- ----------------------------
+-- Records of t_detail_invoice
+-- ----------------------------
+INSERT INTO "transaction"."t_detail_invoice" VALUES (1, 58, '2024-03-18 19:20:40', 'ALI', NULL, NULL, 6);
+
+-- ----------------------------
 -- Table structure for t_detail_production_process_item
 -- ----------------------------
 DROP TABLE IF EXISTS "transaction"."t_detail_production_process_item";
@@ -445,7 +476,7 @@ DROP TABLE IF EXISTS "transaction"."t_invoice";
 CREATE TABLE "transaction"."t_invoice" (
   "id" int4 NOT NULL DEFAULT nextval('"transaction".t_invoice_id_seq'::regclass),
   "invoice_no" varchar(255) COLLATE "pg_catalog"."default",
-  "delivery_order_id" int4,
+  "sales_order_id" int4,
   "date" date,
   "created_at" timestamp(6),
   "created_by" varchar(255) COLLATE "pg_catalog"."default",
@@ -457,7 +488,7 @@ CREATE TABLE "transaction"."t_invoice" (
 -- ----------------------------
 -- Records of t_invoice
 -- ----------------------------
-INSERT INTO "transaction"."t_invoice" VALUES (1, 'INV/2024/000004', 29, '2024-03-03', '2024-03-03 14:31:57', 'ALI', NULL, NULL);
+INSERT INTO "transaction"."t_invoice" VALUES (6, 'INV/2024/000009', 53, '2024-03-19', '2024-03-18 18:32:09', 'ALI', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_mapping_index_price
@@ -941,6 +972,11 @@ SELECT setval('"transaction"."t_detail_goods_receive_id_seq"', 20, true);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
+SELECT setval('"transaction"."t_detail_invoice_id_seq"', 1, true);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
 SELECT setval('"transaction"."t_detail_purchase_id_seq"', 34, true);
 
 -- ----------------------------
@@ -961,12 +997,12 @@ SELECT setval('"transaction"."t_goods_receive_id_seq"', 12, true);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_invoice_id_seq"', 1, true);
+SELECT setval('"transaction"."t_invoice_id_seq"', 6, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"transaction"."t_invoice_numbering_seq"', 4, true);
+SELECT setval('"transaction"."t_invoice_numbering_seq"', 9, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -1027,6 +1063,11 @@ ALTER TABLE "transaction"."t_detail_delivery_order" ADD CONSTRAINT "t_detail_del
 -- Primary Key structure for table t_detail_goods_receive
 -- ----------------------------
 ALTER TABLE "transaction"."t_detail_goods_receive" ADD CONSTRAINT "t_detail_goods_receive_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table t_detail_invoice
+-- ----------------------------
+ALTER TABLE "transaction"."t_detail_invoice" ADD CONSTRAINT "t_detail_invoice_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table t_detail_production_process_item

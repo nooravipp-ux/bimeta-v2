@@ -135,6 +135,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/save', [App\Http\Controllers\Transaction\InvoiceController::class, 'save'])->name('finance.invoice.save');
             Route::get('/edit/{id}', [App\Http\Controllers\Transaction\InvoiceController::class, 'edit'])->name('finance.invoice.edit');
             Route::get('/print/{id}', [App\Http\Controllers\Transaction\InvoiceController::class, 'print'])->name('finance.invoice.print');
+
+            Route::post('/detail/save', [App\Http\Controllers\Transaction\InvoiceController::class, 'saveDetail'])->name('finance.invoice.detail.save');
         });
     });
 

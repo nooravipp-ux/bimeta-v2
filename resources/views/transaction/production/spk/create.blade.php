@@ -1318,19 +1318,19 @@
 $(function() {
 
     $("#calc-form-a").click(function() {
-        alert("Form A Calculation");
+        alert("Fitur Masih dalam tahap Pengembangan !");
     });
 
     $("#calc-form-b").click(function() {
-        alert("Form B Calculation");
+        alert("Fitur Masih dalam tahap Pengembangan !");
     });
 
     $("#calc-form-ab").click(function() {
-        alert("Form AB Calculation");
+        alert("Fitur Masih dalam tahap Pengembangan !");
     });
 
     $("#calc-form-bb").click(function() {
-        alert("Form BB Calculation");
+        alert("Fitur Masih dalam tahap Pengembangan !");
     });
 
     $("#flag-join").change(function() {

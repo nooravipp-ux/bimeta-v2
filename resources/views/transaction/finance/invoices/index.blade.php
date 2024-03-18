@@ -33,13 +33,12 @@
                 <thead class="bg-primary text-white">
                     <tr>
                         <th style="text-align: left;">NO. INVOICE</th>
-                        <th>TANGGAL</th>
-                        <th>REFERENCE</th>
+                        <th>TANGGAL INVOICE</th>
                         <th>CUSTOMER</th>
                         <th>NO. PO</th>
                         <th class="text-center">JENIS PAJAK</th>
                         <th>TOTAL PAJAK (11%)</th>
-                        <th>TOTAL</th>
+                        <th>TOTAL BAYAR</th>
                         <th style="text-align: center;">ACTIONS</th>
                     </tr>
                 </thead>
@@ -48,7 +47,6 @@
                     <tr>
                         <td>{{$item->invoice_no}}</td>
                         <td><?php echo date("d/m/Y", strtotime($item->date)) ?></td>
-                        <td>{{$item->travel_permit_no}}</td>
                         <td>{{$item->customer_name}}</td>
                         <td>{{$item->ref_po_customer}}</td>
                         <td class="text-center">V{{$item->tax_type}}</td>
@@ -57,7 +55,7 @@
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 <a class="flex items-center mr-3 text-primary"
-                                    href="{{route('sales.edit', ['id' => $item->id])}}">
+                                    href="{{route('finance.invoice.edit', ['id' => $item->id])}}">
                                     <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Detail Invoice </a>
                                 <a class="flex items-center mr-3 text-primary" target="_blank" href="{{route('finance.invoice.print', ['id' => $item->id])}}">
                                     <i data-lucide="printer" class="w-4 h-4 mr-1"></i> Print </a>
@@ -69,9 +67,68 @@
             </table>
         </div>
         <!-- END: Data List -->
-        <!-- BEGIN: Pagination -->
-        
-        <!-- END: Pagination -->
+        <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+            <nav class="w-full sm:w-auto sm:mr-auto">
+                <ul class="pagination">
+                    <!-- Previous Page Link -->
+                    @if ($data->onFirstPage())
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4" data-lucide="chevrons-left"></i></span>
+                    </li>
+                    @else
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $data->previousPageUrl() }}" rel="prev"><i class="w-4 h-4" data-lucide="chevron-left"></i></a>
+                    </li>
+                    @endif
+
+                    <!-- Pagination Elements -->
+                    @php
+                    $currentPage = $data->currentPage();
+                    $lastPage = $data->lastPage();
+                    $maxVisibleLinks = 5;
+                    $halfMaxVisibleLinks = floor($maxVisibleLinks / 2);
+                    $startPage = max(1, $currentPage - $halfMaxVisibleLinks);
+                    $endPage = min($lastPage, $currentPage + $halfMaxVisibleLinks);
+                    @endphp
+
+                    @if ($startPage > 1)
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $data->url(1) }}">1</a>
+                        </li>
+                        @if ($startPage > 2)
+                            <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+                        @endif
+                    @endif
+
+                    @for ($page = $startPage; $page <= $endPage; $page++)
+                        <li class="page-item @if($page == $currentPage) active @endif">
+                            <a class="page-link" href="{{ $data->url($page) }}">{{ $page }}</a>
+                        </li>
+                    @endfor
+
+                    @if ($endPage < $lastPage)
+                        @if ($endPage < $lastPage - 1)
+                            <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+                        @endif
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $data->url($lastPage) }}">{{ $lastPage }}</a>
+                        </li>
+                    @endif
+
+                    <!-- Next Page Link -->
+                    @if ($data->hasMorePages())
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next"><i class="w-4 h-4" data-lucide="chevron-right"></i></a>
+                    </li>
+                    @else
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link" aria-hidden="true"><i class="w-4 h-4" data-lucide="chevrons-right"></i></span>
+                    </li>
+                    @endif
+                </ul>
+            </nav>
+            <p class="pagination-text">Page {{ $currentPage }} of {{ $lastPage }}</p>
+        </div>
     </div>
     <!-- BEGIN: Delete Confirmation Modal -->
     <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
@@ -91,11 +148,11 @@
                                 @csrf
                                 <div class="preview">
                                     <div class="form-inline">
-                                        <label for="vertical-form-1" class="form-label sm:w-40">Reference</label>
-                                        <select data-placeholder="Pilih Proses" class="tom-select w-full form-control" name="delivery_order_id">
+                                        <label for="vertical-form-1" class="form-label sm:w-40">Ref No. PO</label>
+                                        <select data-placeholder="Pilih Proses" class="tom-select w-full form-control" name="sales_order_id">
                                             <option value=" ">-</option>
                                             @foreach($references as $ref)
-                                            <option value="{{$ref->id}}">{{$ref->ref_po_customer}} - {{$ref->ref}}</option>
+                                            <option value="{{$ref->id}}">{{$ref->ref_po_customer}} - {{$ref->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

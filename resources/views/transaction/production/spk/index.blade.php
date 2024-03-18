@@ -78,13 +78,11 @@
                             <div class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">COMPLETED</div>
                             @endif
                         </td>
-                        <td class="table-report__action w-56">
+                        <td class="table-report__action">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3 text-primary"
-                                    href="{{route('production.spk.edit', ['id' => $item->id])}}" title="Edit SPK"><i
-                                        data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
-                                <a class="flex items-center mr-3 text-warning" href="{{route('production.spk.print', ['id' => $item->id])}}" target="_blank" title="Print SPK"><i data-lucide="printer"
-                                        class="w-4 h-4 mr-1"></i> Print</a>
+                                <a class="flex items-center mr-3 text-primary" href="{{route('production.spk.edit', ['id' => $item->id])}}" title="Edit SPK"><i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit</a>
+                                <a class="flex items-center mr-3 text-warning" href="{{route('production.spk.print', ['id' => $item->id])}}" target="_blank" title="Print SPK"><i data-lucide="printer" class="w-4 h-4 mr-1"></i> Print SPK</a>
+                                <!-- <a class="flex items-center mr-3 text-warning" href="{{route('production.spk.print', ['id' => $item->id])}}" target="_blank" title="Print SPK"><i data-lucide="printer" class="w-4 h-4 mr-1"></i> Print Label SPK</a> -->
                                 @if($item->status == 1)
                                 <a class="flex items-center mr-3"
                                     href="{{route('production.spk.schedule', ['id' => $item->id])}}"

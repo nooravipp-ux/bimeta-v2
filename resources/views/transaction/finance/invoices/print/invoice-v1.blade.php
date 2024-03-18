@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>{{$invoice->invoice_no}}</title>
     <style>
     /* Container */
     .container {
@@ -110,9 +110,9 @@
                     <h3 style="text-align: center">FAKTUR PENJUALAN</h3>
                 </div>
                 <div class="col col-4">
-                    <p>Nomor Seri : </p>
-                    <p>Nomor P.O : </p>
-                    <p>Tanggal : </p>
+                    <p>Nomor Faktur : {{$invoice->invoice_no}}</p>
+                    <p>Nomor P.O : {{$invoice->ref_po_customer}}</p>
+                    <p>Tanggal : <?php echo date("d/m/Y", strtotime($invoice->date)) ?></p>
                 </div>
             </div>
         </div>
@@ -122,8 +122,8 @@
             <div class="row">
                 <div class="col col-4">
                     <p id="text">PEMBELI / PENERIMA</p>
-                    <p>Nama : </p>
-                    <p>Alamat : </p>
+                    <p>Nama : {{$invoice->customer_name}}</p>
+                    <p>Alamat : {{$invoice->address}}</p>
                 </div>
                 <div class="col col-4">
 
@@ -144,38 +144,40 @@
                 </tr>
             </thead>
             <tbody>
+                <?php $no = 1; ?>
+                @foreach($detailInvoice as $detail)
                 <tr>
-                    <td style="border: 1px solid black; padding: 5px;text-align: center">1.</td>
-                    <td style="border: 1px solid black; text-align: center;">BOX UK: 22 X 20 X 12"</td>
-                    <td style="border: 1px solid black; text-align: center;">44</td>
-                    <td style="border: 1px solid black; text-align: center;">18579,00</td>
-                    <td style="border: 1px solid black; text-align: center;">817.476,00</td>
+                    <td style="border: 1px solid black; padding: 5px;text-align: center"><?php echo $no++; ?>.</td>
+                    <td style="border: 1px solid black; text-align: center; padding: 10px;">{{$detail->goods_name}} UK : {{$detail->measure}}</td>
+                    <td style="border: 1px solid black; text-align: center; padding: 10px;" class="quantity">{{$detail->quantity}}</td>
+                    <td style="border: 1px solid black; text-align: right; padding: 10px;" class="price">{{$detail->price}}</td>
+                    <td style="border: 1px solid black; text-align: right; padding: 10px;" class="total-price">{{$detail->total_price}}</td>
                 </tr>
+                @endforeach
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="4" style="border-bottom: 1px dotted black; padding: 5px;">Jumlah Harga jual /
                         Penggantian uang muka</td>
-                    <td style="border-bottom: 1px dotted black;border-left: 1px solid black; text-align: center;">
-                        817.476,00</td>
+                    <td style="border-bottom: 1px dotted black;border-left: 1px solid black; text-align: right; padding:10px;">{{$sub_total}}</td>
                 </tr>
                 <tr>
                     <td colspan="4" style="border-bottom: 1px dotted black; padding: 5px;">Dikurangi Potongan Harga /
                         Uang Muka Yang Telah diterima</td>
-                    <td style="border-bottom: 1px dotted black;border-left: 1px solid black; text-align: center;"></td>
+                    <td style="border-bottom: 1px dotted black;border-left: 1px solid black; text-align: right; padding:10px;">0,00</td>
                 </tr>
                 <tr>
                     <td colspan="4" style="border-bottom: 1px dotted black; padding: 5px;">Dasar Pengenaan Pajak</td>
-                    <td style="border-bottom: 1px dotted black;border-left: 1px solid black; text-align: center;"></td>
+                    <td style="border-bottom: 1px dotted black;border-left: 1px solid black; text-align: right; padding:10px;">0,00</td>
                 </tr>
                 <tr>
                     <td colspan="4" style="border-bottom: 1px dotted black; padding: 5px;">PPN X 11% X Dasar Pengenaan
                         Pajak</td>
-                    <td style="border-bottom: 1px dotted black;border-left: 1px solid black; text-align: center;"></td>
+                    <td style="border-bottom: 1px dotted black;border-left: 1px solid black; text-align: right; padding:10px;">{{$tax}}</td>
                 </tr>
                 <tr>
                     <td colspan="4" style="border: 1px solid black; padding: 5px;text-align: right">TOTAL Rp.</td>
-                    <td style="border: 1px solid black; text-align: center;"></td>
+                    <td style="border: 1px solid black; text-align: right; padding:10px;">{{$total_amount}},00</td>
                 </tr>
             </tfoot>
         </table>
