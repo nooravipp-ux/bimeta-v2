@@ -240,7 +240,7 @@ $(function() {
 
         var taxType = {{$salesOrder->tax_type}};
 
-        if (taxType === 0 || taxType === 1) {
+        if (taxType === 2) {
             taxRate = 0;
         }
 

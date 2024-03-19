@@ -117,35 +117,6 @@
                     </div>
                 </form>
             </div>
-            <div class="intro-y box mt-5">
-                <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
-                    <h2 class="font-medium text-base mr-auto">
-                        Proses Produksi
-                    </h2>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead class="bg-primary text-white">
-                            <tr>
-                                <th>Urutan</th>
-                                <th>Nama Proses</th>
-                                <th class="text-center">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($productionProcesses as $process)
-                            <tr>
-                                <td>{{$process->id}}</td>
-                                <td>{{$process->process_name}}</td>
-                                <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" id="flag_use_customer_addr" name="flag_use_customer_addr" value="1">
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
         @if($goodsInformations->type == 1)
         <form  method="POST" action="{{route('production.spk.save')}}" class="intro-y col-span-12 lg:col-span-8 2xl:col-span-8 mt-5" id="form-a">
@@ -278,8 +249,8 @@
                                         <div class="form-inline mt-5 ">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-6" placeholder="L" id="width" name="width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-6" placeholder="P" id="length" name="length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="L" id="width" name="width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="P" id="length" name="length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                     </div>
@@ -291,15 +262,15 @@
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Netto</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-6" placeholder="L" name="netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-6" placeholder="P" name="netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="L" name="netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="P" name="netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Bruto</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-6" placeholder="L" name="bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-6" placeholder="P" name="bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="L" name="bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="P" name="bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
@@ -494,9 +465,9 @@
                                         <div class="form-inline mt-5 ">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Ukuran</label>
                                             <div class="form-inline gap-2">
-                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="height" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-4" placeholder="P" id="length" name="length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-4" placeholder="L" id="width" name="width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-4" placeholder="T" id="height" name="height" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
@@ -538,15 +509,15 @@
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Netto</label>
                                             <div class="form-inline gap-2">
-                                                <input type="text" class="form-control col-span-6" placeholder="L" name="netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-6" placeholder="P" name="netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="L" name="netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="P" name="netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Bruto</label>
                                             <div class="form-inline gap-2">
-                                                <input type="text" class="form-control" placeholder="L" name="bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control" placeholder="P" name="bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control" placeholder="L" name="bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control" placeholder="P" name="bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
@@ -718,9 +689,9 @@
                                         <div class="form-inline mt-5 ">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Ukuran SPK</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="bottom_length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="bottom_width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="bottom_height" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-4" placeholder="P" id="length" name="bottom_length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-4" placeholder="L" id="width" name="bottom_width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-4" placeholder="T" id="height" name="bottom_height" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
@@ -762,15 +733,15 @@
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Netto</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-6" placeholder="L" name="bottom_netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-6" placeholder="P" name="bottom_netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="L" name="bottom_netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="P" name="bottom_netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Bruto</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-6" placeholder="L" name="bottom_bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-6" placeholder="P" name="bottom_bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="L" name="bottom_bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="P" name="bottom_bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
@@ -916,8 +887,8 @@
                                         <div class="form-inline mt-5 ">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Ukuran SPK</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="top_length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="top_width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-4" placeholder="P" id="length" name="top_length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-4" placeholder="L" id="width" name="top_width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                                 <!-- <input type="text" class="form-control col-span-4" placeholder="T" id="hieght" name="top_height"> -->
                                             </div>
                                         </div>
@@ -930,15 +901,15 @@
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Netto</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-6" placeholder="L" name="top_netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-6" placeholder="P" name="top_netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="L" name="top_netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="P" name="top_netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Bruto</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-6" placeholder="L" name="top_bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-6" placeholder="P" name="top_bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="L" name="top_bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="P" name="top_bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
@@ -1096,9 +1067,9 @@
                                         <div class="form-inline mt-5 ">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Ukuran SPK</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-4" placeholder="P" id="length" name="bottom_length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-4" placeholder="L" id="width" name="bottom_width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-4" placeholder="T" id="height" name="bottom_height" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-4" placeholder="P" id="length" name="bottom_length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-4" placeholder="L" id="width" name="bottom_width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-4" placeholder="T" id="height" name="bottom_height" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                     </div>
@@ -1110,15 +1081,15 @@
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Netto</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-6" placeholder="L" name="bottom_netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-6" placeholder="P" name="bottom_netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="L" name="bottom_netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="P" name="bottom_netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Bruto</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-6" placeholder="L" name="bottom_bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-6" placeholder="P" name="bottom_bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="L" name="bottom_bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="P" name="bottom_bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
@@ -1281,15 +1252,15 @@
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Netto</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-6" placeholder="L" name="top_netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-6" placeholder="P" name="top_netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="L" name="top_netto_width" value="" id="netto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="P" name="top_netto_length" value="" id="netto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Bruto</label>
                                             <div class="grid grid-cols-12 gap-2 mr-0">
-                                                <input type="text" class="form-control col-span-6" placeholder="L" name="top_bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
-                                                <input type="text" class="form-control col-span-6" placeholder="P" name="top_bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="L" name="top_bruto_width" value="" id="bruto-width" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
+                                                <input type="number" class="form-control col-span-6" placeholder="P" name="top_bruto_length" value="" id="bruto-length" <?php echo (($goodsInformations->quantity - $totalSPKCreated) == 0) ? "readonly" : ""; ?>>
                                             </div>
                                         </div>
                                         <div class="form-inline mt-5">

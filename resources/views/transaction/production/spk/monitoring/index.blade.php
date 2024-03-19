@@ -68,10 +68,12 @@
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
+                                @if($item->status != 4)
                                 <a class="flex items-center mr-3 text-success" onclick="return confirm('Apakah anda yakin sudah menyelesaikan SPK ?')" 
                                     href="/production/spk/mark-as-done/{{$item->id}}"
                                     title="Mark As Done"><i data-lucide="check-square" class="w-4 h-4 mr-1"></i>Done
                                 </a>
+                                @endif
                                 <a class="flex items-center mr-3 text-warning" href="/production/monitoring/{{$item->id}}"
                                     title="Monitor Progress"><i data-lucide="eye" class="w-4 h-4 mr-1"></i> Monitor
                                 </a>

@@ -44,9 +44,9 @@
             <table class="table table-report -mt-2">
                 <thead class="bg-primary text-white">
                     <tr> 
+                        <th class="whitespace-nowrap">NO. PEMBELIAN (PO)</th>
                         <th class="whitespace-nowrap">SUPPLIER</th>
                         <th class="whitespace-nowrap">NO. SURAT JALAN</th>
-                        <th class="whitespace-nowrap">NO. PEMBELIAN</th>
                         <th class="whitespace-nowrap text-center">TANGGAL</th>
                         <th class="whitespace-nowrap text-center">PENERIMA</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
@@ -54,10 +54,10 @@
                 </thead>
                 <tbody>
                     @foreach($data as $item)
-                    <tr>
+                    <tr>  
+                        <td>{{$item->po_no}}</td>
                         <td>{{$item->name}}</td>
                         <td>{{$item->gr_no}}</td>
-                        <td>{{$item->po_no}}</td>
                         <td class="text-center">{{$item->date}}</td>
                         <td class="text-center">{{$item->receiver}}</td>
                         <td class="table-report__action w-56">

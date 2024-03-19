@@ -25,7 +25,20 @@ class ProductionController extends Controller
 
     public function todoListDetail($id){
         $salesOrder = DB::table('transaction.t_sales_order as sales_order')
-                        ->select('sales_order.*', 'customer.name as cust_name', 'customer.address', 'customer.phone_number')
+                        ->select(
+                            'sales_order.*', 
+                            'customer.name as cust_name',
+                            DB::raw("CASE
+                                        WHEN sales_order.status = '1' THEN 'DRAFT' 
+                                        WHEN sales_order.status = '2' THEN 'Claimed By PIC'
+                                        ELSE 'V2 (Include Tax)' 
+                            END AS str_status"),
+                            DB::raw("CASE
+                                        WHEN sales_order.tax_type = '0' THEN 'V0 (Kawasan Berikat)' 
+                                        WHEN sales_order.tax_type = '1' THEN 'V1 (Exlude Pajak)'
+                                        ELSE 'V2 (Include Pajak)' 
+                            END AS str_tax_type"),
+                        )
                         ->join('master.m_customer as customer', 'customer.id', '=', 'sales_order.customer_id')
                         ->where('sales_order.id', $id)
                         ->first();
@@ -304,14 +317,19 @@ class ProductionController extends Controller
     }
 
     public function progressItemSave(Request $request) {
-        DB::table('transaction.t_production_process_item')->insert([
-            "spk_id" => $request->spk_id,
-            "process_id" => $request->process_id,
-            "sequence_order" => $request->sequence_order,
-            "status" => 1,
-            "created_at" => date('Y-m-d H:i:s'),
-            "created_by" => Auth::user()->name,
-        ]);
+
+        $params = $request->processes;
+
+        foreach($params as $key => $value) {
+            DB::table('transaction.t_production_process_item')->insert([
+                "spk_id" => $request->spk_id,
+                "process_id" => $value,
+                "sequence_order" => 0,
+                "status" => 1,
+                "created_at" => date('Y-m-d H:i:s'),
+                "created_by" => Auth::user()->name,
+            ]);
+        }
 
         return redirect()->route('production.spk.edit', ['id' => $request->spk_id]);
     }
@@ -469,16 +487,17 @@ class ProductionController extends Controller
                     DB::raw("CONCAT(spk.netto_width, ' X ', spk.netto_length) AS netto"),
                     DB::raw("CONCAT(spk.bruto_width, ' X ', spk.bruto_length) AS bruto"),
                     'spk.current_process',
+                    'spk.status',
                     DB::raw("CASE
                             WHEN spk.status = '2' THEN 'SCHEDULED' 
                             WHEN spk.status = '3' THEN 'WORK IN PROGRESS' 
                             ELSE 'COMPLETED' 
-                        END AS status")
+                        END AS str_status")
                 )
                 ->whereIn('spk.status', [2, 3, 4])
                 ->orderByDesc('spk.created_at')
                 ->paginate(20);
-
+        
         $productionProcesses = DB::table('master.m_production_process')->get();
 
         return view('transaction.production.spk.monitoring.index', compact('data', 'productionProcesses'));

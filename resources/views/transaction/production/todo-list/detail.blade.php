@@ -3,61 +3,47 @@
 @endsection
 @section('main-content')
 <div class="content content--top-nav">
-    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-        <!-- <h2 class="text-lg font-medium mr-auto">
-            {{$salesOrder->transaction_no}}
-        </h2> -->
-        <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-            
-        </div>
-    </div>
-    <!-- BEGIN: Transaction Details -->
-    <div class="intro-y grid grid-cols-11 gap-5 mt-5">
-        <div class="col-span-12 lg:col-span-4 2xl:col-span-3">
+    <div class="intro-y grid grid-cols-12 gap-5 mt-5">
+        <div class="col-span-12 lg:col-span-4 2xl:col-span-4">
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Informasi Pesanan</div>
                 </div>
-                <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    NO. PO: <a href="" class="underline decoration-dotted ml-1">{{$salesOrder->ref_po_customer}}</a>
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">No Sales Order</label> 
+                    <input id="vertical-form-1" type="text" class="form-control" value="{{$salesOrder->transaction_no}}" readonly>
                 </div>
-                <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    Tanggal Pemesanan: <?php echo date("d M Y", strtotime($salesOrder->order_date)); ?> </div>
-                <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    Tanggal Pengiriman: <?php echo date("d M Y", strtotime($salesOrder->delivery_date)); ?></div>
-                <div class="flex items-center mt-3"> <i data-lucide="clock" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    Status Pesanan:
-                    <span class="bg-success/20 text-success rounded px-2 ml-1">
-                        @if($salesOrder->status == 1)
-                        DRAFT
-                        @elseif($salesOrder->status == 2)
-                        CLAIMED
-                        @else
-                        COMPLETED
-                        @endif
-                    </span>
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">No P.O Customer</label> 
+                    <input id="vertical-form-1" type="text" class="form-control" name="id" value="{{$salesOrder->ref_po_customer}}" readonly>
                 </div>
-            </div>
-            <div class="box p-5 rounded-md mt-5">
-                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
-                    <div class="font-medium text-base truncate">Informasi Customer</div>
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">Nama Customer</label> 
+                    <input id="vertical-form-1" type="text" class="form-control" name="id" value="{{$salesOrder->cust_name}}" readonly>
                 </div>
-                <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    Name: <a href="" class="underline decoration-dotted ml-1">{{$salesOrder->cust_name}}</a> </div>
-                <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    Phone Number: {{$salesOrder->phone_number}} </div>
-                <div class="flex items-center mt-3"> <i data-lucide="map-pin" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    Alamat: {{$salesOrder->address}} </div>
-            </div>
-            <div class="box p-5 rounded-md mt-5">
-                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
-                    <div class="font-medium text-base truncate">Informasi Pengiriman</div>
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">Tanggal P.O</label> 
+                    <input id="vertical-form-1" type="date" class="form-control" name="id" value="{{$salesOrder->order_date}}" readonly>
                 </div>
-                <div class="flex items-center mt-3"> <i data-lucide="map-pin" class="w-4 h-4 text-slate-500 mr-2"></i>
-                    Alamat Pengiriman: {{$salesOrder->address}} </div>
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">Tanggal kirim (Plan)</label> 
+                    <input id="vertical-form-1" type="date" class="form-control" name="id" value="{{$salesOrder->delivery_date}}" readonly>
+                </div>
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">Status</label> 
+                    <input id="vertical-form-1" type="text" class="form-control" name="id" value="{{$salesOrder->str_status}}" readonly>
+                </div>
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">Jenis Pajak</label> 
+                    <input id="vertical-form-1" type="text" class="form-control" name="id" value="{{$salesOrder->str_tax_type}}" readonly>
+                </div>
+                <div class="form-inline mt-5">
+                    <label for="vertical-form-1" class="form-label w-40">Alamat Pengiriman</label> 
+                    <textarea id="vertical-form-1" type="text" name="id" class="form-control" readonly>{{$salesOrder->shipping_address}}</textarea>
+                </div>
             </div>
         </div>
-        <div class="col-span-12 lg:col-span-7 2xl:col-span-8">
+        <div class="col-span-12 lg:col-span-8 2xl:col-span-8">
             <div class="box p-5 rounded-md">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium text-base truncate">Detail Pesanan</div>

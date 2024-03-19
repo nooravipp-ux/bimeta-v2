@@ -100,6 +100,11 @@ class InvoiceController extends Controller
         return redirect()->back();
     }
 
+    public function deleteDetail($id) {
+        DB::table('transaction.t_detail_invoice as detail_invoice')->where('id', $id)->delete();
+        return redirect()->back();
+    }
+
     public function print($id) {
 
         $invoice = DB::table('transaction.t_invoice as invoice')
@@ -145,7 +150,7 @@ class InvoiceController extends Controller
 
         $total_amount = $detailInvoice->sum('total_price') + $tax;
 
-        if($invoice->tax_type == 2) {
+        if($invoice->tax_type == 1) {
             $pdf = PDF::loadView('transaction.finance.invoices.print.invoice-v2', [
                 'invoice' => $invoice,
                 'detailInvoice' => $detailInvoice,

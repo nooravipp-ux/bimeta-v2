@@ -405,6 +405,9 @@
                                             <input type="number" class="form-control" name="sheet_quantity"
                                                 value="{{$data->sheet_quantity}}" id="sheet-quantity" readonly>
                                         </div>
+                                        <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                            <a href="{{route('production.spk.print', ['id' => $data->id])}}" target="_blank" class="btn py-3 btn-primary w-full md:w-52">Preview SPK</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -592,6 +595,9 @@
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty Sheet</label>
                                             <input type="number" class="form-control" name="sheet_quantity"
                                                 value="{{$data->sheet_quantity}}" id="sheet-quantity" readonly>
+                                        </div>
+                                        <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                            <a href="{{route('production.spk.print', ['id' => $data->id])}}" target="_blank" class="btn py-3 btn-primary w-full md:w-52">Preview SPK</a>
                                         </div>
                                     </div>
                                 </div>
@@ -839,6 +845,9 @@
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty Sheet</label>
                                             <input type="number" class="form-control" name="bottom_sheet_quantity" value="{{$data->sheet_quantity}}" id="sheet-quantity" readonly>
                                         </div>
+                                        <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                            <a href="{{route('production.spk.print', ['id' => $data->id])}}" target="_blank" class="btn py-3 btn-primary w-full md:w-52">Preview SPK</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1008,6 +1017,9 @@
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty Sheet</label>
                                             <input type="number" class="form-control" name="top_sheet_quantity" value="{{$data->sheet_quantity}}" id="sheet-quantity" readonly>
+                                        </div>
+                                        <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                            <a href="{{route('production.spk.print', ['id' => $data->id])}}" target="_blank" class="btn py-3 btn-primary w-full md:w-52">Preview SPK</a>
                                         </div>
                                     </div>
                                 </div>
@@ -1188,6 +1200,9 @@
                                         <div class="form-inline mt-5">
                                             <label for="vertical-form-1" class="form-label sm:w-20">Qty Sheet</label>
                                             <input type="number" class="form-control" name="bottom_sheet_quantity" value="{{$data->sheet_quantity}}" id="sheet-quantity" readonly>
+                                        </div>
+                                        <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                            <a href="{{route('production.spk.print', ['id' => $data->id])}}" target="_blank" class="btn py-3 btn-primary w-full md:w-52">Preview SPK</a>
                                         </div>
                                     </div>
                                 </div>

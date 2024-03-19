@@ -116,7 +116,7 @@
                     <table class="table table-striped">
                         <thead class="bg-primary text-white">
                             <tr>
-                                <th class="text-center">Urutan</th>
+                                <!-- <th class="text-center">Urutan</th> -->
                                 <th>Nama Proses</th>
                                 <th class="text-center">Status</th>
                             </tr>
@@ -124,7 +124,7 @@
                         <tbody>
                             @foreach($productionProcessesItem as $process)
                             <tr>
-                                <td class="text-center">{{$process->sequence_order}}</td>
+                                <!-- <td class="text-center">{{$process->sequence_order}}</td> -->
                                 <td>{{$process->process_name}}</td>
                                 <td class="text-center">
                                     @if($process->status == 1)
@@ -156,26 +156,27 @@
                                     <div id="horizontal-form" class="p-5">
                                         <form method="POST" action="{{route('production.spk.progress-item.save')}}">
                                             @csrf
-                                            <div id="horizontal-form" class="p-5">
-                                                <div class="preview">
-                                                    <div class="form-inline">
-                                                        <label for="vertical-form-1" class="form-label sm:w-20">Nama</label>
-                                                        <select data-placeholder="Pilih Proses" class="tom-select w-full form-control" name="process_id">
-                                                            @foreach($productionProcesses as $process)
-                                                            <option value="{{$process->id}}">{{$process->process_name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <input type="hidden" class="form-control" name="spk_id" value="{{$data->spk_id}}">
-                                                    </div>
-                                                    <div class="form-inline mt-5">
-                                                        <label for="vertical-form-1" class="form-label sm:w-20">Ururtan</label>
-                                                        <input type="text" class="form-control" value="" name="sequence_order">
-                                                    </div>
-                                                </div>
-                                                <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
-                                                    <button type="submit" id="calculate-hpp"
-                                                        class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
-                                                </div>
+                                            <table class="table table-striped">
+                                                <thead class="bg-primary text-white">
+                                                    <tr>
+                                                        <th>Nama Proses</th>
+                                                        <th class="text-center">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($productionProcesses as $process)
+                                                    <tr>
+                                                        <td>{{$process->process_name}}</td>
+                                                        <td class="text-center">
+                                                            <input class="form-check-input" type="checkbox" id="flag_use_customer_addr" name="processes[]" value="{{$process->id}}">
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                            <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                                <input type="hidden" name="spk_id" value="{{$data->id}}" />
+                                                <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Simpan</button>
                                             </div>
                                         </form>
                                     </div>
@@ -442,6 +443,7 @@
                                         </div>
                                     </div>
                                     <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                        <a href="{{route('production.spk.print', ['id' => $data->id])}}" target="_blank" class="btn py-3 btn-primary w-full md:w-52">Preview SPK</a>
                                         <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Update SPK</button>
                                     </div>
                                 </div>
@@ -633,6 +635,7 @@
                                         </div>
                                     </div>
                                     <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                        <a href="{{route('production.spk.print', ['id' => $data->id])}}" target="_blank" class="btn py-3 btn-primary w-full md:w-52">Preview SPK</a>
                                         <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Update SPK</button>
                                     </div>
                                 </div>
@@ -882,6 +885,7 @@
                                         </div>
                                     </div>
                                     <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                        <a href="{{route('production.spk.print', ['id' => $data->id])}}" target="_blank" class="btn py-3 btn-primary w-full md:w-52">Preview SPK</a>
                                         <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Update SPK</button>
                                     </div>
                                 </div>
@@ -1055,6 +1059,7 @@
                                         </div>
                                     </div>
                                     <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                        <a href="{{route('production.spk.print', ['id' => $data->id])}}" target="_blank" class="btn py-3 btn-primary w-full md:w-52">Preview SPK</a>
                                         <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Update SPK</button>
                                     </div>
                                 </div>
@@ -1238,6 +1243,7 @@
                                         </div>
                                     </div>
                                     <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                                        <a href="{{route('production.spk.print', ['id' => $data->id])}}" target="_blank" class="btn py-3 btn-primary w-full md:w-52">Preview SPK</a>
                                         <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Update SPK</button>
                                     </div>
                                 </div>

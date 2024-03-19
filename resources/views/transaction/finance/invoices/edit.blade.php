@@ -52,6 +52,7 @@
                     <table class="table table-striped">
                         <thead class="bg-primary text-white">
                             <tr>
+                                <th class="whitespace-nowrap text-center">ACTION</th>
                                 <th class="whitespace-nowrap">NAMA BARANG</th>
                                 <th class="whitespace-nowrap text-center">QTY</th>
                                 <th class="whitespace-nowrap text-right">HARGA</th>
@@ -61,6 +62,11 @@
                         <tbody>
                             @foreach($detailInvoice as $detail)
                             <tr>
+                                <td class="table-report__action w-56">
+                                    <div class="flex justify-center items-center">
+                                        <a class="flex items-center mr-3 text-danger" href="{{route('finance.invoice.detail.delete', ['id' => $detail->id])}}" onclick="return confirm('Apakah anda yakin ?')"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Hapus </a>
+                                    </div>
+                                </td>
                                 <td>{{$detail->goods_name}} | {{$detail->specification}} | UK : {{$detail->measure}}</td>
                                 <td class="text-center quantity">{{$detail->quantity}}</td>
                                 <td class="text-right price">{{$detail->price}}</td>
@@ -71,17 +77,20 @@
                         <tfoot>
                             <tr>
                                 <td class="whitespace-nowrap"></td>
+                                <td class="whitespace-nowrap"></td>
                                 <td class="whitespace-nowrap text-center"></td>
                                 <td class="whitespace-nowrap text-right font-bold">Sub Total</td>
                                 <td class="whitespace-nowrap text-right sub-total">0,00</td>
                             </tr>
                             <tr>
                                 <td class="whitespace-nowrap"></td>
+                                <td class="whitespace-nowrap"></td>
                                 <td class="whitespace-nowrap text-center"></td>
                                 <td class="whitespace-nowrap text-right font-bold">Tax (11%)</td>
                                 <td class="whitespace-nowrap text-right tax">0,00</td>
                             </tr>
                             <tr>
+                                <td class="whitespace-nowrap"></td>
                                 <td class="whitespace-nowrap"></td>
                                 <td class="whitespace-nowrap text-center"></td>
                                 <td class="whitespace-nowrap text-right font-bold">Jumlah Total (Rp)</td>

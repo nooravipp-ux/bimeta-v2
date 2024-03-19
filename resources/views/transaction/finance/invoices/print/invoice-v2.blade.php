@@ -97,68 +97,78 @@
             </div>
         </div>
         <div style="margin-bottom: 20px;" class="row">
-            <div style="font-size: 16px;" class="col col-12">
+            <div style="font-size: 14px;" class="col col-12">
                 <div style="margin: 4px;"><span>Kepada</span></div>
                 <div style="margin: 4px;"><span>{{$invoice->customer_name}}</span></div>
                 <div style="margin: 4px;"><span>{{$invoice->address}}</span></div>
             </div>
         </div>
         <div style="margin-bottom: 20px;" class="row">
-            <div style="font-size: 16px;" class="col col-12">
-                <div style="margin: 4px;"><span>No. Faktur</span> <span style="margin-left: 44px;">: {{$invoice->invoice_no}}</span></div>
-                <div style="margin: 4px;"><span>No. Surat Jalan</span> <span style="margin-left: 12px;">: </span></div>
-                <div style="margin: 4px;"><span>No. PO</span> <span style="margin-left: 70px;">: {{$invoice->ref_po_customer}} </span></div>
-                <div style="margin: 4px;"><span>Tanggal Faktur</span> <span style="margin-left: 12px;">: <?php echo date("d/m/Y", strtotime($invoice->date)) ?></span></div>
+            <div style="font-size: 14px;" class="col col-12">
+                <div style="margin: 4px;"><span style="margin-right: 30px;">No. Faktur</span> <span>: {{$invoice->invoice_no}}</span></div>
+                <div style="margin: 4px;"><span style="margin-right: 2px;">No. Surat Jalan</span> <span>: </span></div>
+                <div style="margin: 4px;"><span style="margin-right: 52px;">No. PO</span> <span>: {{$invoice->ref_po_customer}} </span></div>
+                <div style="margin: 4px;"><span style="margin-right: 1px;">Tanggal Faktur</span> <span>: <?php echo date("d/m/Y", strtotime($invoice->date)) ?></span></div>
             </div>
         </div>
-        <table style="margin: 4px; width: 100%;border: 1px solid black;border-collapse: collapse;border: 1px solid black;">
+        <table style="font-size: 14px;margin: 4px; width: 100%;border: 2px solid black;border-collapse: collapse;border: 2px solid black;">
             <thead>
                 <tr style="padding: 8px;">
-                    <th style="border: 1px solid black; padding: 5px;">NO</th>
-                    <th style="border: 1px solid black; text-align: center;">NAMA BARANG</th>
-                    <th style="border: 1px solid black; text-align: center">Qty</th>
-                    <th style="border: 1px solid black; text-align: center">HARGA Rp.</th>
-                    <th style="border: 1px solid black; text-align: center;">TOTAL Rp.</th>
+                    <th style="border: 2px solid black; padding: 5px;">NO</th>
+                    <th style="border: 2px solid black; text-align: center;">NAMA BARANG</th>
+                    <th style="border: 2px solid black; text-align: center">Qty</th>
+                    <th style="border: 2px solid black; text-align: center">HARGA Rp.</th>
+                    <th style="border: 2px solid black; text-align: center;">TOTAL Rp.</th>
                 </tr>
             </thead>
             <tbody>
                 <?php $no = 1; ?>
                 @foreach($detailInvoice as $detail)
                 <tr>
-                    <td style="border: 1px solid black; padding: 5px;text-align: center"><?php echo $no++; ?>.</td>
-                    <td style="border: 1px solid black; text-align: center; padding: 10px;">{{$detail->goods_name}} UK :
+                    <td style="border: 2px solid black; padding: 5px;text-align: center"><?php echo $no++; ?>.</td>
+                    <td style="border: 2px solid black; text-align: center; padding: 10px;">{{$detail->goods_name}} UK :
                         {{$detail->measure}}</td>
-                    <td style="border: 1px solid black; text-align: center; padding: 10px;" class="quantity">
+                    <td style="border: 2px solid black; text-align: center; padding: 10px;" class="quantity">
                         {{$detail->quantity}}</td>
-                    <td style="border: 1px solid black; text-align: right; padding: 10px;" class="price">
+                    <td style="border: 2px solid black; text-align: right; padding: 10px;" class="price">
                         {{$detail->price}}</td>
-                    <td style="border: 1px solid black; text-align: right; padding: 10px;" class="total-price">
+                    <td style="border: 2px solid black; text-align: right; padding: 10px;" class="total-price">
                         {{$detail->total_price}}</td>
                 </tr>
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4" style="border: 1px solid black; padding: 5px;text-align: right">TOTAL Rp.</td>
-                    <td style="border: 1px solid black; text-align: right; padding: 10px;">{{$sub_total}}</td>
+                    <td colspan="4" style="border: 2px solid black; padding: 5px;text-align: right">TOTAL Rp.</td>
+                    <td style="border: 2px solid black; text-align: right; padding: 10px;">{{$sub_total}}</td>
                 </tr>
             </tfoot>
         </table>
     </div>
     <div style="margin: 5px;font-weight: bold;">
         <div class="row">
-            <div style="font-size: 16px;" class="col col-6">
+            <div style="font-size: 14px;" class="col col-6">
                 <p id="text">Terbilang</p>
-                <div style="margin: 2px;">Pembayaran di Transfer</div>
-                <div style="margin: 2px;">Nama Bank : BCA</div>
-                <div style="margin: 2px;">Alamat Bank : Jl. Asia Afrika - Bandung</div>
-                <div style="margin: 2px;">No Rekening : 0083009397</div>
-                <div style="margin: 2px;">Atas Nama : BIMETA KARNUSA PT.</div>
+                <div style="margin: 2px;">
+                    Pembayaran di Transfer
+                </div>
+                <div style="margin: 2px;">
+                    <span style="margin-right: 20px;">Nama Bank</span><span>: BCA</span>
+                </div>
+                <div style="margin: 2px;">
+                    <span style="margin-right: 12px;">Alamat Bank</span><span>: Jl. Asia Afrika Bandung</span>
+                </div>
+                <div style="margin: 2px;">
+                    <span style="margin-right: 15px;">No Rekening</span><span>: 0083009397</span>
+                </div>
+                <div style="margin: 2px;">
+                    <span style="margin-right: 26px;">Atas Nama</span><span>: PT.BIMETA KARNUSA</span>
+                </div>
             </div>
             <div class="col col-3">
 
             </div>
-            <div class="col col-3">
+            <div style="font-size: 14px;" class="col col-3">
                 <p style="text-align: center;">Bandung, 17/03/2024</p>
                 <p style="text-align: center;margin-top: 80px;">(-------------------------------)</p>
             </div>
