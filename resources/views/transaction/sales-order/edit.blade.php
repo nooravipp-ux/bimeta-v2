@@ -65,7 +65,7 @@
                                 <th class="whitespace-nowrap">NAMA BARANG</th>
                                 <th class="whitespace-nowrap">SPESIFIKASI</th>
                                 <th class="whitespace-nowrap">UKURAN</th>
-                                <th class="whitespace-nowrap text-center">JUMLAH</th>
+                                <th class="whitespace-nowrap text-center">KUANTITAS</th>
                                 <th class="whitespace-nowrap text-right">HARGA</th>
                                 <th class="whitespace-nowrap text-right">TOTAL HARGA</th>
                             </tr>

@@ -16,10 +16,31 @@ class InvoiceController extends Controller
                     ->join('master.m_customer as customer', 'customer.id', '=', 'sales_order.customer_id')
                     ->get();
 
+        // $data = DB::table('transaction.t_invoice as invoice')
+        //         ->select('invoice.id', 'invoice.invoice_no', 'invoice.date','sales_order.tax_type','sales_order.ref_po_customer', 'customer.name as customer_name')
+        //         ->join('transaction.t_sales_order as sales_order', 'sales_order.id', '=', 'invoice.sales_order_id')
+        //         ->join('master.m_customer as customer', 'customer.id', '=', 'sales_order.customer_id')
+        //         ->orderBy('invoice.created_at', 'DESC')
+        //         ->paginate(10);
+        
         $data = DB::table('transaction.t_invoice as invoice')
-                ->select('invoice.id', 'invoice.invoice_no', 'invoice.date','sales_order.tax_type','sales_order.ref_po_customer', 'customer.name as customer_name')
+                ->select(
+                    'invoice.id', 
+                    'invoice.invoice_no', 
+                    'invoice.date',
+                    'sales_order.tax_type',
+                    'sales_order.ref_po_customer', 
+                    'customer.name as customer_name',
+                    DB::raw('SUM(detail_delivery_order.quantity * detail_sales_order.price) as total_price_sum')
+                )
                 ->join('transaction.t_sales_order as sales_order', 'sales_order.id', '=', 'invoice.sales_order_id')
                 ->join('master.m_customer as customer', 'customer.id', '=', 'sales_order.customer_id')
+                ->join('transaction.t_detail_invoice as detail_invoice', 'detail_invoice.invoice_id', '=', 'invoice.id')
+                ->join('transaction.t_detail_delivery_order as detail_delivery_order', 'detail_delivery_order.id', '=', 'detail_invoice.detail_delivery_order_id')
+                ->join('transaction.t_detail_sales_order as detail_sales_order', 'detail_sales_order.id', '=', 'detail_delivery_order.detail_sales_order_id')
+                ->join('master.m_goods as goods', 'goods.id', '=', 'detail_sales_order.goods_id')
+                ->groupBy('invoice.id', 'sales_order.tax_type', 'sales_order.ref_po_customer', 'invoice.invoice_no', 'invoice.date', 'customer.name')
+                ->orderBy('invoice.created_at', 'DESC')
                 ->paginate(10);
 
         return view('transaction.finance.invoices.index', compact('references', 'data'));
@@ -150,7 +171,7 @@ class InvoiceController extends Controller
 
         $total_amount = $detailInvoice->sum('total_price') + $tax;
 
-        if($invoice->tax_type == 1) {
+        if($invoice->tax_type == 2) {
             $pdf = PDF::loadView('transaction.finance.invoices.print.invoice-v2', [
                 'invoice' => $invoice,
                 'detailInvoice' => $detailInvoice,

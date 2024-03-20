@@ -34,11 +34,10 @@
                     <tr>
                         <th style="text-align: left;">NO. INVOICE</th>
                         <th>TANGGAL INVOICE</th>
-                        <th>CUSTOMER</th>
                         <th>NO. PO</th>
+                        <th>CUSTOMER</th>
                         <th class="text-center">JENIS PAJAK</th>
-                        <th>TOTAL PAJAK (11%)</th>
-                        <th>TOTAL BAYAR</th>
+                        <th class="text-center">TOTAL BAYAR</th>
                         <th style="text-align: center;">ACTIONS</th>
                     </tr>
                 </thead>
@@ -47,11 +46,10 @@
                     <tr>
                         <td>{{$item->invoice_no}}</td>
                         <td><?php echo date("d/m/Y", strtotime($item->date)) ?></td>
-                        <td>{{$item->customer_name}}</td>
                         <td>{{$item->ref_po_customer}}</td>
+                        <td>{{$item->customer_name}}</td>
                         <td class="text-center">V{{$item->tax_type}}</td>
-                        <td></td>
-                        <td></td>
+                        <td class="text-center">{{$item->total_price_sum}}</td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 <a class="flex items-center mr-3 text-primary"

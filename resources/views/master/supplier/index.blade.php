@@ -10,28 +10,6 @@
             <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary text-white">
                 Tambah Supplier
             </a>
-            <div class="dropdown">
-                <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
-                    <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i>
-                    </span>
-                </button>
-                <div class="dropdown-menu w-40">
-                    <ul class="dropdown-content">
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
-                                Export to Excel </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
-                                Export to PDF </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
             <div class="hidden md:block mx-auto text-slate-500"></div>
             <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
                 <div class="w-56 relative text-slate-500">
@@ -46,11 +24,12 @@
                 <thead class="bg-primary text-white">
                     <tr>
                         <th class="whitespace-nowrap">CODE</th>
-                        <th class="whitespace-nowrap">NAME</th>
-                        <th class="whitespace-nowrap">ADDRESS</th>
-                        <th class="whitespace-nowrap">PHONE NUMBER</th>
+                        <th class="whitespace-nowrap">NAMA SUPPLIER</th>
+                        <th class="whitespace-nowrap">EMAIL</th>
+                        <th class="whitespace-nowrap">NO. TELEPON</th>
+                        <th class="whitespace-nowrap">ALAMAT</th>
                         <th class="text-center">PIC</th>
-                        <th class="text-center">TAX TYPE</th>
+                        <th class="text-center">JENIS PAJAK</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
                 </thead>
@@ -59,8 +38,9 @@
                     <tr>
                         <td class="whitespace-nowrap">{{$item->code}}</td>
                         <td class="whitespace-nowrap">{{$item->name}}</td>
-                        <td class="whitespace-nowrap">{{$item->address}}</td>
+                        <td class="whitespace-nowrap"></td>
                         <td class="whitespace-nowrap">{{$item->phone_number}}</td>
+                        <td class="whitespace-nowrap">{{$item->address}}</td>
                         <td class="text-center">{{$item->pic}}</td>
                         <td class="text-center">{{$item->tax_type}}</td>
                         <td class="table-report__action w-56">
@@ -97,8 +77,7 @@
                     @endif
 
                     <!-- Pagination Elements -->
-                    @foreach ($data->getUrlRange(max(1, $data->currentPage() - 2), min($data->lastPage(),
-                    $data->currentPage() + 2)) as $page => $url)
+                    @foreach ($data->getUrlRange(max(1, $data->currentPage() - 2), min($data->lastPage(), $data->currentPage() + 2)) as $page => $url)
                     <li class="page-item @if($page == $data->currentPage()) active @endif">
                         <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                     </li>
@@ -136,26 +115,50 @@
                             <div id="horizontal-form" class="p-5">
                                 <form method="POST" action="{{route('supplier.save')}}">
                                     @csrf
-                                    <div id="horizontal-form" class="p-5">
+                                    <div id="horizontal-form">
                                         <div class="preview">
                                             <div class="form-inline">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Code</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Code</label>
                                                 <input type="text" class="form-control" name="code">
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Nama</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Nama Supplier</label>
                                                 <input type="text" class="form-control" name="name">
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Telepon</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Email</label>
+                                                <input type="email" class="form-control" name="email">
+                                            </div>
+                                            <div class="form-inline mt-5">
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Nomor Telepon</label>
                                                 <input type="text" class="form-control" name="phone_number">
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">PIC</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Fax</label>
+                                                <input type="text" class="form-control" name="fax">
+                                            </div>
+                                            <div class="form-inline mt-5">
+                                                <label for="vertical-form-1" class="form-label sm:w-40">PIC</label>
                                                 <input type="text" class="form-control" name="pic">
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Tipe Pajak</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-40">No. Rekening</label>
+                                                <input type="text" class="form-control" name="bank_account_no">
+                                            </div>
+                                            <div class="form-inline mt-5">
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Rekening A/N</label>
+                                                <input type="text" class="form-control" name="bank_account_name">
+                                            </div>
+                                            <div class="form-inline mt-5">
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Bank</label>
+                                                <input type="text" class="form-control" name="bank_name">
+                                            </div>
+                                            <div class="form-inline mt-5">
+                                                <label for="vertical-form-1" class="form-label sm:w-40">NPWP</label>
+                                                <input type="text" class="form-control" name="npwp">
+                                            </div>
+                                            <div class="form-inline mt-5">
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Jenis Pajak</label>
                                                 <select data-placeholder="Pilih Tipe Pajak" class="tom-select w-full form-control" name="tax_type">
                                                     <option value=" ">-</option>
                                                     <option value="V0">V0</option>
@@ -164,7 +167,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Alamat</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Alamat</label>
                                                 <textarea type="text" class="form-control" name="address"></textarea>
                                             </div>
                                         </div>

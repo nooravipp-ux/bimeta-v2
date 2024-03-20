@@ -46,7 +46,6 @@
                         <th class="whitespace-nowrap">NO. PO</th>
                         <th class="whitespace-nowrap">SUPPLIER</th>
                         <th class="whitespace-nowrap text-center">TANGGAL PEMESANAN</th>
-                        <th class="whitespace-nowrap text-center">TOTAL HARGA</th>
                         <th class="whitespace-nowrap text-center">STATUS</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
@@ -57,7 +56,6 @@
                         <td>{{$item->po_no}}</td>
                         <td>{{$item->name}} ({{$item->code}})</td>
                         <td class="text-center"><?php echo date("d/m/Y", strtotime($item->date)); ?></td>
-                        <td class="text-center">Rp. 2,250,000</td>
                         <td class="text-center">
                             @if($item->status == 1)
                                 <div class="py-1 px-2 rounded-full text-xs bg-primary text-white cursor-pointer font-medium">

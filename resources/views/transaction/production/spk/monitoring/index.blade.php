@@ -28,9 +28,9 @@
                     <tr>
                         <th style="text-align: left;">TANGGAL PROD.</th>
                         <th style="text-align: left;">PIC</th>
+                        <th>NO. SPK</th>
                         <th>NO. PO</th>
                         <th>CUSTOMER</th>
-                        <th>NO. SPK</th>
                         <th style="text-align: center;">LEBAR</th>
                         <th style="text-align: center;">PANJANG</th>
                         <th>KUALITAS</th>
@@ -46,9 +46,9 @@
                     <tr>
                         <td><?php echo date("d/m/Y", strtotime($item->start_date)) ?></td>
                         <td>{{$item->pic}}</td>
+                        <td>{{$item->spk_no}}</td>
                         <td>{{$item->ref_po_customer}}</td>
                         <td>{{$item->customer_name}}</td>
-                        <td>{{$item->spk_no}}</td>
                         <td style="text-align: center;">{{$item->bruto_width}}</td>
                         <td style="text-align: center;">{{$item->bruto_length}}</td>
                         <td>{{$item->specification}}</td>

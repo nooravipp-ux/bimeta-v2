@@ -105,53 +105,52 @@
 
 <body>
     <div class="container">
-        <div style="margin: 10px;">
-            <div class="row text-center" style="color: #4CAF50">
-                <h2>PT. BIMETA KARNUSA</h2>
-                <p><strong>CORRUGATED CARTOON BOARD & BOX MFG.CO.</strong></p>
-                <p>Jl. Raya Batujajar No. 98 Cimareme Kec. Ngamprah Kab. Bandung Barat - Indonesia</p>
-                <p>Phone/Fax: (022) 6866526 E-Mail: bimeta98@yahoo.com</p>
-                <hr>
-            </div>
-            <div class="row">
-                <div class="col col-12">
-                    <p>Kepada Yth</p>
-                    <p><strong>{{$purchaseOrder->name}}</strong></p>
-                    <p>Up.</p>
-                    <p>PO No. : {{$purchaseOrder->po_no}}</p>
-                    <p>Dengan Hormat, </p>
-                    <p>Bersama ini kami memesan barang dengan rincian berikut :</p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nama Barang</th>
-                                <th class="text-center">Qty</th>
-                                <th>Satuan</th>
-                                <th>Harga</th>
-                                <th>Quality</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $no = 1; ?>
-                            @foreach($detailPurchaseOrder as $po)
-                            <tr>
-                                <td>
-                                    {{$po->name}} / L {{$po->width}} CM
-                                </td>
-                                <td class="text-center">{{$po->quantity}}</td>
-                                <td>ROLL</td>
-                                <td>{{$po->price}}</td>
-                                <td>{{$po->gramature}} {{$po->unit}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <p>Demikian pesanan kami, atas perhatiannya kami ucapkan terimakasih.</p>
-                    <p>Bandung, <?php echo date("d-m-Y", strtotime($purchaseOrder->date)); ?></p>
-                    <p>Hormat Kami, </p>
-                    <p style="margin-top: 50px;">Paulus A</p>
-                    <p><strong>Catatan: Pembayaran 2 bulan setelah penerimaan barang.</strong></p>
-                </div>
+        <div class="row text-center" style="color: #4CAF50">
+            <h2 style="margin: 2px;">PT. BIMETA KARNUSA</h2>
+            <p style="margin: 2px;"><strong>CORRUGATED CARTOON BOARD & BOX MFG.CO.</strong></p>
+            <p style="margin: 2px;">Jl. Raya Batujajar No. 98 Cimareme Kec. Ngamprah Kab. Bandung Barat - Indonesia</p>
+            <p style="margin: 2px;">Phone/Fax: (022) 6866526 E-Mail: bimeta98@yahoo.com</p>
+            <hr style="margin-bottom: 2px;"/>
+            <hr style="margin-top: 2px;"/>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <p>Kepada Yth</p>
+                <p><strong>{{$purchaseOrder->name}}</strong></p>
+                <p>Up.</p>
+                <p>PO No. : {{$purchaseOrder->po_no}}</p>
+                <p>Dengan Hormat, </p>
+                <p>Bersama ini kami memesan barang dengan rincian berikut :</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama Barang</th>
+                            <th class="text-center">Qty</th>
+                            <th>Satuan</th>
+                            <th>Harga</th>
+                            <th>Quality</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $no = 1; ?>
+                        @foreach($detailPurchaseOrder as $po)
+                        <tr>
+                            <td>
+                                {{$po->name}} / L {{$po->width}} CM
+                            </td>
+                            <td class="text-center">{{$po->quantity}}</td>
+                            <td>ROLL</td>
+                            <td>{{$po->price}}</td>
+                            <td>{{$po->gramature}} {{$po->unit}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <p>Demikian pesanan kami, atas perhatiannya kami ucapkan terimakasih.</p>
+                <p>Bandung, <?php echo date("d-m-Y", strtotime($purchaseOrder->date)); ?></p>
+                <p>Hormat Kami, </p>
+                <p style="margin-top: 50px;">Paulus A</p>
+                <p><strong>Catatan: Pembayaran 2 bulan setelah penerimaan barang.</strong></p>
             </div>
         </div>
     </div>

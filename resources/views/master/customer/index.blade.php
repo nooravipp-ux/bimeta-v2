@@ -47,12 +47,12 @@
                 <thead class="bg-primary text-white">
                     <tr>
                         <th class="whitespace-nowrap">CODE</th>
-                        <th class="whitespace-nowrap">NAME</th>
-                        <th class="whitespace-nowrap">ADDRESS</th>
-                        <th class="whitespace-nowrap">PHONE NUMBER</th>
+                        <th class="whitespace-nowrap">NAMA</th>
+                        <th class="whitespace-nowrap">ALAMAT</th>
+                        <th class="whitespace-nowrap">NO. TELEPON</th>
                         <th class="text-center whitespace-nowrap">PIC</th>
-                        <th class="text-center whitespace-nowrap">CUSTOMER TYPE</th>
-                        <th class="text-center whitespace-nowrap">TAX TYPE</th>
+                        <th class="text-center whitespace-nowrap">TIPE CUSTOMER</th>
+                        <th class="text-center whitespace-nowrap">TIPE PAJAK</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
                 </thead>
@@ -164,19 +164,27 @@
                                     <div id="horizontal-form" class="p-5">
                                         <div class="preview">
                                             <div class="form-inline">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Code</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Code</label>
                                                 <input type="text" class="form-control" name="code">
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Nama</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Nama Customer</label>
                                                 <input type="text" class="form-control" name="name">
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Telepon</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Email</label>
+                                                <input type="email" class="form-control" name="email">
+                                            </div>
+                                            <div class="form-inline mt-5">
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Nomor Telepon</label>
                                                 <input type="text" class="form-control" name="phone_number">
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">PIC</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Fax</label>
+                                                <input type="text" class="form-control" name="fax">
+                                            </div>
+                                            <div class="form-inline mt-5">
+                                                <label for="vertical-form-1" class="form-label sm:w-40">PIC</label>
                                                 <select data-placeholder="Pilih PIC"
                                                     class="tom-select w-full form-control" name="pic">
                                                     <option value=" ">-</option>
@@ -186,7 +194,23 @@
                                                 </select>
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Tipe
+                                                <label for="vertical-form-1" class="form-label sm:w-40">No. Rekening</label>
+                                                <input type="text" class="form-control" name="bank_account_no">
+                                            </div>
+                                            <div class="form-inline mt-5">
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Rekening A/N</label>
+                                                <input type="text" class="form-control" name="bank_account_name">
+                                            </div>
+                                            <div class="form-inline mt-5">
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Bank</label>
+                                                <input type="text" class="form-control" name="bank_name">
+                                            </div>
+                                            <div class="form-inline mt-5">
+                                                <label for="vertical-form-1" class="form-label sm:w-40">NPWP</label>
+                                                <input type="text" class="form-control" name="npwp">
+                                            </div>
+                                            <div class="form-inline mt-5">
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Tipe
                                                     Pajak</label>
                                                 <select data-placeholder="Pilih Tipe Pajak"
                                                     class="tom-select w-full form-control" name="tax_type">
@@ -197,7 +221,15 @@
                                                 </select>
                                             </div>
                                             <div class="form-inline mt-5">
-                                                <label for="vertical-form-1" class="form-label sm:w-20">Alamat</label>
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Tipe Customer</label>
+                                                <select data-placeholder="Pilih Tipe Pajak" class="tom-select w-full form-control" name="tax_type">
+                                                    <option value=" ">-</option>
+                                                    <option value="1">Personal</option>
+                                                    <option value="2">Perushaan</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-inline mt-5">
+                                                <label for="vertical-form-1" class="form-label sm:w-40">Alamat</label>
                                                 <textarea type="text" class="form-control" name="address"></textarea>
                                             </div>
                                         </div>

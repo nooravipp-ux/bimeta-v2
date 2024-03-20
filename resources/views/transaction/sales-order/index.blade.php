@@ -21,7 +21,7 @@
                 <thead class="bg-primary text-white">
                     <tr>
                         <th class="whitespace-nowrap">NO. SALES ORDER</th>
-                        <th class="whitespace-nowrap">NO. PO CUSTOMER</th>
+                        <th class="whitespace-nowrap">NO. PO</th>
                         <th class="whitespace-nowrap">CUSTOMER</th>
                         <th class="text-center whitespace-nowrap">TANGGAL PESANAN</th>
                         <th class="text-center whitespace-nowrap">TANGGAL PENGIRIMAN</th>

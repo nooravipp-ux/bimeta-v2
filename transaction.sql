@@ -12,7 +12,7 @@
  Target Server Version : 160001 (160001)
  File Encoding         : 65001
 
- Date: 20/03/2024 04:47:46
+ Date: 21/03/2024 04:57:45
 */
 
 
@@ -415,10 +415,9 @@ CREATE TABLE "transaction"."t_detail_purchase" (
 -- ----------------------------
 -- Records of t_detail_purchase
 -- ----------------------------
-INSERT INTO "transaction"."t_detail_purchase" VALUES (31, 10, 18, 5, 2500.00, '2024-02-28 12:27:15', 'ALI', NULL, NULL, 150, NULL, 'ROLL');
-INSERT INTO "transaction"."t_detail_purchase" VALUES (32, 10, 19, 10, 3500.00, '2024-02-28 12:27:33', 'ALI', NULL, NULL, 165, NULL, 'ROLL');
-INSERT INTO "transaction"."t_detail_purchase" VALUES (33, 13, 18, 5, 0.00, '2024-03-15 16:00:11', 'ALI', NULL, NULL, 150, NULL, 'ROLL');
 INSERT INTO "transaction"."t_detail_purchase" VALUES (34, 14, 19, 5, 2300.00, '2024-03-15 16:26:42', 'ALI', NULL, NULL, 150, NULL, 'ROLL');
+INSERT INTO "transaction"."t_detail_purchase" VALUES (32, 14, 19, 10, 3500.00, '2024-02-28 12:27:33', 'ALI', NULL, NULL, 165, NULL, 'ROLL');
+INSERT INTO "transaction"."t_detail_purchase" VALUES (33, 14, 18, 5, 1500.00, '2024-03-15 16:00:11', 'ALI', NULL, NULL, 150, NULL, 'ROLL');
 
 -- ----------------------------
 -- Table structure for t_detail_sales_order
@@ -627,11 +626,11 @@ CREATE TABLE "transaction"."t_production_process_item" (
 -- ----------------------------
 -- Records of t_production_process_item
 -- ----------------------------
-INSERT INTO "transaction"."t_production_process_item" VALUES (137, 97, 1, '2024-03-19 21:45:50', 'ALI', NULL, NULL, 1, 0);
-INSERT INTO "transaction"."t_production_process_item" VALUES (138, 97, 2, '2024-03-19 21:45:50', 'ALI', NULL, NULL, 1, 0);
 INSERT INTO "transaction"."t_production_process_item" VALUES (139, 97, 4, '2024-03-19 21:45:50', 'ALI', NULL, NULL, 1, 0);
 INSERT INTO "transaction"."t_production_process_item" VALUES (140, 97, 7, '2024-03-19 21:45:50', 'ALI', NULL, NULL, 1, 0);
 INSERT INTO "transaction"."t_production_process_item" VALUES (141, 97, 14, '2024-03-19 21:45:50', 'ALI', NULL, NULL, 1, 0);
+INSERT INTO "transaction"."t_production_process_item" VALUES (137, 97, 1, '2024-03-19 21:45:50', 'ALI', '2024-03-20 21:48:29', 'ALI', 3, 0);
+INSERT INTO "transaction"."t_production_process_item" VALUES (138, 97, 2, '2024-03-19 21:45:50', 'ALI', '2024-03-20 21:48:37', 'ALI', 3, 0);
 
 -- ----------------------------
 -- Table structure for t_purchase
@@ -734,10 +733,10 @@ CREATE TABLE "transaction"."t_spk" (
 -- ----------------------------
 -- Records of t_spk
 -- ----------------------------
+INSERT INTO "transaction"."t_spk" VALUES (97, 59, 'SPK-A-24-000101', '2024-03-20', '2024-03-19', 100, 850, 850, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 850, 850, 1920, 1320, 100, 0, 0, 0, 3, 'COR', '2024-03-19 19:53:14', 'ALI', '2024-03-20 21:48:37', 'ALI', 40, 'DW B 200K/M3/200K', NULL);
 INSERT INTO "transaction"."t_spk" VALUES (93, 50, 'SPK-B-24-000097', '2024-03-12', NULL, 1000, 150, 175, 150, 173, 150, 175, 149, 150, 88, 30, 326, 677, 700, 695, 1000, 1, 0, 0, 2, '0', '2024-03-12 06:10:29', 'ALI', '2024-03-12 06:17:34', 'ALI', 0, 'SW B 125K/M/125K', NULL);
 INSERT INTO "transaction"."t_spk" VALUES (94, 56, 'SPK-A-24-000098', '2024-03-18', NULL, 300, 27, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 36, 27, 36, 27, 300, 0, 0, 0, 2, '0', '2024-03-17 18:13:27', 'ALI', '2024-03-17 18:13:41', 'ALI', 0, 'SW B 125K/M/125K', NULL);
 INSERT INTO "transaction"."t_spk" VALUES (95, 57, 'SPK-B-24-000099', '2024-03-18', NULL, 3, 15, 15, 15, 15, 15, 15, 15, 15, 15, 30, 1900, 1900, 1900, 1000, 3, 0, 0, 0, 2, '0', '2024-03-17 18:24:04', 'ALI', '2024-03-17 18:24:14', 'ALI', 0, 'SW B 125K/M/125K', NULL);
-INSERT INTO "transaction"."t_spk" VALUES (97, 59, 'SPK-A-24-000101', '2024-03-20', '2024-03-19', 100, 850, 850, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 850, 850, 1920, 1320, 100, 0, 0, 0, 4, '0', '2024-03-19 19:53:14', 'ALI', '2024-03-19 19:54:47', 'ALI', 0, 'DW B 200K/M3/200K', NULL);
 INSERT INTO "transaction"."t_spk" VALUES (96, 58, 'SPK-A-24-000100', '2024-03-20', '2024-03-19', 100, 150, 125, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1900, 1900, 1900, 1900, 100, 0, 1, 1, 4, '0', '2024-03-19 19:52:04', 'ALI', '2024-03-19 19:54:54', 'ALI', 0, 'SF E SF ALLMED', NULL);
 
 -- ----------------------------
